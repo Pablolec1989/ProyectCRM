@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProyectCRM.Data\ProyectCRM.Data.csproj" />
-    <ProjectReference Include="..\ProyectCRM.Mapper\ProyectCRM.Mapper.csproj" />
     <ProjectReference Include="..\ProyectCRM.Models\ProyectCRM.Models.csproj" />
     <ProjectReference Include="..\ProyectCRM.Service\ProyectCRM.Service.csproj" />
   </ItemGroup>

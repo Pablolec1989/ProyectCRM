@@ -10,7 +10,11 @@ namespace ProyectCRM.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Area>();
+            modelBuilder.Entity<Area>().HasKey(a => a.id);
+            modelBuilder.Entity<Area>()
+                .Property(a => a.nombre)
+                .IsRequired()
+                .HasMaxLength(50);
         }
     }
 }

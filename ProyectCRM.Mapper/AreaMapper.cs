@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Mapper
 {
-    public class AreaMapper : IMapper<AreaDTO, AreaCreateUpdateDTO, Area>
+    public class AreaMapper : IMapperBase<AreaDTO, Area>
     {
-        public AreaDTO ToDTO(Area entity)
+        public AreaDTO ToDTOAsync(Area entity)
         {
             return new AreaDTO
             {
@@ -19,17 +19,29 @@ namespace ProyectCRM.Mapper
             };
         }
 
-        public IEnumerable<AreaDTO> ToDTOList(IEnumerable<Area> areas)
+        public IEnumerable<AreaDTO> ToDTOListAsync(IEnumerable<Area> areas)
         {
-            return areas.Select(entity => ToDTO(entity));
+            return areas.Select(entity => ToDTOAsync(entity));
         }
 
-        public Area ToEntity(AreaCreateUpdateDTO createDTO)
+        public Area ToEntityAsync(AreaCreateUpdateDTO createDTO)
         {
             return new Area
             {
                 nombre = createDTO.nombre
             };
+        }
+
+
+
+        Task<AreaDTO> IMapperBase<AreaDTO, Area>.ToDTOAsync(Area entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<AreaDTO>> IMapperBase<AreaDTO, Area>.ToDTOListAsync(IEnumerable<Area> entities)
+        {
+            throw new NotImplementedException();
         }
     }
 }

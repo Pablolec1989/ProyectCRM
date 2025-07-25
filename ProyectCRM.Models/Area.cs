@@ -10,7 +10,7 @@ namespace ProyectCRM.Models
     public class Area
     {
         [Required]
-        public int id { get; set; }
+        public Guid id { get; set; }
         [MaxLength(50)]
         public string nombre { get; set; } = string.Empty;
     }

@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Service
 {
-    public interface IServiceBase<T> 
-        where T : class
+    public interface IServiceBase<TDTO, TEntity> 
+        where TDTO : class
+        where TEntity : class
     {
-        Task<T> GetByIdAsync(Guid id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T> CreateAsync(T entity);
-        Task<T> UpdateAsync(Guid id, T entity);
+        Task<TDTO> GetByIdAsync(Guid id);
+        Task<IEnumerable<TDTO>> GetAllAsync();
+        Task<TDTO> CreateAsync(TDTO dto);
+        Task<TDTO> UpdateAsync(Guid id, TDTO dto);
         Task<bool> DeleteAsync(Guid id);
     }
 }

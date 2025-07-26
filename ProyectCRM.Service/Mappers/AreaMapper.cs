@@ -1,16 +1,13 @@
-﻿using ProyectCRM.Data;
-using ProyectCRM.Mapper;
-using ProyectCRM.Models;
+﻿using ProyectCRM.Models;
 using ProyectCRM.Service.DTOs.AreaDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Mappers
 {
-    public class AreaMapper : IMapperBase<AreaDTO, Area>
+    public class AreaMapper : IAreaMapper
     {
         public Task<AreaDTO> ToDTOAsync(Area area)
         {
@@ -20,20 +17,20 @@ namespace ProyectCRM.Service.Mappers
             });
         }
 
-        public async Task<Area> ToEntityAsync(AreaDTO dto)
+        public Task<IEnumerable<AreaDTO>> ToDTOListAsync(IEnumerable<Area> areas)
         {
-            return await Task.FromResult(new Area
-            {
-                nombre = dto.nombre,
-            });
-        }
-
-        public async Task<IEnumerable<AreaDTO>> ToDTOListAsync(IEnumerable<Area> areas)
-        {
-            return await Task.FromResult(areas.Select(area => new AreaDTO
+            return Task.FromResult(areas.Select(area => new AreaDTO
             {
                 nombre = area.nombre,
             }));
+        }
+
+        public Task<Area> ToEntityAsync(AreaDTO dto)
+        {
+            return Task.FromResult(new Area
+            {
+                nombre = dto.nombre,
+            });
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class AreaDTO
     {
-        public string nombre { get; set; }
+        public required string nombre { get; set; }
     }
 }

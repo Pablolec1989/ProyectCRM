@@ -4,65 +4,61 @@ using ProyectCRM.Service;
 
 namespace ProyectCRM
 {
-    [ApiController]
-    public class CustomControllerBase<TDTO, TEntity> : ControllerBase, ICustomControllerBase<TDTO, TEntity>
-                where TDTO : class
-                where TEntity : class
+    public class CustomControllerBase<TDTO, TEntity>
+        : ControllerBase, ICustomControllerBase<TDTO, TEntity>
+        where TDTO : class
+        where TEntity : class
     {
-        private readonly IServiceBase<TEntity> _serviceBase;
+        private readonly IServiceBase<TDTO, TEntity> _serviceBase;
 
-        public CustomControllerBase(IServiceBase<TEntity> serviceBase)
+        public CustomControllerBase(IServiceBase<TDTO, TEntity> serviceBase)
         {
             _serviceBase = serviceBase;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<TDTO>> CreateAsync(TEntity entity)
+        public virtual async Task<ActionResult<TDTO>> CreateAsync(TDTO dto)
         {
-            var created = await _serviceBase.CreateAsync(entity);
-            if (created == null)
-                return BadRequest("No se pudo crear la entidad");
-            return Ok(created);
+            return await _serviceBase.CreateAsync(dto);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsync(Guid id)
+        public virtual async Task<ActionResult> DeleteAsync(Guid id)
         {
-            return await _serviceBase.DeleteAsync(id) ? NoContent() : NotFound("No se ha encontrado la entidad");
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync()
-        {
-            var results = await _serviceBase.GetAllAsync();
-            if(results == null)
+            var result = await _serviceBase.DeleteAsync(id);
+            if (result)
             {
-                return NotFound("No se han encontrado entidades");
+                return NoContent();
             }
-            return Ok(results);
-
+            return NotFound();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TDTO>> GetByIdAsync(Guid id)
+        public virtual async Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync()
         {
-            var area = await _serviceBase.GetByIdAsync(id);
-            if (area == null)
+            var dtos = await _serviceBase.GetAllAsync();
+            if (dtos == null)
             {
-                return NotFound("No se ha encontrado la entidad");
+                return NotFound();
             }
-            return Ok(area);
+            return Ok(dtos);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TEntity entity)
+        public virtual async Task<ActionResult<TDTO>> GetByIdAsync(Guid id)
         {
-            var updated = await _serviceBase.UpdateAsync(id, entity);
-            if (updated == null)
+            var dto = await _serviceBase.GetByIdAsync(id);
+            if (dto == null)
             {
-                return NotFound("No se ha encontrado la entidad para actualizarla");
+                return NotFound();
             }
-            return Ok(updated);
+            return Ok(dto);
+        }
+
+        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TDTO dto)
+        {
+            var updatedDto = await _serviceBase.UpdateAsync(id, dto);
+            if (updatedDto == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedDto);
         }
     }
 }

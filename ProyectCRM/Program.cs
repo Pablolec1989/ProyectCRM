@@ -3,7 +3,6 @@ using ProyectCRM;
 using ProyectCRM.Controllers;
 using ProyectCRM.Data;
 using ProyectCRM.Data.Repositories;
-using ProyectCRM.Mapper;
 using ProyectCRM.Models;
 using ProyectCRM.Service;
 using ProyectCRM.Service.DTOs.AreaDTOs;
@@ -25,18 +24,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Configuraci�n de servicios personalizados - dependencias
-
-builder.Services.AddScoped<IMapperBase<AreaDTO, Area>, AreaMapper>();
-builder.Services.AddScoped<AreaMapper>();
-builder.Services.AddScoped<IRepositoryBase<Area>, AreaRepository>();
-builder.Services.AddScoped<AreaRepository>();
-builder.Services.AddScoped<ServiceBase<AreaDTO, Area>>();
-builder.Services.AddScoped<AreaService<AreaDTO, Area>>();
-
-builder.Services.AddScoped<IServiceBase<AreaDTO>, ServiceBase<AreaDTO, Area>>();
-builder.Services.AddScoped<IServiceBase<AreaDTO>, AreaService<AreaDTO, Area>>();
-
+// Configuración de servicios
+builder.Services.AddScoped<IServiceBase<AreaDTO, Area>, AreaService>();
+builder.Services.AddScoped<IAreaRepository, AreaRepository>();
+// Configuración de mapeo
+builder.Services.AddScoped<IAreaMapper, AreaMapper>();
 
 var app = builder.Build();
 
@@ -47,7 +39,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization(); // Add this if you use [Authorize] attributes
 
 app.MapControllers(); // Ensure this is present to map controller endpoints

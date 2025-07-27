@@ -4,8 +4,8 @@ using ProyectCRM.Controllers;
 using ProyectCRM.Data;
 using ProyectCRM.Data.Repositories;
 using ProyectCRM.Models;
-using ProyectCRM.Service;
 using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.Interfaces;
 using ProyectCRM.Service.Mappers;
 using ProyectCRM.Service.Services;
 
@@ -25,9 +25,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 // Configuración de servicios
-builder.Services.AddScoped<IServiceBase<AreaDTO, Area>, AreaService>();
+
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
-// Configuración de mapeo
+builder.Services.AddScoped<IServiceBase<AreaDTO, Area>, AreaService>();
 builder.Services.AddScoped<IAreaMapper, AreaMapper>();
 
 var app = builder.Build();

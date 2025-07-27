@@ -1,7 +1,7 @@
 ﻿using ProyectCRM.Models;
 using ProyectCRM.Service.DTOs.AreaDTOs;
 
-namespace ProyectCRM.Controllers
+namespace ProyectCRM.Interfaces
 {
     public interface IAreaController : ICustomControllerBase<AreaDTO, Area>
     {

@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
-using ProyectCRM.Service;
+using ProyectCRM.Interfaces;
+using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM
 {
-    public class CustomControllerBase<TDTO, TEntity>
-        : ControllerBase, ICustomControllerBase<TDTO, TEntity>
+    public class CustomControllerBase<TDTO, TOutput>
+        : ControllerBase, ICustomControllerBase<TDTO, TOutput>
         where TDTO : class
-        where TEntity : class
+        where TOutput : class
     {
-        private readonly IServiceBase<TDTO, TEntity> _serviceBase;
+        private readonly IServiceBase<TDTO, TOutput> _serviceBase;
 
-        public CustomControllerBase(IServiceBase<TDTO, TEntity> serviceBase)
+        public CustomControllerBase(IServiceBase<TDTO, TOutput> serviceBase)
         {
             _serviceBase = serviceBase;
         }

@@ -1,5 +1,6 @@
 ﻿using ProyectCRM.Models;
 using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Service.Services
 {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProyectCRM.Interfaces;
 using ProyectCRM.Models;
-using ProyectCRM.Service;
 using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
@@ -20,10 +21,10 @@ namespace ProyectCRM.Controllers
         [HttpPost]
         public override Task<ActionResult<AreaDTO>> CreateAsync(AreaDTO dto) => base.CreateAsync(dto);
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public override Task<ActionResult<AreaDTO>> UpdateAsync(Guid id, AreaDTO dto) => base.UpdateAsync(id, dto);
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public override Task<ActionResult> DeleteAsync(Guid id) => base.DeleteAsync(id);
     }
 }

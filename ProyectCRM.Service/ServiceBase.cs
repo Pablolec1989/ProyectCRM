@@ -1,18 +1,19 @@
 ﻿using ProyectCRM.Data;
+using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Service
 {
-    public class ServiceBase<TDTO, TEntity> : IServiceBase<TDTO, TEntity>
+    public class ServiceBase<TDTO, TOutput> : IServiceBase<TDTO, TOutput>
         where TDTO : class
-        where TEntity : class
+        where TOutput : class
     {
-        private readonly IMapperBase<TDTO, TEntity> _mapper;
-        private readonly IRepositoryBase<TEntity> _repository;
+        private readonly IMapperBase<TDTO, TOutput> _mapper;
+        private readonly IRepositoryBase<TOutput> _repository;
 
-        public ServiceBase(IMapperBase<TDTO, TEntity> mapper, IRepositoryBase<TEntity> repository)
+        public ServiceBase(IMapperBase<TDTO, TOutput> mapper, IRepositoryBase<TOutput> repository)
         {
             _mapper = mapper;
             _repository = repository;

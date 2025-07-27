@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service
+namespace ProyectCRM.Service.Interfaces
 {
     public interface IServiceBase<TDTO, TEntity> 
         where TDTO : class

@@ -48,16 +48,22 @@ namespace ProyectCRM.Data
 
         public virtual async Task<T> UpdateAsync(Guid id, T entity)
         {
-            //busco la entidad por id
-            var existeEntity = await _context.Set<T>().FindAsync(id);
-
-            if (entity == null)
+            var existingEntity = await _context.Set<T>().FindAsync(id);
+            if (existingEntity == null)
             {
                 return null;
             }
-            _context.Update(entity);
+
+            // Asegurarse de que el id de entity sea igual al id del existente
+            var idProperty = typeof(T).GetProperty("id") ?? typeof(T).GetProperty("Id") ?? typeof(T).GetProperty("ID");
+            if (idProperty != null)
+            {
+                idProperty.SetValue(entity, idProperty.GetValue(existingEntity));
+            }
+
+            _context.Entry(existingEntity).CurrentValues.SetValues(entity);
             await _context.SaveChangesAsync();
-            return entity;
+            return existingEntity;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ProyectCRM.Models;
 using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

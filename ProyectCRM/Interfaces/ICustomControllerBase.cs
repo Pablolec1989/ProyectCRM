@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
-namespace ProyectCRM
+namespace ProyectCRM.Interfaces
 {
-    public interface ICustomControllerBase<TDTO, TEntity>
+    public interface ICustomControllerBase<TDTO, TOutput>
         where TDTO : class
-        where TEntity : class
+        where TOutput : class
     {
         Task<ActionResult<TDTO>> GetByIdAsync(Guid id);
         Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync();

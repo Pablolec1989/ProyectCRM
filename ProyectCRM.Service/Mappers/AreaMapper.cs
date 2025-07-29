@@ -14,7 +14,7 @@ namespace ProyectCRM.Service.Mappers
         {
             return new AreaDTO
             {
-                nombre = entity.nombre
+                Nombre = entity.Nombre
             };
         }
 
@@ -22,7 +22,7 @@ namespace ProyectCRM.Service.Mappers
         {
             return new Area
             {
-                nombre = dto.nombre
+                Nombre = dto.Nombre
                 // El id se asigna en el servicio
             };
         }

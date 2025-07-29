@@ -8,7 +8,7 @@ namespace ProyectCRM.Models.Abstractions
 {
     public abstract class EntityBase
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
 
     }
 }

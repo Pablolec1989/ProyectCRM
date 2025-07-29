@@ -50,7 +50,7 @@ namespace ProyectCRM.Data
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            var existingEntity = await _context.Set<T>().FindAsync(entity.id);
+            var existingEntity = await _context.Set<T>().FindAsync(entity.Id);
             if (existingEntity == null)
             {
                 return null; // or throw an exception, depending on your design choice

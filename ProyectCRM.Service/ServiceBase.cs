@@ -50,7 +50,7 @@ namespace ProyectCRM.Service
                 return null;
             }
             var entityToUpdate = _mapper.ToEntity(dto);
-            entityToUpdate.id = id;
+            entityToUpdate.Id = id;
             var updatedEntity = await _repository.UpdateAsync(entityToUpdate);
             return _mapper.ToDTO(updatedEntity);
         }

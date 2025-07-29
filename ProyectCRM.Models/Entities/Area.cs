@@ -6,6 +6,6 @@ namespace ProyectCRM.Models.Entities
     public class Area : EntityBase
     {
         [MaxLength(50)]
-        public string nombre { get; set; } = string.Empty;
+        public string Nombre { get; set; } = string.Empty;
     }
 }

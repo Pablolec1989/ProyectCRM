@@ -3,7 +3,7 @@ using ProyectCRM;
 using ProyectCRM.Controllers;
 using ProyectCRM.Data;
 using ProyectCRM.Data.Repositories;
-using ProyectCRM.Models;
+using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.AreaDTOs;
 using ProyectCRM.Service.Interfaces;
 using ProyectCRM.Service.Mappers;

@@ -1,27 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using ProyectCRM.Interfaces;
+using ProyectCRM.Models.Abstractions;
 using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM
 {
-    public class CustomControllerBase<TDTO, TOutput>
-        : ControllerBase, ICustomControllerBase<TDTO, TOutput>
+    [ApiController]
+    [Route("api/[controller]")]
+    public abstract class CustomControllerBase<TDTO, TEntity> : ControllerBase, ICustomControllerBase<TDTO, TEntity>
         where TDTO : class
-        where TOutput : class
+        where TEntity : EntityBase
     {
-        private readonly IServiceBase<TDTO, TOutput> _serviceBase;
+        private readonly IServiceBase<TDTO, TEntity> _serviceBase;
 
-        public CustomControllerBase(IServiceBase<TDTO, TOutput> serviceBase)
+        public CustomControllerBase(IServiceBase<TDTO, TEntity> serviceBase)
         {
             _serviceBase = serviceBase;
         }
 
+        [HttpPost]
         public virtual async Task<ActionResult<TDTO>> CreateAsync(TDTO dto)
         {
             return await _serviceBase.CreateAsync(dto);
         }
 
+        [HttpDelete("{id:guid}")]
         public virtual async Task<ActionResult> DeleteAsync(Guid id)
         {
             var result = await _serviceBase.DeleteAsync(id);
@@ -32,6 +36,7 @@ namespace ProyectCRM
             return NotFound();
         }
 
+        [HttpGet]
         public virtual async Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync()
         {
             var dtos = await _serviceBase.GetAllAsync();
@@ -42,6 +47,7 @@ namespace ProyectCRM
             return Ok(dtos);
         }
 
+        [HttpGet("{id:guid}")]
         public virtual async Task<ActionResult<TDTO>> GetByIdAsync(Guid id)
         {
             var dto = await _serviceBase.GetByIdAsync(id);
@@ -52,6 +58,7 @@ namespace ProyectCRM
             return Ok(dto);
         }
 
+        [HttpPut("{id:guid}")]
         public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TDTO dto)
         {
             var updatedDto = await _serviceBase.UpdateAsync(id, dto);

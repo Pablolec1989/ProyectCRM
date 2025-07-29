@@ -1,4 +1,5 @@
 ﻿using ProyectCRM.Data;
+using ProyectCRM.Models.Abstractions;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -6,49 +7,53 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service
 {
-    public class ServiceBase<TDTO, TOutput> : IServiceBase<TDTO, TOutput>
+    public abstract class ServiceBase<TDTO, TEntity> : IServiceBase<TDTO, TEntity>
         where TDTO : class
-        where TOutput : class
+        where TEntity : EntityBase
     {
-        private readonly IMapperBase<TDTO, TOutput> _mapper;
-        private readonly IRepositoryBase<TOutput> _repository;
+        private readonly IMapperBase<TDTO, TEntity> _mapper;
+        private readonly IRepositoryBase<TEntity> _repository;
 
-        public ServiceBase(IMapperBase<TDTO, TOutput> mapper, IRepositoryBase<TOutput> repository)
+        public ServiceBase(IMapperBase<TDTO, TEntity> mapper, IRepositoryBase<TEntity> repository)
         {
             _mapper = mapper;
             _repository = repository;
         }
 
-        public virtual async Task<TDTO> CreateAsync(TDTO entity)
+        public virtual async Task<TDTO> CreateAsync(TDTO dto)
         {
-            var entityToCreate = await _mapper.ToEntityAsync(entity);
+            var entityToCreate = _mapper.ToEntity(dto);
             var createdEntity = await _repository.CreateAsync(entityToCreate);
-            return await _mapper.ToDTOAsync(createdEntity);
+            return _mapper.ToDTO(createdEntity);
         }
 
         public virtual async Task<bool> DeleteAsync(Guid id)
         {
-            var deleted = await _repository.DeleteAsync(id);
-            return deleted;
+            return await _repository.DeleteAsync(id);
         }
 
         public virtual async Task<IEnumerable<TDTO>> GetAllAsync()
         {
-            var entities = await _repository.GetAllAsync();
-            return await _mapper.ToDTOListAsync(entities);
+            return _mapper.ToListDTO((await _repository.GetAllAsync()));
         }
 
         public virtual async Task<TDTO> GetByIdAsync(Guid id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            return await _mapper.ToDTOAsync(entity);
+            return _mapper.ToDTO(await _repository.GetByIdAsync(id));
         }
 
-        public virtual async Task<TDTO> UpdateAsync(Guid id, TDTO entity)
+        public virtual async Task<TDTO> UpdateAsync(Guid id, TDTO dto)
         {
-            var entityToUpdate = await _mapper.ToEntityAsync(entity);
-            var updatedEntity = await _repository.UpdateAsync(id, entityToUpdate);
-            return await _mapper.ToDTOAsync(updatedEntity);
+            var existingEntity = await _repository.GetByIdAsync(id);
+            if (existingEntity == null)
+            {
+                return null;
+            }
+            var entityToUpdate = _mapper.ToEntity(dto);
+            entityToUpdate.id = id;
+            var updatedEntity = await _repository.UpdateAsync(entityToUpdate);
+            return _mapper.ToDTO(updatedEntity);
         }
+
     }
 }

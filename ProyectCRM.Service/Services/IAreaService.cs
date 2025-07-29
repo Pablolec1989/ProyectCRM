@@ -1,4 +1,4 @@
-﻿using ProyectCRM.Models;
+﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.AreaDTOs;
 using ProyectCRM.Service.Interfaces;
 

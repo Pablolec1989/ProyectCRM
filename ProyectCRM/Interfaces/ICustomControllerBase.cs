@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace ProyectCRM.Interfaces
 {
-    public interface ICustomControllerBase<TDTO, TOutput>
+    public interface ICustomControllerBase<TDTO,  TOutput>
         where TDTO : class
         where TOutput : class
     {

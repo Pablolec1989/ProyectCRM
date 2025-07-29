@@ -1,4 +1,4 @@
-﻿using ProyectCRM.Models;
+﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.AreaDTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
@@ -10,28 +10,26 @@ namespace ProyectCRM.Service.Mappers
 {
     public class AreaMapper : IAreaMapper
     {
-        public Task<AreaDTO> ToDTOAsync(Area area)
+        public AreaDTO ToDTO(Area entity)
         {
-            return Task.FromResult(new AreaDTO
+            return new AreaDTO
             {
-                nombre = area.nombre,
-            });
+                nombre = entity.nombre
+            };
         }
 
-        public Task<IEnumerable<AreaDTO>> ToDTOListAsync(IEnumerable<Area> areas)
+        public Area ToEntity(AreaDTO dto)
         {
-            return Task.FromResult(areas.Select(area => new AreaDTO
+            return new Area
             {
-                nombre = area.nombre,
-            }));
+                nombre = dto.nombre
+                // El id se asigna en el servicio
+            };
         }
 
-        public Task<Area> ToEntityAsync(AreaDTO dto)
+        public IEnumerable<AreaDTO> ToListDTO(IEnumerable<Area> entities)
         {
-            return Task.FromResult(new Area
-            {
-                nombre = dto.nombre,
-            });
+            return entities.Select(e => ToDTO(e)).ToList();
         }
     }
 }

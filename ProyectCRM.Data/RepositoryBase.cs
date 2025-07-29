@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProyectCRM.Models.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Data
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    public abstract class RepositoryBase<T> : IRepositoryBase<T> 
+        where T : EntityBase
     {
         private readonly AppDbContext _context;
 
@@ -46,24 +48,17 @@ namespace ProyectCRM.Data
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public virtual async Task<T> UpdateAsync(Guid id, T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
-            var existingEntity = await _context.Set<T>().FindAsync(id);
+            var existingEntity = await _context.Set<T>().FindAsync(entity.id);
             if (existingEntity == null)
             {
-                return null;
+                return null; // or throw an exception, depending on your design choice
             }
-
-            // Asegurarse de que el id de entity sea igual al id del existente
-            var idProperty = typeof(T).GetProperty("id") ?? typeof(T).GetProperty("Id") ?? typeof(T).GetProperty("ID");
-            if (idProperty != null)
-            {
-                idProperty.SetValue(entity, idProperty.GetValue(existingEntity));
-            }
-
             _context.Entry(existingEntity).CurrentValues.SetValues(entity);
             await _context.SaveChangesAsync();
             return existingEntity;
+
         }
     }
 }

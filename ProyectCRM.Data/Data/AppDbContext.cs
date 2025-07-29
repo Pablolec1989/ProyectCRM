@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProyectCRM.Models;
+using ProyectCRM.Models.Entities;
 
 namespace ProyectCRM.Data
 {
@@ -10,11 +10,6 @@ namespace ProyectCRM.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Area>().HasKey(a => a.id);
-            modelBuilder.Entity<Area>()
-                .Property(a => a.nombre)
-                .IsRequired()
-                .HasMaxLength(50);
         }
     }
 }

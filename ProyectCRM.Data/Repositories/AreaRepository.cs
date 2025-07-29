@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProyectCRM.Models;
+using ProyectCRM.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

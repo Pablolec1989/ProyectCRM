@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProyectCRM.Data.Interfaces;
+﻿using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Data.Repositories
 {
-    public class AreaRepository : RepositoryBase<Area>, IAreaRepository
+    public class RubroRepository : RepositoryBase<Rubro>, IRubroRepository
     {
-        public AreaRepository(AppDbContext context) : base(context)
+        public RubroRepository(AppDbContext context) : base(context)
         {
         }
     }

@@ -11,4 +11,8 @@
     <ProjectReference Include="..\ProyectCRM.Models\ProyectCRM.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+  </ItemGroup>
+
 </Project>

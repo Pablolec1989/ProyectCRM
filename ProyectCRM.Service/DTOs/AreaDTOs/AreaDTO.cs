@@ -2,8 +2,7 @@
 
 namespace ProyectCRM.Service.DTOs.AreaDTOs
 {
-    public class AreaDTO
+    public class AreaDTO : BaseReadUpdateDTO
     {
-        public required string Nombre { get; set; }
     }
 }

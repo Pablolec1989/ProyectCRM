@@ -2,30 +2,42 @@
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using ProyectCRM.Interfaces;
 using ProyectCRM.Models.Abstractions;
-using ProyectCRM.Service.Interfaces;
+using ProyectCRM.Service;
+using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM
 {
     [ApiController]
     [Route("api/[controller]")]
-    public abstract class CustomControllerBase<TDTO, TEntity> : ControllerBase, ICustomControllerBase<TDTO, TEntity>
-        where TDTO : class
-        where TEntity : EntityBase
+    public abstract class CustomControllerBase<TDTO, TCreateDTO, TEntity> 
+        : ControllerBase, ICustomControllerBase<TDTO, TCreateDTO, TEntity>
+        where TDTO : BaseReadUpdateDTO
+        where TCreateDTO : BaseCreateDTO
+        where TEntity : EntityBaseWithName
     {
-        private readonly IServiceBase<TDTO, TEntity> _serviceBase;
+        private readonly IServiceBase<TDTO, TCreateDTO, TEntity> _serviceBase;
 
-        public CustomControllerBase(IServiceBase<TDTO, TEntity> serviceBase)
+        public CustomControllerBase(IServiceBase<TDTO, TCreateDTO, TEntity> serviceBase)
         {
             _serviceBase = serviceBase;
         }
 
         [HttpPost]
-        public virtual async Task<ActionResult<TDTO>> CreateAsync(TDTO dto)
+        public virtual async Task<ActionResult<TDTO>> CreateAsync([FromBody] TCreateDTO dto)
         {
-            return await _serviceBase.CreateAsync(dto);
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+            var createdDto = await _serviceBase.CreateAsync(dto);
+            if (createdDto == null)
+            {
+                return BadRequest("Failed to create the entity.");
+            }
+            return Ok(createdDto);
         }
 
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("{id:Guid}")]
         public virtual async Task<ActionResult> DeleteAsync(Guid id)
         {
             var result = await _serviceBase.DeleteAsync(id);
@@ -47,7 +59,7 @@ namespace ProyectCRM
             return Ok(dtos);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:Guid}")]
         public virtual async Task<ActionResult<TDTO>> GetByIdAsync(Guid id)
         {
             var dto = await _serviceBase.GetByIdAsync(id);
@@ -58,8 +70,8 @@ namespace ProyectCRM
             return Ok(dto);
         }
 
-        [HttpPut("{id:guid}")]
-        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TDTO dto)
+        [HttpPut("{id:Guid}")]
+        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, [FromBody] TDTO dto)
         {
             var updatedDto = await _serviceBase.UpdateAsync(id, dto);
             if (updatedDto == null)
@@ -68,5 +80,6 @@ namespace ProyectCRM
             }
             return Ok(updatedDto);
         }
+
     }
 }

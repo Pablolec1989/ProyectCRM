@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProyectCRM.Models.Entities
 {
-    public class Area : EntityBase
+    public class Area : EntityBaseWithName
     {
-        [MaxLength(50)]
-        public string Nombre { get; set; } = string.Empty;
     }
 }

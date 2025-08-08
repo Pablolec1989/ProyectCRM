@@ -1,24 +1,22 @@
-﻿using ProyectCRM.Data.Repositories;
+﻿using ProyectCRM.Data;
+using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.AreaDTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class AreaService : ServiceBase<AreaDTO, Area>, IAreaService
+    public class AreaService : ServiceBase<AreaDTO, AreaCreateDTO, Area>, IAreaService
     {
-        private readonly IAreaMapper _areaMapper;
-        private readonly IAreaRepository _areaRepository;
-
-        public AreaService(IAreaMapper areaMapper, IAreaRepository areaRepository) 
-            : base(areaMapper, areaRepository)
+        public AreaService(IMapperBase<AreaDTO, AreaCreateDTO, Area> mapper,
+            IAreaRepository repository)
+            : base(mapper, repository)
         {
-            _areaMapper = areaMapper;
-            _areaRepository = areaRepository;
         }
     }
 }

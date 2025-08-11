@@ -9,11 +9,11 @@ namespace ProyectCRM
 {
     [ApiController]
     [Route("api/[controller]")]
-    public abstract class CustomControllerBase<TDTO, TCreateDTO, TEntity> 
+    public class CustomControllerBase<TDTO, TCreateDTO, TEntity>
         : ControllerBase, ICustomControllerBase<TDTO, TCreateDTO, TEntity>
-        where TDTO : BaseReadUpdateDTO
-        where TCreateDTO : BaseCreateDTO
-        where TEntity : EntityBaseWithName
+        where TDTO : class
+        where TCreateDTO : class, new()
+        where TEntity : EntityBase
     {
         private readonly IServiceBase<TDTO, TCreateDTO, TEntity> _serviceBase;
 
@@ -80,6 +80,5 @@ namespace ProyectCRM
             }
             return Ok(updatedDto);
         }
-
     }
 }

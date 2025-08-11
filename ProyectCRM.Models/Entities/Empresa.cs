@@ -1,0 +1,21 @@
+﻿using ProyectCRM.Models.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProyectCRM.Models.Entities
+{
+    public class Empresa : EntityBase
+    {
+        public string RazonSocial { get; set; }
+        public string CUIT { get; set; }
+        public string CUIL { get; set; }
+        public Guid RubroId { get; set; }
+        public Rubro Rubro { get; set; }
+        public Guid IvaCondicionId { get; set; }
+        public CondicionIva IvaCondicion { get; set; }
+
+    }
+}

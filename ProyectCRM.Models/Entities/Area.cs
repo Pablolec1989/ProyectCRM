@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProyectCRM.Models.Entities
 {
-    public class Area : EntityBaseWithName
+    public class Area : EntityBase
     {
+        public string Nombre { get; set; }
     }
 }

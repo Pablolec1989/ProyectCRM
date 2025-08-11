@@ -6,9 +6,9 @@ using ProyectCRM.Service.DTOs;
 namespace ProyectCRM.Interfaces
 {
     public interface ICustomControllerBase<TDTO, TCreateDTO, TEntity>
-        where TDTO : BaseReadUpdateDTO
-        where TCreateDTO : BaseCreateDTO
-        where TEntity : EntityBaseWithName
+        where TDTO : class
+        where TCreateDTO : class, new()
+        where TEntity : EntityBase
     {
         Task<ActionResult<TDTO>> GetByIdAsync(Guid id);
         Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync();

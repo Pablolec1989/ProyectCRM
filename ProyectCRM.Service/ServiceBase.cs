@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace ProyectCRM.Service
 {
     public abstract class ServiceBase<TDTO, TCreateDTO, TEntity> : IServiceBase<TDTO, TCreateDTO, TEntity>
-        where TDTO : BaseReadUpdateDTO
-        where TCreateDTO : BaseCreateDTO
-        where TEntity : EntityBaseWithName
+        where TDTO : class
+        where TCreateDTO : class, new()
+        where TEntity : EntityBase
     {
         private readonly IMapperBase<TDTO, TCreateDTO, TEntity> _mapper;
         private readonly IRepositoryBase<TEntity> _repository;

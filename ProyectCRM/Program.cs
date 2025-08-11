@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using ProyectCRM;
 using ProyectCRM.Data;
@@ -6,8 +7,15 @@ using ProyectCRM.Data.Repositories;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service;
 using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.DTOs.AsuntoDeContactoDTO;
+using ProyectCRM.Service.DTOs.DireccionDTO;
+using ProyectCRM.Service.DTOs.IvaCondicionDTOs;
+using ProyectCRM.Service.DTOs.RolDTOs;
 using ProyectCRM.Service.DTOs.RubroDTOs;
+using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
+using ProyectCRM.Service.DTOs.TipoTelefonoDTO;
 using ProyectCRM.Service.Interfaces;
+using ProyectCRM.Service.Mappers;
 using ProyectCRM.Service.Services;
 
 
@@ -28,21 +36,57 @@ builder.Services.AddCors(options => {
 
 //Config y Registro de DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Configuración de servicios
+// Configuración de servicios:
 // Areas
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
-builder.Services.AddScoped<IMapperBase<AreaDTO, AreaCreateDTO, Area>, MapperBase<AreaDTO, Area, AreaCreateDTO>>();
-builder.Services.AddScoped<IServiceBase<AreaDTO, AreaCreateDTO, Area>, AreaService>();
+builder.Services.AddScoped<IMapperBase<AreaDTO, AreaCreateDTO, Area>, AreaMapper>();
+builder.Services.AddScoped<IAreaMapper, AreaMapper>();
+builder.Services.AddScoped<IAreaService, AreaService>();
 
 // Rubros
 builder.Services.AddScoped<IRubroRepository, RubroRepository>();
-builder.Services.AddScoped<IMapperBase<RubroDTO, RubroCreateDTO, Rubro>, MapperBase<RubroDTO, Rubro, RubroCreateDTO>>();
+builder.Services.AddScoped<IMapperBase<RubroDTO, RubroCreateDTO, Rubro>, RubroMapper>();
+builder.Services.AddScoped<IRubroMapper, RubroMapper>();
 builder.Services.AddScoped<IRubroService, RubroService>();
 
+//Direcciones
+builder.Services.AddScoped<IDireccionRepository, DireccionRepository>();
+builder.Services.AddScoped<IMapperBase<DireccionDTO, DireccionCreateDTO, Direccion>, DireccionMapper>();
+builder.Services.AddScoped<IDireccionMapper, DireccionMapper>();
+builder.Services.AddScoped<IDireccionService, DireccionService>();
+
+// Tipos de Direccion
+builder.Services.AddScoped<ITipoDireccionRepository, TipoDireccionRepository>();
+builder.Services.AddScoped<IMapperBase<TipoDireccionDTO, TipoDireccionCreateDTO, TipoDireccion>, TipoDireccionMapper>();
+builder.Services.AddScoped<ITipoDireccionMapper, TipoDireccionMapper>();
+builder.Services.AddScoped<ITipoDireccionService, TipoDireccionService>();
+
+//TiposTelefono
+builder.Services.AddScoped<ITipoTelefonoRepository, TipoTelefonoRepository>();
+builder.Services.AddScoped<IMapperBase<TipoTelefonoDTO, TipoTelefonoCreateDTO, TipoTelefono>, TipoTelefonoMapper>();
+builder.Services.AddScoped<ITipoTelefonoMapper, TipoTelefonoMapper>();
+builder.Services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
+
+//AsuntoDeContacto
+builder.Services.AddScoped<IAsuntoDeContactoRepository, AsuntoDeContactoRepository>();
+builder.Services.AddScoped<IMapperBase<AsuntoDeContactoDTO, AsuntoDeContactoCreateDTO, AsuntoDeContacto>, AsuntoDeContactoMapper>();
+builder.Services.AddScoped<IAsuntoDeContactoMapper, AsuntoDeContactoMapper>();
+builder.Services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
+
+//CondicionIva
+builder.Services.AddScoped<ICondicionIvaRepository, CondicionIvaRepository>();
+builder.Services.AddScoped<IMapperBase<CondicionIvaDTO, CondicionIvaCreateDTO, CondicionIva>, CondicionIvaMapper>();
+builder.Services.AddScoped<ICondicionIvaMapper, CondicionIvaMapper>();
+builder.Services.AddScoped<ICondicionIvaService, CondicionIvaService>();
+
+//Roles
+builder.Services.AddScoped<IRolRepository, RolRepository>();
+builder.Services.AddScoped<IMapperBase<RolDTO, RolCreateDTO, Rol>, RolMapper>();
+builder.Services.AddScoped<IRolMapper, RolMapper>();
+builder.Services.AddScoped<IRolService, RolService>();
 
 var app = builder.Build();
 
@@ -54,9 +98,31 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
-app.UseAuthorization(); // Add this if you use [Authorize] attributes
+app.UseAuthorization();
 
-app.MapControllers(); // Ensure this is present to map controller endpoints
+app.MapControllers();
+
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/json";
+        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+
+        if (contextFeature is not null)
+        {
+            Console.WriteLine($"Error: {contextFeature.Error}");
+            await context.Response.WriteAsJsonAsync(
+                new
+                {
+                    StatusCode = context.Response.StatusCode,
+                    Message = "Internal Server Error",
+                    MoreInfo = contextFeature.Error.Message,
+                });
+        };
+    });
+});
 
 app.Run();
 

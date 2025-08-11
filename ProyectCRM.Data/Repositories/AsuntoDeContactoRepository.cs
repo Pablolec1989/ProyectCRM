@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Data.Repositories
 {
-    internal class AsuntoDeContactoRepository : RepositoryBase<AsuntoDeContacto>, IAsuntoDeContactoRepository
+    public class AsuntoDeContactoRepository : RepositoryBase<AsuntoDeContacto>, IAsuntoDeContactoRepository
     {
         public AsuntoDeContactoRepository(AppDbContext context) : base(context)
         {

@@ -12,10 +12,9 @@ namespace ProyectCRM.Service.Services
 {
     public class AsuntoDeContactoService : ServiceBase<AsuntoDeContactoDTO, AsuntoDeContactoCreateDTO, AsuntoDeContacto>, IAsuntoDeContactoService
     {
-        public AsuntoDeContactoService(IMapperBase<AsuntoDeContactoDTO, AsuntoDeContactoCreateDTO, AsuntoDeContacto> mapper, 
+        public AsuntoDeContactoService(IAsuntoDeContactoMapper mapper, 
             IAsuntoDeContactoRepository repository) : base(mapper, repository)
         {
-            
         }
     }
 }

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Entities
 {
-    public class Rubro : EntityBaseWithName
+    public class Rubro : EntityBase
     {
+        public string Nombre { get; set; }
     }
 }

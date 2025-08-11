@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ProyectCRM.Service
 {
     public interface IServiceBase<TDTO, TCreateDTO, TEntity> 
-        where TDTO : BaseReadUpdateDTO
-        where TCreateDTO : BaseCreateDTO
-        where TEntity : EntityBaseWithName
+        where TDTO : class
+        where TCreateDTO : class, new()
+        where TEntity : EntityBase
     {
         Task<TDTO> GetByIdAsync(Guid id);
         Task<IEnumerable<TDTO>> GetAllAsync();

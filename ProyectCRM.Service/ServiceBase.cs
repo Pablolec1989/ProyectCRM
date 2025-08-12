@@ -1,4 +1,5 @@
-﻿using ProyectCRM.Data;
+﻿using FluentValidation;
+using ProyectCRM.Data;
 using ProyectCRM.Models.Abstractions;
 using ProyectCRM.Service.DTOs;
 using System;
@@ -14,16 +15,24 @@ namespace ProyectCRM.Service
     {
         private readonly IMapperBase<TDTO, TUpdateCreateDTO, TEntity> _mapper;
         private readonly IRepositoryBase<TEntity> _repository;
+        private readonly IValidator<TEntity> _validator;
 
-        public ServiceBase(IMapperBase<TDTO, TUpdateCreateDTO, TEntity> mapper, IRepositoryBase<TEntity> repository)
+        public ServiceBase(IMapperBase<TDTO, TUpdateCreateDTO, TEntity> mapper, IRepositoryBase<TEntity> repository, IValidator<TEntity> validator)
         {
             _mapper = mapper;
             _repository = repository;
+            _validator = validator;
         }
 
         public virtual async Task<TDTO> CreateAsync(TUpdateCreateDTO dto)
         {
+
             var entityToCreate = _mapper.ToEntity(dto);
+            var validationResult = _validator.Validate(entityToCreate);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
             var createdEntity = await _repository.CreateAsync(entityToCreate);
             return _mapper.ToDTO(createdEntity);
         }

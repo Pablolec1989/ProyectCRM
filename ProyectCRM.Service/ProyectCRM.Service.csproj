@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ProyectCRM.Data\ProyectCRM.Data.csproj" />
     <ProjectReference Include="..\ProyectCRM.Models\ProyectCRM.Models.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using ProyectCRM.Data.Interfaces;
+﻿using FluentValidation;
+using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.AsuntoDeContactoDTO;
 using ProyectCRM.Service.Interfaces;
@@ -13,7 +14,8 @@ namespace ProyectCRM.Service.Services
     public class AsuntoDeContactoService : ServiceBase<AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, AsuntoDeContacto>, IAsuntoDeContactoService
     {
         public AsuntoDeContactoService(IAsuntoDeContactoMapper mapper, 
-            IAsuntoDeContactoRepository repository) : base(mapper, repository)
+            IAsuntoDeContactoRepository repository, IValidator<AsuntoDeContacto> validator) 
+            : base(mapper, repository, validator)
         {
         }
     }

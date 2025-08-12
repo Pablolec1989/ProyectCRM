@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using ProyectCRM;
@@ -46,6 +47,7 @@ builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<IMapperBase<AreaDTO, AreaUpdateCreateDTO, Area>, AreaMapper>();
 builder.Services.AddScoped<IAreaMapper, AreaMapper>();
 builder.Services.AddScoped<IAreaService, AreaService>();
+builder.Services.AddScoped<IValidator<Area>, AreaValidator>();
 
 // Rubros
 builder.Services.AddScoped<IRubroRepository, RubroRepository>();
@@ -88,6 +90,10 @@ builder.Services.AddScoped<IRolRepository, RolRepository>();
 builder.Services.AddScoped<IMapperBase<RolDTO, RolUpdateCreateDTO, Rol>, RolMapper>();
 builder.Services.AddScoped<IRolMapper, RolMapper>();
 builder.Services.AddScoped<IRolService, RolService>();
+
+
+//Fluent Validation
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
 
 var app = builder.Build();
 

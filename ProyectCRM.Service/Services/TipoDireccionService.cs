@@ -1,4 +1,5 @@
-﻿using ProyectCRM.Data.Interfaces;
+﻿using FluentValidation;
+using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
 using ProyectCRM.Service.Interfaces;
@@ -13,7 +14,7 @@ namespace ProyectCRM.Service.Services
     public class TipoDireccionService : ServiceBase<TipoDireccionDTO,TipoDireccionUpdateCreateDTO,TipoDireccion>, ITipoDireccionService
     {
         public TipoDireccionService(IMapperBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion> mapper, 
-            ITipoDireccionRepository repository) : base(mapper, repository)
+            ITipoDireccionRepository repository, IValidator<TipoDireccion> validator) : base(mapper, repository, validator)
         {
         }
     }

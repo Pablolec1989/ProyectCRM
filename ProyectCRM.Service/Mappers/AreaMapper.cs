@@ -29,7 +29,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Area ToEntity(AreaCreateDTO dto)
+        public Area ToEntity(AreaUpdateCreateDTO dto)
         {
             return new Area
             {

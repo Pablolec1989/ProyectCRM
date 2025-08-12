@@ -17,7 +17,9 @@ namespace ProyectCRM.Data
         public DbSet<Visita> Visitas { get; set; }
         public DbSet<Llamada> Llamadas { get; set; }
         public DbSet<Mail> Mails { get; set; }
-        public DbSet<CondicionIva> IvaCondicion { get; set; }
+        public DbSet<CondicionIva> CondicionIva { get; set; }
+        public DbSet<VisitasUsuarios> VisitasUsuarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,26 +29,49 @@ namespace ProyectCRM.Data
             modelBuilder.Entity<Rubro>().ToTable("Rubros");
             modelBuilder.Entity<AsuntoDeContacto>().ToTable("AsuntosDeContacto");
             modelBuilder.Entity<Cliente>().ToTable("Clientes");
-            modelBuilder.Entity<Direccion>().ToTable("Direcciones");
+
+            modelBuilder.Entity<Direccion>().ToTable("Direcciones")
+                .HasOne(d => d.TipoDireccion)
+                .WithMany()
+                .HasForeignKey(d => d.TipoDireccionId);
+
             modelBuilder.Entity<TipoDireccion>().ToTable("TiposDireccion");
             modelBuilder.Entity<TipoTelefono>().ToTable("TiposTelefono");
+            modelBuilder.Entity<CondicionIva>().ToTable("CondicionIva");
             modelBuilder.Entity<Rol>().ToTable("Roles");
-            modelBuilder.Entity<Visita>().ToTable("Visitas");
+
+            modelBuilder.Entity<Visita>().ToTable("Visitas")
+                .HasOne(v => v.Cliente)
+                .WithMany(c => c.Visitas)
+                .HasForeignKey(v => v.ClienteId);
+
+            modelBuilder.Entity<Visita>()
+                .HasOne(v => v.Direccion)
+                .WithMany(d => d.Visitas)
+                .HasForeignKey(v => v.DireccionId);
 
             modelBuilder.Entity<VisitasUsuarios>()
                 .HasKey(vu => new { vu.VisitaId, vu.UsuarioId });
+
             modelBuilder.Entity<VisitasUsuarios>()
                 .HasOne(vu => vu.Visita)
                 .WithMany(v => v.VisitasUsuarios)
                 .HasForeignKey(vu => vu.VisitaId);
+
             modelBuilder.Entity<VisitasUsuarios>()
                 .HasOne(vu => vu.Usuario)
                 .WithMany(u => u.VisitasUsuarios)
                 .HasForeignKey(vu => vu.UsuarioId);
 
+            modelBuilder.Entity<Usuario>().ToTable("Usuarios");
+
+            modelBuilder.Entity<Usuario>()
+                .HasOne(u => u.Rol)
+                .WithMany(r => r.Usuarios)
+                .HasForeignKey(u => u.RolId);
+
             modelBuilder.Entity<Llamada>().ToTable("Llamadas");
             modelBuilder.Entity<Mail>().ToTable("Mails");
-            modelBuilder.Entity<CondicionIva>().ToTable("IvaCondicion");
 
         }
     }

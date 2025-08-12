@@ -9,6 +9,7 @@ using ProyectCRM.Service;
 using ProyectCRM.Service.DTOs.AreaDTOs;
 using ProyectCRM.Service.DTOs.AsuntoDeContactoDTO;
 using ProyectCRM.Service.DTOs.DireccionDTO;
+using ProyectCRM.Service.DTOs.DireccionDTOs;
 using ProyectCRM.Service.DTOs.IvaCondicionDTOs;
 using ProyectCRM.Service.DTOs.RolDTOs;
 using ProyectCRM.Service.DTOs.RubroDTOs;
@@ -42,7 +43,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Configuración de servicios:
 // Areas
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
-builder.Services.AddScoped<IMapperBase<AreaDTO, AreaCreateDTO, Area>, AreaMapper>();
+builder.Services.AddScoped<IMapperBase<AreaDTO, AreaUpdateCreateDTO, Area>, AreaMapper>();
 builder.Services.AddScoped<IAreaMapper, AreaMapper>();
 builder.Services.AddScoped<IAreaService, AreaService>();
 
@@ -54,37 +55,37 @@ builder.Services.AddScoped<IRubroService, RubroService>();
 
 //Direcciones
 builder.Services.AddScoped<IDireccionRepository, DireccionRepository>();
-builder.Services.AddScoped<IMapperBase<DireccionDTO, DireccionCreateDTO, Direccion>, DireccionMapper>();
+builder.Services.AddScoped<IMapperBase<DireccionDTO, DireccionCreateUpdateDTO, Direccion>, DireccionMapper>();
 builder.Services.AddScoped<IDireccionMapper, DireccionMapper>();
 builder.Services.AddScoped<IDireccionService, DireccionService>();
 
 // Tipos de Direccion
 builder.Services.AddScoped<ITipoDireccionRepository, TipoDireccionRepository>();
-builder.Services.AddScoped<IMapperBase<TipoDireccionDTO, TipoDireccionCreateDTO, TipoDireccion>, TipoDireccionMapper>();
+builder.Services.AddScoped<IMapperBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion>, TipoDireccionMapper>();
 builder.Services.AddScoped<ITipoDireccionMapper, TipoDireccionMapper>();
 builder.Services.AddScoped<ITipoDireccionService, TipoDireccionService>();
 
 //TiposTelefono
 builder.Services.AddScoped<ITipoTelefonoRepository, TipoTelefonoRepository>();
-builder.Services.AddScoped<IMapperBase<TipoTelefonoDTO, TipoTelefonoCreateDTO, TipoTelefono>, TipoTelefonoMapper>();
+builder.Services.AddScoped<IMapperBase<TipoTelefonoDTO, TipoTelefonoUpdateCreateDTO, TipoTelefono>, TipoTelefonoMapper>();
 builder.Services.AddScoped<ITipoTelefonoMapper, TipoTelefonoMapper>();
 builder.Services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
 
 //AsuntoDeContacto
 builder.Services.AddScoped<IAsuntoDeContactoRepository, AsuntoDeContactoRepository>();
-builder.Services.AddScoped<IMapperBase<AsuntoDeContactoDTO, AsuntoDeContactoCreateDTO, AsuntoDeContacto>, AsuntoDeContactoMapper>();
+builder.Services.AddScoped<IMapperBase<AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, AsuntoDeContacto>, AsuntoDeContactoMapper>();
 builder.Services.AddScoped<IAsuntoDeContactoMapper, AsuntoDeContactoMapper>();
 builder.Services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
 
 //CondicionIva
 builder.Services.AddScoped<ICondicionIvaRepository, CondicionIvaRepository>();
-builder.Services.AddScoped<IMapperBase<CondicionIvaDTO, CondicionIvaCreateDTO, CondicionIva>, CondicionIvaMapper>();
+builder.Services.AddScoped<IMapperBase<CondicionIvaDTO, CondicionIvaUpdateCreateDTO, CondicionIva>, CondicionIvaMapper>();
 builder.Services.AddScoped<ICondicionIvaMapper, CondicionIvaMapper>();
 builder.Services.AddScoped<ICondicionIvaService, CondicionIvaService>();
 
 //Roles
 builder.Services.AddScoped<IRolRepository, RolRepository>();
-builder.Services.AddScoped<IMapperBase<RolDTO, RolCreateDTO, Rol>, RolMapper>();
+builder.Services.AddScoped<IMapperBase<RolDTO, RolUpdateCreateDTO, Rol>, RolMapper>();
 builder.Services.AddScoped<IRolMapper, RolMapper>();
 builder.Services.AddScoped<IRolService, RolService>();
 

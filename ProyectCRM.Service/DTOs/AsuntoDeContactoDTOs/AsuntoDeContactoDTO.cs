@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs.AsuntoDeContactoDTO
 {
-    public class AsuntoDeContactoDTO : BaseReadUpdateDTO
+    public class AsuntoDeContactoDTO : BaseDTO
     {
     }
 }

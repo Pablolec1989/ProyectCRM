@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs.TipoTelefonoDTO
+namespace ProyectCRM.Service.DTOs.AreaDTOs
 {
-    public class TipoTelefonoCreateDTO : BaseCreateDTO
+    public class AreaUpdateCreateDTO : BaseDTO
     {
     }
 }

@@ -30,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
 
         }
 
-        public TipoTelefono ToEntity(TipoTelefonoCreateDTO dto)
+        public TipoTelefono ToEntity(TipoTelefonoUpdateCreateDTO dto)
         {
             return new TipoTelefono()
             {

@@ -5,15 +5,15 @@ using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM.Interfaces
 {
-    public interface ICustomControllerBase<TDTO, TCreateDTO, TEntity>
+    public interface ICustomControllerBase<TDTO, TUpdateCreateDTO, TEntity>
         where TDTO : class
-        where TCreateDTO : class, new()
+        where TUpdateCreateDTO : class, new()
         where TEntity : EntityBase
     {
         Task<ActionResult<TDTO>> GetByIdAsync(Guid id);
         Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync();
-        Task<ActionResult<TDTO>> CreateAsync(TCreateDTO dto);
-        Task<ActionResult<TDTO>> UpdateAsync(Guid id, TDTO dto);
+        Task<ActionResult<TDTO>> CreateAsync(TUpdateCreateDTO dto);
+        Task<ActionResult<TDTO>> UpdateAsync(Guid id, TUpdateCreateDTO dto);
         Task<ActionResult> DeleteAsync(Guid id);
     }
 }

@@ -13,7 +13,5 @@ namespace ProyectCRM.Models.Entities
         public Cliente Cliente { get; set; }
         public Guid DireccionId { get; set; }
         public Direccion Direccion { get; set; }
-        public Guid TipoDireccionId { get; set; }
-        public TipoDireccion TipoDireccion { get; set; }
     }
 }

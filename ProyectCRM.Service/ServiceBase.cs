@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service
 {
-    public abstract class ServiceBase<TDTO, TCreateDTO, TEntity> : IServiceBase<TDTO, TCreateDTO, TEntity>
+    public abstract class ServiceBase<TDTO, TUpdateCreateDTO, TEntity> : IServiceBase<TDTO, TUpdateCreateDTO, TEntity>
         where TDTO : class
-        where TCreateDTO : class, new()
+        where TUpdateCreateDTO : class, new()
         where TEntity : EntityBase
     {
-        private readonly IMapperBase<TDTO, TCreateDTO, TEntity> _mapper;
+        private readonly IMapperBase<TDTO, TUpdateCreateDTO, TEntity> _mapper;
         private readonly IRepositoryBase<TEntity> _repository;
 
-        public ServiceBase(IMapperBase<TDTO, TCreateDTO, TEntity> mapper, IRepositoryBase<TEntity> repository)
+        public ServiceBase(IMapperBase<TDTO, TUpdateCreateDTO, TEntity> mapper, IRepositoryBase<TEntity> repository)
         {
             _mapper = mapper;
             _repository = repository;
         }
 
-        public virtual async Task<TDTO> CreateAsync(TCreateDTO dto)
+        public virtual async Task<TDTO> CreateAsync(TUpdateCreateDTO dto)
         {
             var entityToCreate = _mapper.ToEntity(dto);
             var createdEntity = await _repository.CreateAsync(entityToCreate);
@@ -35,7 +35,8 @@ namespace ProyectCRM.Service
 
         public virtual async Task<IEnumerable<TDTO>> GetAllAsync()
         {
-            return _mapper.ToListDTO(await _repository.GetAllAsync());
+            var entities = await _repository.GetAllAsync();
+            return _mapper.ToListDTO(entities);
         }
 
         public virtual async Task<TDTO> GetByIdAsync(Guid id)
@@ -43,7 +44,7 @@ namespace ProyectCRM.Service
             return _mapper.ToDTO(await _repository.GetByIdAsync(id));
         }
 
-        public virtual async Task<TDTO> UpdateAsync(Guid id, TDTO dto)
+        public virtual async Task<TDTO> UpdateAsync(Guid id, TUpdateCreateDTO dto)
         {
             var existingEntity = await _repository.GetByIdAsync(id);
             if (existingEntity == null)

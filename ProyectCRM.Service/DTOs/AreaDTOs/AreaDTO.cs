@@ -2,7 +2,7 @@
 
 namespace ProyectCRM.Service.DTOs.AreaDTOs
 {
-    public class AreaDTO : BaseReadUpdateDTO
+    public class AreaDTO : BaseDTO
     {
     }
 }

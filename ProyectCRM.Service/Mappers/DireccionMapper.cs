@@ -1,5 +1,6 @@
 ﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.DireccionDTO;
+using ProyectCRM.Service.DTOs.DireccionDTOs;
 using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
@@ -24,7 +25,7 @@ namespace ProyectCRM.Service.Mappers
                 Provincia = entity.Provincia,
                 TipoDireccion = new TipoDireccionDTO
                 {
-                    Id = entity.TipoDireccion.Id,
+                    Id = entity.TipoDireccionId,
                     Nombre = entity.TipoDireccion.Nombre
                 }
             };
@@ -43,7 +44,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Direccion ToEntity(DireccionCreateDTO dto)
+        public Direccion ToEntity(DireccionCreateUpdateDTO dto)
         {
             return new Direccion
             {
@@ -58,7 +59,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<DireccionDTO> ToListDTO(IEnumerable<Direccion> entities)
         {
-            return entities.Select(entity => ToDTO(entity));
+            return entities.Select(entity => ToDTO(entity)).ToList();
         }
     }
 }

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class TipoDireccionService : ServiceBase<TipoDireccionDTO,TipoDireccionCreateDTO,TipoDireccion>, ITipoDireccionService
+    public class TipoDireccionService : ServiceBase<TipoDireccionDTO,TipoDireccionUpdateCreateDTO,TipoDireccion>, ITipoDireccionService
     {
-        public TipoDireccionService(IMapperBase<TipoDireccionDTO, TipoDireccionCreateDTO, TipoDireccion> mapper, 
+        public TipoDireccionService(IMapperBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion> mapper, 
             ITipoDireccionRepository repository) : base(mapper, repository)
         {
         }

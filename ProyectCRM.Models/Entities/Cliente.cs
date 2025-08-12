@@ -15,6 +15,8 @@ namespace ProyectCRM.Models.Entities
         public Guid Telefono { get; set; }
         public Guid EmpresaId { get; set; }
         public Empresa Empresa { get; set; }
+        public ICollection<Direccion> Direcciones { get; set; } = [];
+        public ICollection<Visita> Visitas { get; set; } = [];
 
     }
 }

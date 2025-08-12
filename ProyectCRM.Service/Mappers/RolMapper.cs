@@ -29,7 +29,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Rol ToEntity(RolCreateDTO dto)
+        public Rol ToEntity(RolUpdateCreateDTO dto)
         {
             return new Rol
             {

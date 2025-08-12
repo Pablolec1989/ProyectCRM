@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs.RubroDTOs
 {
-    public class RubroCreateDTO : BaseCreateDTO
+    public class RubroCreateDTO : BaseDTO
     {
     }
 }

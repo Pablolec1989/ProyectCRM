@@ -1,16 +1,15 @@
 ﻿using ProyectCRM.Models.Abstractions;
-using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs.DireccionDTO
+namespace ProyectCRM.Service.DTOs.DireccionDTOs
 {
-    public class DireccionDTO
+    public class DireccionDTO : EntityBase
     {
-        public Guid Id { get; set; }
         public string Calle { get; set; }
         public int Numero { get; set; }
         public string Ciudad { get; set; }

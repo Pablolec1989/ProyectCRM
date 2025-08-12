@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class TipoTelefonoService : ServiceBase<TipoTelefonoDTO, TipoTelefonoCreateDTO, TipoTelefono>, ITipoTelefonoService
+    public class TipoTelefonoService : ServiceBase<TipoTelefonoDTO, TipoTelefonoUpdateCreateDTO, TipoTelefono>, ITipoTelefonoService
     {
         public TipoTelefonoService(ITipoTelefonoMapper mapper, ITipoTelefonoRepository repository) : base(mapper, repository)
         {

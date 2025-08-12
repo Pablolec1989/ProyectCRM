@@ -9,7 +9,5 @@ namespace ProyectCRM.Data.Interfaces
 {
     public interface IDireccionRepository : IRepositoryBase<Direccion>
     {
-        Task<Direccion> GetByIdWithTipoDireccionAsync(Guid id);
-
     }
 }

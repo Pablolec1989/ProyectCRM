@@ -29,7 +29,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public AsuntoDeContacto ToEntity(AsuntoDeContactoCreateDTO dto)
+        public AsuntoDeContacto ToEntity(AsuntoDeContactoUpdateCreateDTO dto)
         {
             return new AsuntoDeContacto
             {

@@ -26,7 +26,7 @@ namespace ProyectCRM.Service.Mappers
                 Nombre = dto.Nombre,
             };
         }
-        public TipoDireccion ToEntity(TipoDireccionCreateDTO dto)
+        public TipoDireccion ToEntity(TipoDireccionUpdateCreateDTO dto)
         {
             return new TipoDireccion
             {

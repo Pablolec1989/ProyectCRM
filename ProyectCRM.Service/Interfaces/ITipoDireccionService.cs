@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface ITipoDireccionService : IServiceBase<TipoDireccionDTO, TipoDireccionCreateDTO, TipoDireccion>
+    public interface ITipoDireccionService : IServiceBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion>
     {
     }
 }

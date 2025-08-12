@@ -15,7 +15,7 @@ namespace ProyectCRM.Models.Entities
         public Guid RubroId { get; set; }
         public Rubro Rubro { get; set; }
         public Guid IvaCondicionId { get; set; }
-        public CondicionIva IvaCondicion { get; set; }
+        public CondicionIva CondicionIva { get; set; }
 
     }
 }

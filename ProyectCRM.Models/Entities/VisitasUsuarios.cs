@@ -10,8 +10,8 @@ namespace ProyectCRM.Models.Entities
     public class VisitasUsuarios : EntityBase
     {
         public Guid UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        public Usuario? Usuario { get; set; } 
         public Guid VisitaId { get; set; }
-        public Visita Visita { get; set; }
+        public Visita? Visita { get; set; }
     }
 }

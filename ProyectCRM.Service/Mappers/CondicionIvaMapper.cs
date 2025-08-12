@@ -29,7 +29,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public CondicionIva ToEntity(CondicionIvaCreateDTO dto)
+        public CondicionIva ToEntity(CondicionIvaUpdateCreateDTO dto)
         {
             return new CondicionIva
             {

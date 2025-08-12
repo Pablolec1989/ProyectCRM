@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class AreaService : ServiceBase<AreaDTO, AreaCreateDTO, Area>, IAreaService
+    public class AreaService : ServiceBase<AreaDTO, AreaUpdateCreateDTO, Area>, IAreaService
     {
-        public AreaService(IMapperBase<AreaDTO, AreaCreateDTO, Area> mapper,
+        public AreaService(IMapperBase<AreaDTO, AreaUpdateCreateDTO, Area> mapper,
             IAreaRepository repository)
             : base(mapper, repository)
         {

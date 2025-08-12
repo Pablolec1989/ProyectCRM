@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class CondicionIvaService : ServiceBase<CondicionIvaDTO, CondicionIvaCreateDTO, CondicionIva>, ICondicionIvaService
+    public class CondicionIvaService : ServiceBase<CondicionIvaDTO, CondicionIvaUpdateCreateDTO, CondicionIva>, ICondicionIvaService
     {
         public CondicionIvaService(ICondicionIvaMapper mapper, ICondicionIvaRepository repository) : base(mapper, repository)
         {

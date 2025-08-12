@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs.IvaCondicionDTOs
 {
-    public class CondicionIvaDTO : BaseReadUpdateDTO
+    public class CondicionIvaDTO : BaseDTO
     {
     }
 }

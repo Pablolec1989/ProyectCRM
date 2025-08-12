@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IRolMapper : IMapperBase<RolDTO, RolCreateDTO, Rol>
+    public interface IRolMapper : IMapperBase<RolDTO, RolUpdateCreateDTO, Rol>
     {
     }
 }

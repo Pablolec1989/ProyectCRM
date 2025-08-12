@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs.TipoTelefonoDTO
 {
-    public class TipoTelefonoDTO : BaseReadUpdateDTO
+    public class TipoTelefonoDTO : BaseDTO
     {
     }
 }

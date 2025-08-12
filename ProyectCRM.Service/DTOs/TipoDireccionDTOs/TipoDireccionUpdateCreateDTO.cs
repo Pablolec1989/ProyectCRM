@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs.TipoDireccionDTOs
 {
-    public class TipoDireccionCreateDTO
+    public class TipoDireccionUpdateCreateDTO : BaseDTO
     {
-        public string Nombre { get; set; }
     }
 }

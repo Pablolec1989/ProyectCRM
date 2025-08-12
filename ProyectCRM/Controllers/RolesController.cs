@@ -4,7 +4,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class RolesController : CustomControllerBase<RolDTO, RolCreateDTO, Rol>
+    public class RolesController : CustomControllerBase<RolDTO, RolUpdateCreateDTO, Rol>
     {
         public RolesController(IRolService service) : base(service)
         {

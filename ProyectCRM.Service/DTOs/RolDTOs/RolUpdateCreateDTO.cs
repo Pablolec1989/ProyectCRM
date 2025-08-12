@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs.RolDTOs
 {
-    public class RolCreateDTO : BaseCreateDTO
+    public class RolUpdateCreateDTO : BaseDTO
     {
     }
 }

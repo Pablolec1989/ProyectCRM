@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class RolService : ServiceBase<RolDTO, RolCreateDTO, Rol>, IRolService
+    public class RolService : ServiceBase<RolDTO, RolUpdateCreateDTO, Rol>, IRolService
     {
         public RolService(IRolMapper mapper, IRolRepository repository) : base(mapper, repository)
         {

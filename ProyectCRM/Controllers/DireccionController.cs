@@ -2,11 +2,12 @@
 using ProyectCRM.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs.DireccionDTO;
+using ProyectCRM.Service.DTOs.DireccionDTOs;
 using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class DireccionController : CustomControllerBase<DireccionDTO, DireccionCreateDTO, Direccion>
+    public class DireccionController : CustomControllerBase<DireccionDTO, DireccionCreateUpdateDTO, Direccion>
     {
         private readonly IDireccionService _service;
 
@@ -14,17 +15,6 @@ namespace ProyectCRM.Controllers
             : base(service)
         {
             _service = service;
-        }
-
-        [HttpGet("{id:guid}")]
-        public override async Task<ActionResult<DireccionDTO>> GetByIdAsync(Guid id)
-        {
-            var direccion = await _service.GetByIdWithTipoDireccionAsync(id);
-            if (direccion == null)
-            {
-                return NotFound();
-            }
-            return Ok(direccion);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace ProyectCRM.Data
             var existingEntity = await _context.Set<T>().FindAsync(entity.Id);
             if (existingEntity == null)
             {
-                return null; // or throw an exception, depending on your design choice
+                return null;
             }
             _context.Entry(existingEntity).CurrentValues.SetValues(entity);
             await _context.SaveChangesAsync();

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs.IvaCondicionDTOs
+namespace ProyectCRM.Service.DTOs.ClienteDTO
 {
-    public class CondicionIvaCreateDTO : BaseCreateDTO
+    public class ClienteUpdateCreateDTO : BaseDTO
     {
     }
 }

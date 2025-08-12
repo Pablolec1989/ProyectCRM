@@ -9,13 +9,14 @@ namespace ProyectCRM.Models.Entities
 {
     public class Visita : EntityBase
     {
+        public Guid ClienteId { get; set; }
+        public Cliente Cliente { get; set; }
+        public Guid DireccionId { get; set; }
+        public Direccion Direccion { get; set; }
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
-        public string Observaciones { get; set; } = string.Empty;
-        public Guid DireccionClienteId { get; set; }
-        public DireccionCliente DireccionCliente { get; set; }
-        public Guid VisitaUsuarioId { get; set; }
-        public ICollection<VisitasUsuarios> VisitasUsuarios { get; set; }
+        public string Observaciones { get; set; }
+        public List<VisitasUsuarios> VisitasUsuarios { get; set; } = [];
 
     }
 }

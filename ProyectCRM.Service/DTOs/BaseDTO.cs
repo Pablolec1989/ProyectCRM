@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public abstract class BaseReadUpdateDTO
+    public abstract class BaseDTO
     {
         public Guid Id { get; set; }
         public string Nombre { get; set; }

@@ -10,8 +10,8 @@ namespace ProyectCRM.Models.Entities
     public class DireccionCliente : EntityBase
     {
         public Guid ClienteId { get; set; }
-        public Guid DireccionId { get; set; }
         public Cliente Cliente { get; set; }
+        public Guid DireccionId { get; set; }
         public Direccion Direccion { get; set; }
         public ICollection<Visita> Visitas { get; set; }
     }

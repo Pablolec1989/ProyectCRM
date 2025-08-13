@@ -14,11 +14,13 @@ namespace ProyectCRM.Models.Entities
         public string Email { get; set; }
         public Guid EmpresaId { get; set; }
         public Empresa Empresa { get; set; }
-        public ICollection<DireccionCliente> Direcciones { get; set; } = [];
+        public ICollection<DireccionCliente> DireccionCliente { get; set; } = [];
+        public ICollection<Visita> Visitas { get; set; }
         public ICollection<TelefonoCliente> Telefonos { get; set; } = [];
         public ICollection<Llamado> Llamados { get; set; } = [];
         public ICollection<Mail> Mails { get; set; } = [];
         public ICollection<Seguimiento> Seguimientos { get; set; } = [];
+        
 
     }
 }

@@ -2,7 +2,8 @@
 
 namespace ProyectCRM.Service.DTOs.AreaDTOs
 {
-    public class AreaDTO : BaseDTO
+    public class AreaDTO : EntityBase
     {
+        public string Nombre { get; set; }
     }
 }

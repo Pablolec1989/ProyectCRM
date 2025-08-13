@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IAsuntoDeContactoService : IServiceBase<AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, AsuntoDeContacto>
+    public interface IAsuntoDeContactoService : IServiceBase<DTOs.AsuntoDeContactoDTO.AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, Models.Entities.AsuntoDeContacto>
     {
         //...
     }

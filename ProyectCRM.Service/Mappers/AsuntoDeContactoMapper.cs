@@ -11,33 +11,33 @@ namespace ProyectCRM.Service.Mappers
 {
     public class AsuntoDeContactoMapper : IAsuntoDeContactoMapper
     {
-        public AsuntoDeContactoDTO ToDTO(AsuntoDeContacto entity)
+        public DTOs.AsuntoDeContactoDTO.AsuntoDeContactoDTO ToDTO(Models.Entities.AsuntoDeContacto entity)
         {
-            return new AsuntoDeContactoDTO
+            return new DTOs.AsuntoDeContactoDTO.AsuntoDeContactoDTO
             {
                 Id = entity.Id,
                 Nombre = entity.Nombre,
             };
         }
 
-        public AsuntoDeContacto ToEntity(AsuntoDeContactoDTO dto)
+        public Models.Entities.AsuntoDeContacto ToEntity(DTOs.AsuntoDeContactoDTO.AsuntoDeContactoDTO dto)
         {
-            return new AsuntoDeContacto
+            return new Models.Entities.AsuntoDeContacto
             {
                 Id = dto.Id,
                 Nombre = dto.Nombre,
             };
         }
 
-        public AsuntoDeContacto ToEntity(AsuntoDeContactoUpdateCreateDTO dto)
+        public Models.Entities.AsuntoDeContacto ToEntity(AsuntoDeContactoUpdateCreateDTO dto)
         {
-            return new AsuntoDeContacto
+            return new Models.Entities.AsuntoDeContacto
             {
                 Nombre = dto.Nombre,
             };
         }
 
-        public IEnumerable<AsuntoDeContactoDTO> ToListDTO(IEnumerable<AsuntoDeContacto> entities)
+        public IEnumerable<DTOs.AsuntoDeContactoDTO.AsuntoDeContactoDTO> ToListDTO(IEnumerable<Models.Entities.AsuntoDeContacto> entities)
         {
             return entities.Select(e => ToDTO(e));
         }

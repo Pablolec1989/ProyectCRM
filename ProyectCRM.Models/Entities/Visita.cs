@@ -11,15 +11,13 @@ namespace ProyectCRM.Models.Entities
     {
         public Guid ClienteId { get; set; }
         public Cliente Cliente { get; set; }
-        public Guid DireccionId { get; set; }
-        public Direccion Direccion { get; set; }
+        public Guid DireccionClienteId { get; set; }
+        public DireccionCliente DireccionCliente { get; set; }
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
         public string Observaciones { get; set; }
-        public Guid VisitaArchivoId { get; set; }
-        public List<VisitaArchivo> Archivos { get; set; }
-        public Guid VisitasUsuariosId { get; set; }
         public List<VisitaUsuario> VisitasUsuarios { get; set; } = [];
+        public List<VisitaArchivo> Archivos { get; set; }
 
     }
 }

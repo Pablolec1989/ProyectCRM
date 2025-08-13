@@ -16,6 +16,6 @@ namespace ProyectCRM.Models.Entities
         public string Provincia { get; set; }
         public Guid TipoDireccionId { get; set; }
         public TipoDireccion TipoDireccion { get; set; }
-        public ICollection<DireccionCliente> Visitas { get; set; }
+        public ICollection<DireccionCliente> DireccionCliente { get; set; }
     }
 }

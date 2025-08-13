@@ -1,5 +1,6 @@
 ﻿using ProyectCRM.Models.Abstractions;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Service.DTOs.UsuarioDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,9 @@ namespace ProyectCRM.Service.DTOs.MailDTO
         public string Detalle { get; set; }
         public DateTime FechaMail { get; set; }
         public Guid ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
+        public ClienteDTO Cliente { get; set; }
         public Guid UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
-        public Guid AsuntoDeContactoId { get; set; }
-        public AsuntoDeContacto AsuntoDeContacto { get; set; }
+        public UsuarioDTO Usuario { get; set; }
+        public AsuntoDeContactoDTO AsuntoDeContacto { get; set; }
     }
 }

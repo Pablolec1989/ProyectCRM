@@ -20,7 +20,8 @@ namespace ProyectCRM.Service.DTOs.ClienteDTO
         public string Apellido { get; set; }
         public string Email { get; set; }
         public List<TelefonoCliente> Telefonos { get; set; }
-        public DTOs.EmpresaDTO Empresa { get; set; }
+        public Guid EmpresaId { get; set; }
+        public EmpresaDTO Empresa { get; set; }
         public List<ClienteDireccionDTO> Direcciones { get; set; } = [];
         public List<VisitaDTO> Visitas { get; set; } = [];
         public List<LlamadoDTO> Llamados { get; set; }

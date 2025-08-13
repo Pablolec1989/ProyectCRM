@@ -17,7 +17,7 @@ namespace ProyectCRM.Service.DTOs.LlamadaDTO
         public Guid UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
         public Guid AsuntoDeContactoId { get; set; }
-        public AsuntoDeContacto AsuntoDeContacto { get; set; }
+        public Models.Entities.AsuntoDeContacto AsuntoDeContacto { get; set; }
 
     }
 }

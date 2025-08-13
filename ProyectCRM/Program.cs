@@ -75,7 +75,7 @@ builder.Services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
 
 //AsuntoDeContacto
 builder.Services.AddScoped<IAsuntoDeContactoRepository, AsuntoDeContactoRepository>();
-builder.Services.AddScoped<IMapperBase<AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, AsuntoDeContacto>, AsuntoDeContactoMapper>();
+builder.Services.AddScoped<IMapperBase<AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, AsuntoDeContactoDTO>, AsuntoDeContactoMapper>();
 builder.Services.AddScoped<IAsuntoDeContactoMapper, AsuntoDeContactoMapper>();
 builder.Services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
 

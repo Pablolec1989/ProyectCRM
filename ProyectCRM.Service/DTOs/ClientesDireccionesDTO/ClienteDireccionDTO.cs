@@ -5,14 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Service.DTOs.ClientesDireccionesDTO
 {
-    public class DireccionCliente : EntityBase
+    public class ClienteDireccionDTO : EntityBase
     {
         public Guid ClienteId { get; set; }
         public Guid DireccionId { get; set; }
-        public Cliente Cliente { get; set; }
-        public Direccion Direccion { get; set; }
-        public ICollection<Visita> Visitas { get; set; }
     }
 }

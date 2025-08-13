@@ -10,5 +10,6 @@ namespace ProyectCRM.Models.Entities
     public class Rubro : EntityBase
     {
         public string Nombre { get; set; }
+        public ICollection<Empresa> Empresas { get; set; }
     }
 }

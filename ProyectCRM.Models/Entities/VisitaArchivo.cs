@@ -1,0 +1,18 @@
+﻿using ProyectCRM.Models.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProyectCRM.Models.Entities
+{
+    public class VisitaArchivo : EntityBase
+    {
+        public Guid VisitaId { get; set; }
+        public Visita Visita { get; set; }
+        public string NombreArchivo { get; set; }
+        public string RutaArchivo { get; set; }
+        public DateTime FechaSubida { get; set; }
+    }
+}

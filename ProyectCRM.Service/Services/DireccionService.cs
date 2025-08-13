@@ -17,7 +17,9 @@ namespace ProyectCRM.Service.Services
         private readonly IDireccionMapper _mapper;
         private readonly IDireccionRepository _repository;
 
-        public DireccionService(IDireccionMapper mapper, IDireccionRepository repository, IValidator<Direccion> validator) 
+        public DireccionService(IDireccionMapper mapper, 
+            IDireccionRepository repository, 
+            IValidator<Direccion> validator) 
             : base(mapper, repository, validator)
         {
             _mapper = mapper;

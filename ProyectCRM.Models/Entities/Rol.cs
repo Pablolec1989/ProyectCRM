@@ -10,6 +10,6 @@ namespace ProyectCRM.Models.Entities
     public class Rol : EntityBase
     {
         public string Nombre { get; set; }
-        public List<Usuario> Usuarios { get; set; }
+        public ICollection<Usuario> Usuarios { get; set; }
     }
 }

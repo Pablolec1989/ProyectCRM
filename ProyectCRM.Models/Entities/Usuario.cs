@@ -16,7 +16,9 @@ namespace ProyectCRM.Models.Entities
         public Rol Rol { get; set; }
         public Guid AreaId { get; set; }
         public Area Area { get; set; }
-        public Guid VisitaUsuarioId { get; set; }
-        public ICollection<VisitasUsuarios> VisitasUsuarios { get; set; }
+        public ICollection<Llamado> Llamados { get; set; }
+        public ICollection<Mail> Mails { get; set; }
+        public ICollection<Seguimiento> Seguimientos { get; set; }
+        public ICollection<VisitaUsuario> VisitasUsuarios { get; set; }
     }
 }

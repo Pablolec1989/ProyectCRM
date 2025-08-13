@@ -15,10 +15,10 @@ namespace ProyectCRM.Data
         public DbSet<TipoTelefono> TiposTelefono { get; set; }
         public DbSet<Rol> Roles { get; set; }
         public DbSet<Visita> Visitas { get; set; }
-        public DbSet<Llamada> Llamadas { get; set; }
+        public DbSet<Llamado> Llamadas { get; set; }
         public DbSet<Mail> Mails { get; set; }
         public DbSet<CondicionIva> CondicionIva { get; set; }
-        public DbSet<VisitasUsuarios> VisitasUsuarios { get; set; }
+        public DbSet<VisitaUsuario> VisitasUsuarios { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
 
@@ -50,15 +50,15 @@ namespace ProyectCRM.Data
                 .WithMany(d => d.Visitas)
                 .HasForeignKey(v => v.DireccionId);
 
-            modelBuilder.Entity<VisitasUsuarios>()
+            modelBuilder.Entity<VisitaUsuario>()
                 .HasKey(vu => new { vu.VisitaId, vu.UsuarioId });
 
-            modelBuilder.Entity<VisitasUsuarios>()
+            modelBuilder.Entity<VisitaUsuario>()
                 .HasOne(vu => vu.Visita)
                 .WithMany(v => v.VisitasUsuarios)
                 .HasForeignKey(vu => vu.VisitaId);
 
-            modelBuilder.Entity<VisitasUsuarios>()
+            modelBuilder.Entity<VisitaUsuario>()
                 .HasOne(vu => vu.Usuario)
                 .WithMany(u => u.VisitasUsuarios)
                 .HasForeignKey(vu => vu.UsuarioId);
@@ -70,7 +70,7 @@ namespace ProyectCRM.Data
                 .WithMany(r => r.Usuarios)
                 .HasForeignKey(u => u.RolId);
 
-            modelBuilder.Entity<Llamada>().ToTable("Llamadas");
+            modelBuilder.Entity<Llamado>().ToTable("Llamadas");
             modelBuilder.Entity<Mail>().ToTable("Mails");
 
         }

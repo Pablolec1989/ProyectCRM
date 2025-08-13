@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Data.Repositories
 {
-    public class VisitasUsuariosRepository : RepositoryBase<VisitasUsuarios>, IVisitasUsuarios
+    public class VisitasUsuariosRepository : RepositoryBase<VisitaUsuario>, IVisitasUsuarios
     {
         private readonly AppDbContext _context;
 
@@ -18,7 +18,7 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
-        public override async Task<VisitasUsuarios> GetByIdAsync(Guid id)
+        public override async Task<VisitaUsuario> GetByIdAsync(Guid id)
         {
             return await _context.VisitasUsuarios
                 .Include(vu => vu.Usuario)
@@ -26,7 +26,7 @@ namespace ProyectCRM.Data.Repositories
                 .FirstOrDefaultAsync(vu => vu.Id == id);
         }
 
-        public override async Task<IEnumerable<VisitasUsuarios>> GetAllAsync()
+        public override async Task<IEnumerable<VisitaUsuario>> GetAllAsync()
         {
             return await _context.VisitasUsuarios
                 .Include(vu => vu.Usuario)

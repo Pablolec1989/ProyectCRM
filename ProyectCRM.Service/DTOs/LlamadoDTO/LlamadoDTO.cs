@@ -1,14 +1,14 @@
 ﻿using ProyectCRM.Models.Abstractions;
+using ProyectCRM.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Service.DTOs.LlamadaDTO
 {
-    public class Llamada : EntityBase
+    public class LlamadoDTO : EntityBase
     {
         public string Detalle { get; set; }
         public DateTime FechaLlamado { get; set; }
@@ -18,7 +18,6 @@ namespace ProyectCRM.Models.Entities
         public Usuario Usuario { get; set; }
         public Guid AsuntoDeContactoId { get; set; }
         public AsuntoDeContacto AsuntoDeContacto { get; set; }
-
 
     }
 }

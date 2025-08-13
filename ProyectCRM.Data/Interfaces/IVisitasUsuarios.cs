@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Data.Interfaces
 {
-    public interface IVisitasUsuarios : IRepositoryBase<VisitasUsuarios>
+    public interface IVisitasUsuarios : IRepositoryBase<VisitaUsuario>
     {
     }
 }

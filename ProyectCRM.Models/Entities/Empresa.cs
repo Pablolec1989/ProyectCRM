@@ -12,10 +12,12 @@ namespace ProyectCRM.Models.Entities
         public string RazonSocial { get; set; }
         public string CUIT { get; set; }
         public string CUIL { get; set; }
+        public Guid ClienteId { get; set; }
+        public Cliente Cliente { get; set; }
+        public Guid CondicionIvaId { get; set; }
+        public CondicionIva CondicionIva { get; set; }
         public Guid RubroId { get; set; }
         public Rubro Rubro { get; set; }
-        public Guid IvaCondicionId { get; set; }
-        public CondicionIva CondicionIva { get; set; }
 
     }
 }

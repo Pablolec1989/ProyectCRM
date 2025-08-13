@@ -10,5 +10,6 @@ namespace ProyectCRM.Models.Entities
     public class TipoTelefono : EntityBase
     {
         public string Nombre { get; set; }
+        public ICollection<TelefonoCliente> TelefonosClientes { get; set; }
     }
 }

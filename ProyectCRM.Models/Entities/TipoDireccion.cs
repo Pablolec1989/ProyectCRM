@@ -10,5 +10,6 @@ namespace ProyectCRM.Models.Entities
     public class TipoDireccion : EntityBase
     {
         public string Nombre { get; set; }
+        public ICollection<Direccion> Direcciones { get; set; }
     }
 }

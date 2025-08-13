@@ -16,7 +16,10 @@ namespace ProyectCRM.Models.Entities
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
         public string Observaciones { get; set; }
-        public List<VisitasUsuarios> VisitasUsuarios { get; set; } = [];
+        public Guid VisitaArchivoId { get; set; }
+        public List<VisitaArchivo> Archivos { get; set; }
+        public Guid VisitasUsuariosId { get; set; }
+        public List<VisitaUsuario> VisitasUsuarios { get; set; } = [];
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.IvaCondicionDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;

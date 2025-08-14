@@ -1,10 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.AreaDTOs;
-using ProyectCRM.Service.DTOs.RolDTOs;
-using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
-using ProyectCRM.Service.DTOs.UsuarioDTOs;
-using ProyectCRM.Service.DTOs.VisitaDTOs;
-using ProyectCRM.Service.DTOs.VisitaUsuarioDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,34 +16,62 @@ namespace ProyectCRM.Service.Mappers
             return new VisitaDTO
             {
                 Id = entity.Id,
-                Cliente = entity.Cliente,
-                Direccion = entity.Direccion,
+                Cliente = new ClienteDTO
+                {
+                    Id = entity.Cliente.Id,
+                    Nombre = entity.Cliente.Nombre,
+                    Apellido = entity.Cliente.Apellido,
+                    Empresa = new EmpresaDTO
+                    {
+                        RazonSocial = entity.Cliente.Empresa.RazonSocial,
+                        Rubro = new RubroDTO
+                        {
+                            Id = entity.Cliente.Empresa.Rubro.Id,
+                            Nombre = entity.Cliente.Empresa.Rubro.Nombre
+                        },
+
+                    }
+                },
+                DireccionCliente = new DireccionClienteDTO
+                {
+                    Direccion = new DireccionDTO
+                    {
+                        Calle = entity.DireccionCliente.Direccion.Calle,
+                        Numero = entity.DireccionCliente.Direccion.Numero,
+                        Ciudad = entity.DireccionCliente.Direccion.Ciudad,
+                        Provincia = entity.DireccionCliente.Direccion.Provincia,
+                        CodigoPostal = entity.DireccionCliente.Direccion.CodigoPostal,
+                        TipoDireccion = new TipoDireccionDTO
+                        {
+                            Nombre = entity.DireccionCliente.Direccion.TipoDireccion.Nombre
+                        }
+                    }
+                },
                 FechaProgramada = entity.FechaProgramada,
                 FechaRealizada = entity.FechaRealizada,
                 Observaciones = entity.Observaciones,
-                Usuarios = entity.VisitasUsuarios?.Select(vu => new VisitasUsuariosDTO
+                Usuarios = new List<VisitasUsuariosDTO?>(entity.VisitasUsuarios
+                .Select(vu => new VisitasUsuariosDTO
                 {
-                    Usuarios = new List<UsuarioDTO>
-                    {
-                        new UsuarioDTO
+                    Usuarios = vu.Usuario != null ? new List<UsuarioDTO?>
                         {
-                            Nombre = vu.Usuario.Nombre,
-                            Apellido = vu.Usuario.Apellido,
-                            Rol = new RolDTO
+                            new UsuarioDTO
                             {
-                                Id = vu.Usuario.Rol.Id,
-                                Nombre = vu.Usuario.Rol.Nombre
-                            },
-                            Area = new AreaDTO
-                            {
-                                Id = vu.Usuario.Area.Id,
-                                Nombre = vu.Usuario.Area.Nombre
-                            },
-                        }
-                    }
-                }).ToList()
-            };
+                                Id = vu.Usuario.Id,
+                                Nombre = vu.Usuario.Nombre,
+                                Apellido = vu.Usuario.Apellido
+                            }
+                        } : new List<UsuarioDTO?>()
 
+                }).ToList()),
+                Archivos = entity.Archivos?.Select(a => new VisitaArchivoDTO
+                {
+                    NombreArchivo = a.NombreArchivo,
+                    RutaArchivo = a.RutaArchivo,
+                    FechaSubida = a.FechaSubida,
+
+                }).ToList() ?? new List<VisitaArchivoDTO>()
+            };
         }
 
         public Visita ToEntity(VisitaDTO dto)

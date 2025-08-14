@@ -23,6 +23,8 @@ namespace ProyectCRM.Data
         public DbSet<VisitaUsuario> VisitasUsuarios { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<DireccionCliente> DireccionesClientes { get; set; }
+        public DbSet<Seguimiento> Seguimientos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

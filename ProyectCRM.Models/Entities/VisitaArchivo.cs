@@ -14,5 +14,8 @@ namespace ProyectCRM.Models.Entities
         public DateTime FechaSubida { get; set; }
         public Guid VisitaId { get; set; }
         public Visita Visita { get; set; }
+        public Guid EmpresaId { get; set; }
+        public Empresa Empresa { get; set; }
+        
     }
 }

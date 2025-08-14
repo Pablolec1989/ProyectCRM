@@ -1,7 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.DireccionDTO;
-using ProyectCRM.Service.DTOs.DireccionDTOs;
-using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,7 +23,6 @@ namespace ProyectCRM.Service.Mappers
                 Provincia = entity.Provincia,
                 TipoDireccion = new TipoDireccionDTO
                 {
-                    Id = entity.TipoDireccionId,
                     Nombre = entity.TipoDireccion.Nombre
                 }
             };

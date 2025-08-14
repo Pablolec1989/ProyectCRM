@@ -2,7 +2,7 @@
 using ProyectCRM.Data;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;

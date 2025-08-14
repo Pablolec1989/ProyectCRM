@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.DireccionDTO;
-using ProyectCRM.Service.DTOs.DireccionDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;

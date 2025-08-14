@@ -1,6 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.DireccionDTO;
-using ProyectCRM.Service.DTOs.DireccionDTOs;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

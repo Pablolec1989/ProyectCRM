@@ -1,6 +1,6 @@
 ﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Service;
-using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers

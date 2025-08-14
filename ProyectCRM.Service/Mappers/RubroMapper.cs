@@ -1,5 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.RubroDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,10 @@ namespace ProyectCRM.Service.Mappers
             {
                 Id = entity.Id,
                 Nombre = entity.Nombre,
+                Empresas = new List<EmpresaDTO>(entity.Empresas.Select(e => new EmpresaDTO
+                {
+                    RazonSocial = e.RazonSocial,
+                }))
             };
         }
 
@@ -29,7 +33,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Rubro ToEntity(RubroCreateDTO dto)
+        public Rubro ToEntity(RubroUpdateCreateDTO dto)
         {
             return new Rubro
             {

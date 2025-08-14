@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.RubroDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class RubroService : ServiceBase<RubroDTO, RubroCreateDTO, Rubro>, IRubroService
+    public class RubroService : ServiceBase<RubroDTO, RubroUpdateCreateDTO, Rubro>, IRubroService
     {
-        public RubroService(IMapperBase<RubroDTO, RubroCreateDTO, Rubro> mapper, 
+        public RubroService(IMapperBase<RubroDTO, RubroUpdateCreateDTO, Rubro> mapper, 
             IRubroRepository repository, IValidator<Rubro> validator) 
             : base(mapper, repository, validator)
         {

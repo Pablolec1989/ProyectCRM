@@ -1,9 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.AreaDTOs;
-using ProyectCRM.Service.DTOs.RolDTOs;
-using ProyectCRM.Service.DTOs.UsuarioDTOs;
-using ProyectCRM.Service.DTOs.VisitaDTOs;
-using ProyectCRM.Service.DTOs.VisitaUsuarioDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;

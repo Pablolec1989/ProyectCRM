@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.ClienteDTO;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace ProyectCRM.Service.Validators
             RuleFor(c=> c.Nombre)
                 .NotEmpty().WithMessage("El nombre es obligatorio.")
                 .MaximumLength(50).WithMessage("El nombre no puede tener más de 50 caracteres.");
-            RuleFor(c => c.)
+            RuleFor(c => c.Apellido)
                 .NotEmpty().WithMessage("El apellido es obligatorio.")
                 .MaximumLength(50).WithMessage("El apellido no puede tener más de 50 caracteres.");
             RuleFor(c => c.Email)

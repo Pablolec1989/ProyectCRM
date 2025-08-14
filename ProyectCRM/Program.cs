@@ -7,15 +7,8 @@ using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Data.Repositories;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service;
-using ProyectCRM.Service.DTOs.AreaDTOs;
-using ProyectCRM.Service.DTOs.AsuntoDeContactoDTO;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.DTOs.DireccionDTO;
-using ProyectCRM.Service.DTOs.DireccionDTOs;
-using ProyectCRM.Service.DTOs.IvaCondicionDTOs;
-using ProyectCRM.Service.DTOs.RolDTOs;
-using ProyectCRM.Service.DTOs.RubroDTOs;
-using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
-using ProyectCRM.Service.DTOs.TipoTelefonoDTO;
 using ProyectCRM.Service.Interfaces;
 using ProyectCRM.Service.Mappers;
 using ProyectCRM.Service.Services;
@@ -51,7 +44,7 @@ builder.Services.AddScoped<IValidator<Area>, AreaValidator>();
 
 // Rubros
 builder.Services.AddScoped<IRubroRepository, RubroRepository>();
-builder.Services.AddScoped<IMapperBase<RubroDTO, RubroCreateDTO, Rubro>, RubroMapper>();
+builder.Services.AddScoped<IMapperBase<RubroDTO, RubroUpdateCreateDTO, Rubro>, RubroMapper>();
 builder.Services.AddScoped<IRubroMapper, RubroMapper>();
 builder.Services.AddScoped<IRubroService, RubroService>();
 

@@ -36,4 +36,5 @@ namespace ProyectCRM.Data.Repositories
                 .Include(e => e.Rubro)
                 .ToListAsync();
         }
+    }
 }

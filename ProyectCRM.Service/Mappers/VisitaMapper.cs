@@ -50,8 +50,8 @@ namespace ProyectCRM.Service.Mappers
                 FechaProgramada = entity.FechaProgramada,
                 FechaRealizada = entity.FechaRealizada,
                 Observaciones = entity.Observaciones,
-                Usuarios = new List<VisitasUsuariosDTO?>(entity.VisitasUsuarios
-                .Select(vu => new VisitasUsuariosDTO
+                Usuarios = new List<VisitaUsuarioDTO?>(entity.VisitasUsuarios
+                .Select(vu => new VisitaUsuarioDTO
                 {
                     Usuarios = vu.Usuario != null ? new List<UsuarioDTO?>
                         {

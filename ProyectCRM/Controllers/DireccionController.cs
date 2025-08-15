@@ -2,12 +2,11 @@
 using ProyectCRM.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.DTOs.DireccionDTO;
 using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class DireccionController : CustomControllerBase<DireccionDTO, DireccionCreateUpdateDTO, Direccion>
+    public class DireccionController : CustomControllerBase<DireccionDTO, DireccionUpdateCreateDTO, Direccion>
     {
         private readonly IDireccionService _service;
 

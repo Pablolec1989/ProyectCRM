@@ -14,7 +14,7 @@ namespace ProyectCRM.Service.DTOs
         public string Apellido { get; set; }
         public RolDTO Rol { get; set; }
         public AreaDTO Area { get; set; }
-        public List<VisitasUsuariosDTO> Visitas { get; set; } = [];
+        public List<VisitaUsuarioDTO> Visitas { get; set; } = [];
 
     }
 }

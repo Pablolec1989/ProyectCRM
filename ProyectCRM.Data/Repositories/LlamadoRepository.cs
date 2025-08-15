@@ -34,4 +34,5 @@ namespace ProyectCRM.Data.Repositories
                 .Include(ll => ll.Area)
                 .ToListAsync();
         }
+    }
 }

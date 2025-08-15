@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class DireccionService : ServiceBase<DireccionDTO, DireccionCreateUpdateDTO, Direccion>, IDireccionService
+    public class DireccionService : ServiceBase<DireccionDTO, DireccionUpdateCreateDTO, Direccion>, IDireccionService
     {
         private readonly IDireccionMapper _mapper;
         private readonly IDireccionRepository _repository;

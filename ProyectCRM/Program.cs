@@ -8,10 +8,11 @@ using ProyectCRM.Data.Repositories;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service;
 using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.DTOs.DireccionDTO;
 using ProyectCRM.Service.Interfaces;
 using ProyectCRM.Service.Mappers;
 using ProyectCRM.Service.Services;
+using ProyectCRM.Service.Utilities;
+using ProyectCRM.Service.Validators;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddControllers(); // Required for attribute routing and control
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//CORS Config
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAll",
         builder => builder.AllowAnyOrigin()
@@ -34,55 +36,108 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddHttpContextAccessor();
+
+//Almacenador archivos local
+builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
+
 // Configuración de servicios:
 // Areas
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<IMapperBase<AreaDTO, AreaUpdateCreateDTO, Area>, AreaMapper>();
 builder.Services.AddScoped<IAreaMapper, AreaMapper>();
 builder.Services.AddScoped<IAreaService, AreaService>();
-builder.Services.AddScoped<IValidator<Area>, AreaValidator>();
+builder.Services.AddScoped<IValidator, AreaValidator>();
+
+//AsuntoDeContacto
+builder.Services.AddScoped<IAsuntoDeContactoRepository, AsuntoDeContactoRepository>();
+builder.Services.AddScoped<IAsuntoDeContactoMapper, AsuntoDeContactoMapper>();
+builder.Services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
+builder.Services.AddScoped<IValidator, AsuntoDeContactoValidator>();
+
+//Clientes
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IClienteMapper, ClienteMapper>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IValidator, ClienteValidator>();
+
+//CondicionIva
+builder.Services.AddScoped<ICondicionIvaRepository, CondicionIvaRepository>();
+builder.Services.AddScoped<ICondicionIvaMapper, CondicionIvaMapper>();
+builder.Services.AddScoped<ICondicionIvaService, CondicionIvaService>();
+builder.Services.AddScoped<IValidator, CondicionIvaValidator>();
+
+//Direcciones
+builder.Services.AddScoped<IDireccionRepository, DireccionRepository>();
+builder.Services.AddScoped<IDireccionMapper, DireccionMapper>();
+builder.Services.AddScoped<IDireccionService, DireccionService>();
+builder.Services.AddScoped<IValidator, DireccionValidator>();
+
+//Empresas
+builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+builder.Services.AddScoped<IEmpresaMapper, EmpresaMapper>();
+builder.Services.AddScoped<IEmpresaService, EmpresaService>();
+builder.Services.AddScoped<IValidator, EmpresaValidator>();
+
+//Llamadas
+builder.Services.AddScoped<ILlamadoRepository, LlamadoRepository>();
+builder.Services.AddScoped<ILlamadoMapper, LlamadoMapper>();
+builder.Services.AddScoped<ILlamadoService, LlamadoService>();
+builder.Services.AddScoped<IValidator, LlamadoValidator>();
+
+//Mails
+builder.Services.AddScoped<IMailRepository, MailRepository>();
+builder.Services.AddScoped<IMailMapper, MailMapper>();
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IValidator, MailValidator>();
 
 // Rubros
 builder.Services.AddScoped<IRubroRepository, RubroRepository>();
 builder.Services.AddScoped<IMapperBase<RubroDTO, RubroUpdateCreateDTO, Rubro>, RubroMapper>();
 builder.Services.AddScoped<IRubroMapper, RubroMapper>();
 builder.Services.AddScoped<IRubroService, RubroService>();
-
-//Direcciones
-builder.Services.AddScoped<IDireccionRepository, DireccionRepository>();
-builder.Services.AddScoped<IMapperBase<DireccionDTO, DireccionCreateUpdateDTO, Direccion>, DireccionMapper>();
-builder.Services.AddScoped<IDireccionMapper, DireccionMapper>();
-builder.Services.AddScoped<IDireccionService, DireccionService>();
-
-// Tipos de Direccion
-builder.Services.AddScoped<ITipoDireccionRepository, TipoDireccionRepository>();
-builder.Services.AddScoped<IMapperBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion>, TipoDireccionMapper>();
-builder.Services.AddScoped<ITipoDireccionMapper, TipoDireccionMapper>();
-builder.Services.AddScoped<ITipoDireccionService, TipoDireccionService>();
-
-//TiposTelefono
-builder.Services.AddScoped<ITipoTelefonoRepository, TipoTelefonoRepository>();
-builder.Services.AddScoped<IMapperBase<TipoTelefonoDTO, TipoTelefonoUpdateCreateDTO, TipoTelefono>, TipoTelefonoMapper>();
-builder.Services.AddScoped<ITipoTelefonoMapper, TipoTelefonoMapper>();
-builder.Services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
-
-//AsuntoDeContacto
-builder.Services.AddScoped<IAsuntoDeContactoRepository, AsuntoDeContactoRepository>();
-builder.Services.AddScoped<IMapperBase<AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, AsuntoDeContactoDTO>, AsuntoDeContactoMapper>();
-builder.Services.AddScoped<IAsuntoDeContactoMapper, AsuntoDeContactoMapper>();
-builder.Services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
-
-//CondicionIva
-builder.Services.AddScoped<ICondicionIvaRepository, CondicionIvaRepository>();
-builder.Services.AddScoped<IMapperBase<CondicionIvaDTO, CondicionIvaUpdateCreateDTO, CondicionIva>, CondicionIvaMapper>();
-builder.Services.AddScoped<ICondicionIvaMapper, CondicionIvaMapper>();
-builder.Services.AddScoped<ICondicionIvaService, CondicionIvaService>();
+builder.Services.AddScoped<IValidator, RubroValidator>();
 
 //Roles
 builder.Services.AddScoped<IRolRepository, RolRepository>();
-builder.Services.AddScoped<IMapperBase<RolDTO, RolUpdateCreateDTO, Rol>, RolMapper>();
 builder.Services.AddScoped<IRolMapper, RolMapper>();
 builder.Services.AddScoped<IRolService, RolService>();
+builder.Services.AddScoped<IValidator, RolValidator>();
+
+//Rubros
+builder.Services.AddScoped<IRubroRepository, RubroRepository>();
+builder.Services.AddScoped<IRubroMapper, RubroMapper>();
+builder.Services.AddScoped<IRubroService, RubroService>();
+builder.Services.AddScoped<IValidator, RubroValidator>();
+
+//Seguimientos
+
+//TelefonoCliente
+
+// Tipos de Direccion
+builder.Services.AddScoped<ITipoDireccionRepository, TipoDireccionRepository>();
+builder.Services.AddScoped<ITipoDireccionMapper, TipoDireccionMapper>();
+builder.Services.AddScoped<ITipoDireccionService, TipoDireccionService>();
+builder.Services.AddScoped<IValidator, TipoDireccionValidator>();
+
+//TiposTelefono
+builder.Services.AddScoped<ITipoTelefonoRepository, TipoTelefonoRepository>();
+builder.Services.AddScoped<ITipoTelefonoMapper, TipoTelefonoMapper>();
+builder.Services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
+builder.Services.AddScoped<IValidator, TipoTelefonoValidator>();
+
+//Usuarios
+
+//Visitas
+
+//VisitaArchivo
+
+// VisitaUsuario
+
+
+
+
+
 
 
 //Fluent Validation
@@ -97,6 +152,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseCors("AllowAll");
 app.UseAuthorization();
 

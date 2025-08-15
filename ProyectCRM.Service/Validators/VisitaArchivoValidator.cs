@@ -15,8 +15,6 @@ namespace ProyectCRM.Service.Validators
             RuleFor(x => x.NombreArchivo)
                 .NotEmpty().WithMessage("El nombre del archivo es obligatorio.")
                 .MaximumLength(255).WithMessage("El nombre del archivo no puede exceder los 255 caracteres.");
-            RuleFor(x => x.RutaArchivo)
-                .NotNull().WithMessage("La ruta del archivo es obligatoria.");
         }
     }
 }

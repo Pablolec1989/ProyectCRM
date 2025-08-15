@@ -16,7 +16,7 @@ namespace ProyectCRM.Service.DTOs
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
         public string Observaciones { get; set; }
-        public List<VisitasUsuariosDTO?> Usuarios { get; set; } = [];
+        public List<VisitaUsuarioDTO?> Usuarios { get; set; } = [];
         public List<VisitaArchivoDTO> Archivos { get; set; }
     }
 }

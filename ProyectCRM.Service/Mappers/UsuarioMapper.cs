@@ -28,7 +28,7 @@ namespace ProyectCRM.Service.Mappers
                     Id = entity.AreaId,
                     Nombre = entity.Area.Nombre
                 },
-                Visitas = entity.VisitasUsuarios.Select(v => new VisitasUsuariosDTO
+                Visitas = entity.VisitasUsuarios.Select(v => new VisitaUsuarioDTO
                 {
                     Visitas = v.Visita != null ? new List<VisitaDTO> { new VisitaDTO
                     {

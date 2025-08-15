@@ -61,7 +61,7 @@ namespace ProyectCRM.Data
                 .HasForeignKey(d => d.ClienteId);
 
             modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.Telefonos)
+                .HasMany(c => c.TelefonoCliente)
                 .WithOne(tc => tc.Cliente)
                 .HasForeignKey(tc => tc.ClienteId);
 
@@ -193,7 +193,7 @@ namespace ProyectCRM.Data
             //TelefonoCliente configuration
             modelBuilder.Entity<TelefonoCliente>().ToTable("TelefonosClientes")
                 .HasOne(tc => tc.Cliente)
-                .WithMany(c => c.Telefonos)
+                .WithMany(c => c.TelefonoCliente)
                 .HasForeignKey(tc => tc.ClienteId);
 
             modelBuilder.Entity<TelefonoCliente>().ToTable("TelefonosClientes")

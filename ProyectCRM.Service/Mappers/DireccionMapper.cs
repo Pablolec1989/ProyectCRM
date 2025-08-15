@@ -41,7 +41,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Direccion ToEntity(DireccionCreateUpdateDTO dto)
+        public Direccion ToEntity(DireccionUpdateCreateDTO dto)
         {
             return new Direccion
             {

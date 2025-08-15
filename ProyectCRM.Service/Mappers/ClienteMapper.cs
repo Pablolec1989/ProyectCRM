@@ -23,11 +23,14 @@ namespace ProyectCRM.Service.Mappers
                 {
                     Id = tc.Id,
                     Numero = tc.Numero,
-                    TipoTelefono = new List<TipoTelefonoDTO>(tc.TipoTelefono.Select(tt => new TipoTelefonoDTO
+                    TipoTelefono = new List<TipoTelefonoDTO>()
                     {
-                        Id = tt.Id,
-                        Nombre = tt.Nombre
-                    })),
+                        new TipoTelefonoDTO
+                        {
+                            Id = tc.TipoTelefono.Id,
+                            Nombre = tc.TipoTelefono.Nombre
+                        }
+                    }
                 }).ToList(),
                 Empresa = new EmpresaDTO
                 {
@@ -102,8 +105,7 @@ namespace ProyectCRM.Service.Mappers
                 }).ToList(),
 
 
-            })),
-            }
+            };
         }
 
         public Cliente ToEntity(ClienteDTO dto)

@@ -1,4 +1,5 @@
-﻿using ProyectCRM.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IDireccionService : IServiceBase<DireccionDTO, DireccionUpdateCreateDTO, Direccion>
+    public interface IMailService : IServiceBase<MailDTO, MailUpdateCreateDTO, Mail>
     {
     }
 }

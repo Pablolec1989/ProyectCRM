@@ -15,7 +15,7 @@ namespace ProyectCRM.Data.Repositories
 
         public VisitaArchivoRepository(AppDbContext context) : base(context)
         {
-           _context = context;
+            _context = context;
         }
 
         public override async Task<VisitaArchivo> GetByIdAsync(Guid id)
@@ -31,4 +31,6 @@ namespace ProyectCRM.Data.Repositories
                 .Include(v => v.Visita)
                 .ToListAsync();
         }
+    }
 }
+

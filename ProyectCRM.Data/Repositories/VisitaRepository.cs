@@ -22,7 +22,7 @@ namespace ProyectCRM.Data.Repositories
         {
             return await _context.Visitas
                 .Include(v => v.Cliente).ThenInclude(c => c.Empresa)
-                .Include(v => v.DireccionCliente).ThenInclude(d => d.Direccion).ThenInclude(d => d.TipoDireccion)
+                .Include(v => v.Direccion).ThenInclude(d => d.TipoDireccion)
                 .Include(v => v.VisitasUsuarios).ThenInclude(vu => vu.Usuario)
                 .FirstOrDefaultAsync(v => v.Id == id);
         }
@@ -30,7 +30,7 @@ namespace ProyectCRM.Data.Repositories
         {
             return await _context.Visitas
                 .Include(v => v.Cliente).ThenInclude(c => c.Empresa)
-                .Include(v => v.DireccionCliente).ThenInclude(d => d.Direccion).ThenInclude(d => d.TipoDireccion)
+                .Include(v => v.Direccion).ThenInclude(d => d.TipoDireccion)
                 .Include(v => v.VisitasUsuarios).ThenInclude(vu => vu.Usuario)
                 .ToListAsync();
         }

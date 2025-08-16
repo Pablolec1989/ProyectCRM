@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -12,10 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class VisitaService : ServiceBase<VisitaDTO, VisitaUpdateCreateDTO, Visita>, IVisitaService
+    public class TelefonoClienteService : ServiceBase<TelefonoClienteDTO, TelefonoClienteUpdateCreateDTO, TelefonoCliente>, ITelefonoClienteService
     {
-        public VisitaService(IVisitaMapper mapper, IVisitaRepository repository, IValidator<Visita> validator) 
-            : base(mapper, repository, validator)
+        public TelefonoClienteService(ITelefonoClienteMapper mapper, ITelefonoClienteRepository repository, IValidator<TelefonoCliente> validator) : base(mapper, repository, validator)
         {
         }
     }

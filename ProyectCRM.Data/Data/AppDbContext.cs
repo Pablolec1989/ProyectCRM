@@ -7,7 +7,7 @@ namespace ProyectCRM.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<Area> Areas { get; set; }
-        public DbSet<VisitaArchivo> VisitasArchivos { get; set; }
+        public DbSet<Archivo> Archivos { get; set; }
         public DbSet<TelefonoCliente> TelefonosClientes { get; set; }
         public DbSet<Rubro> Rubros { get; set; }
         public DbSet<AsuntoDeContacto> AsuntosDeContacto { get; set; }
@@ -23,7 +23,6 @@ namespace ProyectCRM.Data
         public DbSet<VisitaUsuario> VisitasUsuarios { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
-        public DbSet<DireccionCliente> DireccionesClientes { get; set; }
         public DbSet<Seguimiento> Seguimientos { get; set; }
 
 
@@ -56,7 +55,7 @@ namespace ProyectCRM.Data
 
             //Cliente configuration
             modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.DireccionCliente)
+                .HasMany(c => c.Direccion)
                 .WithOne(d => d.Cliente)
                 .HasForeignKey(d => d.ClienteId);
 
@@ -80,34 +79,6 @@ namespace ProyectCRM.Data
                 .HasMany(ci => ci.Empresas)
                 .WithOne(e => e.CondicionIva)
                 .HasForeignKey(e => e.CondicionIvaId);
-
-            //Direccion configuration
-            modelBuilder.Entity<Direccion>().ToTable("Direcciones")
-                .HasMany(d => d.DireccionCliente)
-                .WithOne(v => v.Direccion)
-                .HasForeignKey(v => v.DireccionId);
-
-            //Direccion configuration
-            modelBuilder.Entity<Direccion>().ToTable("Direcciones")
-                .HasMany(d => d.DireccionCliente)
-                .WithOne(v => v.Direccion)
-                .HasForeignKey(v => v.DireccionId);
-
-            //DireccionCliente configuration
-            modelBuilder.Entity<DireccionCliente>().ToTable("DireccionesClientes")
-                .HasOne(dc => dc.Cliente)
-                .WithMany(c => c.DireccionCliente)
-                .HasForeignKey(dc => dc.ClienteId);
-
-            modelBuilder.Entity<DireccionCliente>().ToTable("DireccionesClientes")
-                .HasOne(dc => dc.Direccion)
-                .WithMany(d => d.DireccionCliente)
-                .HasForeignKey(dc => dc.DireccionId);
-
-            modelBuilder.Entity<DireccionCliente>().ToTable("DireccionesClientes")
-                .HasMany(dc => dc.Visitas)
-                .WithOne(v => v.DireccionCliente)
-                .HasForeignKey(v => v.DireccionClienteId);
 
             //TipoTelefono configuration
             modelBuilder.Entity<TipoTelefono>().ToTable("TiposTelefono")
@@ -251,11 +222,6 @@ namespace ProyectCRM.Data
                 .HasForeignKey(v => v.ClienteId);
 
             modelBuilder.Entity<Visita>().ToTable("Visitas")
-                .HasOne(v => v.DireccionCliente)
-                .WithMany(dc => dc.Visitas)
-                .HasForeignKey(v => v.DireccionClienteId);
-
-            modelBuilder.Entity<Visita>().ToTable("Visitas")
                 .HasMany(v => v.Archivos)
                 .WithOne(va => va.Visita)
                 .HasForeignKey(va => va.VisitaId);
@@ -266,7 +232,7 @@ namespace ProyectCRM.Data
                 .HasForeignKey(vu => vu.VisitaId);
 
             //VisitaArchivo configuration
-            modelBuilder.Entity<VisitaArchivo>().ToTable("VisitasArchivos")
+            modelBuilder.Entity<Archivo>().ToTable("VisitasArchivos")
                 .HasOne(va => va.Visita)
                 .WithMany(v => v.Archivos)
                 .HasForeignKey(va => va.VisitaId);

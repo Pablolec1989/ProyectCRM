@@ -13,8 +13,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class VisitaArchivoService
+    public class ArchivoService : ServiceBase<ArchivoDTO, ArchivoUpdateCreateDTO, Archivo>, IArchivoService
     {
+        public ArchivoService(IArchivoMapper mapper, IArchivoRepository repository, IValidator<Archivo> validator) : base(mapper, repository, validator)
+        {
+        }
     }
         
 }

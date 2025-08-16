@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class VisitaArchivoValidator : AbstractValidator<VisitaArchivoUpdateCreateDTO>
+    public class ArchivoValidator : AbstractValidator<ArchivoUpdateCreateDTO>
     {
-        public VisitaArchivoValidator()
+        public ArchivoValidator()
         {
             RuleFor(x => x.NombreArchivo)
                 .NotEmpty().WithMessage("El nombre del archivo es obligatorio.")

@@ -14,7 +14,7 @@ namespace ProyectCRM.Service.DTOs
         public string Ciudad { get; set; }
         public string CodigoPostal { get; set; }
         public string Provincia { get; set; }
+        public ICollection<DireccionDTO> Direccion { get; set; }
         public TipoDireccionDTO TipoDireccion { get; set; }
-        public ICollection<DireccionClienteDTO> DireccionCliente { get; set; }
     }
 }

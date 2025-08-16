@@ -14,8 +14,10 @@ namespace ProyectCRM.Models.Entities
         public string Ciudad { get; set; }
         public string CodigoPostal { get; set; }
         public string Provincia { get; set; }
+        public Guid ClienteId { get; set; }
+        public Cliente Cliente { get; set; }
         public Guid TipoDireccionId { get; set; }
         public TipoDireccion TipoDireccion { get; set; }
-        public ICollection<DireccionCliente> DireccionCliente { get; set; }
+        public ICollection<Direccion> Direcciones { get; set; }
     }
 }

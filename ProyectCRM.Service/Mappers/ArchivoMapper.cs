@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Mappers
 {
-    public class VisitaArchivoMapper : IVisitaArchivoMapper
+    public class ArchivoMapper : IArchivoMapper
     {
-        public VisitaArchivoDTO ToDTO(VisitaArchivo entity)
+        public ArchivoDTO ToDTO(Archivo entity)
         {
-            return new VisitaArchivoDTO
+            return new ArchivoDTO
             {
                 Id = entity.Id,
                 NombreArchivo = entity.NombreArchivo,
@@ -29,9 +29,9 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public VisitaArchivo ToEntity(VisitaArchivoDTO dto)
+        public Archivo ToEntity(ArchivoDTO dto)
         {
-            return new VisitaArchivo
+            return new Archivo
             {
                 Id = dto.Id,
                 NombreArchivo = dto.NombreArchivo,
@@ -40,9 +40,9 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public VisitaArchivo ToEntity(VisitaArchivoUpdateCreateDTO dto)
+        public Archivo ToEntity(ArchivoUpdateCreateDTO dto)
         {
-            return new VisitaArchivo
+            return new Archivo
             {
                 NombreArchivo = dto.NombreArchivo,
                 RutaArchivo = dto.RutaArchivo?.FileName,
@@ -52,7 +52,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public IEnumerable<VisitaArchivoDTO> ToListDTO(IEnumerable<VisitaArchivo> entities)
+        public IEnumerable<ArchivoDTO> ToListDTO(IEnumerable<Archivo> entities)
         {
             return entities.Select(e => ToDTO(e));
         }

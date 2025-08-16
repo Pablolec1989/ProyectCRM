@@ -36,15 +36,13 @@ namespace ProyectCRM.Service.Mappers
                 {
                     Direccion = new DireccionDTO
                     {
-                        Calle = entity.DireccionCliente.Direccion.Calle,
-                        Numero = entity.DireccionCliente.Direccion.Numero,
-                        Ciudad = entity.DireccionCliente.Direccion.Ciudad,
-                        Provincia = entity.DireccionCliente.Direccion.Provincia,
-                        CodigoPostal = entity.DireccionCliente.Direccion.CodigoPostal,
-                        TipoDireccion = new TipoDireccionDTO
-                        {
-                            Nombre = entity.DireccionCliente.Direccion.TipoDireccion.Nombre
-                        }
+                        Id = entity.DireccionClienteId,
+                        Calle = entity.Direccion.Calle,
+                        Numero = entity.Direccion.Numero,
+                        Ciudad = entity.Direccion.Ciudad,
+                        Provincia = entity.Direccion.Provincia,
+                        CodigoPostal = entity.Direccion.CodigoPostal
+
                     }
                 },
                 FechaProgramada = entity.FechaProgramada,
@@ -53,24 +51,31 @@ namespace ProyectCRM.Service.Mappers
                 Usuarios = new List<VisitaUsuarioDTO?>(entity.VisitasUsuarios
                 .Select(vu => new VisitaUsuarioDTO
                 {
-                    Usuarios = vu.Usuario != null ? new List<UsuarioDTO?>
+                    Usuario = new UsuarioDTO
+                    {
+                        Id = vu.Usuario.Id,
+                        Nombre = vu.Usuario.Nombre,
+                        Apellido = vu.Usuario.Apellido,
+                        Rol = new RolDTO
                         {
-                            new UsuarioDTO
-                            {
-                                Id = vu.Usuario.Id,
-                                Nombre = vu.Usuario.Nombre,
-                                Apellido = vu.Usuario.Apellido
-                            }
-                        } : new List<UsuarioDTO?>()
+                            Id = vu.Usuario.RolId,
+                            Nombre = vu.Usuario.Rol.Nombre
+                        },
+                        Area = new AreaDTO
+                        {
+                            Id = vu.Usuario.AreaId,
+                            Nombre = vu.Usuario.Area.Nombre
+                        }
+                    },
 
                 }).ToList()),
-                Archivos = entity.Archivos?.Select(a => new VisitaArchivoDTO
+                Archivos = entity.Archivos?.Select(a => new ArchivoDTO
                 {
                     NombreArchivo = a.NombreArchivo,
                     RutaArchivo = a.RutaArchivo,
                     FechaSubida = a.FechaSubida,
 
-                }).ToList() ?? new List<VisitaArchivoDTO>()
+                }).ToList() ?? new List<ArchivoDTO>()
             };
         }
 

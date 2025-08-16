@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using ProyectCRM.Models.Entities;
+﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IVisitaService : IServiceBase<VisitaDTO, VisitaUpdateCreateDTO, Visita>
+    public interface IArchivoService : IServiceBase<ArchivoDTO, ArchivoUpdateCreateDTO, Archivo>
     {
     }
 }

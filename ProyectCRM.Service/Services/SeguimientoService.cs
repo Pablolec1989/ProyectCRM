@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -12,10 +12,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class VisitaService : ServiceBase<VisitaDTO, VisitaUpdateCreateDTO, Visita>, IVisitaService
+    public class SeguimientoService : ServiceBase<SeguimientoDTO, SeguimientoUpdateCreateDTO, Seguimiento>, ISeguimientoService
     {
-        public VisitaService(IVisitaMapper mapper, IVisitaRepository repository, IValidator<Visita> validator) 
-            : base(mapper, repository, validator)
+        public SeguimientoService(ISeguimientoMapper mapper, ISeguimientoRepository repository, IValidator<Seguimiento> validator) : base(mapper, repository, validator)
         {
         }
     }

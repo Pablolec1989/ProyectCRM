@@ -30,14 +30,13 @@ namespace ProyectCRM.Service.Mappers
                 },
                 Visitas = entity.VisitasUsuarios.Select(v => new VisitaUsuarioDTO
                 {
-                    Visitas = v.Visita != null ? new List<VisitaDTO> { new VisitaDTO
+                    Visita = new VisitaDTO
                     {
-                        Id = v.Visita.Id,
+                        Id = v.VisitaId,
                         FechaProgramada = v.Visita.FechaProgramada,
                         FechaRealizada = v.Visita.FechaRealizada,
-                        Observaciones = v.Visita.Observaciones,
-
-                    } } : new List<VisitaDTO>()
+                        Observaciones = v.Visita.Observaciones
+                    },
                 }).ToList()
             };
         }

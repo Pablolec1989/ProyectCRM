@@ -13,6 +13,7 @@ using ProyectCRM.Service.Mappers;
 using ProyectCRM.Service.Services;
 using ProyectCRM.Service.Utilities;
 using ProyectCRM.Service.Validators;
+using Scrutor;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,10 +39,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddHttpContextAccessor();
 
+
 //Almacenador archivos local
 builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
 
-// ConfiguraciÃ³n de servicios:
+// Configuración de servicios:
 // Areas
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<IMapperBase<AreaDTO, AreaUpdateCreateDTO, Area>, AreaMapper>();
@@ -111,8 +113,16 @@ builder.Services.AddScoped<IRubroService, RubroService>();
 builder.Services.AddScoped<IValidator, RubroValidator>();
 
 //Seguimientos
+builder.Services.AddScoped<ISeguimientoRepository, SeguimientoRepository>();
+builder.Services.AddScoped<ISeguimientoMapper, SeguimientoMapper>();
+builder.Services.AddScoped<ISeguimientoService, SeguimientoService>();
+builder.Services.AddScoped<IValidator, SeguimientoValidator>();
 
 //TelefonoCliente
+builder.Services.AddScoped<ITelefonoClienteRepository, TelefonoClienteRepository>();
+builder.Services.AddScoped<ITelefonoClienteMapper, TelefonoClienteMapper>();
+builder.Services.AddScoped<ITelefonoClienteService, TelefonoClienteService>();
+builder.Services.AddScoped<IValidator, TelefonoClienteValidator>();
 
 // Tipos de Direccion
 builder.Services.AddScoped<ITipoDireccionRepository, TipoDireccionRepository>();
@@ -127,21 +137,31 @@ builder.Services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
 builder.Services.AddScoped<IValidator, TipoTelefonoValidator>();
 
 //Usuarios
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuarioMapper, UsuarioMapper>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IValidator, UsuarioValidator>();
 
 //Visitas
+builder.Services.AddScoped<IVisitaRepository, VisitaRepository>();
+builder.Services.AddScoped<IVisitaMapper, VisitaMapper>();
+builder.Services.AddScoped<IVisitaService, VisitaService>();
+builder.Services.AddScoped<IValidator, VisitaValidator>();
 
-//VisitaArchivo
+//Archivo
+builder.Services.AddScoped<IArchivoRepository, VisitaArchivoRepository>();
+builder.Services.AddScoped<IArchivoMapper, ArchivoMapper>();
+builder.Services.AddScoped<IArchivoService, ArchivoService>();
+builder.Services.AddScoped<IValidator, ArchivoValidator>();
 
 // VisitaUsuario
-
-
-
-
-
-
+builder.Services.AddScoped<IVisitaUsuarioRepository, VisitaUsuarioRepository>();
+builder.Services.AddScoped<IVisitaUsuarioMapper, VisitaUsuarioMapper>();
+builder.Services.AddScoped<IVisitaUsuarioService, VisitaUsuarioService>();
+builder.Services.AddScoped<IValidator, VisitaUsuarioValidator>();
 
 //Fluent Validation
-builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
 

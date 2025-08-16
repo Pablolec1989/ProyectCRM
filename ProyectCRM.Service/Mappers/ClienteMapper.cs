@@ -37,20 +37,20 @@ namespace ProyectCRM.Service.Mappers
                     Id = entity.Empresa.Id,
                     RazonSocial = entity.Empresa.RazonSocial,
                 },
-                Direcciones = entity.DireccionCliente.Select(dc => new DireccionClienteDTO
+                Direcciones = entity.Direccion.Select(dc => new DireccionClienteDTO
                 {
                     Direccion = new DireccionDTO
                     {
-                        Id = dc.Direccion.Id,
-                        Calle = dc.Direccion.Calle,
-                        Numero = dc.Direccion.Numero,
-                        Ciudad = dc.Direccion.Ciudad,
-                        Provincia = dc.Direccion.Provincia,
-                        CodigoPostal = dc.Direccion.CodigoPostal,
+                        Id = dc.Id,
+                        Calle = dc.Calle,
+                        Numero = dc.Numero,
+                        Ciudad = dc.Ciudad,
+                        Provincia = dc.Provincia,
+                        CodigoPostal = dc.CodigoPostal,
                         TipoDireccion = new TipoDireccionDTO
                         {
-                            Id = dc.Direccion.TipoDireccion.Id,
-                            Nombre = dc.Direccion.TipoDireccion.Nombre
+                            Id = dc.TipoDireccion.Id,
+                            Nombre = dc.TipoDireccion.Nombre
                         }
                     },
                 }).ToList(),

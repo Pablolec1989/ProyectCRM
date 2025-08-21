@@ -4,7 +4,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class UsuariosController : CustomControllerBase<UsuarioDTO, UsuarioUpdateCreateDTO, Usuario>
+    public class UsuariosController : CustomControllerBase<UsuarioDTO, UsuarioRequestDTO, Usuario>
     {
         public UsuariosController(IUsuarioService service) : base(service)
         {

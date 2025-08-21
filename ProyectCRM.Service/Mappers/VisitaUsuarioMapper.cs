@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class VisitaUsuarioMapper : IVisitaUsuarioMapper
     {
-        public VisitaUsuarioDTO ToDTO(VisitaUsuario entity)
+        public VisitaUsuarioDTO FromEntityToDto(VisitaUsuario entity)
         {
             return new VisitaUsuarioDTO
             {
@@ -20,7 +20,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public VisitaUsuario ToEntity(VisitaUsuarioDTO dto)
+        public VisitaUsuario FromDtoToEntity(VisitaUsuarioDTO dto)
         {
             return new VisitaUsuario
             {
@@ -29,7 +29,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public VisitaUsuario ToEntity(VisitaUsuarioUpdateCreateDTO dto)
+        public VisitaUsuario FromRequestDtoToEntity(VisitaUsuarioRequestDTO dto)
         {
             return new VisitaUsuario
             {
@@ -40,7 +40,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<VisitaUsuarioDTO> ToListDTO(IEnumerable<VisitaUsuario> entities)
         {
-            return entities.Select(e => ToDTO(e)).ToList();
+            return entities.Select(e => FromEntityToDto(e)).ToList();
 
         }
     }

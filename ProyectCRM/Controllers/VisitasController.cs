@@ -4,7 +4,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class VisitasController : CustomControllerBase<VisitaDTO, VisitaUpdateCreateDTO, Visita>
+    public class VisitasController : CustomControllerBase<VisitaDTO, VisitaRequestDTO, Visita>
     {
         public VisitasController(IVisitaService service) : base(service)
         {

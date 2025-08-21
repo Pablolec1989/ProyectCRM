@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface ISeguimientoService : IServiceBase<SeguimientoDTO, SeguimientoUpdateCreateDTO, Seguimiento>
+    public interface ISeguimientoService : IServiceBase<SeguimientoDTO, SeguimientoRequestDTO, Seguimiento>
     {
     }
 }

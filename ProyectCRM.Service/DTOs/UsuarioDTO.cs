@@ -12,9 +12,13 @@ namespace ProyectCRM.Service.DTOs
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public string Password { get; set; }
         public RolDTO Rol { get; set; }
         public AreaDTO Area { get; set; }
         public List<VisitaUsuarioDTO> Visitas { get; set; } = [];
+        public Guid RolId { get; set; }
+        public Guid AreaId { get; set; }
+        public List<Guid> VisitaUsuarioId { get; set; }
 
     }
 }

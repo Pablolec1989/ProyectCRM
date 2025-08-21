@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class SeguimientoValidator : AbstractValidator<SeguimientoUpdateCreateDTO>
+    public class SeguimientoValidator : AbstractValidator<SeguimientoRequestDTO>
     {
         public SeguimientoValidator()
         {

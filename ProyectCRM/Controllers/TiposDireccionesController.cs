@@ -5,7 +5,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class TiposDireccionesController : CustomControllerBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion>
+    public class TiposDireccionesController : CustomControllerBase<TipoDireccionDTO, TipoDireccionRequestDTO, TipoDireccion>
     {
         public TiposDireccionesController(ITipoDireccionService service) : base(service)
         {

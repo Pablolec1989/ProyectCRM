@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IAreaMapper : IMapperBase<AreaDTO, AreaUpdateCreateDTO, Area>
+    public interface IAreaMapper : IMapperBase<AreaDTO, AreaRequestDTO, Area>
     {
     }
 }

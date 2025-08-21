@@ -4,7 +4,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class MailsController : CustomControllerBase<MailDTO, MailUpdateCreateDTO, Mail>
+    public class MailsController : CustomControllerBase<MailDTO, MailRequestDTO, Mail>
     {
         public MailsController(IMailService service) : base(service)
         {

@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class UsuarioMapper : IUsuarioMapper
     {
-        public UsuarioDTO ToDTO(Usuario entity)
+        public UsuarioDTO FromEntityToDto(Usuario entity)
         {
             return new UsuarioDTO
             {
@@ -33,27 +33,40 @@ namespace ProyectCRM.Service.Mappers
                     Visita = new VisitaDTO
                     {
                         Id = v.VisitaId,
+                        Observaciones = v.Visita.Observaciones,
                         FechaProgramada = v.Visita.FechaProgramada,
                         FechaRealizada = v.Visita.FechaRealizada,
-                        Observaciones = v.Visita.Observaciones
+                        Cliente = new ClienteDTO
+                        {
+                            Nombre = v.Visita.Cliente.Nombre,
+                            Apellido = v.Visita.Cliente.Apellido,
+                            EmpresaCliente = new EmpresaDTO
+                            {
+                                RazonSocial = v.Visita.Cliente.Empresa.RazonSocial
+                            }
+                        }
                     },
                 }).ToList()
             };
         }
 
-        public Usuario ToEntity(UsuarioDTO dto)
+        public Usuario FromRequestDtoToEntity(UsuarioRequestDTO dto)
         {
-            throw new NotImplementedException();
-        }
-
-        public Usuario ToEntity(UsuarioUpdateCreateDTO dto)
-        {
-            throw new NotImplementedException();
+            return new Usuario
+            {
+                Id = dto.Id,
+                Nombre = dto.Nombre,
+                Apellido = dto.Apellido,
+                Password = dto.Password,
+                RolId = dto.RolId,
+                AreaId = dto.AreaId,
+                VisitasUsuarios = new List<VisitaUsuario>()
+            };
         }
 
         public IEnumerable<UsuarioDTO> ToListDTO(IEnumerable<Usuario> entities)
         {
-            throw new NotImplementedException();
+            return entities.Select(e => FromEntityToDto(e)).ToList();
         }
     }
 }

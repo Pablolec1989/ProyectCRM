@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class CondicionIvaUpdateCreateDTO : EntityBase
+    public class VisitaUsuarioRequestDTO : EntityBase
     {
-        public string Nombre { get; set; }
+        public Guid VisitaId { get; set; }
+        public Guid UsuarioId { get; set; }
     }
 }

@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class VisitaService : ServiceBase<VisitaDTO, VisitaUpdateCreateDTO, Visita>, IVisitaService
+    public class VisitaService : ServiceBase<VisitaDTO, VisitaRequestDTO, Visita>, IVisitaService
     {
-        public VisitaService(IVisitaMapper mapper, IVisitaRepository repository, IValidator<Visita> validator) 
+        public VisitaService(IVisitaMapper mapper, 
+            IVisitaRepository repository, 
+            IValidator<VisitaRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
         }

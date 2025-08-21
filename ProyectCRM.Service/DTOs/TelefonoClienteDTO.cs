@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.DTOs
     public class TelefonoClienteDTO : EntityBase
     {
         public string Numero { get; set; }
-        public ICollection<TipoTelefonoDTO> TipoTelefono { get; set; }
-        public ICollection<ClienteDTO> Cliente { get; set; }
+        public ClienteDTO Cliente { get; set; }
+        public TipoTelefonoDTO TipoTelefono { get; set; }
     }
 }

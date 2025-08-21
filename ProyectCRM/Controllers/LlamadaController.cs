@@ -4,7 +4,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class LlamadaController : CustomControllerBase<LlamadoDTO, LlamadoUpdateCreateDTO, Llamado>
+    public class LlamadaController : CustomControllerBase<LlamadoDTO, LlamadoRequestDTO, Llamado>
     {
         public LlamadaController(ILlamadoService service) : base(service) 
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IUsuarioMapper : IMapperBase<UsuarioDTO, UsuarioUpdateCreateDTO, Usuario>
+    public interface IUsuarioMapper : IMapperBase<UsuarioDTO, UsuarioRequestDTO, Usuario>
     {
     }
 }

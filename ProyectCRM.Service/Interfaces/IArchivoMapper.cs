@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IArchivoMapper : IMapperBase<ArchivoDTO, ArchivoUpdateCreateDTO, Archivo>
+    public interface IArchivoMapper : IMapperBase<ArchivoDTO, ArchivoRequestDTO, Archivo>
     {
     }
 }

@@ -55,22 +55,22 @@ namespace ProyectCRM.Data
 
             //Cliente configuration
             modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.Direccion)
-                .WithOne(d => d.Cliente)
-                .HasForeignKey(d => d.ClienteId);
+                .HasOne(c => c.Empresa)
+                .WithOne(e => e.Cliente)
+                .HasForeignKey<Empresa>(e => e.ClienteId);
 
             modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.TelefonoCliente)
+                .HasMany(c => c.Direcciones)
+                .WithOne(d => d.Cliente)
+                .HasForeignKey(d => d.ClienteId);
+            
+            modelBuilder.Entity<Cliente>().ToTable("Clientes")
+                .HasMany(c => c.Telefonos)
                 .WithOne(tc => tc.Cliente)
                 .HasForeignKey(tc => tc.ClienteId);
 
             modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.Llamados)
-                .WithOne(l => l.Cliente)
-                .HasForeignKey(l => l.ClienteId);
-
-            modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.Seguimientos)
+                .HasMany(c => c.Visitas)
                 .WithOne(v => v.Cliente)
                 .HasForeignKey(v => v.ClienteId);
 
@@ -102,10 +102,7 @@ namespace ProyectCRM.Data
                 .HasForeignKey(e => e.RubroId);
 
             //Llamado configuration
-            modelBuilder.Entity<Llamado>().ToTable("Llamadas")
-                .HasOne(l => l.Cliente)
-                .WithMany(c => c.Llamados)
-                .HasForeignKey(l => l.ClienteId);
+            modelBuilder.Entity<Llamado>().ToTable("Llamadas");
 
             modelBuilder.Entity<Llamado>().ToTable("Llamadas")
                 .HasOne(l => l.Usuario)
@@ -123,11 +120,6 @@ namespace ProyectCRM.Data
                 .HasForeignKey(l => l.AsuntoDeContactoId);
 
             //Mail configuration
-            modelBuilder.Entity<Mail>().ToTable("Mails")
-                .HasOne(m => m.Cliente)
-                .WithMany(c => c.Mails)
-                .HasForeignKey(m => m.ClienteId);
-
             modelBuilder.Entity<Mail>().ToTable("Mails")
                 .HasOne(m => m.Usuario)
                 .WithMany(u => u.Mails)
@@ -152,31 +144,18 @@ namespace ProyectCRM.Data
 
             //Seguimiento configuration
             modelBuilder.Entity<Seguimiento>().ToTable("Seguimientos")
-                .HasOne(v => v.Cliente)
-                .WithMany(c => c.Seguimientos)
-                .HasForeignKey(v => v.ClienteId);
-
-            modelBuilder.Entity<Seguimiento>().ToTable("Seguimientos")
                 .HasOne(v => v.Usuario)
                 .WithMany(u => u.Seguimientos)
                 .HasForeignKey(v => v.UsuarioId);
 
             //TelefonoCliente configuration
             modelBuilder.Entity<TelefonoCliente>().ToTable("TelefonosClientes")
-                .HasOne(tc => tc.Cliente)
-                .WithMany(c => c.TelefonoCliente)
-                .HasForeignKey(tc => tc.ClienteId);
-
-            modelBuilder.Entity<TelefonoCliente>().ToTable("TelefonosClientes")
                 .HasOne(tc => tc.TipoTelefono)
                 .WithMany(tt => tt.TelefonosClientes)
                 .HasForeignKey(tc => tc.TipoTelefonoId);
 
             //TipoDireccion configuration
-            modelBuilder.Entity<TipoDireccion>().ToTable("TiposDireccion")
-                .HasMany(td => td.Direccion)
-                .WithOne(d => d.TipoDireccion)
-                .HasForeignKey(d => d.TipoDireccionId);
+            modelBuilder.Entity<TipoDireccion>().ToTable("TipoDireccion");
 
             //TipoTelefono configuration
             modelBuilder.Entity<TipoTelefono>().ToTable("TiposTelefono")
@@ -216,11 +195,6 @@ namespace ProyectCRM.Data
                 .HasForeignKey(vu => vu.UsuarioId);
 
             //Visita configuration
-            modelBuilder.Entity<Visita>().ToTable("Visitas")
-                .HasOne(v => v.Cliente)
-                .WithMany(c => c.Visitas)
-                .HasForeignKey(v => v.ClienteId);
-
             modelBuilder.Entity<Visita>().ToTable("Visitas")
                 .HasMany(v => v.Archivos)
                 .WithOne(va => va.Visita)

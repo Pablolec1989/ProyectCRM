@@ -11,8 +11,10 @@ namespace ProyectCRM.Service.DTOs
     public class VisitaDTO
     {
         public Guid Id { get; set; }
+        public Guid ClienteId { get; set; }
         public ClienteDTO Cliente { get; set; }
-        public DireccionClienteDTO DireccionCliente { get; set; }
+        public Guid DireccionId { get; set; }
+        public DireccionDTO DireccionCliente { get; set; }
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
         public string Observaciones { get; set; }

@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class ArchivoMapper : IArchivoMapper
     {
-        public ArchivoDTO ToDTO(Archivo entity)
+        public ArchivoDTO FromEntityToDto(Archivo entity)
         {
             return new ArchivoDTO
             {
@@ -21,15 +21,10 @@ namespace ProyectCRM.Service.Mappers
                 FechaSubida = entity.FechaSubida,
                 VisitaId = entity.VisitaId,
                 EmpresaId = entity.EmpresaId,
-                Empresa = new EmpresaDTO
-                {
-                    Id = entity.EmpresaId,
-                    RazonSocial = entity.Empresa?.RazonSocial
-                }
             };
         }
 
-        public Archivo ToEntity(ArchivoDTO dto)
+        public Archivo FromDtoToEntity(ArchivoDTO dto)
         {
             return new Archivo
             {
@@ -40,12 +35,12 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Archivo ToEntity(ArchivoUpdateCreateDTO dto)
+        public Archivo FromRequestDtoToEntity(ArchivoRequestDTO dto)
         {
             return new Archivo
             {
                 NombreArchivo = dto.NombreArchivo,
-                RutaArchivo = dto.RutaArchivo?.FileName,
+                RutaArchivo = dto.RutaArchivo.FileName,
                 FechaSubida = dto.FechaSubida,
                 VisitaId = dto.VisitaId,
                 EmpresaId = dto.EmpresaId
@@ -54,7 +49,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<ArchivoDTO> ToListDTO(IEnumerable<Archivo> entities)
         {
-            return entities.Select(e => ToDTO(e));
+            return entities.Select(e => FromEntityToDto(e));
         }
     }
 }

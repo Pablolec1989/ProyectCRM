@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,12 @@ namespace ProyectCRM.Service.Utilities
             var urlArchivo = Path.Combine(url, contenedor, nombreArchivo).Replace("\\", "/");
 
             return urlArchivo;
+        }
+
+        public async Task<string> Actualizar(string contenedor, IFormFile archivo, string? ruta)
+        {
+            await Borrar(ruta, contenedor);
+            return await Almacenar(contenedor, archivo);
         }
 
         public Task Borrar(string? ruta, string contenedor)

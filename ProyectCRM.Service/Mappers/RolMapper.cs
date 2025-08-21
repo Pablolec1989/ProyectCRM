@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class RolMapper : IRolMapper
     {
-        public RolDTO ToDTO(Rol entity)
+        public RolDTO FromEntityToDto(Rol entity)
         {
             return new RolDTO
             {
@@ -20,16 +20,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Rol ToEntity(RolDTO dto)
-        {
-            return new Rol
-            {
-                Id = dto.Id,
-                Nombre = dto.Nombre,
-            };
-        }
-
-        public Rol ToEntity(RolUpdateCreateDTO dto)
+        public Rol FromRequestDtoToEntity(RolRequestDTO dto)
         {
             return new Rol
             {
@@ -39,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<RolDTO> ToListDTO(IEnumerable<Rol> entities)
         {
-            return entities.Select(e => ToDTO(e)).ToList();
+            return entities.Select(e => FromEntityToDto(e)).ToList();
         }
     }
 }

@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class EmpresaUpdateCreateDTO : EntityBase
+    public class EmpresaRequestDTO : EntityBase
     {
         public string RazonSocial { get; set; }
         public string CUIT { get; set; }
         public string CUIL { get; set; }
-        public Guid ClienteId { get; set; }
         public Guid CondicionIvaId { get; set; }
         public Guid RubroId { get; set; }
 

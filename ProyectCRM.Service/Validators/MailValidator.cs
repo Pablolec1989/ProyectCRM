@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class MailValidator : AbstractValidator<MailUpdateCreateDTO>
+    public class MailValidator : AbstractValidator<MailRequestDTO>
     {
         public MailValidator()
         {

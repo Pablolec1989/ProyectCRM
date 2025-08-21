@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class AreaValidator : AbstractValidator<Area>
+    public class AreaRequestValidator : AbstractValidator<AreaRequestDTO>
     {
-        public AreaValidator()
+        public AreaRequestValidator()
         {
             RuleFor(a => a.Nombre)
                 .NotEmpty().WithMessage("El campo es obligatorio.")

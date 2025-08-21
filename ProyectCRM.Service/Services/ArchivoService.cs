@@ -13,9 +13,12 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class ArchivoService : ServiceBase<ArchivoDTO, ArchivoUpdateCreateDTO, Archivo>, IArchivoService
+    public class ArchivoService : ServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>, IArchivoService
     {
-        public ArchivoService(IArchivoMapper mapper, IArchivoRepository repository, IValidator<Archivo> validator) : base(mapper, repository, validator)
+        public ArchivoService(IArchivoMapper mapper, 
+            IArchivoRepository repository,
+            IValidator<ArchivoRequestDTO> validator) 
+            : base(mapper, repository, validator)
         {
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IVisitaService : IServiceBase<VisitaDTO, VisitaUpdateCreateDTO, Visita>
+    public interface IVisitaService : IServiceBase<VisitaDTO, VisitaRequestDTO, Visita>
     {
     }
 }

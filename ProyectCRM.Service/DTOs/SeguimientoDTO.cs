@@ -13,6 +13,8 @@ namespace ProyectCRM.Service.DTOs
         public string Titulo { get; set; }
         public string Detalle { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public Guid ClienteId { get; set; }
+        public Guid UsuarioId { get; set; }
         public ClienteDTO Cliente { get; set; }
         public UsuarioDTO Usuario { get; set; }
     }

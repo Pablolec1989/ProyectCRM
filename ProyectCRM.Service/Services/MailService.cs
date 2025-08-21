@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class MailService : ServiceBase<MailDTO, MailUpdateCreateDTO, Mail>, IMailService
+    public class MailService : ServiceBase<MailDTO, MailRequestDTO, Mail>, IMailService
     {
         public MailService(IMailMapper mapper, 
             IMailRepository repository, 
-            IValidator<Mail> validator) : base(mapper, repository, validator)
+            IValidator<MailRequestDTO> validator) : base(mapper, repository, validator)
         {
             
         }

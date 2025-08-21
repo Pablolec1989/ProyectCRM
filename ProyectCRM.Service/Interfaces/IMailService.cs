@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IMailService : IServiceBase<MailDTO, MailUpdateCreateDTO, Mail>
+    public interface IMailService : IServiceBase<MailDTO, MailRequestDTO, Mail>
     {
     }
 }

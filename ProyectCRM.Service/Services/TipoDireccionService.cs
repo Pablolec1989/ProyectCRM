@@ -11,10 +11,12 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class TipoDireccionService : ServiceBase<TipoDireccionDTO,TipoDireccionUpdateCreateDTO,TipoDireccion>, ITipoDireccionService
+    public class TipoDireccionService : ServiceBase<TipoDireccionDTO,TipoDireccionRequestDTO,TipoDireccion>, ITipoDireccionService
     {
-        public TipoDireccionService(IMapperBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion> mapper, 
-            ITipoDireccionRepository repository, IValidator<TipoDireccion> validator) : base(mapper, repository, validator)
+        public TipoDireccionService(ITipoDireccionMapper mapper, 
+            ITipoDireccionRepository repository, 
+            IValidator<TipoDireccionRequestDTO> validator) 
+            : base(mapper, repository, validator)
         {
         }
     }

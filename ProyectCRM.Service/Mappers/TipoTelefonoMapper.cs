@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class TipoTelefonoMapper : ITipoTelefonoMapper
     {
-        public TipoTelefonoDTO ToDTO(TipoTelefono entity)
+        public TipoTelefonoDTO FromEntityToDto(TipoTelefono entity)
         {
             return new TipoTelefonoDTO()
             {
@@ -20,17 +20,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public TipoTelefono ToEntity(TipoTelefonoDTO dto)
-        {
-            return new TipoTelefono()
-            {
-                Id = dto.Id,
-                Nombre = dto.Nombre
-            };
-
-        }
-
-        public TipoTelefono ToEntity(TipoTelefonoUpdateCreateDTO dto)
+        public TipoTelefono FromRequestDtoToEntity(TipoTelefonoRequestDTO dto)
         {
             return new TipoTelefono()
             {
@@ -40,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<TipoTelefonoDTO> ToListDTO(IEnumerable<TipoTelefono> entities)
         {
-            return entities.Select(e => ToDTO(e)).ToList();
+            return entities.Select(e => FromEntityToDto(e)).ToList();
         }
     }
 }

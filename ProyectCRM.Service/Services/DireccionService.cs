@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class DireccionService : ServiceBase<DireccionDTO, DireccionUpdateCreateDTO, Direccion>, IDireccionService
+    public class DireccionService : ServiceBase<DireccionDTO, DireccionRequestDTO, Direccion>, IDireccionService
     {
         private readonly IDireccionMapper _mapper;
         private readonly IDireccionRepository _repository;
 
         public DireccionService(IDireccionMapper mapper, 
             IDireccionRepository repository, 
-            IValidator<Direccion> validator) 
+            IValidator<DireccionRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
             _mapper = mapper;

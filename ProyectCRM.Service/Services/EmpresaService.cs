@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class EmpresaService : ServiceBase<EmpresaDTO, EmpresaUpdateCreateDTO, Empresa>, IEmpresaService
+    public class EmpresaService : ServiceBase<EmpresaDTO, EmpresaRequestDTO, Empresa>, IEmpresaService
     {
         public EmpresaService(IEmpresaMapper mapper, 
             IEmpresaRepository repository, 
-            IValidator<Empresa> validator) : base(mapper, repository, validator)
+            IValidator<EmpresaRequestDTO> validator) : base(mapper, repository, validator)
         {
         }
 

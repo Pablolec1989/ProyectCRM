@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class SeguimientoMapper : ISeguimientoMapper
     {
-        public SeguimientoDTO ToDTO(Seguimiento entity)
+        public SeguimientoDTO FromEntityToDto(Seguimiento entity)
         {
             return new SeguimientoDTO
             {
@@ -23,9 +23,8 @@ namespace ProyectCRM.Service.Mappers
                 {
                     Id = entity.Cliente.Id,
                     Nombre = entity.Cliente.Nombre,
-                    Empresa = new EmpresaDTO
+                    EmpresaCliente = new EmpresaDTO
                     {
-                        Id = entity.Cliente.Empresa.Id,
                         RazonSocial = entity.Cliente.Empresa.RazonSocial,
                     }
                 },
@@ -33,6 +32,7 @@ namespace ProyectCRM.Service.Mappers
                 {
                     Id = entity.Usuario.Id,
                     Nombre = entity.Usuario.Nombre,
+                    Apellido = entity.Usuario.Apellido,
                     Area = new AreaDTO
                     {
                         Id = entity.Usuario.Area.Id,
@@ -42,12 +42,8 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Seguimiento ToEntity(SeguimientoDTO dto)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Seguimiento ToEntity(SeguimientoUpdateCreateDTO dto)
+        public Seguimiento FromRequestDtoToEntity(SeguimientoRequestDTO dto)
         {
             throw new NotImplementedException();
         }

@@ -15,7 +15,6 @@ namespace ProyectCRM.Service.DTOs
         public DateTime FechaSubida { get; set; }
         public Guid VisitaId { get; set; }
         public Guid EmpresaId { get; set; }
-        public EmpresaDTO Empresa { get; set; }
 
     }
 }

@@ -10,11 +10,7 @@ namespace ProyectCRM.Service.Utilities
     public interface IAlmacenadorArchivos
     {
         Task<string> Almacenar(string contenedor, IFormFile archivo);
-        async Task<string> Actualizar(string contenedor, IFormFile archivo, string? ruta)
-        {
-            await Borrar(ruta, contenedor);
-            return await Almacenar(contenedor, archivo);
-        }
+        Task<string> Actualizar(string contenedor, IFormFile archivo, string? ruta);
         Task Borrar(string? ruta, string contenedor);
     }
 }

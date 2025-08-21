@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class RolService : ServiceBase<RolDTO, RolUpdateCreateDTO, Rol>, IRolService
+    public class RolService : ServiceBase<RolDTO, RolRequestDTO, Rol>, IRolService
     {
-        public RolService(IRolMapper mapper, IRolRepository repository, IValidator<Rol> validator) 
+        public RolService(IRolMapper mapper, 
+            IRolRepository repository, 
+            IValidator<RolRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
         }

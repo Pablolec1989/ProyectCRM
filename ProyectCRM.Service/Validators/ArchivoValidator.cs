@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class ArchivoValidator : AbstractValidator<ArchivoUpdateCreateDTO>
+    public class ArchivoValidator : AbstractValidator<ArchivoRequestDTO>
     {
         public ArchivoValidator()
         {

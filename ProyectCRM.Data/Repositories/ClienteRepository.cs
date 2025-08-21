@@ -21,33 +21,18 @@ namespace ProyectCRM.Data.Repositories
         public override async Task<Cliente> GetByIdAsync(Guid id)
         {
             return await _context.Clientes
-                .Include(c => c.Nombre)
-                .Include(c => c.Apellido)
-                .Include(c => c.Email)
-                .Include(c => c.TelefonoCliente).ThenInclude(t => t.TipoTelefono)
-                .Include(c => c.Empresa)
-                .Include(c => c.Direccion).ThenInclude(d => d.TipoDireccion)
+                .Include(c => c.Telefonos).ThenInclude(t => t.TipoTelefono)
+                .Include(c => c.Direcciones).ThenInclude(d => d.TipoDireccion)
                 .Include(c => c.Visitas).ThenInclude(v => v.Direccion)
-                .Include(c => c.Llamados)
-                .Include(c => c.Mails)
-                .Include(c => c.Seguimientos)
                 .FirstOrDefaultAsync(c => c.Id == id);
-
         }
 
         public override async Task<IEnumerable<Cliente>> GetAllAsync()
         {
             return await _context.Clientes
-                .Include(c => c.Nombre)
-                .Include(c => c.Apellido)
-                .Include(c => c.Email)
-                .Include(c => c.TelefonoCliente).ThenInclude(t => t.TipoTelefono)
-                .Include(c => c.Empresa)
-                .Include(c => c.Direccion).ThenInclude(d => d.TipoDireccion)
+                .Include(c => c.Telefonos).ThenInclude(t => t.TipoTelefono)
+                .Include(c => c.Direcciones).ThenInclude(d => d.TipoDireccion)
                 .Include(c => c.Visitas).ThenInclude(dc => dc.Direccion)
-                .Include(c => c.Llamados)
-                .Include(c => c.Mails)
-                .Include(c => c.Seguimientos)
                 .ToListAsync();
         }
     }

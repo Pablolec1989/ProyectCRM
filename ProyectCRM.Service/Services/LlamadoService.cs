@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class LlamadoService : ServiceBase<LlamadoDTO, LlamadoUpdateCreateDTO, Llamado>, ILlamadoService
+    public class LlamadoService : ServiceBase<LlamadoDTO, LlamadoRequestDTO, Llamado>, ILlamadoService
     {
-        public LlamadoService(ILlamadoMapper mapper, ILlamadoRepository repository, IValidator<Llamado> validator)
+        public LlamadoService(ILlamadoMapper mapper, ILlamadoRepository repository, IValidator<LlamadoRequestDTO> validator)
             : base(mapper, repository, validator)
         {
         }

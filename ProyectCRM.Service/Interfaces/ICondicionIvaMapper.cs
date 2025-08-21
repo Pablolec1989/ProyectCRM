@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface ICondicionIvaMapper : IMapperBase<CondicionIvaDTO, CondicionIvaUpdateCreateDTO, CondicionIva>
+    public interface ICondicionIvaMapper : IMapperBase<CondicionIvaDTO, CondicionIvaRequestDTO, CondicionIva>
     {
     }
 }

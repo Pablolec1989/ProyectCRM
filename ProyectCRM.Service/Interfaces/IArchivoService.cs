@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IArchivoService : IServiceBase<ArchivoDTO, ArchivoUpdateCreateDTO, Archivo>
+    public interface IArchivoService : IServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>
     {
     }
 }

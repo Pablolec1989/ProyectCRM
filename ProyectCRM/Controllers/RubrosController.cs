@@ -4,7 +4,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class RubrosController : CustomControllerBase<RubroDTO, RubroUpdateCreateDTO, Rubro>
+    public class RubrosController : CustomControllerBase<RubroDTO, RubroRequestDTO, Rubro>
     {
         public RubrosController(IRubroService service) : base(service)
         {

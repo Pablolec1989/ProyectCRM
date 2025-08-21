@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class MailMapper : IMailMapper
     {
-        public MailDTO ToDTO(Mail entity)
+        public MailDTO FromEntityToDto(Mail entity)
         {
             return new MailDTO
             {
@@ -20,9 +20,9 @@ namespace ProyectCRM.Service.Mappers
                 FechaMail = entity.FechaMail,
                 Cliente = new ClienteDTO
                 {
-                    Id = entity.Cliente.Id,
+                    Id = entity.ClienteId,
                     Nombre = entity.Cliente.Nombre,
-                    Empresa = new EmpresaDTO
+                    EmpresaCliente = new EmpresaDTO
                     {
                         Id = entity.Cliente.Empresa.Id,
                         RazonSocial = entity.Cliente.Empresa.RazonSocial
@@ -30,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
                 },
                 Usuario = new UsuarioDTO
                 {
-                    Id = entity.Usuario.Id,
+                    Id = entity.UsuarioId,
                     Nombre = entity.Usuario.Nombre,
                     Area = new AreaDTO
                     {
@@ -40,26 +40,13 @@ namespace ProyectCRM.Service.Mappers
                 },
                 AsuntoDeContacto = new AsuntoDeContactoDTO
                 {
-                    Id = entity.AsuntoDeContacto.Id,
+                    Id = entity.AsuntoDeContactoId,
                     Nombre = entity.AsuntoDeContacto.Nombre
                 }
             };
         }
 
-        public Mail ToEntity(MailDTO dto)
-        {
-            return new Mail
-            {
-                Id = dto.Id,
-                Detalle = dto.Detalle,
-                FechaMail = dto.FechaMail,
-                ClienteId = dto.Cliente.Id,
-                UsuarioId = dto.Usuario.Id,
-                AsuntoDeContactoId = dto.AsuntoDeContacto.Id
-            };
-        }
-
-        public Mail ToEntity(MailUpdateCreateDTO dto)
+        public Mail FromRequestDtoToEntity(MailRequestDTO dto)
         {
             return new Mail
             {
@@ -73,8 +60,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<MailDTO> ToListDTO(IEnumerable<Mail> entities)
         {
-            return entities.Select(ToDTO);
-
+            return entities.Select(FromEntityToDto);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class DireccionMapper : IDireccionMapper
     {
-        public DireccionDTO ToDTO(Direccion entity)
+        public DireccionDTO FromEntityToDto(Direccion entity)
         {
             return new DireccionDTO
             {
@@ -28,20 +28,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Direccion ToEntity(DireccionDTO dto)
-        {
-            return new Direccion
-            {
-                Calle = dto.Calle,
-                Numero = dto.Numero,
-                Ciudad = dto.Ciudad,
-                CodigoPostal = dto.CodigoPostal,
-                Provincia = dto.Provincia,
-                TipoDireccionId = dto.TipoDireccion.Id
-            };
-        }
-
-        public Direccion ToEntity(DireccionUpdateCreateDTO dto)
+        public Direccion FromRequestDtoToEntity(DireccionRequestDTO dto)
         {
             return new Direccion
             {
@@ -56,7 +43,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<DireccionDTO> ToListDTO(IEnumerable<Direccion> entities)
         {
-            return entities.Select(entity => ToDTO(entity)).ToList();
+            return entities.Select(entity => FromEntityToDto(entity)).ToList();
         }
     }
 }

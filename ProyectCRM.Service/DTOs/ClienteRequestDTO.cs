@@ -1,4 +1,5 @@
-﻿using ProyectCRM.Models.Entities;
+﻿using ProyectCRM.Models.Abstractions;
+using ProyectCRM.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class ClienteUpdateCreateDTO
+    public class ClienteRequestDTO : EntityBase
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
         public Guid TelefonoClienteId { get; set; }
+        public TelefonoCliente TelefonoCliente { get; set; }
         public Guid EmpresaId { get; set; }
-        public ICollection<Guid> DireccionesIds { get; set; } = [];
-        public ICollection<Guid> VisitasIds { get; set; } = [];
+        public Empresa Empresa { get; set; }
 
     }
 }

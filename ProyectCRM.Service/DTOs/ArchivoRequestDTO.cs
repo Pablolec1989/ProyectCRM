@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class ArchivoUpdateCreateDTO
+    public class ArchivoRequestDTO
     {
         public string NombreArchivo { get; set; }
         public IFormFile RutaArchivo { get; set; }

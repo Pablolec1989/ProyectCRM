@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class RubroService : ServiceBase<RubroDTO, RubroUpdateCreateDTO, Rubro>, IRubroService
+    public class RubroService : ServiceBase<RubroDTO, RubroRequestDTO, Rubro>, IRubroService
     {
-        public RubroService(IMapperBase<RubroDTO, RubroUpdateCreateDTO, Rubro> mapper, 
-            IRubroRepository repository, IValidator<Rubro> validator) 
+        public RubroService(IMapperBase<RubroDTO, RubroRequestDTO, Rubro> mapper, 
+            IRubroRepository repository, IValidator<RubroRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
             

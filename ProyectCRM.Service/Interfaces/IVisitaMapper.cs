@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IVisitaMapper : IMapperBase<VisitaDTO, VisitaUpdateCreateDTO, Visita>
+    public interface IVisitaMapper : IMapperBase<VisitaDTO, VisitaRequestDTO, Visita>
     {
     }
 }

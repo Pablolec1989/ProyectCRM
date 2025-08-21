@@ -12,10 +12,9 @@ namespace ProyectCRM.Service.DTOs
     {
         public string Detalle { get; set; }
         public AsuntoDeContactoDTO AsuntoDeContacto { get; set; }
-        public DateTime FechaLlamado { get; set; }
         public ClienteDTO Cliente { get; set; }
         public UsuarioDTO Usuario { get; set; }
-        public AreaDTO Area { get; set; }
+        public DateTime FechaLlamado { get; set; }
 
     }
 }

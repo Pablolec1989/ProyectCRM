@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class EmpresaMapper : IEmpresaMapper
     {
-        public EmpresaDTO ToDTO(Empresa entity)
+        public EmpresaDTO FromEntityToDto(Empresa entity)
         {
             return new EmpresaDTO
             {
@@ -19,26 +19,28 @@ namespace ProyectCRM.Service.Mappers
                 RazonSocial = entity.RazonSocial,
                 CUIT = entity.CUIT,
                 CUIL = entity.CUIL,
-                Cliente = entity.Cliente != null ? new ClienteDTO
+                ClienteId = entity.ClienteId,
+                Cliente = new ClienteDTO
                 {
-                    Id = entity.Cliente.Id,
                     Nombre = entity.Cliente.Nombre,
                     Apellido = entity.Cliente.Apellido
-                } : null,
-                CondicionIva = entity.CondicionIva != null ? new CondicionIvaDTO
+                },
+                CondicionIvaId = entity.CondicionIvaId,
+                CondicionIva = new CondicionIvaDTO
                 {
                     Id = entity.CondicionIva.Id,
                     Nombre = entity.CondicionIva.Nombre
-                } : null,
-                Rubro = entity.Rubro != null ? new RubroDTO
+                },
+                RubroId = entity.RubroId,
+                Rubro = new RubroDTO
                 {
                     Id = entity.Rubro.Id,
                     Nombre = entity.Rubro.Nombre
-                } : null,
+                }
             };
         }
 
-        public Empresa ToEntity(EmpresaDTO dto)
+        public Empresa FromRequestDtoToEntity(EmpresaRequestDTO dto)
         {
             return new Empresa
             {
@@ -46,34 +48,6 @@ namespace ProyectCRM.Service.Mappers
                 RazonSocial = dto.RazonSocial,
                 CUIT = dto.CUIT,
                 CUIL = dto.CUIL,
-                Cliente = dto.Cliente != null ? new Cliente
-                {
-                    Id = dto.Cliente.Id,
-                    Nombre = dto.Cliente.Nombre,
-                    Apellido = dto.Cliente.Apellido
-                } : null,
-                CondicionIva = dto.CondicionIva != null ? new CondicionIva
-                {
-                    Id = dto.CondicionIva.Id,
-                    Nombre = dto.CondicionIva.Nombre
-                } : null,
-                Rubro = dto.Rubro != null ? new Rubro
-                {
-                    Id = dto.Rubro.Id,
-                    Nombre = dto.Rubro.Nombre
-                } : null,
-            };
-        }
-
-        public Empresa ToEntity(EmpresaUpdateCreateDTO dto)
-        {
-            return new Empresa
-            {
-                Id = dto.Id,
-                RazonSocial = dto.RazonSocial,
-                CUIT = dto.CUIT,
-                CUIL = dto.CUIL,
-                ClienteId = dto.ClienteId,
                 CondicionIvaId = dto.CondicionIvaId,
                 RubroId = dto.RubroId
             };
@@ -81,7 +55,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<EmpresaDTO> ToListDTO(IEnumerable<Empresa> entities)
         {
-            return entities.Select(ToDTO).ToList();
+            return entities.Select(FromEntityToDto).ToList();
         }
     }
 }

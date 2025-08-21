@@ -11,29 +11,16 @@ namespace ProyectCRM.Service.Mappers
 {
     public class RubroMapper : IRubroMapper
     {
-        public RubroDTO ToDTO(Rubro entity)
+        public RubroDTO FromEntityToDto(Rubro entity)
         {
             return new RubroDTO
             {
                 Id = entity.Id,
-                Nombre = entity.Nombre,
-                Empresas = new List<EmpresaDTO>(entity.Empresas.Select(e => new EmpresaDTO
-                {
-                    RazonSocial = e.RazonSocial,
-                }))
+                Nombre = entity.Nombre
             };
         }
 
-        public Rubro ToEntity(RubroDTO dto)
-        {
-            return new Rubro
-            {
-                Id = dto.Id,
-                Nombre = dto.Nombre,
-            };
-        }
-
-        public Rubro ToEntity(RubroUpdateCreateDTO dto)
+        public Rubro FromRequestDtoToEntity(RubroRequestDTO dto)
         {
             return new Rubro
             {
@@ -43,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<RubroDTO> ToListDTO(IEnumerable<Rubro> entities)
         {
-            return entities.Select(e => ToDTO(e)).ToList();
+            return entities.Select(e => FromEntityToDto(e)).ToList();
         }
     }
 }

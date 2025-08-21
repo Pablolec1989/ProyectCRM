@@ -12,9 +12,12 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class SeguimientoService : ServiceBase<SeguimientoDTO, SeguimientoUpdateCreateDTO, Seguimiento>, ISeguimientoService
+    public class SeguimientoService : ServiceBase<SeguimientoDTO, SeguimientoRequestDTO, Seguimiento>, ISeguimientoService
     {
-        public SeguimientoService(ISeguimientoMapper mapper, ISeguimientoRepository repository, IValidator<Seguimiento> validator) : base(mapper, repository, validator)
+        public SeguimientoService(ISeguimientoMapper mapper, 
+            ISeguimientoRepository repository, 
+            IValidator<SeguimientoRequestDTO> validator) 
+            : base(mapper, repository, validator)
         {
         }
     }

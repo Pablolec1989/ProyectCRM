@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class RubroValidator : AbstractValidator<RubroUpdateCreateDTO>
+    public class RubroValidator : AbstractValidator<RubroRequestDTO>
     {
         public RubroValidator()
         {

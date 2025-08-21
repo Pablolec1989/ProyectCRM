@@ -11,6 +11,5 @@ namespace ProyectCRM.Service.DTOs
     public class RubroDTO : EntityBase
     {
         public string Nombre { get; set; }
-        public ICollection<EmpresaDTO> Empresas { get; set; }
     }
 }

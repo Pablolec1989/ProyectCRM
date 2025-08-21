@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class RolValidator : AbstractValidator<RolUpdateCreateDTO>
+    public class RolValidator : AbstractValidator<RolRequestDTO>
     {
         public RolValidator()
         {

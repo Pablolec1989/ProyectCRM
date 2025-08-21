@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IRubroMapper : IMapperBase<RubroDTO, RubroUpdateCreateDTO, Rubro>
+    public interface IRubroMapper : IMapperBase<RubroDTO, RubroRequestDTO, Rubro>
     {
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IRolService : IServiceBase<RolDTO, RolUpdateCreateDTO, Rol>
+    public interface IRolService : IServiceBase<RolDTO, RolRequestDTO, Rol>
     {
     }
 }

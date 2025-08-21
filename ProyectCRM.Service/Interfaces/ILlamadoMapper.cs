@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface ILlamadoMapper : IMapperBase<LlamadoDTO, LlamadoUpdateCreateDTO, Llamado>
+    public interface ILlamadoMapper : IMapperBase<LlamadoDTO, LlamadoRequestDTO, Llamado>
     {
     }
 }

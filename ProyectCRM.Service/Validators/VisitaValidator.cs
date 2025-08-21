@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class VisitaValidator : AbstractValidator<VisitaUpdateCreateDTO>
+    public class VisitaValidator : AbstractValidator<VisitaRequestDTO>
     {
         public VisitaValidator()
         {

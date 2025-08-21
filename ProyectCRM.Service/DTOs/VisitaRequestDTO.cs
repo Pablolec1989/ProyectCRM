@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class VisitaUpdateCreateDTO
+    public class VisitaRequestDTO
     {
+        public string Observaciones { get; set; }
         public Guid ClienteId { get; set; }
         public Guid DireccionId { get; set; }
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
-        public string Observaciones { get; set; }
-        public ICollection<Guid> VisitasUsuariosIds { get; set; } = [];
+        public List<Guid> UsuariosIds{ get; set; }
     }
 }

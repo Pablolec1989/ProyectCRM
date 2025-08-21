@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class CondicionIvaService : ServiceBase<CondicionIvaDTO, CondicionIvaUpdateCreateDTO, CondicionIva>, ICondicionIvaService
+    public class CondicionIvaService : ServiceBase<CondicionIvaDTO, CondicionIvaRequestDTO, CondicionIva>, ICondicionIvaService
     {
-        public CondicionIvaService(ICondicionIvaMapper mapper, ICondicionIvaRepository repository, IValidator<CondicionIva> validator) 
+        public CondicionIvaService(ICondicionIvaMapper mapper, 
+            ICondicionIvaRepository repository, 
+            IValidator<CondicionIvaRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
             

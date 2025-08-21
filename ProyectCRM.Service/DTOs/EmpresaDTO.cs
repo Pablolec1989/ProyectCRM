@@ -13,8 +13,11 @@ namespace ProyectCRM.Service.DTOs
         public string RazonSocial { get; set; }
         public string CUIT { get; set; }
         public string CUIL { get; set; }
+        public Guid ClienteId { get; set; }
+        public Guid RubroId { get; set; }
+        public Guid CondicionIvaId { get; set; }
+        public ClienteDTO Cliente { get; set; }
         public RubroDTO Rubro { get; set; }
         public CondicionIvaDTO CondicionIva { get; set; }
-        public ClienteDTO Cliente { get; set; }
     }
 }

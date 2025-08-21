@@ -13,13 +13,14 @@ namespace ProyectCRM.Service.DTOs
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
-        public List<TelefonoClienteDTO> TelefonoCliente { get; set; }
-        public EmpresaDTO Empresa { get; set; }
-        public List<DireccionClienteDTO> Direcciones { get; set; } = [];
-        public List<VisitaDTO> Visitas { get; set; } = [];
-        public List<LlamadoDTO> Llamados { get; set; }
-        public List<MailDTO> Mails { get; set; }
-        public List<SeguimientoDTO> Seguimientos { get; set; }
+        public List<TelefonoClienteDTO> TelefonosCliente { get; set; }
+        public List<DireccionDTO> DireccionesCliente { get; set; } = [];
+        public List<VisitaDTO> VisitasCliente { get; set; } = [];
+        public List<LlamadoDTO> LlamadosCliente { get; set; }
+        public List<MailDTO> MailsCliente { get; set; }
+        public List<SeguimientoDTO> SeguimientosCliente { get; set; }
+        public Guid EmpresaId { get; set; }
+        public EmpresaDTO EmpresaCliente { get; set; }
 
     }
 }

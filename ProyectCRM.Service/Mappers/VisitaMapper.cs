@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class VisitaMapper : IVisitaMapper
     {
-        public VisitaDTO ToDTO(Visita entity)
+        public VisitaDTO FromEntityToDto(Visita entity)
         {
             return new VisitaDTO
             {
@@ -21,72 +21,71 @@ namespace ProyectCRM.Service.Mappers
                     Id = entity.Cliente.Id,
                     Nombre = entity.Cliente.Nombre,
                     Apellido = entity.Cliente.Apellido,
-                    Empresa = new EmpresaDTO
+                    EmpresaCliente = new EmpresaDTO
                     {
                         RazonSocial = entity.Cliente.Empresa.RazonSocial,
                         Rubro = new RubroDTO
                         {
-                            Id = entity.Cliente.Empresa.Rubro.Id,
                             Nombre = entity.Cliente.Empresa.Rubro.Nombre
                         },
 
                     }
                 },
-                DireccionCliente = new DireccionClienteDTO
+                DireccionCliente = new DireccionDTO
                 {
-                    Direccion = new DireccionDTO
+                    Id = entity.Direccion.Id,
+                    Calle = entity.Direccion.Calle,
+                    Numero = entity.Direccion.Numero,
+                    Ciudad = entity.Direccion.Ciudad,
+                    Provincia = entity.Direccion.Provincia,
+                    CodigoPostal = entity.Direccion.CodigoPostal,
+                    TipoDireccion = new TipoDireccionDTO
                     {
-                        Id = entity.DireccionClienteId,
-                        Calle = entity.Direccion.Calle,
-                        Numero = entity.Direccion.Numero,
-                        Ciudad = entity.Direccion.Ciudad,
-                        Provincia = entity.Direccion.Provincia,
-                        CodigoPostal = entity.Direccion.CodigoPostal
-
+                        Nombre = entity.Direccion.TipoDireccion.Nombre
                     }
                 },
-                FechaProgramada = entity.FechaProgramada,
-                FechaRealizada = entity.FechaRealizada,
                 Observaciones = entity.Observaciones,
-                Usuarios = new List<VisitaUsuarioDTO?>(entity.VisitasUsuarios
-                .Select(vu => new VisitaUsuarioDTO
+                Usuarios = entity.VisitasUsuarios?.Select(vu => new VisitaUsuarioDTO
                 {
-                    Usuario = new UsuarioDTO
+                    UsuarioId = vu.UsuarioId,
+                    Usuario = vu.Usuario == null ? null : new UsuarioDTO
                     {
                         Id = vu.Usuario.Id,
                         Nombre = vu.Usuario.Nombre,
                         Apellido = vu.Usuario.Apellido,
-                        Rol = new RolDTO
+                        Area = vu.Usuario.Area == null ? null : new AreaDTO
                         {
-                            Id = vu.Usuario.RolId,
-                            Nombre = vu.Usuario.Rol.Nombre
-                        },
-                        Area = new AreaDTO
-                        {
-                            Id = vu.Usuario.AreaId,
                             Nombre = vu.Usuario.Area.Nombre
                         }
                     },
-
-                }).ToList()),
+                }).ToList(),
                 Archivos = entity.Archivos?.Select(a => new ArchivoDTO
                 {
                     NombreArchivo = a.NombreArchivo,
                     RutaArchivo = a.RutaArchivo,
                     FechaSubida = a.FechaSubida,
 
-                }).ToList() ?? new List<ArchivoDTO>()
+                }).ToList() ?? new List<ArchivoDTO>(),
+                FechaProgramada = entity.FechaProgramada,
+                FechaRealizada = entity.FechaRealizada,
             };
         }
 
-        public Visita ToEntity(VisitaDTO dto)
+        public Visita FromRequestDtoToEntity(VisitaRequestDTO dto)
         {
-            throw new NotImplementedException();
-        }
+            return new Visita
+            {
+                ClienteId = dto.ClienteId,
+                DireccionId = dto.DireccionId,
+                FechaProgramada = dto.FechaProgramada,
+                FechaRealizada = dto.FechaRealizada,
+                VisitasUsuarios = dto.UsuariosIds.Select(id => new VisitaUsuario
+                {
+                    UsuarioId = id
+                }).ToList(),
 
-        public Visita ToEntity(VisitaUpdateCreateDTO dto)
-        {
-            throw new NotImplementedException();
+            };
+                
         }
 
         public IEnumerable<VisitaDTO> ToListDTO(IEnumerable<Visita> entities)

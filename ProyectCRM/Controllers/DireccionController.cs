@@ -6,7 +6,7 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class DireccionController : CustomControllerBase<DireccionDTO, DireccionUpdateCreateDTO, Direccion>
+    public class DireccionController : CustomControllerBase<DireccionDTO, DireccionRequestDTO, Direccion>
     {
         private readonly IDireccionService _service;
 

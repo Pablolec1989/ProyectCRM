@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class AsuntoDeContactoMapper : IAsuntoDeContactoMapper
     {
-        public AsuntoDeContactoDTO ToDTO(AsuntoDeContacto entity)
+        public AsuntoDeContactoDTO FromEntityToDto(AsuntoDeContacto entity)
         {
             return new AsuntoDeContactoDTO
             {
@@ -20,16 +20,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public AsuntoDeContacto ToEntity(AsuntoDeContactoDTO dto)
-        {
-            return new AsuntoDeContacto
-            {
-                Id = dto.Id,
-                Nombre = dto.Nombre,
-            };
-        }
-
-        public AsuntoDeContacto ToEntity(AsuntoDeContactoUpdateCreateDTO dto)
+        public AsuntoDeContacto FromRequestDtoToEntity(AsuntoDeContactoRequestDTO dto)
         {
             return new AsuntoDeContacto
             {
@@ -39,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<AsuntoDeContactoDTO> ToListDTO(IEnumerable<AsuntoDeContacto> entities)
         {
-            return entities.Select(e => ToDTO(e));
+            return entities.Select(e => FromEntityToDto(e));
         }
     }
 }

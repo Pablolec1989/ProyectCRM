@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class CondicionIvaValidator : AbstractValidator<CondicionIvaUpdateCreateDTO>
+    public class CondicionIvaValidator : AbstractValidator<CondicionIvaRequestDTO>
     {
         public CondicionIvaValidator()
         {
@@ -16,8 +16,5 @@ namespace ProyectCRM.Service.Validators
             .NotEmpty().WithMessage("El campo es obligatorio.")
             .MaximumLength(50).WithMessage("El campo nombre excede el limite de caracteres.");
         }
-
-
-
     }
 }

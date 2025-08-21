@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class DireccionClienteDTO : EntityBase
+    public class SeguimientoRequestDTO : EntityBase
     {
+        public string Titulo { get; set; }
+        public string Detalle { get; set; }
+        public DateTime FechaCreacion { get; set; }
         public Guid ClienteId { get; set; }
-        public ClienteDTO Cliente { get; set; }
-        public Guid DireccionId { get; set; }
-        public DireccionDTO Direccion { get; set; }
-        public ICollection<VisitaDTO> Visitas { get; set; }
+        public Guid UsuarioId { get; set; }
 
     }
 }

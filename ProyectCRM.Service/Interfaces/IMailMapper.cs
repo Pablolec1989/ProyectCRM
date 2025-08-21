@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IMailMapper : IMapperBase<MailDTO, MailUpdateCreateDTO, Mail>
+    public interface IMailMapper : IMapperBase<MailDTO, MailRequestDTO, Mail>
     {
     }
 }

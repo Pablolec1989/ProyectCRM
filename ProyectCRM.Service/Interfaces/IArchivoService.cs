@@ -1,5 +1,6 @@
 ﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IArchivoService : IServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>
+    public interface IArchivoService : IAlmacenadorArchivos
     {
     }
 }

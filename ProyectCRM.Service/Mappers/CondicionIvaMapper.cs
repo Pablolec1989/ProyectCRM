@@ -1,5 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.IvaCondicionDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class CondicionIvaMapper : ICondicionIvaMapper
     {
-        public CondicionIvaDTO ToDTO(CondicionIva entity)
+        public CondicionIvaDTO FromEntityToDto(CondicionIva entity)
         {
             return new CondicionIvaDTO
             {
@@ -20,16 +20,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public CondicionIva ToEntity(CondicionIvaDTO dto)
-        {
-            return new CondicionIva
-            {
-                Id = dto.Id,
-                Nombre = dto.Nombre,
-            };
-        }
-
-        public CondicionIva ToEntity(CondicionIvaUpdateCreateDTO dto)
+        public CondicionIva FromRequestDtoToEntity(CondicionIvaRequestDTO dto)
         {
             return new CondicionIva
             {
@@ -39,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<CondicionIvaDTO> ToListDTO(IEnumerable<CondicionIva> entities)
         {
-            return entities.Select(e => ToDTO(e)).ToList();
+            return entities.Select(e => FromEntityToDto(e)).ToList();
         }
     }
 }

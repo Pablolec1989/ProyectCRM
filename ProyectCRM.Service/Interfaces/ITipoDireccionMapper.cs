@@ -1,5 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.TipoDireccionDTOs;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface ITipoDireccionMapper : IMapperBase<TipoDireccionDTO, TipoDireccionUpdateCreateDTO, TipoDireccion>
+    public interface ITipoDireccionMapper : IMapperBase<TipoDireccionDTO, TipoDireccionRequestDTO, TipoDireccion>
     {
     }
 }

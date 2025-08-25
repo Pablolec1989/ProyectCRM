@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service
 {
-    public interface IServiceBase<TDTO, TUpdateCreateDTO, TEntity> 
+    public interface IServiceBase<TDTO, TRequestDTO, TEntity> 
         where TDTO : class
-        where TUpdateCreateDTO : class, new()
+        where TRequestDTO : class, new()
         where TEntity : EntityBase
     {
         Task<TDTO> GetByIdAsync(Guid id);
         Task<IEnumerable<TDTO>> GetAllAsync();
-        Task<TDTO> CreateAsync(TUpdateCreateDTO dto);
-        Task<TDTO> UpdateAsync(Guid id, TUpdateCreateDTO dto);
+        Task<TDTO> CreateAsync(TRequestDTO dto);
+        Task<TDTO> UpdateAsync(Guid id, TRequestDTO dto);
         Task<bool> DeleteAsync(Guid id);
     }
 }

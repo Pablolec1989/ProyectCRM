@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service
 {
-    public interface IMapperBase<TDTO, TUpdateCreateDTO, TEntity>
+    public interface IMapperBase<TDTO, TRequestDTO, TEntity>
         where TDTO : class 
-        where TUpdateCreateDTO : class
+        where TRequestDTO : class
         where TEntity : EntityBase
     {
-        TDTO ToDTO(TEntity entity);
-        TEntity ToEntity(TDTO dto);
-        TEntity ToEntity(TUpdateCreateDTO dto);
+        TDTO FromEntityToDto(TEntity entity);
+        TEntity FromRequestDtoToEntity(TRequestDTO dto);
         IEnumerable<TDTO> ToListDTO(IEnumerable<TEntity> entities);
     }
 }

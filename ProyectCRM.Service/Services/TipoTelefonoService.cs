@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.TipoTelefonoDTO;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class TipoTelefonoService : ServiceBase<TipoTelefonoDTO, TipoTelefonoUpdateCreateDTO, TipoTelefono>, ITipoTelefonoService
+    public class TipoTelefonoService : ServiceBase<TipoTelefonoDTO, TipoTelefonoRequestDTO, TipoTelefono>, ITipoTelefonoService
     {
-        public TipoTelefonoService(ITipoTelefonoMapper mapper, ITipoTelefonoRepository repository, IValidator<TipoTelefono> validator) 
+        public TipoTelefonoService(ITipoTelefonoMapper mapper, 
+            ITipoTelefonoRepository repository, 
+            IValidator<TipoTelefonoRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
         }

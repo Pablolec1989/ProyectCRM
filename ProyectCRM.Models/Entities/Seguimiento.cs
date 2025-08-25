@@ -11,10 +11,10 @@ namespace ProyectCRM.Models.Entities
     {
         public string Titulo { get; set; }
         public string Detalle { get; set; }
-        public DateTime FechaCreacion { get; set; }
         public Guid UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
         public Guid ClienteId { get; set; }
+        public Usuario Usuario { get; set; }
         public Cliente Cliente { get; set; }
+        public DateTime FechaCreacion { get; set; } = DateTime.Now;
     }
 }

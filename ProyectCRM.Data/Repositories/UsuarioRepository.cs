@@ -18,13 +18,24 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
-        public override async Task<Usuario> GetByIdAsync(Guid id)
+        public IQueryable<Usuario> GetUsuarioQuery()
         {
-            return await _context.Usuarios
+            return _context.Usuarios
                 .Include(u => u.Rol)
                 .Include(u => u.Area)
-                .Include(u => u.VisitasUsuarios).ThenInclude(vu => vu.Visita)
+                .Include(u => u.VisitasUsuarios).ThenInclude(vu => vu.Visita);
+        }
+
+        public override async Task<Usuario> GetByIdAsync(Guid id)
+        {
+            return await GetUsuarioQuery()
                 .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public override async Task<IEnumerable<Usuario>> GetAllAsync()
+        {
+            return await GetUsuarioQuery()
+                .ToListAsync();
         }
     }
 }

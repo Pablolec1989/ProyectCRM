@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.DireccionDTO;
-using ProyectCRM.Service.DTOs.DireccionDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class DireccionService : ServiceBase<DireccionDTO, DireccionCreateUpdateDTO, Direccion>, IDireccionService
+    public class DireccionService : ServiceBase<DireccionDTO, DireccionRequestDTO, Direccion>, IDireccionService
     {
         private readonly IDireccionMapper _mapper;
         private readonly IDireccionRepository _repository;
 
         public DireccionService(IDireccionMapper mapper, 
             IDireccionRepository repository, 
-            IValidator<Direccion> validator) 
+            IValidator<DireccionRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
             _mapper = mapper;

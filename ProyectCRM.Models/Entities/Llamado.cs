@@ -12,14 +12,14 @@ namespace ProyectCRM.Models.Entities
     {
         public string Detalle { get; set; }
         public DateTime FechaLlamado { get; set; } = DateTime.Now;
+        public Guid AsuntoDeContactoId { get; set; }
+        public AsuntoDeContacto AsuntoDeContacto { get; set; }
         public Guid ClienteId { get; set; }
         public Cliente Cliente { get; set; }
         public Guid UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
         public Guid AreaId { get; set; }
         public Area Area { get; set; }
-        public Guid AsuntoDeContactoId { get; set; }
-        public AsuntoDeContacto AsuntoDeContacto { get; set; }
 
 
     }

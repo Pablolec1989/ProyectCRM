@@ -18,6 +18,8 @@ namespace ProyectCRM.Data
             _context = context;
         }
 
+        protected IQueryable<T> Entities => _context.Set<T>();
+
         public virtual async Task<T> CreateAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);

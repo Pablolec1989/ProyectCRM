@@ -18,7 +18,7 @@ namespace ProyectCRM.Service.Validators
                 .MaximumLength(100).WithMessage(ValidationMessages.MaxLength(100));
 
             RuleFor(d => d.Numero)
-                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
 
             RuleFor(d => d.Ciudad)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)

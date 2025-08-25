@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Validators.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,21 @@ namespace ProyectCRM.Service.Validators
     {
         public UsuarioValidator()
         {
-            RuleFor(u => u.Nombre).NotEmpty();
-            RuleFor(u => u.Apellido).NotEmpty();
-            RuleFor(u => u.Password).NotEmpty();
-            RuleFor(u => u.RolId).NotEmpty();
+            RuleFor(x => x.Nombre)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(50));
+
+            RuleFor(x => x.Apellido)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(50));
+
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MinimumLength(8).WithMessage(ValidationMessages.MinLength(8))
+                .MaximumLength(100).WithMessage(ValidationMessages.MaxLength(100));
+
+            RuleFor(x => x.RolId)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
 
         }
     }

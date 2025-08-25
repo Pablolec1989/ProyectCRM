@@ -18,19 +18,22 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
+        public IQueryable<TelefonoCliente> GetTelefonoClienteQuery()
+        {
+            return _context.TelefonosClientes
+            .Include(tc => tc.TipoTelefono)
+            .Include(tc => tc.Cliente);
+        }
+
         public override async Task<TelefonoCliente> GetByIdAsync(Guid id)
         {
-            return await _context.TelefonosClientes
-                .Include(tc => tc.TipoTelefono)
-                .Include(tc => tc.Cliente)
-                .FirstOrDefaultAsync();
+            return await GetTelefonoClienteQuery()
+                .FirstOrDefaultAsync(tc => tc.Id == id);
         }
 
         public override async Task<IEnumerable<TelefonoCliente>> GetAllAsync()
         {
-            return await _context.TelefonosClientes
-                .Include(tc => tc.TipoTelefono)
-                .Include(tc => tc.Cliente)
+            return await GetTelefonoClienteQuery()
                 .ToListAsync();
         }
     }

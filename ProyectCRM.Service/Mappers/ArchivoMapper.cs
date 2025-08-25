@@ -23,18 +23,6 @@ namespace ProyectCRM.Service.Mappers
                 EmpresaId = entity.EmpresaId,
             };
         }
-
-        public Archivo FromDtoToEntity(ArchivoDTO dto)
-        {
-            return new Archivo
-            {
-                Id = dto.Id,
-                NombreArchivo = dto.NombreArchivo,
-                RutaArchivo = dto.RutaArchivo,
-                FechaSubida = dto.FechaSubida
-            };
-        }
-
         public Archivo FromRequestDtoToEntity(ArchivoRequestDTO dto)
         {
             return new Archivo

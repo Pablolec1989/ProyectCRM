@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class TelefonoClienteValidator : AbstractValidator<TelefonoClienteRequestDTO>
+    public class ArchivoRequestValidator : AbstractValidator<ArchivoRequestDTO>
     {
-        public TelefonoClienteValidator()
+        public ArchivoRequestValidator()
         {
-            RuleFor(t => t.Numero)
-                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
-                .MaximumLength(20).WithMessage(ValidationMessages.MaxLength(20));
-
-            RuleFor(t => t.ClienteId)
+            RuleFor(a => a.NombreArchivo)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
 
-            RuleFor(t => t.TipoTelefonoId)
+            RuleFor(a => a.RutaArchivo)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
+
+            RuleFor(a => a.VisitaId)
+                .NotNull().NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
         }
     }
 }

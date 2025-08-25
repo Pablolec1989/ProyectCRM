@@ -18,27 +18,21 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
+        public IQueryable<Direccion> GetDireccionQuery()
+        {
+            return _context.Direcciones
+                .Include(d => d.TipoDireccion)
+                .Include(d => d.Cliente).ThenInclude(c => c.Empresa);
+        }
         public override async Task<Direccion> GetByIdAsync(Guid id)
         {
-            return await _context.Direcciones
-                .Include(d => d.TipoDireccion)
+            return await GetDireccionQuery()
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
         public override async Task<IEnumerable<Direccion>> GetAllAsync()
         {
-            return await _context.Direcciones
-                .Include(d => d.TipoDireccion)
+            return await GetDireccionQuery()
                 .ToListAsync();
-        }
-        public override async Task<Direccion> UpdateAsync(Direccion entity)
-        {
-            var existingEntity = await _context.Direcciones.FindAsync(entity.Id);
-            if (existingEntity == null)
-            {
-                return null;
-            }
-            _context.Entry(existingEntity).CurrentValues.SetValues(entity);
-            return existingEntity;
         }
     }
 }

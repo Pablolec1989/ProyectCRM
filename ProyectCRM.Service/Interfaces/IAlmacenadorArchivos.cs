@@ -9,8 +9,8 @@ namespace ProyectCRM.Service.Utilities
 {
     public interface IAlmacenadorArchivos
     {
-        Task<string> Almacenar(string contenedor, IFormFile archivo);
-        Task<string> Actualizar(string contenedor, IFormFile archivo, string? ruta);
-        Task Borrar(string? ruta, string contenedor);
+        Task<string> CreateAsync(string contenedor, IFormFile archivo);
+        Task<string> UpdateAsync(string contenedor, IFormFile archivo, string? ruta);
+        Task DeleteAsync(string? ruta, string contenedor);
     }
 }

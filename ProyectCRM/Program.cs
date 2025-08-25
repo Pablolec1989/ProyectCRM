@@ -152,7 +152,7 @@ builder.Services.AddScoped<IValidator<VisitaRequestDTO>, VisitaValidator>();
 builder.Services.AddScoped<IArchivoRepository, VisitaArchivoRepository>();
 builder.Services.AddScoped<IArchivoMapper, ArchivoMapper>();
 builder.Services.AddScoped<IArchivoService, ArchivoService>();
-builder.Services.AddScoped<IValidator<ArchivoRequestDTO>, ArchivoValidator>();
+builder.Services.AddScoped<IValidator<ArchivoRequestDTO>, ArchivoRequestValidator>();
 
 // VisitaUsuario
 builder.Services.AddScoped<IVisitaUsuarioRepository, VisitaUsuarioRepository>();

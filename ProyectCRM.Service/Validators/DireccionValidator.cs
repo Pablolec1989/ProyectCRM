@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Validators.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,27 @@ namespace ProyectCRM.Service.Validators
     {
         public DireccionValidator()
         {
-            RuleFor(d => d.CodigoPostal).MaximumLength(20);
-            RuleFor(d => d.Calle).MaximumLength(150);
-            RuleFor(d => d.Ciudad).MaximumLength(150);
-            RuleFor(d => d.Provincia).MaximumLength(100);
+            RuleFor(d => d.Calle)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(100).WithMessage(ValidationMessages.MaxLength(100));
+
+            RuleFor(d => d.Numero)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+
+            RuleFor(d => d.Ciudad)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(100));
+
+            RuleFor(d => d.CodigoPostal)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(20).WithMessage(ValidationMessages.MaxLength(100));
+
+            RuleFor(d => d.Provincia)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(100));
+
+            RuleFor(d => d.TipoDireccionId)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
         }
     }
 }

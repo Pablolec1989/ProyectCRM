@@ -18,21 +18,23 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
-        public override async Task<Cliente> GetByIdAsync(Guid id)
+        public IQueryable<Cliente> GetClientesQuery()
         {
-            return await _context.Clientes
+            return _context.Clientes
                 .Include(c => c.Telefonos).ThenInclude(t => t.TipoTelefono)
                 .Include(c => c.Direcciones).ThenInclude(d => d.TipoDireccion)
-                .Include(c => c.Visitas).ThenInclude(v => v.Direccion)
+                .Include(c => c.Visitas).ThenInclude(v => v.Direccion);
+        }
+
+        public override async Task<Cliente> GetByIdAsync(Guid id)
+        {
+            return await GetClientesQuery()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public override async Task<IEnumerable<Cliente>> GetAllAsync()
         {
-            return await _context.Clientes
-                .Include(c => c.Telefonos).ThenInclude(t => t.TipoTelefono)
-                .Include(c => c.Direcciones).ThenInclude(d => d.TipoDireccion)
-                .Include(c => c.Visitas).ThenInclude(dc => dc.Direccion)
+            return await GetClientesQuery()
                 .ToListAsync();
         }
     }

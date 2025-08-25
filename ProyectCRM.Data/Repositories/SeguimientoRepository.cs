@@ -18,19 +18,23 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
-        public override async Task<Seguimiento> GetByIdAsync(Guid id)
+        public IQueryable<Seguimiento> GetSeguimientoQuery()
         {
-            return await _context.Seguimientos
+                return _context.Seguimientos
                 .Include(s => s.Usuario)
                 .Include(s => s.Cliente).ThenInclude(c => c.Empresa)
+                .AsQueryable();
+        }
+
+        public override async Task<Seguimiento> GetByIdAsync(Guid id)
+        {
+            return await GetSeguimientoQuery()
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public override async Task<IEnumerable<Seguimiento>> GetAllAsync()
         {
-            return await _context.Seguimientos
-                .Include(s => s.Usuario)
-                .Include(s => s.Cliente).ThenInclude(c => c.Empresa)
+            return await GetSeguimientoQuery()
                 .ToListAsync();
         }
     }

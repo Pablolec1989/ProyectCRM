@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Validators.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,8 +16,8 @@ namespace ProyectCRM.Service.Validators
         public AreaRequestValidator()
         {
             RuleFor(a => a.Nombre)
-                .NotEmpty().WithMessage("El campo es obligatorio.")
-                .MaximumLength(50).WithMessage("El campo nombre excede el limite de caracteres.");
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(50));
         }
     }
 }

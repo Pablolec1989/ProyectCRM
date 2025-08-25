@@ -17,22 +17,22 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
+        public IQueryable<Mail> GetMailsQuery()
+        {
+            return _context.Mails
+                .Include(m => m.Cliente).ThenInclude(c => c.Empresa)
+                .Include(m => m.Usuario)
+                .Include(m => m.AsuntoDeContacto);
+        }
+
         public override async Task<Mail> GetByIdAsync(Guid id)
         {
-            return await _context.Mails
-                .Include(m => m.Cliente).ThenInclude(c => c.Empresa.RazonSocial)
-                .Include(m => m.Usuario)
-                .Include(m => m.AsuntoDeContacto)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            return await GetMailsQuery().FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public override async Task<IEnumerable<Mail>> GetAllAsync()
         {
-            return await _context.Mails
-                .Include(m => m.Cliente).ThenInclude(c => c.Empresa.RazonSocial)
-                .Include(m => m.Usuario)
-                .Include(m => m.AsuntoDeContacto)
-                .ToListAsync();
+            return await GetMailsQuery().ToListAsync();
         }
     }
 }

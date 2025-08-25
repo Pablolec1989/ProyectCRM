@@ -13,10 +13,10 @@ namespace ProyectCRM.Service.DTOs
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
-        public Guid TelefonoClienteId { get; set; }
-        public TelefonoCliente TelefonoCliente { get; set; }
         public Guid EmpresaId { get; set; }
+        public Guid TelefonoClienteId { get; set; }
         public Empresa Empresa { get; set; }
+        public TelefonoCliente TelefonoCliente { get; set; }
 
     }
 }

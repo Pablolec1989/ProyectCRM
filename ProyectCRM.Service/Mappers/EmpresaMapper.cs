@@ -17,8 +17,8 @@ namespace ProyectCRM.Service.Mappers
             {
                 Id = entity.Id,
                 RazonSocial = entity.RazonSocial,
-                CUIT = entity.CUIT,
-                CUIL = entity.CUIL,
+                CUIT = entity.Cuit,
+                CUIL = entity.Cuil,
                 ClienteId = entity.ClienteId,
                 Cliente = new ClienteDTO
                 {
@@ -46,8 +46,8 @@ namespace ProyectCRM.Service.Mappers
             {
                 Id = dto.Id,
                 RazonSocial = dto.RazonSocial,
-                CUIT = dto.CUIT,
-                CUIL = dto.CUIL,
+                Cuit = dto.Cuit,
+                Cuil = dto.Cuil,
                 CondicionIvaId = dto.CondicionIvaId,
                 RubroId = dto.RubroId
             };

@@ -13,6 +13,5 @@ namespace ProyectCRM.Service.DTOs
         public Guid DireccionId { get; set; }
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
-        public List<Guid> UsuariosIds{ get; set; }
     }
 }

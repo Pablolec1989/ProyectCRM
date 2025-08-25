@@ -25,8 +25,7 @@ namespace ProyectCRM.Service.Services
             _contextAccessor = contextAccessor;
         }
 
-
-        public async Task<string> Almacenar(string contenedor, IFormFile archivo)
+        public async Task<string> CreateAsync(string contenedor, IFormFile archivo)
         {
             var extension = Path.GetExtension(archivo.FileName);
             var nombreArchivo = $"{Guid.NewGuid()}{extension}";
@@ -52,17 +51,17 @@ namespace ProyectCRM.Service.Services
             return urlArchivo;
         }
 
-        public async Task<string> Actualizar(string contenedor, IFormFile archivo, string? ruta)
+        public async Task<string> UpdateAsync(string contenedor, IFormFile archivo, string? ruta)
         {
-            await Borrar(ruta, contenedor);
-            return await Almacenar(contenedor, archivo);
+            await DeleteAsync(ruta, contenedor);
+            return await CreateAsync(contenedor, archivo);
         }
 
-        public Task Borrar(string? ruta, string contenedor)
+        public Task DeleteAsync(string? ruta, string contenedor)
         {
             if (string.IsNullOrEmpty(ruta))
             {
-                return Task.CompletedTask;
+                throw new Exception("No se ha proporcionado una ruta válida.");
             }
             var nombreArchivo = Path.GetFileName(ruta);
             var directorioArchivo = Path.Combine(_environment.WebRootPath, contenedor, nombreArchivo);

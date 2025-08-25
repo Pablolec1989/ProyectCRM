@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Validators.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,18 @@ namespace ProyectCRM.Service.Validators
     {
         public VisitaValidator()
         {
-            RuleFor(v => v.ClienteId).NotNull().NotEmpty();
-            RuleFor(v => v.Observaciones).NotEmpty();
-            RuleFor(v => v.DireccionId).NotEmpty();
+            RuleFor(v => v.Observaciones)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .MaximumLength(500).WithMessage(ValidationMessages.CampoObligatorio);
+
+            RuleFor(v => v.ClienteId)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .NotNull().NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
+
+            RuleFor(v => v.DireccionId)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
+                .NotNull().NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
+
         }
     }
 }

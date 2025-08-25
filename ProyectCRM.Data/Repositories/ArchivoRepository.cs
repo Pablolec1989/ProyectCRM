@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Data.Repositories
 {
-    public class VisitaArchivoRepository : RepositoryBase<Archivo>, IArchivoRepository
+    public class ArchivoRepository : RepositoryBase<Archivo>, IArchivoRepository
     {
         private readonly AppDbContext _context;
 
-        public VisitaArchivoRepository(AppDbContext context) : base(context)
+        public ArchivoRepository(AppDbContext context) : base(context)
         {
             _context = context;
         }

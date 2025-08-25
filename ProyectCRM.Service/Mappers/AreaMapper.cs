@@ -1,5 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.AreaDTOs;
+using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace ProyectCRM.Service.Mappers
 {
     public class AreaMapper : IAreaMapper
     {
-        public AreaDTO ToDTO(Area entity)
+        public AreaDTO FromEntityToDto(Area entity)
         {
             return new AreaDTO
             {
@@ -20,16 +20,7 @@ namespace ProyectCRM.Service.Mappers
             };
         }
 
-        public Area ToEntity(AreaDTO dto)
-        {
-            return new Area
-            {
-                Id = dto.Id,
-                Nombre = dto.Nombre,
-            };
-        }
-
-        public Area ToEntity(AreaUpdateCreateDTO dto)
+        public Area FromRequestDtoToEntity(AreaRequestDTO dto)
         {
             return new Area
             {
@@ -39,7 +30,7 @@ namespace ProyectCRM.Service.Mappers
 
         public IEnumerable<AreaDTO> ToListDTO(IEnumerable<Area> entities)
         {
-            return entities.Select(e => ToDTO(e)).ToList();
+            return entities.Select(e => FromEntityToDto(e)).ToList();
         }
     }
 }

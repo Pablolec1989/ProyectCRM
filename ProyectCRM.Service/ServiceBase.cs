@@ -8,33 +8,35 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service
 {
-    public abstract class ServiceBase<TDTO, TUpdateCreateDTO, TEntity> : IServiceBase<TDTO, TUpdateCreateDTO, TEntity>
+    public abstract class ServiceBase<TDTO, TRequestDTO, TEntity> : IServiceBase<TDTO, TRequestDTO, TEntity>
         where TDTO : class
-        where TUpdateCreateDTO : class, new()
+        where TRequestDTO : class, new()
         where TEntity : EntityBase
     {
-        private readonly IMapperBase<TDTO, TUpdateCreateDTO, TEntity> _mapper;
+        private readonly IMapperBase<TDTO, TRequestDTO, TEntity> _mapper;
         private readonly IRepositoryBase<TEntity> _repository;
-        private readonly IValidator<TEntity> _validator;
+        private readonly IValidator<TRequestDTO> _validator;
 
-        public ServiceBase(IMapperBase<TDTO, TUpdateCreateDTO, TEntity> mapper, IRepositoryBase<TEntity> repository, IValidator<TEntity> validator)
+        public ServiceBase(IMapperBase<TDTO, TRequestDTO, TEntity> mapper, 
+            IRepositoryBase<TEntity> repository, 
+            IValidator<TRequestDTO> validator)
         {
             _mapper = mapper;
             _repository = repository;
             _validator = validator;
         }
 
-        public virtual async Task<TDTO> CreateAsync(TUpdateCreateDTO dto)
+        public virtual async Task<TDTO> CreateAsync(TRequestDTO dto)
         {
 
-            var entityToCreate = _mapper.ToEntity(dto);
-            var validationResult = _validator.Validate(entityToCreate);
+            var validationResult = _validator.Validate(dto);
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.Errors);
             }
+            var entityToCreate = _mapper.FromRequestDtoToEntity(dto);
             var createdEntity = await _repository.CreateAsync(entityToCreate);
-            return _mapper.ToDTO(createdEntity);
+            return _mapper.FromEntityToDto(createdEntity);
         }
 
         public virtual async Task<bool> DeleteAsync(Guid id)
@@ -50,21 +52,27 @@ namespace ProyectCRM.Service
 
         public virtual async Task<TDTO> GetByIdAsync(Guid id)
         {
-            return _mapper.ToDTO(await _repository.GetByIdAsync(id));
+            return _mapper.FromEntityToDto(await _repository.GetByIdAsync(id));
         }
 
-        public virtual async Task<TDTO> UpdateAsync(Guid id, TUpdateCreateDTO dto)
+        public virtual async Task<TDTO> UpdateAsync(Guid id, TRequestDTO dto)
         {
             var existingEntity = await _repository.GetByIdAsync(id);
             if (existingEntity == null)
             {
                 return null;
             }
-            var entityToUpdate = _mapper.ToEntity(dto);
+
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+            var entityToUpdate = _mapper.FromRequestDtoToEntity(dto);
             //Le asigno el Id!
             entityToUpdate.Id = id;
             var updatedEntity = await _repository.UpdateAsync(entityToUpdate);
-            return _mapper.ToDTO(updatedEntity);
+            return _mapper.FromEntityToDto(updatedEntity);
         }
     }
 }

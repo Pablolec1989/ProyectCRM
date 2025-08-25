@@ -1,5 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.AsuntoDeContactoDTO;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface IAsuntoDeContactoService : IServiceBase<AsuntoDeContactoDTO, AsuntoDeContactoUpdateCreateDTO, AsuntoDeContacto>
+    public interface IAsuntoDeContactoService : IServiceBase<DTOs.AsuntoDeContactoDTO, AsuntoDeContactoRequestDTO, AsuntoDeContacto>
     {
         //...
     }

@@ -14,6 +14,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.8" />
+    <PackageReference Include="Scrutor" Version="6.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
@@ -21,6 +22,10 @@
     <ProjectReference Include="..\ProyectCRM.Data\ProyectCRM.Data.csproj" />
     <ProjectReference Include="..\ProyectCRM.Models\ProyectCRM.Models.csproj" />
     <ProjectReference Include="..\ProyectCRM.Service\ProyectCRM.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

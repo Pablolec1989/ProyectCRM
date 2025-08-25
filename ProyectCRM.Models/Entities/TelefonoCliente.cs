@@ -11,8 +11,8 @@ namespace ProyectCRM.Models.Entities
     {
         public string Numero { get; set; }
         public Guid TipoTelefonoId { get; set; }
-        public TipoTelefono TipoTelefono { get; set; }
         public Guid ClienteId { get; set; }
+        public TipoTelefono TipoTelefono { get; set; }
         public Cliente Cliente { get; set; }
     }
 }

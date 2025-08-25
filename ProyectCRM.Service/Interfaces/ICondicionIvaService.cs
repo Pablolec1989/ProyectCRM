@@ -1,5 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs.IvaCondicionDTOs;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Interfaces
 {
-    public interface ICondicionIvaService : IServiceBase<CondicionIvaDTO, CondicionIvaUpdateCreateDTO, CondicionIva>
+    public interface ICondicionIvaService : IServiceBase<CondicionIvaDTO, CondicionIvaRequestDTO, CondicionIva>
     {
     }
 }

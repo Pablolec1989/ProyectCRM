@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
@@ -14,7 +15,7 @@ namespace ProyectCRM.Service.Services
 {
     public class VisitaUsuarioService : ServiceBase<VisitaUsuarioDTO, VisitaUsuarioRequestDTO, VisitaUsuario>, IVisitaUsuarioService
     {
-        public VisitaUsuarioService(IVisitaUsuarioMapper mapper, 
+        public VisitaUsuarioService(IMapper mapper,
             IVisitaUsuarioRepository repository, 
             IValidator<VisitaUsuarioRequestDTO> validator) 
             : base(mapper, repository, validator)

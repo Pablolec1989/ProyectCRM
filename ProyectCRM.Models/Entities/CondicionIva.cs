@@ -10,6 +10,5 @@ namespace ProyectCRM.Models.Entities
     public class CondicionIva : EntityBase
     {
         public string Nombre { get; set; }
-        public ICollection<Empresa> Empresas { get; set; }
     }
 }

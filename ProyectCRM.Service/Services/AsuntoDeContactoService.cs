@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -11,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Services
 {
-    public class AsuntoDeContactoService : ServiceBase<DTOs.AsuntoDeContactoDTO, AsuntoDeContactoRequestDTO, AsuntoDeContacto>, IAsuntoDeContactoService
+    public class AsuntoDeContactoService : ServiceBase<AsuntoDeContactoDTO, AsuntoDeContactoRequestDTO, AsuntoDeContacto>, IAsuntoDeContactoService
     {
-        public AsuntoDeContactoService(IAsuntoDeContactoMapper mapper, 
+        public AsuntoDeContactoService(IMapper mapper, 
             IAsuntoDeContactoRepository repository, 
             IValidator<AsuntoDeContactoRequestDTO> validator) 
             : base(mapper, repository, validator)

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
@@ -15,7 +16,7 @@ namespace ProyectCRM.Service.Services
 {
     public class AreaService : ServiceBase<AreaDTO, AreaRequestDTO, Area>, IAreaService
     {
-        public AreaService(IAreaMapper mapper,
+        public AreaService(IMapper mapper,
             IAreaRepository repository, 
             IValidator<AreaRequestDTO> validator )
             : base(mapper, repository, validator)

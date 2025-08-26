@@ -1,36 +1,21 @@
-using FluentValidation;
+using Mapster;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using ProyectCRM;
 using ProyectCRM.Data;
-using ProyectCRM.Data.Interfaces;
-using ProyectCRM.Data.Repositories;
-using ProyectCRM.Models.Entities;
-using ProyectCRM.Service;
 using ProyectCRM.Service.DependencyInjectionServices;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
 using ProyectCRM.Service.Mappers;
-using ProyectCRM.Service.Services;
-using ProyectCRM.Service.Utilities;
-using ProyectCRM.Service.Validators;
-using Scrutor;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
-builder.Services.AddMappers();
+builder.Services.AddMapster();
 builder.Services.AddValidators();
 
-
-
-// With this line:
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+MappersDependencyInjection.AddMappers(builder.Services);
 
 //CORS Config
 builder.Services.AddCors(options => {
@@ -43,7 +28,11 @@ builder.Services.AddCors(options => {
 // Configuración de Almacenamiento de Archivos
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-//Fluent Validation
+// With this line:
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

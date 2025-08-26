@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -13,7 +14,7 @@ namespace ProyectCRM.Service.Services
 {
     public class RolService : ServiceBase<RolDTO, RolRequestDTO, Rol>, IRolService
     {
-        public RolService(IRolMapper mapper, 
+        public RolService(IMapper mapper, 
             IRolRepository repository, 
             IValidator<RolRequestDTO> validator) 
             : base(mapper, repository, validator)

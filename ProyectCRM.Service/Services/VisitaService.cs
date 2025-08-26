@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using Microsoft.AspNetCore.Http;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
@@ -14,7 +15,7 @@ namespace ProyectCRM.Service.Services
 {
     public class VisitaService : ServiceBase<VisitaDTO, VisitaRequestDTO, Visita>, IVisitaService
     {
-        public VisitaService(IVisitaMapper mapper, 
+        public VisitaService(IMapper mapper, 
             IVisitaRepository repository, 
             IValidator<VisitaRequestDTO> validator) 
             : base(mapper, repository, validator)

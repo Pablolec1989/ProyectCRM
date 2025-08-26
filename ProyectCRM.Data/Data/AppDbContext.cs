@@ -67,10 +67,7 @@ namespace ProyectCRM.Data
                 .HasForeignKey(v => v.ClienteId);
 
             //CondicionIva configuration
-            modelBuilder.Entity<CondicionIva>().ToTable("CondicionIva")
-                .HasMany(ci => ci.Empresas)
-                .WithOne(e => e.CondicionIva)
-                .HasForeignKey(e => e.CondicionIvaId);
+            modelBuilder.Entity<CondicionIva>().ToTable("CondicionIva");
 
             //TipoTelefono configuration
             modelBuilder.Entity<TipoTelefono>().ToTable("TiposTelefono")
@@ -83,10 +80,7 @@ namespace ProyectCRM.Data
                 .HasOne(e => e.Cliente)
                 .WithOne(c => c.Empresa);
 
-            modelBuilder.Entity<Empresa>().ToTable("Empresas")
-                .HasOne(e => e.CondicionIva)
-                .WithMany(ci => ci.Empresas)
-                .HasForeignKey(e => e.CondicionIvaId);
+            modelBuilder.Entity<Empresa>().ToTable("Empresas");
 
             modelBuilder.Entity<Empresa>().ToTable("Empresas")
                 .HasOne(e => e.Rubro)

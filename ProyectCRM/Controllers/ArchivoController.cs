@@ -4,10 +4,10 @@ using ProyectCRM.Service.Interfaces;
 
 namespace ProyectCRM.Controllers
 {
-    public class ArchivoController : CustomControllerBase<ArchivoDTO, ArchivoRequestDTO, Archivo>
-    {
-        public ArchivoController(IArchivoService service) : base(service)
-        {
-        }
-    }
+    //public class ArchivoController : CustomControllerBase<ArchivoDTO, ArchivoRequestDTO, Archivo>
+    //{
+    //    //public ArchivoController(IArchivoService service) : base(service)
+    //    //{
+    //    //}
+    //}
 }

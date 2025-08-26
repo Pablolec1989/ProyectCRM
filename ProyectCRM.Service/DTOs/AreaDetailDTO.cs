@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class AreaRequestDTO
+    public class AreaDetailDTO : EntityBase
     {
         public string Nombre { get; set; }
+        public ICollection<UsuarioDTO> Usuarios { get; set; }
     }
 }

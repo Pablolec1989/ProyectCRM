@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Data
 {
-    public static class DependencyInjection
+    public static class DependencyInjectionRepositories
     {
         public static IServiceCollection AddInfrastructure (
             this IServiceCollection services, 

@@ -13,7 +13,7 @@ namespace ProyectCRM.Service.Services
 {
     public class RubroService : ServiceBase<RubroDTO, RubroRequestDTO, Rubro>, IRubroService
     {
-        public RubroService(IMapperBase<RubroDTO, RubroRequestDTO, Rubro> mapper, 
+        public RubroService(IRubroMapper mapper, 
             IRubroRepository repository, IValidator<RubroRequestDTO> validator) 
             : base(mapper, repository, validator)
         {

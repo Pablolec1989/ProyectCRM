@@ -79,7 +79,7 @@ namespace ProyectCRM.Service.Mappers
                 DireccionId = dto.DireccionId,
                 FechaProgramada = dto.FechaProgramada,
                 FechaRealizada = dto.FechaRealizada,
-                VisitasUsuarios = dto.UsuariosIds.Select(id => new VisitaUsuario
+                VisitasUsuarios = dto.UsuariosId.Select(id => new VisitaUsuario
                 {
                     UsuarioId = id
                 }).ToList(),

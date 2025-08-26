@@ -28,7 +28,7 @@ namespace ProyectCRM.Service.Mappers
             return new Archivo
             {
                 NombreArchivo = dto.NombreArchivo,
-                RutaArchivo = dto.RutaArchivo.FileName,
+                RutaArchivo = dto.RutaArchivo,
                 FechaSubida = dto.FechaSubida,
                 VisitaId = dto.VisitaId,
                 EmpresaId = dto.EmpresaId

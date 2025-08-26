@@ -37,15 +37,7 @@ namespace ProyectCRM.Data
                 .HasForeignKey(u => u.AreaId);
 
             //AsuntoDeContacto configuration
-            modelBuilder.Entity<AsuntoDeContacto>().ToTable("AsuntosDeContacto")
-                .HasMany(a => a.Llamados)
-                .WithOne(l => l.AsuntoDeContacto)
-                .HasForeignKey(l => l.AsuntoDeContactoId);
-
-            modelBuilder.Entity<AsuntoDeContacto>().ToTable("AsuntosDeContacto")
-                .HasMany(a => a.Mails)
-                .WithOne(m => m.AsuntoDeContacto)
-                .HasForeignKey(m => m.AsuntoDeContactoId);
+            modelBuilder.Entity<AsuntoDeContacto>().ToTable("AsuntosDeContacto");
 
             //Rubro configuration
             modelBuilder.Entity<Rubro>().ToTable("Rubros")
@@ -109,10 +101,7 @@ namespace ProyectCRM.Data
                 .WithMany(u => u.Llamados)
                 .HasForeignKey(l => l.UsuarioId);
 
-            modelBuilder.Entity<Llamado>().ToTable("Llamadas")
-                .HasOne(l => l.AsuntoDeContacto)
-                .WithMany(a => a.Llamados)
-                .HasForeignKey(l => l.AsuntoDeContactoId);
+            modelBuilder.Entity<Llamado>().ToTable("Llamadas");
 
             //Mail configuration
             modelBuilder.Entity<Mail>().ToTable("Mails")
@@ -120,10 +109,7 @@ namespace ProyectCRM.Data
                 .WithMany(u => u.Mails)
                 .HasForeignKey(m => m.UsuarioId);
 
-            modelBuilder.Entity<Mail>().ToTable("Mails")
-                .HasOne(m => m.AsuntoDeContacto)
-                .WithMany(a => a.Mails)
-                .HasForeignKey(m => m.AsuntoDeContactoId);
+            modelBuilder.Entity<Mail>().ToTable("Mails");
 
             //Rol configuration
             modelBuilder.Entity<Rol>().ToTable("Roles")

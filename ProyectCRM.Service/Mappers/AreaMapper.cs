@@ -26,10 +26,9 @@ namespace ProyectCRM.Service.Mappers
         {
             return dto.Adapt<Area>();
         }
-
-        public IEnumerable<AreaDTO> ToListDTO(IEnumerable<Area> entities)
+        public IEnumerable<AreaDTO> ToListDTO(IEnumerable<Area> areas)
         {
-            return entities.Select(e => e.Adapt<AreaDTO>());
+            return areas.Adapt<IEnumerable<AreaDTO>>();
         }
     }
 }

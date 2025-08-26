@@ -10,7 +10,5 @@ namespace ProyectCRM.Models.Entities
     public class AsuntoDeContacto : EntityBase
     {
         public string Nombre { get; set; }
-        public ICollection<Llamado> Llamados { get; set; }
-        public ICollection<Mail> Mails { get; set; }
     }
 }

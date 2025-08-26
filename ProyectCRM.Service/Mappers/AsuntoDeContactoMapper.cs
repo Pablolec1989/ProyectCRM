@@ -1,4 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
+using Mapster;
 using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using System;
@@ -11,26 +12,19 @@ namespace ProyectCRM.Service.Mappers
 {
     public class AsuntoDeContactoMapper : IAsuntoDeContactoMapper
     {
-        public AsuntoDeContactoDTO FromEntityToDto(AsuntoDeContacto entity)
+        public AsuntoDeContactoDTO FromEntityToDto(AsuntoDeContacto asuntoDeContacto)
         {
-            return new AsuntoDeContactoDTO
-            {
-                Id = entity.Id,
-                Nombre = entity.Nombre,
-            };
+            return asuntoDeContacto.Adapt<AsuntoDeContactoDTO>();
         }
 
         public AsuntoDeContacto FromRequestDtoToEntity(AsuntoDeContactoRequestDTO dto)
         {
-            return new AsuntoDeContacto
-            {
-                Nombre = dto.Nombre,
-            };
+            return dto.Adapt<AsuntoDeContacto>();
         }
 
         public IEnumerable<AsuntoDeContactoDTO> ToListDTO(IEnumerable<AsuntoDeContacto> entities)
         {
-            return entities.Select(e => FromEntityToDto(e));
+            return entities.Adapt<IEnumerable<AsuntoDeContactoDTO>>();
         }
     }
 }

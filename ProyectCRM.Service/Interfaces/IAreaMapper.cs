@@ -10,5 +10,6 @@ namespace ProyectCRM.Service.Interfaces
 {
     public interface IAreaMapper : IMapperBase<AreaDTO, AreaRequestDTO, Area>
     {
+        AreaDetailDTO FromEntityToDetailDTO(Area area);
     }
 }

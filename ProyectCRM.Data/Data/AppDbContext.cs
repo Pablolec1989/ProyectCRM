@@ -110,11 +110,6 @@ namespace ProyectCRM.Data
                 .HasForeignKey(l => l.UsuarioId);
 
             modelBuilder.Entity<Llamado>().ToTable("Llamadas")
-                .HasOne(l => l.Area)
-                .WithMany(a => a.Llamados)
-                .HasForeignKey(l => l.AreaId);
-
-            modelBuilder.Entity<Llamado>().ToTable("Llamadas")
                 .HasOne(l => l.AsuntoDeContacto)
                 .WithMany(a => a.Llamados)
                 .HasForeignKey(l => l.AsuntoDeContactoId);

@@ -59,7 +59,7 @@ namespace ProyectCRM.Service.Mappers
                 Apellido = dto.Apellido,
                 Password = dto.Password,
                 RolId = dto.RolId,
-                AreaId = dto.AreaId,
+                AreaId = (Guid)dto.AreaId,
                 VisitasUsuarios = new List<VisitaUsuario>()
             };
         }

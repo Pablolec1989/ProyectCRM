@@ -16,7 +16,8 @@ namespace ProyectCRM.Service.Services
     public class AreaService : ServiceBase<AreaDTO, AreaRequestDTO, Area>, IAreaService
     {
         public AreaService(IAreaMapper mapper,
-            IAreaRepository repository, IValidator<AreaRequestDTO> validator )
+            IAreaRepository repository, 
+            IValidator<AreaRequestDTO> validator )
             : base(mapper, repository, validator)
         {
         }

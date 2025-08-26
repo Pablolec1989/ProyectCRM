@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service
+namespace ProyectCRM.Service.DependencyInjectionServices
 {
     public static class MappersDependencyInjection
     {

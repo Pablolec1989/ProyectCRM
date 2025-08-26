@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class ArchivoRequestValidator : AbstractValidator<ArchivoRequestDTO>
+    public class ArchivoValidator : AbstractValidator<ArchivoRequestDTO>
     {
-        public ArchivoRequestValidator()
+        public ArchivoValidator()
         {
             RuleFor(a => a.NombreArchivo)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);

@@ -7,6 +7,7 @@ using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Data.Repositories;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service;
+using ProyectCRM.Service.DependencyInjectionServices;
 using ProyectCRM.Service.DTOs;
 using ProyectCRM.Service.Interfaces;
 using ProyectCRM.Service.Mappers;
@@ -23,7 +24,11 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddMappers();
+builder.Services.AddValidators();
 
+
+
+// With this line:
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -39,8 +44,6 @@ builder.Services.AddCors(options => {
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //Fluent Validation
-builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

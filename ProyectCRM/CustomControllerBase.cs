@@ -9,21 +9,21 @@ namespace ProyectCRM
 {
     [ApiController]
     [Route("api/[controller]")]
-    public abstract class CustomControllerBase<TDTO, TUpdateCreateDTO, TEntity>
-        : ControllerBase, ICustomControllerBase<TDTO, TUpdateCreateDTO, TEntity>
+    public abstract class CustomControllerBase<TDTO, TRequestDTO, TEntity>
+        : ControllerBase, ICustomControllerBase<TDTO, TRequestDTO, TEntity>
         where TDTO : class
-        where TUpdateCreateDTO : class, new()
+        where TRequestDTO : class, new()
         where TEntity : EntityBase
     {
-        private readonly IServiceBase<TDTO, TUpdateCreateDTO, TEntity> _serviceBase;
+        private readonly IServiceBase<TDTO, TRequestDTO, TEntity> _serviceBase;
 
-        public CustomControllerBase(IServiceBase<TDTO, TUpdateCreateDTO, TEntity> serviceBase)
+        public CustomControllerBase(IServiceBase<TDTO, TRequestDTO, TEntity> serviceBase)
         {
             _serviceBase = serviceBase;
         }
 
         [HttpPost]
-        public virtual async Task<ActionResult<TDTO>> CreateAsync([FromBody] TUpdateCreateDTO dto)
+        public virtual async Task<ActionResult<TDTO>> CreateAsync(TRequestDTO dto)
         {
             if (dto == null)
             {
@@ -71,7 +71,7 @@ namespace ProyectCRM
         }
 
         [HttpPut("{id:Guid}")]
-        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, [FromBody] TUpdateCreateDTO dto)
+        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, [FromBody] TRequestDTO dto)
         {
             var updatedDto = await _serviceBase.UpdateAsync(id, dto);
             if (updatedDto == null)

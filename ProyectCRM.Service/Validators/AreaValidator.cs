@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Validators
 {
-    public class AreaRequestValidator : AbstractValidator<AreaRequestDTO>
+    public class AreaValidator : AbstractValidator<AreaRequestDTO>
     {
-        public AreaRequestValidator()
+        public AreaValidator()
         {
             RuleFor(a => a.Nombre)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs
+namespace ProyectCRM.Models.Service.DTOs
 {
     public class VisitaRequestDTO
     {
         public string Observaciones { get; set; }
         public Guid ClienteId { get; set; }
         public Guid DireccionId { get; set; }
-        public List<Guid> UsuariosId { get; set; }
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaRealizada { get; set; }
     }

@@ -1,59 +1,37 @@
-﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+﻿using Mapster;
+using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Mappers
+namespace ProyectCRM.Models.Service.Mappers
 {
-    public class LlamadoMapper : ILlamadoMapper
+    public class LlamadoMapper
     {
-        public LlamadoDTO FromEntityToDto(Llamado entity)
+        public void RegisterMappings()
         {
-            return new LlamadoDTO
-            {
-                Id = entity.Id,
-                Detalle = entity.Detalle,
-                AsuntoDeContacto = new AsuntoDeContactoDTO
-                {
-                    Id = entity.AsuntoDeContacto.Id,
-                    Nombre = entity.AsuntoDeContacto.Nombre
-                },
-                FechaLlamado = entity.FechaLlamado,
-                Cliente = new ClienteDTO
-                {
-                    Id = entity.Cliente.Id,
-                    Nombre = entity.Cliente.Nombre,
-                    Email = entity.Cliente.Email
-                },
-                Usuario = new UsuarioDTO
-                {
-                    Id = entity.Usuario.Id,
-                    Nombre = entity.Usuario.Nombre,
-                }
-            };
+            TypeAdapterConfig<Llamada, LlamadaDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Detalle, src => src.Detalle)
+                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto)
+                .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.Usuario, src => src.Usuario)
+                .Map(dest => dest.Area, src => src.Area)
+                .Map(dest => dest.FechaLlamado, src => src.FechaLlamado)
+                .TwoWays();
 
-        }
-
-        public Llamado FromRequestDtoToEntity(LlamadoRequestDTO dto)
-        {
-            return new Llamado
-            {
-                Id = dto.Id,
-                Detalle = dto.Detalle,
-                FechaLlamado = dto.FechaLlamado,
-                ClienteId = dto.ClienteId,
-                UsuarioId = dto.UsuarioId,
-                AsuntoDeContactoId = dto.AsuntoDeContactoId
-            };
-        }
-
-        public IEnumerable<LlamadoDTO> ToListDTO(IEnumerable<Llamado> entities)
-        {
-            return entities.Select(FromEntityToDto).ToList();
+            TypeAdapterConfig<LlamadaRequestDTO, Llamada>.NewConfig()
+                .Map(dest => dest.Detalle, src => src.Detalle)
+                .Map(dest => dest.AsuntoDeContactoId, src => src.AsuntoDeContactoId)
+                .Map(dest => dest.ClienteId, src => src.ClienteId)
+                .Map(dest => dest.UsuarioId, src => src.UsuarioId)
+                .Map(dest => dest.AreaId, src => src.AreaId)
+                .Map(dest => dest.FechaLlamado, src => src.FechaLlamado)
+                .TwoWays();
         }
     }
 }

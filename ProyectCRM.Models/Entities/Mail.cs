@@ -1,21 +1,24 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Models.Entities;
+
+public partial class Mail : EntityBase
 {
-    public class Mail : EntityBase
-    {
-        public string Detalle { get; set; }
-        public DateTime FechaMail { get; set; }
-        public Cliente Cliente { get; set; }
-        public Usuario Usuario { get; set; }
-        public AsuntoDeContacto AsuntoDeContacto { get; set; }
-        public Guid ClienteId { get; set; }
-        public Guid UsuarioId { get; set; }
-        public Guid AsuntoDeContactoId { get; set; }
-    }
+    public Guid? ClienteId { get; set; }
+
+    public DateTime? FechaMail { get; set; }
+
+    public Guid? UsuarioId { get; set; }
+
+    public string? Detalle { get; set; }
+
+    public Guid? AsuntoId { get; set; }
+
+    public virtual AsuntosDeContacto? Asunto { get; set; }
+
+    public virtual Cliente? Cliente { get; set; }
+
+    public virtual Usuario? Usuario { get; set; }
 }

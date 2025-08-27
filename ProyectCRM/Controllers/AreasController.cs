@@ -1,9 +1,9 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+using ProyectCRM.Models.Service;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 
-namespace ProyectCRM.Controllers
+namespace ProyectCRM.Models.Controllers
 {
     public class AreasController : CustomControllerBase<AreaDTO, AreaRequestDTO, Area>
     {

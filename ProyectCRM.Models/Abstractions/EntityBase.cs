@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Abstractions
+namespace ProyectCRM.Models.Entities.Abstractions
 {
     public abstract class EntityBase
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProyectCRM.Models.Abstractions;
+using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Data
+namespace ProyectCRM.Models.Data
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> 
         where T : EntityBase
@@ -17,8 +17,6 @@ namespace ProyectCRM.Data
         {
             _context = context;
         }
-
-        protected IQueryable<T> Entities => _context.Set<T>();
 
         public virtual async Task<T> CreateAsync(T entity)
         {

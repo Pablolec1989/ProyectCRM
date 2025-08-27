@@ -1,13 +1,13 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs
+namespace ProyectCRM.Models.Service.DTOs
 {
-    public class TelefonoClienteRequestDTO : EntityBase
+    public class TelefonoClienteRequestDTO
     {
         public string Numero { get; set; }
         public Guid ClienteId { get; set; }

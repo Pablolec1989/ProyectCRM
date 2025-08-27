@@ -1,10 +1,10 @@
 ﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 
-namespace ProyectCRM.Controllers
+namespace ProyectCRM.Models.Controllers
 {
-    public class LlamadaController : CustomControllerBase<LlamadoDTO, LlamadoRequestDTO, Llamado>
+    public class LlamadaController : CustomControllerBase<LlamadaDTO, LlamadaRequestDTO, Llamada>
     {
         public LlamadaController(ILlamadoService service) : base(service) 
         {

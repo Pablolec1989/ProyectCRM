@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectCRM.Interfaces;
+using ProyectCRM.Models.Interfaces;
 using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 
-namespace ProyectCRM.Controllers
+namespace ProyectCRM.Models.Controllers
 {
     public class DireccionController : CustomControllerBase<DireccionDTO, DireccionRequestDTO, Direccion>
     {

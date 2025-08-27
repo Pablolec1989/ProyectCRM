@@ -1,49 +1,42 @@
-﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+﻿using Mapster;
+using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Mappers
+namespace ProyectCRM.Models.Service.Mappers
 {
-    public class DireccionMapper : IDireccionMapper
+    public class DireccionMapper
     {
-        public DireccionDTO FromEntityToDto(Direccion entity)
+        public void RegisterMappings()
         {
-            return new DireccionDTO
-            {
-                Id = entity.Id,
-                Calle = entity.Calle,
-                Numero = entity.Numero,
-                Ciudad = entity.Ciudad,
-                CodigoPostal = entity.CodigoPostal,
-                Provincia = entity.Provincia,
-                TipoDireccion = new TipoDireccionDTO
-                {
-                    Nombre = entity.TipoDireccion.Nombre
-                }
-            };
-        }
+            TypeAdapterConfig<Direccion, DireccionDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Calle, src => src.Calle)
+                .Map(dest => dest.Numero, src => src.Numero)
+                .Map(dest => dest.Ciudad, src => src.Ciudad)
+                .Map(dest => dest.CodigoPostal, src => src.CodigoPostal)
+                .Map(dest => dest.Provincia, src => src.Provincia)
+                .Map(dest => dest.ClienteId, src => src.ClienteId)
+                .Map(dest => dest.TipoDireccionId, src => src.TipoDireccionId)
+                .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion)
+                .TwoWays();
 
-        public Direccion FromRequestDtoToEntity(DireccionRequestDTO dto)
-        {
-            return new Direccion
-            {
-                Calle = dto.Calle,
-                Numero = dto.Numero,
-                Ciudad = dto.Ciudad,
-                CodigoPostal = dto.CodigoPostal,
-                Provincia = dto.Provincia,
-                TipoDireccionId = dto.TipoDireccionId
-            };
-        }
-
-        public IEnumerable<DireccionDTO> ToListDTO(IEnumerable<Direccion> entities)
-        {
-            return entities.Select(entity => FromEntityToDto(entity)).ToList();
+            TypeAdapterConfig<DireccionRequestDTO, Direccion>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Calle, src => src.Calle)
+                .Map(dest => dest.Numero, src => src.Numero)
+                .Map(dest => dest.Ciudad, src => src.Ciudad)
+                .Map(dest => dest.CodigoPostal, src => src.CodigoPostal)
+                .Map(dest => dest.Provincia, src => src.Provincia)
+                .Map(dest => dest.ClienteId, src => src.ClienteId)
+                .Map(dest => dest.TipoDireccionId, src => src.TipoDireccionId)
+                .TwoWays();
         }
     }
 }

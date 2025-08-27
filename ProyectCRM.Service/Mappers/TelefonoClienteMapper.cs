@@ -1,48 +1,30 @@
-﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+﻿using Mapster;
+using Microsoft.AspNetCore.Routing.Constraints;
+using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Mappers
+namespace ProyectCRM.Models.Service.Mappers
 {
-    public class TelefonoClienteMapper : ITelefonoClienteMapper
+    public class TelefonoClienteMapper
     {
-        public TelefonoClienteDTO FromEntityToDto(TelefonoCliente entity)
+        public void RegisterMappings()
         {
-            return new TelefonoClienteDTO
-            {
-                Numero = entity.Numero,
-                Cliente = new ClienteDTO
-                {
-                    Id = entity.Cliente.Id,
-                    Nombre = entity.Cliente.Nombre,
-                    Apellido = entity.Cliente.Apellido,
-                    EmpresaCliente = new EmpresaDTO
-                    {
-                        RazonSocial = entity.Cliente.Empresa.RazonSocial,
-                    }
-                }
-            };
-            
-        }
+            TypeAdapterConfig<TelefonosCliente, TelefonoClienteDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.Numero, src => src.Numero)
+                .Map(dest => dest.TipoTelefono, src => src.TipoTelefono.Nombre)
+                .TwoWays();
 
-        public TelefonoCliente FromRequestDtoToEntity(TelefonoClienteRequestDTO dto)
-        {
-            return new TelefonoCliente
-            {
-                Numero = dto.Numero,
-                ClienteId = dto.ClienteId,
-                TipoTelefonoId = dto.TipoTelefonoId
-            };
-        }
-
-        public IEnumerable<TelefonoClienteDTO> ToListDTO(IEnumerable<TelefonoCliente> entities)
-        {
-            return entities.Select(FromEntityToDto).ToList();
+            TypeAdapterConfig<TelefonoClienteRequestDTO, TelefonosCliente>.NewConfig()
+                .Map(dest => dest.Numero, src => src.Numero)
+                .Map(dest => dest.TipoTelefonoId, src => src.TipoTelefonoId)
+                .TwoWays();
         }
     }
 }

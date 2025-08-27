@@ -1,13 +1,13 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs
+namespace ProyectCRM.Models.Service.DTOs
 {
-    public class TipoDireccionRequestDTO : EntityBase
+    public class TipoDireccionRequestDTO
     {
         public string Nombre { get; set; }
     }

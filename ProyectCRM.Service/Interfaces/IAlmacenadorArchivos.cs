@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Utilities
+namespace ProyectCRM.Models.Service.Utilities
 {
     public interface IAlmacenadorArchivos
     {

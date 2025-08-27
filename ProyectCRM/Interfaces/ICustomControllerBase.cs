@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using ProyectCRM.Models.Abstractions;
-using ProyectCRM.Service.DTOs;
+using ProyectCRM.Models.Entities.Abstractions;
+using ProyectCRM.Models.Service.DTOs;
 
-namespace ProyectCRM.Interfaces
+namespace ProyectCRM.Models.Interfaces
 {
     public interface ICustomControllerBase<TDTO, TRequestDTO, TEntity>
         where TDTO : class

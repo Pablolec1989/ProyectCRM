@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Validators.Utils;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Validators.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Validators
+namespace ProyectCRM.Models.Service.Validators
 {
     public class AreaValidator : AbstractValidator<AreaRequestDTO>
     {

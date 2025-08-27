@@ -1,15 +1,12 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Models.Entities;
+
+public partial class Rubro : EntityBase
 {
-    public class Rubro : EntityBase
-    {
-        public string Nombre { get; set; }
-        public ICollection<Empresa> Empresas { get; set; }
-    }
+    public string Nombre { get; set; } = null!;
+
+    public virtual ICollection<Empresa> Empresas { get; set; } = new List<Empresa>();
 }

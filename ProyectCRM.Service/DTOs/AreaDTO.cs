@@ -1,6 +1,6 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 
-namespace ProyectCRM.Service.DTOs
+namespace ProyectCRM.Models.Service.DTOs
 {
     public class AreaDTO : EntityBase
     {

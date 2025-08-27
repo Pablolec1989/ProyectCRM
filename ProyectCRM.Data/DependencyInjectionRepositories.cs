@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProyectCRM.Data.Interfaces;
-using ProyectCRM.Data.Repositories;
+using ProyectCRM.Models.Data.Interfaces;
+using ProyectCRM.Models.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Data
+namespace ProyectCRM.Models.Data
 {
     public static class DependencyInjectionRepositories
     {

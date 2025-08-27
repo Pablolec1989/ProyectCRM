@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
-using ProyectCRM.Interfaces;
-using ProyectCRM.Models.Abstractions;
-using ProyectCRM.Service;
-using ProyectCRM.Service.DTOs;
+using ProyectCRM.Models.Interfaces;
+using ProyectCRM.Models.Entities.Abstractions;
+using ProyectCRM.Models.Service;
+using ProyectCRM.Models.Service.DTOs;
 
-namespace ProyectCRM
+namespace ProyectCRM.Models
 {
     [ApiController]
     [Route("api/[controller]")]

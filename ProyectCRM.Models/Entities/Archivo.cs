@@ -1,21 +1,18 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Models.Entities;
+
+public partial class Archivo : EntityBase
 {
-    public class Archivo : EntityBase
-    {
-        public string NombreArchivo { get; set; }
-        public string RutaArchivo { get; set; }
-        public DateTime FechaSubida { get; set; }
-        public Guid VisitaId { get; set; }
-        public Visita Visita { get; set; }
-        public Guid EmpresaId { get; set; }
-        public Empresa Empresa { get; set; }
-        
-    }
+    public Guid? VisitaId { get; set; }
+
+    public string? NombreArchivo { get; set; }
+
+    public string? RutaArchivo { get; set; }
+
+    public DateOnly? FechaSubida { get; set; }
+
+    public virtual Visita? Visita { get; set; }
 }

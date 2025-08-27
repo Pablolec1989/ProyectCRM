@@ -1,34 +1,27 @@
-﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+﻿using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Mapster;
+using ProyectCRM.Models.Entities;
 
-namespace ProyectCRM.Service.Mappers
+namespace ProyectCRM.Models.Service.Mappers
 {
-    public class TipoDireccionMapper : ITipoDireccionMapper
+    public class TipoDireccionMapper
     {
-        public TipoDireccionDTO FromEntityToDto(TipoDireccion entity)
+        public void RegisterMappings()
         {
-            return new TipoDireccionDTO
-            {
-                Id = entity.Id,
-                Nombre = entity.Nombre,
-            };
-        }
-        public TipoDireccion FromRequestDtoToEntity(TipoDireccionRequestDTO dto)
-        {
-            return new TipoDireccion
-            {
-                Nombre = dto.Nombre,
-            };
-        }
-        public IEnumerable<TipoDireccionDTO> ToListDTO(IEnumerable<TipoDireccion> entities)
-        {
-            return entities.Select(e => FromEntityToDto(e)).ToList();
+            TypeAdapterConfig<TipoDireccion, TipoDireccionDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Nombre, src => src.Nombre)
+                .TwoWays();
+
+            TypeAdapterConfig<TipoDireccionRequestDTO, TipoDireccion>.NewConfig()
+                .Map(dest => dest.Nombre, src => src.Nombre);
         }
     }
 }
+

@@ -1,15 +1,12 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Models.Entities;
+
+public partial class Rol : EntityBase
 {
-    public class Rol : EntityBase
-    {
-        public string Nombre { get; set; }
-        public ICollection<Usuario> Usuarios { get; set; }
-    }
+    public string? Nombre { get; set; }
+
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

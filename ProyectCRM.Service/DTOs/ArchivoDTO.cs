@@ -1,12 +1,11 @@
-﻿using ProyectCRM.Models.Abstractions;
-using ProyectCRM.Models.Entities;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs
+namespace ProyectCRM.Models.Service.DTOs
 {
     public class ArchivoDTO : EntityBase
     {
@@ -15,6 +14,8 @@ namespace ProyectCRM.Service.DTOs
         public DateTime FechaSubida { get; set; }
         public Guid VisitaId { get; set; }
         public Guid EmpresaId { get; set; }
+        public VisitaDTO Visita { get; set; }
+        public EmpresaDTO Empresa { get; set; }
 
     }
 }

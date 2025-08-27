@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Validators;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DependencyInjectionServices
+namespace ProyectCRM.Models.Service.DependencyInjectionServices
 {
     public static class ValidatorsDependencyInjection
     {
@@ -23,7 +23,7 @@ namespace ProyectCRM.Service.DependencyInjectionServices
             services.AddScoped<IValidator<CondicionIvaRequestDTO>, CondicionIvaValidator>();
             services.AddScoped<IValidator<DireccionRequestDTO>, DireccionValidator>();
             services.AddScoped<IValidator<EmpresaRequestDTO>, EmpresaValidator>();
-            services.AddScoped<IValidator<LlamadoRequestDTO>, LlamadoValidator>();
+            services.AddScoped<IValidator<LlamadaRequestDTO>, LlamadoValidator>();
             services.AddScoped<IValidator<RolRequestDTO>, RolValidator>();
             services.AddScoped<IValidator<RubroRequestDTO>, RubroValidator>();
             services.AddScoped<IValidator<SeguimientoRequestDTO>, SeguimientoValidator>();

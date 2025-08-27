@@ -13,24 +13,24 @@ namespace ProyectCRM.Service.DependencyInjectionServices
     {
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
-            services.AddScoped<IAreaMapper, AreaMapper>();
-            services.AddScoped<IAsuntoDeContactoMapper, AsuntoDeContactoMapper>();
-            services.AddScoped<IClienteMapper, ClienteMapper>();
-            services.AddScoped<ICondicionIvaMapper, CondicionIvaMapper>();
-            services.AddScoped<IDireccionMapper, DireccionMapper>();
-            services.AddScoped<IEmpresaMapper, EmpresaMapper>();
-            services.AddScoped<ILlamadoMapper, LlamadoMapper>();
-            services.AddScoped<IRolMapper, RolMapper>();
-            services.AddScoped<IRubroMapper, RubroMapper>();
-            services.AddScoped<ISeguimientoMapper, SeguimientoMapper>();
-            services.AddScoped<ITelefonoClienteMapper, TelefonoClienteMapper>();
-            services.AddScoped<ITipoDireccionMapper, TipoDireccionMapper>();
-            services.AddScoped<ITipoTelefonoMapper, TipoTelefonoMapper>();
-            services.AddScoped<IUsuarioMapper, UsuarioMapper>();
-            services.AddScoped<IVisitaMapper, VisitaMapper>();
-            services.AddScoped<IVisitaUsuarioMapper, VisitaUsuarioMapper>();
-            services.AddScoped<IArchivoMapper, ArchivoMapper>();
-            services.AddScoped<IMailMapper, MailMapper>();
+            services.AddScoped<AreaMapper>();
+            services.AddScoped<CondicionIvaMapper>();
+            services.AddScoped<RubroMapper>();
+            services.AddScoped<AsuntoDeContactoMapper>();
+            services.AddScoped<RolMapper>();
+            services.AddScoped<ClienteMapper>();
+            services.AddScoped<DireccionMapper>();
+            services.AddScoped<EmpresaMapper>();
+            services.AddScoped<LlamadoMapper>();
+            services.AddScoped<SeguimientoMapper>();
+            services.AddScoped<TelefonoClienteMapper>();
+            services.AddScoped<TipoDireccionMapper>();
+            services.AddScoped<TipoTelefonoMapper>();
+            services.AddScoped<UsuarioMapper>();
+            services.AddScoped<VisitaMapper>();
+            services.AddScoped<VisitaUsuarioMapper>();
+            services.AddScoped<ArchivoMapper>();
+            services.AddScoped<MailMapper>();
 
             return services;
         }

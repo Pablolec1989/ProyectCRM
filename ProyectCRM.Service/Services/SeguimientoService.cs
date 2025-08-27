@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
@@ -14,7 +15,7 @@ namespace ProyectCRM.Service.Services
 {
     public class SeguimientoService : ServiceBase<SeguimientoDTO, SeguimientoRequestDTO, Seguimiento>, ISeguimientoService
     {
-        public SeguimientoService(ISeguimientoMapper mapper, 
+        public SeguimientoService(IMapper mapper, 
             ISeguimientoRepository repository, 
             IValidator<SeguimientoRequestDTO> validator) 
             : base(mapper, repository, validator)

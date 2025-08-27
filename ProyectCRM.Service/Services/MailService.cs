@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -13,7 +14,7 @@ namespace ProyectCRM.Service.Services
 {
     public class MailService : ServiceBase<MailDTO, MailRequestDTO, Mail>, IMailService
     {
-        public MailService(IMailMapper mapper, 
+        public MailService(IMapper mapper, 
             IMailRepository repository, 
             IValidator<MailRequestDTO> validator) : base(mapper, repository, validator)
         {

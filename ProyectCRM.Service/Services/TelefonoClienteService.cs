@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -13,7 +14,7 @@ namespace ProyectCRM.Service.Services
 {
     public class TelefonoClienteService : ServiceBase<TelefonoClienteDTO, TelefonoClienteRequestDTO, TelefonoCliente>, ITelefonoClienteService
     {
-        public TelefonoClienteService(ITelefonoClienteMapper mapper, 
+        public TelefonoClienteService(IMapper mapper, 
             ITelefonoClienteRepository repository, 
             IValidator<TelefonoClienteRequestDTO> validator) 
             : base(mapper, repository, validator)

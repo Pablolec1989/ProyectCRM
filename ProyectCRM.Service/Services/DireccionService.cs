@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -16,13 +17,11 @@ namespace ProyectCRM.Service.Services
         private readonly IDireccionMapper _mapper;
         private readonly IDireccionRepository _repository;
 
-        public DireccionService(IDireccionMapper mapper, 
+        public DireccionService(IMapper mapper, 
             IDireccionRepository repository, 
             IValidator<DireccionRequestDTO> validator) 
             : base(mapper, repository, validator)
         {
-            _mapper = mapper;
-            _repository = repository;
         }
     }
 }

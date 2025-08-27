@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data;
 using ProyectCRM.Models.Abstractions;
 using ProyectCRM.Service.DTOs;
@@ -13,11 +14,11 @@ namespace ProyectCRM.Service
         where TRequestDTO : class, new()
         where TEntity : EntityBase
     {
-        private readonly IMapperBase<TDTO, TRequestDTO, TEntity> _mapper;
+        private readonly IMapper _mapper;
         private readonly IRepositoryBase<TEntity> _repository;
         private readonly IValidator<TRequestDTO> _validator;
 
-        public ServiceBase(IMapperBase<TDTO, TRequestDTO, TEntity> mapper, 
+        public ServiceBase(IMapper mapper, 
             IRepositoryBase<TEntity> repository, 
             IValidator<TRequestDTO> validator)
         {
@@ -34,9 +35,9 @@ namespace ProyectCRM.Service
             {
                 throw new ValidationException(validationResult.Errors);
             }
-            var entityToCreate = _mapper.FromRequestDtoToEntity(dto);
+            var entityToCreate = _mapper.Map<TEntity>(dto);
             var createdEntity = await _repository.CreateAsync(entityToCreate);
-            return _mapper.FromEntityToDto(createdEntity);
+            return _mapper.Map<TDTO>(createdEntity);
         }
 
         public virtual async Task<bool> DeleteAsync(Guid id)
@@ -47,12 +48,13 @@ namespace ProyectCRM.Service
         public virtual async Task<IEnumerable<TDTO>> GetAllAsync()
         {
             var entities = await _repository.GetAllAsync();
-            return _mapper.ToListDTO(entities);
+            return _mapper.Map<IEnumerable<TDTO>>(entities);
         }
 
         public virtual async Task<TDTO> GetByIdAsync(Guid id)
         {
-            return _mapper.FromEntityToDto(await _repository.GetByIdAsync(id));
+            var entity = await _repository.GetByIdAsync(id);
+            return _mapper.Map<TDTO>(entity);
         }
 
         public virtual async Task<TDTO> UpdateAsync(Guid id, TRequestDTO dto)
@@ -64,15 +66,17 @@ namespace ProyectCRM.Service
             }
 
             var validationResult = _validator.Validate(dto);
+
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.Errors);
             }
-            var entityToUpdate = _mapper.FromRequestDtoToEntity(dto);
-            //Le asigno el Id!
+
+            var entityToUpdate = _mapper.Map<TEntity>(dto);
+            //Le asigno el Id
             entityToUpdate.Id = id;
             var updatedEntity = await _repository.UpdateAsync(entityToUpdate);
-            return _mapper.FromEntityToDto(updatedEntity);
+            return _mapper.Map<TDTO>(updatedEntity);
         }
     }
 }

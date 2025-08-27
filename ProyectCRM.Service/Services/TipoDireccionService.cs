@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -13,7 +14,7 @@ namespace ProyectCRM.Service.Services
 {
     public class TipoDireccionService : ServiceBase<TipoDireccionDTO,TipoDireccionRequestDTO,TipoDireccion>, ITipoDireccionService
     {
-        public TipoDireccionService(ITipoDireccionMapper mapper, 
+        public TipoDireccionService(IMapper mapper, 
             ITipoDireccionRepository repository, 
             IValidator<TipoDireccionRequestDTO> validator) 
             : base(mapper, repository, validator)

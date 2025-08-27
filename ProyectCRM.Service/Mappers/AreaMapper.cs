@@ -10,25 +10,17 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.Mappers
 {
-    public class AreaMapper : IAreaMapper
+    public class AreaMapper
     {
-        public AreaDetailDTO FromEntityToDetailDTO(Area area)
+        public void RegisterMappings()
         {
-            return area.Adapt<AreaDetailDTO>();
-        }
+            TypeAdapterConfig<Area, AreaDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Nombre, src => src.Nombre)
+                .TwoWays();
 
-        public AreaDTO FromEntityToDto(Area area)
-        {
-            return area.Adapt<AreaDTO>();
-        }
-
-        public Area FromRequestDtoToEntity(AreaRequestDTO dto)
-        {
-            return dto.Adapt<Area>();
-        }
-        public IEnumerable<AreaDTO> ToListDTO(IEnumerable<Area> areas)
-        {
-            return areas.Adapt<IEnumerable<AreaDTO>>();
+            TypeAdapterConfig<AreaRequestDTO, Area>.NewConfig()
+                .Map(dest => dest.Nombre, src => src.Nombre);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Service.DTOs;
@@ -13,7 +14,7 @@ namespace ProyectCRM.Service.Services
 {
     public class LlamadoService : ServiceBase<LlamadoDTO, LlamadoRequestDTO, Llamado>, ILlamadoService
     {
-        public LlamadoService(ILlamadoMapper mapper, ILlamadoRepository repository, IValidator<LlamadoRequestDTO> validator)
+        public LlamadoService(IMapper mapper, ILlamadoRepository repository, IValidator<LlamadoRequestDTO> validator)
             : base(mapper, repository, validator)
         {
         }

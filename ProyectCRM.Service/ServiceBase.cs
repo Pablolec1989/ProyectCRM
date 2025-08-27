@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 using MapsterMapper;
-using ProyectCRM.Data;
-using ProyectCRM.Models.Abstractions;
-using ProyectCRM.Service.DTOs;
+using ProyectCRM.Models.Data;
+using ProyectCRM.Models.Entities.Abstractions;
+using ProyectCRM.Models.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service
+namespace ProyectCRM.Models.Service
 {
     public abstract class ServiceBase<TDTO, TRequestDTO, TEntity> : IServiceBase<TDTO, TRequestDTO, TEntity>
         where TDTO : class

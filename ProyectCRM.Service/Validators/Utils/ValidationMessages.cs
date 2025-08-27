@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Validators.Utils
+namespace ProyectCRM.Models.Service.Validators.Utils
 {
     public static class ValidationMessages
     {

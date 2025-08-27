@@ -1,8 +1,8 @@
 using Mapster;
 using Microsoft.AspNetCore.Diagnostics;
-using ProyectCRM.Data;
-using ProyectCRM.Service.DependencyInjectionServices;
-using ProyectCRM.Service.Mappers;
+using ProyectCRM.Models.Data;
+using ProyectCRM.Models.Service.DependencyInjectionServices;
+using ProyectCRM.Models.Service.Mappers;
 
 
 var builder = WebApplication.CreateBuilder(args);

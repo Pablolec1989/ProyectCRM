@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Data.Interfaces
+namespace ProyectCRM.Models.Data.Interfaces
 {
-    public interface ITelefonoClienteRepository : IRepositoryBase<TelefonoCliente>
+    public interface ITelefonoClienteRepository : IRepositoryBase<TelefonosCliente>
     {
     }
 }

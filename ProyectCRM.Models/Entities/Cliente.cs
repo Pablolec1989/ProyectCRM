@@ -1,23 +1,19 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Models.Entities;
+
+public partial class Cliente : EntityBase
 {
-    public class Cliente : EntityBase
-    {
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Email { get; set; }
-        public Guid EmpresaId { get; set; }
-        public Empresa Empresa { get; set; }
-        public ICollection<TelefonoCliente> Telefonos { get; set; }
-        public ICollection<Direccion> Direcciones { get; set; }
-        public ICollection<Visita> Visitas { get; set; } = [];
-
-
-    }
+    public string? Nombre { get; set; }
+    public string? Apellido { get; set; }
+    public string? Email { get; set; }
+    public Guid? EmpresaId { get; set; }
+    public virtual Empresa? Empresa { get; set; }
+    public virtual ICollection<Direccion> Direcciones { get; set; } = new List<Direccion>();
+    public virtual ICollection<Llamada> Llamada { get; set; } = new List<Llamada>();
+    public virtual ICollection<Mail> Mail { get; set; } = new List<Mail>();
+    public virtual ICollection<Seguimiento> Seguimientos { get; set; } = new List<Seguimiento>();
+    public virtual ICollection<TelefonosCliente> TelefonosClientes { get; set; } = new List<TelefonosCliente>();
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProyectCRM.Data.Interfaces;
+using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Data.Repositories
+namespace ProyectCRM.Models.Data.Repositories
 {
     public class DireccionRepository : RepositoryBase<Direccion>, IDireccionRepository
     {
@@ -18,21 +18,25 @@ namespace ProyectCRM.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Direccion> GetDireccionQuery()
+        public IQueryable<Direccion> GetAllWithDetails()
         {
             return _context.Direcciones
+                .Include(d => d.Cliente)
                 .Include(d => d.TipoDireccion)
-                .Include(d => d.Cliente).ThenInclude(c => c.Empresa);
+                .AsQueryable();
         }
-        public override async Task<Direccion> GetByIdAsync(Guid id)
+
+        public async Task<Direccion> GetByIdAsync(Guid id)
         {
-            return await GetDireccionQuery()
+            return await GetAllWithDetails()
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
-        public override async Task<IEnumerable<Direccion>> GetAllAsync()
+
+        public async Task<IEnumerable<Direccion>> GetAllAsync()
         {
-            return await GetDireccionQuery()
-                .ToListAsync();
+            return await GetAllWithDetails().ToListAsync();
         }
+
+
     }
 }

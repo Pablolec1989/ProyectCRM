@@ -1,203 +1,310 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using ProyectCRM.Models.Entities;
 
-namespace ProyectCRM.Data
+namespace ProyectCRM.Models.Data;
+
+public partial class AppDbContext : DbContext
 {
-    public class AppDbContext : DbContext
+    public AppDbContext()
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-        public DbSet<Area> Areas { get; set; }
-        public DbSet<Archivo> Archivos { get; set; }
-        public DbSet<TelefonoCliente> TelefonosClientes { get; set; }
-        public DbSet<Rubro> Rubros { get; set; }
-        public DbSet<AsuntoDeContacto> AsuntosDeContacto { get; set; }
-        public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Direccion> Direcciones { get; set; }
-        public DbSet<TipoDireccion> TiposDirecciones { get; set; }
-        public DbSet<TipoTelefono> TiposTelefono { get; set; }
-        public DbSet<Rol> Roles { get; set; }
-        public DbSet<Visita> Visitas { get; set; }
-        public DbSet<Llamado> Llamadas { get; set; }
-        public DbSet<Mail> Mails { get; set; }
-        public DbSet<CondicionIva> CondicionIva { get; set; }
-        public DbSet<VisitaUsuario> VisitasUsuarios { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Empresa> Empresas { get; set; }
-        public DbSet<Seguimiento> Seguimientos { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            //Area configuration
-            modelBuilder.Entity<Area>().ToTable("Areas")
-                .HasMany(a => a.Usuarios)
-                .WithOne(u => u.Area)
-                .HasForeignKey(u => u.AreaId);
-
-            //AsuntoDeContacto configuration
-            modelBuilder.Entity<AsuntoDeContacto>().ToTable("AsuntosDeContacto");
-
-            //Rubro configuration
-            modelBuilder.Entity<Rubro>().ToTable("Rubros")
-                .HasMany(r => r.Empresas)
-                .WithOne(e => e.Rubro)
-                .HasForeignKey(e => e.RubroId);
-
-            //Cliente configuration
-            modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasOne(c => c.Empresa)
-                .WithOne(e => e.Cliente)
-                .HasForeignKey<Empresa>(e => e.ClienteId);
-
-            modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.Direcciones)
-                .WithOne(d => d.Cliente)
-                .HasForeignKey(d => d.ClienteId);
-            
-            modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.Telefonos)
-                .WithOne(tc => tc.Cliente)
-                .HasForeignKey(tc => tc.ClienteId);
-
-            modelBuilder.Entity<Cliente>().ToTable("Clientes")
-                .HasMany(c => c.Visitas)
-                .WithOne(v => v.Cliente)
-                .HasForeignKey(v => v.ClienteId);
-
-            //CondicionIva configuration
-            modelBuilder.Entity<CondicionIva>().ToTable("CondicionIva");
-
-            //TipoTelefono configuration
-            modelBuilder.Entity<TipoTelefono>().ToTable("TiposTelefono")
-                .HasMany(tt => tt.TelefonosClientes)
-                .WithOne(tc => tc.TipoTelefono)
-                .HasForeignKey(tc => tc.TipoTelefonoId);
-
-            //Empresa
-            modelBuilder.Entity<Empresa>().ToTable("Empresas")
-                .HasOne(e => e.Cliente)
-                .WithOne(c => c.Empresa);
-
-            modelBuilder.Entity<Empresa>().ToTable("Empresas");
-
-            modelBuilder.Entity<Empresa>().ToTable("Empresas")
-                .HasOne(e => e.Rubro)
-                .WithMany(r => r.Empresas)
-                .HasForeignKey(e => e.RubroId);
-
-            //Llamado configuration
-            modelBuilder.Entity<Llamado>().ToTable("Llamadas");
-
-            modelBuilder.Entity<Llamado>().ToTable("Llamadas")
-                .HasOne(l => l.Usuario)
-                .WithMany(u => u.Llamados)
-                .HasForeignKey(l => l.UsuarioId);
-
-            modelBuilder.Entity<Llamado>().ToTable("Llamadas");
-
-            //Mail configuration
-            modelBuilder.Entity<Mail>().ToTable("Mails")
-                .HasOne(m => m.Usuario)
-                .WithMany(u => u.Mails)
-                .HasForeignKey(m => m.UsuarioId);
-
-            modelBuilder.Entity<Mail>().ToTable("Mails");
-
-            //Rol configuration
-            modelBuilder.Entity<Rol>().ToTable("Roles")
-                .HasMany(r => r.Usuarios)
-                .WithOne(u => u.Rol)
-                .HasForeignKey(u => u.RolId);
-
-            //Rubro configuration
-            modelBuilder.Entity<Rubro>().ToTable("Rubros")
-                .HasMany(r => r.Empresas)
-                .WithOne(e => e.Rubro)
-                .HasForeignKey(e => e.RubroId);
-
-            //Seguimiento configuration
-            modelBuilder.Entity<Seguimiento>().ToTable("Seguimientos")
-                .HasOne(v => v.Usuario)
-                .WithMany(u => u.Seguimientos)
-                .HasForeignKey(v => v.UsuarioId);
-
-            //TelefonoCliente configuration
-            modelBuilder.Entity<TelefonoCliente>().ToTable("TelefonosClientes")
-                .HasOne(tc => tc.TipoTelefono)
-                .WithMany(tt => tt.TelefonosClientes)
-                .HasForeignKey(tc => tc.TipoTelefonoId);
-
-            //TipoDireccion configuration
-            modelBuilder.Entity<TipoDireccion>().ToTable("TipoDireccion");
-
-            //TipoTelefono configuration
-            modelBuilder.Entity<TipoTelefono>().ToTable("TiposTelefono")
-                .HasMany(tt => tt.TelefonosClientes)
-                .WithOne(tc => tc.TipoTelefono)
-                .HasForeignKey(tc => tc.TipoTelefonoId);
-
-            //Usuario configuration
-            modelBuilder.Entity<Usuario>().ToTable("Usuarios")
-                .HasOne(u => u.Area)
-                .WithMany(a => a.Usuarios)
-                .HasForeignKey(u => u.AreaId);
-
-            modelBuilder.Entity<Usuario>().ToTable("Usuarios")
-                .HasOne(u => u.Rol)
-                .WithMany(r => r.Usuarios)
-                .HasForeignKey(u => u.RolId);
-
-            modelBuilder.Entity<Usuario>().ToTable("Usuarios")
-                .HasMany(u => u.Llamados)
-                .WithOne(l => l.Usuario)
-                .HasForeignKey(l => l.UsuarioId);
-
-            modelBuilder.Entity<Usuario>().ToTable("Usuarios")
-                .HasMany(u => u.Mails)
-                .WithOne(m => m.Usuario)
-                .HasForeignKey(m => m.UsuarioId);
-
-            modelBuilder.Entity<Usuario>().ToTable("Usuarios")
-                .HasMany(u => u.Seguimientos)
-                .WithOne(v => v.Usuario)
-                .HasForeignKey(v => v.UsuarioId);
-
-            modelBuilder.Entity<Usuario>().ToTable("Usuarios")
-                .HasMany(u => u.VisitasUsuarios)
-                .WithOne(vu => vu.Usuario)
-                .HasForeignKey(vu => vu.UsuarioId);
-
-            //Visita configuration
-            modelBuilder.Entity<Visita>().ToTable("Visitas")
-                .HasMany(v => v.Archivos)
-                .WithOne(va => va.Visita)
-                .HasForeignKey(va => va.VisitaId);
-
-            modelBuilder.Entity<Visita>().ToTable("Visitas")
-                .HasMany(v => v.VisitasUsuarios)
-                .WithOne(vu => vu.Visita)
-                .HasForeignKey(vu => vu.VisitaId);
-
-            //VisitaArchivo configuration
-            modelBuilder.Entity<Archivo>().ToTable("VisitasArchivos")
-                .HasOne(va => va.Visita)
-                .WithMany(v => v.Archivos)
-                .HasForeignKey(va => va.VisitaId);
-
-            //VisitaUsuario configuration
-            modelBuilder.Entity<VisitaUsuario>().ToTable("VisitasUsuarios")
-                .HasOne(vu => vu.Usuario)
-                .WithMany(u => u.VisitasUsuarios)
-                .HasForeignKey(vu => vu.UsuarioId);
-
-            modelBuilder.Entity<VisitaUsuario>().ToTable("VisitasUsuarios")
-                .HasOne(vu => vu.Visita)
-                .WithMany(v => v.VisitasUsuarios)
-                .HasForeignKey(vu => vu.VisitaId);
-
-
-        }
     }
+
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet<Area> Areas { get; set; }
+
+    public virtual DbSet<AsuntosDeContacto> AsuntosDeContactos { get; set; }
+
+    public virtual DbSet<Cliente> Clientes { get; set; }
+
+    public virtual DbSet<CondicionIva> CondicionIvas { get; set; }
+
+    public virtual DbSet<Direccion> Direcciones { get; set; }
+
+    public virtual DbSet<Empresa> Empresas { get; set; }
+
+    public virtual DbSet<Llamada> Llamadas { get; set; }
+
+    public virtual DbSet<Mail> Mails { get; set; }
+
+    public virtual DbSet<Rol> Roles { get; set; }
+
+    public virtual DbSet<Rubro> Rubros { get; set; }
+
+    public virtual DbSet<Seguimiento> Seguimientos { get; set; }
+
+    public virtual DbSet<TelefonosCliente> TelefonosClientes { get; set; }
+
+    public virtual DbSet<TipoDireccion> TipoDireccions { get; set; }
+
+    public virtual DbSet<TiposTelefono> TiposTelefonos { get; set; }
+
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
+    public virtual DbSet<Visita> Visitas { get; set; }
+
+    public virtual DbSet<VisitasUsuarios> VisitasUsuarios { get; set; }
+
+    public virtual DbSet<Archivo> VisitasArchivos { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-WSB\\SQLEXPRESS;Database=CRM_Project_Ver2;Trusted_Connection=true;TrustServerCertificate=true;MultipleActiveResultSets=true;");
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Area>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Area");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Nombre).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<AsuntosDeContacto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_MotivosDeContacto");
+
+            entity.ToTable("AsuntosDeContacto");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Nombre).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Cliente>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Apellido).HasMaxLength(20);
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.Nombre).HasMaxLength(20);
+
+            entity.HasOne(d => d.Empresa).WithMany(p => p.Clientes)
+                .HasForeignKey(d => d.EmpresaId)
+                .HasConstraintName("FK_Clientes_Empresas");
+        });
+
+        modelBuilder.Entity<CondicionIva>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_CondicionFrenteIVA");
+
+            entity.ToTable("CondicionIva");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Nombre).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Direccion>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Calle).HasMaxLength(150);
+            entity.Property(e => e.Ciudad).HasMaxLength(150);
+            entity.Property(e => e.CodigoPostal).HasMaxLength(50);
+            entity.Property(e => e.Provincia).HasMaxLength(150);
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Direcciones)
+                .HasForeignKey(d => d.ClienteId)
+                .HasConstraintName("FK_Direcciones_Clientes");
+
+            entity.HasOne(d => d.TipoDireccion).WithMany(p => p.Direcciones)
+                .HasForeignKey(d => d.TipoDireccionId)
+                .HasConstraintName("FK_Direcciones_TiposDirecciones");
+        });
+
+        modelBuilder.Entity<Empresa>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Cuil)
+                .HasMaxLength(50)
+                .HasColumnName("CUIL");
+            entity.Property(e => e.Cuit)
+                .HasMaxLength(50)
+                .HasColumnName("CUIT");
+            entity.Property(e => e.CondicionIvaId).HasColumnName("IVACondicion");
+            entity.Property(e => e.RazonSocial).HasMaxLength(200);
+
+            entity.HasOne(d => d.CondicionIva).WithMany(p => p.Empresas)
+                .HasForeignKey(d => d.CondicionIvaId)
+                .HasConstraintName("FK_Empresas_IVACondicion");
+
+            entity.HasOne(d => d.Rubro).WithMany(p => p.Empresas)
+                .HasForeignKey(d => d.RubroId)
+                .HasConstraintName("FK_Empresas_Rubros");
+        });
+
+        modelBuilder.Entity<Llamada>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Detalle).HasMaxLength(300);
+            entity.Property(e => e.FechaLlamado).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Area).WithMany(p => p.Llamada)
+                .HasForeignKey(d => d.AreaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Llamadas_Areas");
+
+            entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Llamada)
+                .HasForeignKey(d => d.AsuntoDeContactoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Llamadas_AsuntosDeContacto");
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Llamada)
+                .HasForeignKey(d => d.ClienteId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Llamadas_Clientes");
+
+            entity.HasOne(d => d.Usuario).WithMany(p => p.Llamada)
+                .HasForeignKey(d => d.UsuarioId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Llamadas_Usuarios");
+        });
+
+        modelBuilder.Entity<Mail>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Detalle).HasMaxLength(200);
+            entity.Property(e => e.FechaMail).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Asunto).WithMany(p => p.Mail)
+                .HasForeignKey(d => d.AsuntoId)
+                .HasConstraintName("FK_Mails_Asuntos");
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Mail)
+                .HasForeignKey(d => d.ClienteId)
+                .HasConstraintName("FK_Mails_Clientes");
+
+            entity.HasOne(d => d.Usuario).WithMany(p => p.Mail)
+                .HasForeignKey(d => d.UsuarioId)
+                .HasConstraintName("FK_Mails_UsuarioDestino");
+        });
+
+        modelBuilder.Entity<Rol>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Nombre).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Rubro>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Nombre).HasMaxLength(200);
+        });
+
+        modelBuilder.Entity<Seguimiento>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Detalle).HasMaxLength(300);
+            entity.Property(e => e.Titulo).HasMaxLength(20);
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Seguimientos)
+                .HasForeignKey(d => d.ClienteId)
+                .HasConstraintName("FK_Seguimientos_Clientes");
+
+            entity.HasOne(d => d.Usuario).WithMany(p => p.Seguimientos)
+                .HasForeignKey(d => d.UsuarioId)
+                .HasConstraintName("FK_Seguimientos_Usuarios");
+        });
+
+        modelBuilder.Entity<TelefonosCliente>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Numero).HasMaxLength(50);
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.TelefonosClientes)
+                .HasForeignKey(d => d.ClienteId)
+                .HasConstraintName("FK_TelefonosClientes_Clientes");
+
+            entity.HasOne(d => d.TipoTelefono).WithMany(p => p.TelefonosClientes)
+                .HasForeignKey(d => d.TipoTelefonoId)
+                .HasConstraintName("FK_TelefonosClientes_TiposTelefono");
+        });
+
+        modelBuilder.Entity<TipoDireccion>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_TiposDirecciones");
+
+            entity.ToTable("TipoDireccion");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Nombre).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TiposTelefono>(entity =>
+        {
+            entity.ToTable("TiposTelefono");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Nombre).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Apellido).HasMaxLength(50);
+            entity.Property(e => e.Nombre).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(50);
+
+            entity.HasOne(d => d.Area).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.AreaId)
+                .HasConstraintName("FK_Usuarios_Areas");
+
+            entity.HasOne(d => d.Rol).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.RolId)
+                .HasConstraintName("FK_Usuarios_Roles1");
+        });
+
+        modelBuilder.Entity<Visita>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Observaciones).HasMaxLength(200);
+
+            entity.HasOne(d => d.Direccion).WithMany(p => p.Visita)
+                .HasForeignKey(d => d.DireccionId)
+                .HasConstraintName("FK_Visitas_Direcciones");
+
+        });
+        modelBuilder.Entity<Visita>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Observaciones).HasMaxLength(200);
+
+            entity.HasOne(d => d.Direccion).WithMany(p => p.Visita)
+                .HasForeignKey(d => d.DireccionId)
+                .HasConstraintName("FK_Visitas_Direcciones");
+
+            modelBuilder.Entity<VisitasUsuarios>(entity =>
+            {
+                entity.HasKey(e => new { e.VisitaId, e.UsuarioId }).HasName("PK_VisitasUsuarios_1");
+                entity.ToTable("VisitasUsuarios");
+                entity.HasOne(d => d.Usuario).WithMany(p => p.Visitas)
+                    .HasForeignKey(d => d.UsuarioId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Visitas_U__Usuar__68487DD7");
+                entity.HasOne(d => d.Visita).WithMany(p => p.Usuarios)
+                    .HasForeignKey(d => d.VisitaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Visitas_U__Visit__6754599E");
+            });
+
+
+            modelBuilder.Entity<Archivo>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("PK_ArchivosVisita");
+                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.NombreArchivo).HasMaxLength(100);
+                entity.Property(e => e.RutaArchivo).HasMaxLength(100);
+                entity.HasOne(d => d.Visita).WithMany(p => p.Archivos)
+                    .HasForeignKey(d => d.VisitaId)
+                    .HasConstraintName("FK_ArchivosVisitas_Visitas");
+            });
+            OnModelCreatingPartial(modelBuilder);
+        });
+        }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

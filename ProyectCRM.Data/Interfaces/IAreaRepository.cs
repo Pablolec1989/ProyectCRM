@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProyectCRM.Models.Entities;
 
-namespace ProyectCRM.Data.Interfaces
+namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IAreaRepository : IRepositoryBase<Area>
     {

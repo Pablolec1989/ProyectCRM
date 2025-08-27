@@ -1,66 +1,34 @@
-﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+﻿using Mapster;
+using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Mappers
+namespace ProyectCRM.Models.Service.Mappers
 {
-    public class MailMapper : IMailMapper
+    public class MailMapper
     {
-        public MailDTO FromEntityToDto(Mail entity)
+        public void RegisterMappings()
         {
-            return new MailDTO
-            {
-                Id = entity.Id,
-                Detalle = entity.Detalle,
-                FechaMail = entity.FechaMail,
-                Cliente = new ClienteDTO
-                {
-                    Id = entity.ClienteId,
-                    Nombre = entity.Cliente.Nombre,
-                    EmpresaCliente = new EmpresaDTO
-                    {
-                        Id = entity.Cliente.Empresa.Id,
-                        RazonSocial = entity.Cliente.Empresa.RazonSocial
-                    }
-                },
-                Usuario = new UsuarioDTO
-                {
-                    Id = entity.UsuarioId,
-                    Nombre = entity.Usuario.Nombre,
-                    Area = new AreaDTO
-                    {
-                        Id = entity.Usuario.Area.Id,
-                        Nombre = entity.Usuario.Area.Nombre
-                    }
-                },
-                AsuntoDeContacto = new AsuntoDeContactoDTO
-                {
-                    Id = entity.AsuntoDeContactoId,
-                    Nombre = entity.AsuntoDeContacto.Nombre
-                }
-            };
-        }
+            TypeAdapterConfig<Mail, MailDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Detalle, src => src.Detalle)
+                .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.Usuario, src => src.Usuario)
+                .Map(dest => dest.FechaMail, src => src.FechaMail)
+                .TwoWays();
 
-        public Mail FromRequestDtoToEntity(MailRequestDTO dto)
-        {
-            return new Mail
-            {
-                Detalle = dto.Detalle,
-                FechaMail = dto.FechaMail,
-                ClienteId = dto.ClienteId,
-                UsuarioId = dto.UsuarioId,
-                AsuntoDeContactoId = dto.AsuntoDeContactoId
-            };
-        }
-
-        public IEnumerable<MailDTO> ToListDTO(IEnumerable<Mail> entities)
-        {
-            return entities.Select(FromEntityToDto);
+            TypeAdapterConfig<MailRequestDTO, Mail>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Detalle, src => src.Detalle)
+                .Map(dest => dest.ClienteId, src => src.ClienteId)
+                .Map(dest => dest.UsuarioId, src => src.UsuarioId)
+                .Map(dest => dest.FechaMail, src => src.FechaMail)
+                .TwoWays();
         }
     }
 }

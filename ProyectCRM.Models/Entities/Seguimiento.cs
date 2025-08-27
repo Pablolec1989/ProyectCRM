@@ -1,20 +1,22 @@
-﻿using ProyectCRM.Models.Abstractions;
+﻿using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Entities
+namespace ProyectCRM.Models.Entities;
+
+public partial class Seguimiento : EntityBase
 {
-    public class Seguimiento : EntityBase
-    {
-        public string Titulo { get; set; }
-        public string Detalle { get; set; }
-        public Guid UsuarioId { get; set; }
-        public Guid ClienteId { get; set; }
-        public Usuario Usuario { get; set; }
-        public Cliente Cliente { get; set; }
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
-    }
+    public Guid? UsuarioId { get; set; }
+
+    public Guid? ClienteId { get; set; }
+
+    public string? Detalle { get; set; }
+
+    public DateOnly? FechaCreacion { get; set; }
+
+    public string? Titulo { get; set; }
+
+    public virtual Cliente? Cliente { get; set; }
+
+    public virtual Usuario? Usuario { get; set; }
 }

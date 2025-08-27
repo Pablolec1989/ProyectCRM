@@ -1,36 +1,28 @@
-﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+﻿using Mapster;
+using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Mappers
+namespace ProyectCRM.Models.Service.Mappers
 {
-    public class RubroMapper : IRubroMapper
+    public class RubroMapper
     {
-        public RubroDTO FromEntityToDto(Rubro entity)
+        public void RegisterMappings()
         {
-            return new RubroDTO
-            {
-                Id = entity.Id,
-                Nombre = entity.Nombre
-            };
+            TypeAdapterConfig<Rubro, RubroDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Nombre, src => src.Nombre)
+                .TwoWays();
+
+            TypeAdapterConfig<RubroRequestDTO, Rubro>.NewConfig()
+                .Map(dest => dest.Nombre, src => src.Nombre);
+
         }
 
-        public Rubro FromRequestDtoToEntity(RubroRequestDTO dto)
-        {
-            return new Rubro
-            {
-                Nombre = dto.Nombre,
-            };
-        }
-
-        public IEnumerable<RubroDTO> ToListDTO(IEnumerable<Rubro> entities)
-        {
-            return entities.Select(e => FromEntityToDto(e)).ToList();
-        }
     }
 }

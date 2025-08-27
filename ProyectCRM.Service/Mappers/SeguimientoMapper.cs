@@ -1,56 +1,35 @@
-﻿using ProyectCRM.Models.Entities;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Interfaces;
+﻿using Mapster;
+using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Mappers
+namespace ProyectCRM.Models.Service.Mappers
 {
-    public class SeguimientoMapper : ISeguimientoMapper
+    public class SeguimientoMapper
     {
-        public SeguimientoDTO FromEntityToDto(Seguimiento entity)
+        public void RegisterMappings()
         {
-            return new SeguimientoDTO
-            {
-                Id = entity.Id,
-                Titulo = entity.Titulo,
-                Detalle = entity.Detalle,
-                FechaCreacion = entity.FechaCreacion,
-                Cliente = new ClienteDTO
-                {
-                    Id = entity.Cliente.Id,
-                    Nombre = entity.Cliente.Nombre,
-                    EmpresaCliente = new EmpresaDTO
-                    {
-                        RazonSocial = entity.Cliente.Empresa.RazonSocial,
-                    }
-                },
-                Usuario = new UsuarioDTO
-                {
-                    Id = entity.Usuario.Id,
-                    Nombre = entity.Usuario.Nombre,
-                    Apellido = entity.Usuario.Apellido,
-                    Area = new AreaDTO
-                    {
-                        Id = entity.Usuario.Area.Id,
-                        Nombre = entity.Usuario.Area.Nombre
-                    }
-                }
-            };
+            TypeAdapterConfig<Seguimiento, SeguimientoDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Titulo, src => src.Titulo)
+                .Map(dest => dest.Detalle, src => src.Detalle)
+                .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.Usuario, src => src.Usuario)
+                .Map(dest => dest.FechaCreacion, src => src.FechaCreacion);
+        
+            TypeAdapterConfig<SeguimientoRequestDTO, Seguimiento>.NewConfig()
+                .Map(dest => dest.Titulo, src => src.Titulo)
+                .Map(dest => dest.Detalle, src => src.Detalle)
+                .Map(dest => dest.ClienteId, src => src.ClienteId)
+                .Map(dest => dest.UsuarioId, src => src.UsuarioId)
+                .Map(dest => dest.FechaCreacion, src => src.FechaCreacion);
+
         }
 
-
-        public Seguimiento FromRequestDtoToEntity(SeguimientoRequestDTO dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<SeguimientoDTO> ToListDTO(IEnumerable<Seguimiento> entities)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

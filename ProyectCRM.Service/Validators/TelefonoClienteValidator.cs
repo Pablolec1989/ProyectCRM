@@ -1,26 +1,26 @@
 ﻿using FluentValidation;
-using ProyectCRM.Service.DTOs;
-using ProyectCRM.Service.Validators.Utils;
+using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Validators.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.Validators
+namespace ProyectCRM.Models.Service.Validators
 {
     public class TelefonoClienteValidator : AbstractValidator<TelefonoClienteRequestDTO>
     {
         public TelefonoClienteValidator()
         {
-            RuleFor(t => t.Numero)
+            RuleFor(tc => tc.Numero)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
-                .MaximumLength(20).WithMessage(ValidationMessages.MaxLength(20));
+                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(50));
 
-            RuleFor(t => t.ClienteId)
+            RuleFor(tc => tc.ClienteId)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
 
-            RuleFor(t => t.TipoTelefonoId)
+            RuleFor(tc => tc.TipoTelefonoId)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
         }
     }

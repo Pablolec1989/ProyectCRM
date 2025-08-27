@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ProyectCRM.Service.Interfaces;
-using ProyectCRM.Service.Services;
+using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Models.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DependencyInjectionServices
+namespace ProyectCRM.Models.Service.DependencyInjectionServices
 {
     public static class ServicesDependencyInjection
     {

@@ -1,10 +1,10 @@
-﻿using ProyectCRM.Models.Abstractions;
-using ProyectCRM.Service.DTOs;
+﻿using ProyectCRM.Models.Entities.Abstractions;
+using ProyectCRM.Models.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service
+namespace ProyectCRM.Models.Service
 {
     public interface IServiceBase<TDTO, TRequestDTO, TEntity> 
         where TDTO : class

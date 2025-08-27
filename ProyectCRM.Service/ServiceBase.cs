@@ -36,6 +36,7 @@ namespace ProyectCRM.Models.Service
                 throw new ValidationException(validationResult.Errors);
             }
             var entityToCreate = _mapper.Map<TEntity>(dto);
+            entityToCreate.Id = Guid.NewGuid();
             var createdEntity = await _repository.CreateAsync(entityToCreate);
             return _mapper.Map<TDTO>(createdEntity);
         }

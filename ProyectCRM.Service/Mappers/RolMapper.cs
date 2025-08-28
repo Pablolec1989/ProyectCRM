@@ -20,7 +20,6 @@ namespace ProyectCRM.Models.Service.Mappers
                 .TwoWays();
 
             TypeAdapterConfig<RolRequestDTO, Rol>.NewConfig()
-                .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .TwoWays();
         }

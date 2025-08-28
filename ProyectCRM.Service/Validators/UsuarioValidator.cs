@@ -9,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Validators
 {
-    public class UsuarioValidator : AbstractValidator<UsuarioRequestDTO>
+    public class UsuarioValidator : AbstractValidator<UsuarioRegisterDTO>
     {
         public UsuarioValidator()
         {
-            RuleFor(x => x.Nombre)
-                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
-                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(50));
 
             RuleFor(x => x.Apellido)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)

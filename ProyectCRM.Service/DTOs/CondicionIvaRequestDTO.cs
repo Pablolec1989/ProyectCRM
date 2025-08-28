@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class CondicionIvaRequestDTO
+    public class CondicionIvaRequestDTO : EntityBase
     {
         public string Nombre { get; set; }
     }

@@ -29,7 +29,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Empresa> Empresas { get; set; }
 
-    public virtual DbSet<Llamada> Llamadas { get; set; }
+    public virtual DbSet<Llamado> Llamados { get; set; }
 
     public virtual DbSet<Mail> Mails { get; set; }
 
@@ -49,7 +49,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Visita> Visitas { get; set; }
 
-    public virtual DbSet<VisitasUsuarios> VisitasUsuarios { get; set; }
+    public virtual DbSet<VisitasUsuariosDTO> VisitasUsuarios { get; set; }
 
     public virtual DbSet<Archivo> VisitasArchivos { get; set; }
 
@@ -137,7 +137,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK_Empresas_Rubros");
         });
 
-        modelBuilder.Entity<Llamada>(entity =>
+        modelBuilder.Entity<Llamado>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Detalle).HasMaxLength(300);
@@ -277,7 +277,7 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.DireccionId)
                 .HasConstraintName("FK_Visitas_Direcciones");
 
-            modelBuilder.Entity<VisitasUsuarios>(entity =>
+            modelBuilder.Entity<VisitasUsuariosDTO>(entity =>
             {
                 entity.HasKey(e => new { e.VisitaId, e.UsuarioId }).HasName("PK_VisitasUsuarios_1");
                 entity.ToTable("VisitasUsuarios");

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Services
 {
-    public class LlamadoService : ServiceBase<LlamadaDTO, LlamadaRequestDTO, Llamada>, ILlamadoService
+    public class LlamadoService : ServiceBase<LlamadaDTO, LlamadaRequestDTO, Llamado>, ILlamadoService
     {
         public LlamadoService(IMapper mapper, ILlamadoRepository repository, IValidator<LlamadaRequestDTO> validator)
             : base(mapper, repository, validator)

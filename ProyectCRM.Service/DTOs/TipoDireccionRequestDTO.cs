@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class TipoDireccionRequestDTO
+    public class TipoDireccionRequestDTO : EntityBase
     {
         public string Nombre { get; set; }
     }

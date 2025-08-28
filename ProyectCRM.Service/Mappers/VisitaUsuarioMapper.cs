@@ -14,12 +14,12 @@ namespace ProyectCRM.Models.Service.Mappers
     {
         public void RegisterMappings()
         {
-            TypeAdapterConfig<VisitasUsuarios, VisitaUsuarioDTO>.NewConfig()
+            TypeAdapterConfig<VisitasUsuariosDTO, VisitaUsuarioDTO>.NewConfig()
                 .Map(dest => dest.Usuario, src => src.Usuario)
                 .Map(dest => dest.Visita, src => src.Visita)
                 .TwoWays();
 
-            TypeAdapterConfig<VisitaUsuarioRequestDTO, VisitasUsuarios>.NewConfig()
+            TypeAdapterConfig<VisitaUsuarioRequestDTO, VisitasUsuariosDTO>.NewConfig()
                 .Map(dest => dest.UsuarioId, src => src.UsuarioId)
                 .Map(dest => dest.VisitaId, src => src.VisitaId)
                 .TwoWays();

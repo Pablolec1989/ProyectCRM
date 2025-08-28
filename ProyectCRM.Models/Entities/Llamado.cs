@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProyectCRM.Models.Entities;
 
-public partial class Llamada : EntityBase
+public partial class Llamado : EntityBase
 {
     public Guid ClienteId { get; set; }
 

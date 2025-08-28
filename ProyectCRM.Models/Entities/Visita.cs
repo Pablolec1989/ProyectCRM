@@ -18,6 +18,6 @@ public partial class Visita : EntityBase
     public virtual Direccion? Direccion { get; set; }
 
     public virtual ICollection<Archivo> Archivos { get; set; } = new List<Archivo>();
-    public virtual ICollection<VisitasUsuarios> Usuarios { get; set; } = new List<VisitasUsuarios>();   
+    public virtual ICollection<VisitasUsuariosDTO> Usuarios { get; set; } = new List<VisitasUsuariosDTO>();   
 
 }

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Entities;
-    public class VisitasUsuarios : EntityBase
+    public class VisitasUsuariosDTO : EntityBase
     {
         public Guid UsuarioId { get; set; }
         public Guid VisitaId { get; set; }

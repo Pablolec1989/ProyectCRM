@@ -2,6 +2,7 @@
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,15 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
-                .Map(dest => dest.Area, src => src.Area)
+                .Map(dest => dest.Area, src => src.Area != null ? src.Area.Nombre : null)
+                .Map(dest => dest.Rol, src => src.Rol != null ? src.Rol.Nombre : null)
                 .TwoWays();
 
-            TypeAdapterConfig<UsuarioRequestDTO, Usuario>.NewConfig()
+            TypeAdapterConfig<UsuarioRegisterDTO, Usuario>.NewConfig()
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
                 .Map(dest => dest.Password, src => src.Password)
                 .Map(dest => dest.RolId, src => src.RolId)
-                .Map(dest => dest.AreaId, src => src.AreaId)
                 .TwoWays();
         }
         

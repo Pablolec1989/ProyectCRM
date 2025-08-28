@@ -29,7 +29,6 @@ namespace ProyectCRM.Models.Service
 
         public virtual async Task<TDTO> CreateAsync(TRequestDTO dto)
         {
-
             var validationResult = _validator.Validate(dto);
             if (!validationResult.IsValid)
             {

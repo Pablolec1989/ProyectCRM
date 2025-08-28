@@ -8,7 +8,7 @@ public partial class AsuntosDeContacto : EntityBase
 {
     public string Nombre { get; set; } = null!;
 
-    public virtual ICollection<Llamada> Llamada { get; set; } = new List<Llamada>();
+    public virtual ICollection<Llamado> Llamada { get; set; } = new List<Llamado>();
 
     public virtual ICollection<Mail> Mail { get; set; } = new List<Mail>();
 }

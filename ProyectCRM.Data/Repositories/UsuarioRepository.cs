@@ -18,28 +18,9 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Usuario> GetWitAllDetails()
+        public async Task<Usuario> GetUserAsync(string usuario)
         {
-            return _context.Usuarios
-                .Include(u => u.Area)
-                .Include(u => u.Rol)
-                .Include(u => u.Llamada)
-                .Include(u => u.Mail)
-                .Include(u => u.Seguimientos)
-                .Include(u => u.Visitas);
+            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Apellido == usuario);
         }
-
-        public override async Task<Usuario?> GetByIdAsync(Guid id)
-        {
-            return await GetWitAllDetails()
-                .FirstOrDefaultAsync(u => u.Id == id);
-        }
-
-        public override async Task<IEnumerable<Usuario>> GetAllAsync()
-        {
-            return await GetWitAllDetails()
-                .ToListAsync();
-        }
-
     }
 }

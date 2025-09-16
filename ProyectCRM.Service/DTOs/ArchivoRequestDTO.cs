@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class ArchivoRequestDTO
+    public class ArchivoRequestDTO : EntityBase
     {
         public string NombreArchivo { get; set; }
         public string RutaArchivo { get; set; }

@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Entities;
-    public class VisitasUsuariosDTO : EntityBase
+    public class VisitasUsuarios : EntityBase
     {
         public Guid UsuarioId { get; set; }
         public Guid VisitaId { get; set; }
         public Usuario Usuario { get; set; }
         public Visita Visita { get; set; }
-    }
+}

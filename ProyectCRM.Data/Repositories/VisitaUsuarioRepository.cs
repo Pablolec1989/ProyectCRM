@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Repositories
 {
-    public class VisitaUsuarioRepository : RepositoryBase<VisitasUsuariosDTO>, IVisitaUsuarioRepository
+    public class VisitaUsuarioRepository : RepositoryBase<VisitasUsuarios>, IVisitaUsuarioRepository
     {
         private readonly AppDbContext _context;
 

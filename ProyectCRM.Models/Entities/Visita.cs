@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProyectCRM.Models.Entities;
 
-public partial class Visita : EntityBase
+public class Visita : EntityBase
 {
     public DateOnly? FechaProgramada { get; set; }
 
@@ -15,9 +15,10 @@ public partial class Visita : EntityBase
 
     public Guid? DireccionId { get; set; }
 
-    public virtual Direccion? Direccion { get; set; }
+    public Direccion? Direccion { get; set; }
 
-    public virtual ICollection<Archivo> Archivos { get; set; } = new List<Archivo>();
-    public virtual ICollection<VisitasUsuariosDTO> Usuarios { get; set; } = new List<VisitasUsuariosDTO>();   
+    public IEnumerable<Archivo?> Archivos { get; set; }
+
+    public IEnumerable<VisitasUsuarios?> Usuarios { get; set; }
 
 }

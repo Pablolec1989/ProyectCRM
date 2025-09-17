@@ -8,7 +8,6 @@ public partial class Direccion : EntityBase
 {
     public string? CodigoPostal { get; set; }
 
-    public Guid? TipoDireccionId { get; set; }
 
     public string? Calle { get; set; }
 
@@ -20,9 +19,10 @@ public partial class Direccion : EntityBase
 
     public Guid? ClienteId { get; set; }
 
-    public virtual Cliente? Cliente { get; set; }
+    public Guid? TipoDireccionId { get; set; }
+    public Cliente? Cliente { get; set; }
 
-    public virtual TipoDireccion? TipoDireccion { get; set; }
+    public TipoDireccion? TipoDireccion { get; set; }
 
     public virtual ICollection<Visita> Visita { get; set; } = new List<Visita>();
 }

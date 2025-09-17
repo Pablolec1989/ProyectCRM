@@ -11,12 +11,10 @@ namespace ProyectCRM.Models.Data.Repositories
 {
     public class ArchivoRepository : RepositoryBase<Archivo>, IArchivoRepository
     {
-        private readonly AppDbContext _context;
-
         public ArchivoRepository(AppDbContext context) : base(context)
         {
-            _context = context;
         }
+
     }
 }
 

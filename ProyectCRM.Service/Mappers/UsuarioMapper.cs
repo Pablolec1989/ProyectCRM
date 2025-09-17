@@ -19,7 +19,12 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
-                .Map(dest => dest.Area, src => src.Area != null ? src.Area.Nombre : null)
+                .Map(dest => dest.AreaId, src => src.AreaId)
+                .Map(dest => dest.RolId, src => src.RolId)
+                .Map(dest => dest.Area, src => src.Area != null ? new AreaDTO 
+                    { Id = src.Area.Id, Nombre = src.Area.Nombre } : null)
+                .Map(dest => dest.Rol, src => src.Rol != null ? new RolDTO 
+                    { Id = src.Rol.Id, Nombre = src.Rol.Nombre } : null)
                 .Map(dest => dest.Rol, src => src.Rol != null ? src.Rol.Nombre : null)
                 .TwoWays();
 
@@ -27,6 +32,7 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
                 .Map(dest => dest.Password, src => src.Password)
+                .Map(dest => dest.AreaId, src => src.AreaId)
                 .Map(dest => dest.RolId, src => src.RolId)
                 .TwoWays();
         }

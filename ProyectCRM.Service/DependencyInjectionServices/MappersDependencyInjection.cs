@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Mappers;
+using ProyectCRM.Service.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
     {
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
+            services.AddScoped<ArchivoMapper>();
             services.AddScoped<AreaMapper>();
             services.AddScoped<CondicionIvaMapper>();
             services.AddScoped<RubroMapper>();
@@ -28,8 +30,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<TipoTelefonoMapper>();
             services.AddScoped<UsuarioMapper>();
             services.AddScoped<VisitaMapper>();
-            services.AddScoped<VisitaUsuarioMapper>();
-            services.AddScoped<ArchivoMapper>();
+            services.AddScoped<VisitasUsuariosMapper>();
             services.AddScoped<MailMapper>();
 
             return services;

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
+using ProyectCRM;
 using ProyectCRM.Models.Entities;
 
-namespace ProyectCRM.Models.Data;
+namespace ProyectCRM.Data;
 
 public partial class AppDbContext : DbContext
 {
@@ -16,6 +16,7 @@ public partial class AppDbContext : DbContext
         : base(options)
     {
     }
+
     public virtual DbSet<Archivo> Archivos { get; set; }
 
     public virtual DbSet<Area> Areas { get; set; }
@@ -50,20 +51,30 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Visita> Visitas { get; set; }
 
-
-    public virtual DbSet<VisitasUsuarios> VisitasUsuarios { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=LAPTOP-WSB\\SQLEXPRESS;Database=CRM_Project_Ver2;Trusted_Connection=true;TrustServerCertificate=true;MultipleActiveResultSets=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Archivo>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_ArchivosVisita");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.NombreArchivo).HasMaxLength(100);
+            entity.Property(e => e.RutaArchivo).HasMaxLength(100);
+
+            entity.HasOne(d => d.Visita).WithMany(p => p.Archivos)
+                .HasForeignKey(d => d.VisitaId)
+                .HasConstraintName("FK_Archivos_Visitas");
+        });
+
         modelBuilder.Entity<Area>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Area");
 
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
@@ -73,13 +84,13 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("AsuntosDeContacto");
 
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Apellido).HasMaxLength(20);
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Nombre).HasMaxLength(20);
@@ -95,13 +106,13 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("CondicionIva");
 
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Direccion>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Calle).HasMaxLength(150);
             entity.Property(e => e.Ciudad).HasMaxLength(150);
             entity.Property(e => e.CodigoPostal).HasMaxLength(50);
@@ -118,19 +129,19 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<Empresa>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Cuil)
                 .HasMaxLength(50)
                 .HasColumnName("CUIL");
             entity.Property(e => e.Cuit)
                 .HasMaxLength(50)
                 .HasColumnName("CUIT");
-            entity.Property(e => e.CondicionIvaId).HasColumnName("CondicionIva");
+            entity.Property(e => e.CondicionIva).HasColumnName("IVACondicion");
             entity.Property(e => e.RazonSocial).HasMaxLength(200);
 
             entity.HasOne(d => d.CondicionIva).WithMany(p => p.Empresas)
-                .HasForeignKey(d => d.CondicionIvaId)
-                .HasConstraintName("FK_Empresas_CondicionIva");
+                .HasForeignKey(d => d.CondicionIva)
+                .HasConstraintName("FK_Empresas_IVACondicion");
 
             entity.HasOne(d => d.Rubro).WithMany(p => p.Empresas)
                 .HasForeignKey(d => d.RubroId)
@@ -139,7 +150,9 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<Llamado>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.HasKey(e => e.Id).HasName("PK_Llamadas");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Detalle).HasMaxLength(300);
             entity.Property(e => e.FechaLlamado).HasColumnType("datetime");
 
@@ -166,7 +179,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<Mail>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Detalle).HasMaxLength(200);
             entity.Property(e => e.FechaMail).HasColumnType("datetime");
 
@@ -185,19 +198,19 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<Rol>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Rubro>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Nombre).HasMaxLength(200);
         });
 
         modelBuilder.Entity<Seguimiento>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Detalle).HasMaxLength(300);
             entity.Property(e => e.Titulo).HasMaxLength(20);
 
@@ -212,7 +225,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<TelefonosCliente>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Numero).HasMaxLength(50);
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.TelefonosClientes)
@@ -230,7 +243,7 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("TipoDireccion");
 
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
@@ -238,16 +251,16 @@ public partial class AppDbContext : DbContext
         {
             entity.ToTable("TiposTelefono");
 
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Apellido).HasMaxLength(50);
             entity.Property(e => e.Nombre).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(250);
 
             entity.HasOne(d => d.Area).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.AreaId)
@@ -260,7 +273,7 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<Visita>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Observaciones).HasMaxLength(200);
 
             entity.HasOne(d => d.Direccion).WithMany(p => p.Visita)
@@ -270,30 +283,17 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<VisitasUsuarios>(entity =>
         {
-            entity.HasKey(e => new { e.VisitaId, e.UsuarioId }).HasName("PK_VisitasUsuarios_1");
-            entity.ToTable("VisitasUsuarios");
-
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Visitas)
-                .HasForeignKey(d => d.UsuarioId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Visitas_U__Usuar__68487DD7");
-
-            entity.HasOne(d => d.Visita).WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.VisitaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Visitas_U__Visit__6754599E");
+            entity.HasKey(e => new { e.VisitaId, e.UsuarioId });
+            entity.HasOne(e => e.Visita)
+                .WithMany()
+                .HasForeignKey(e => e.VisitaId);
+            entity.HasOne(e => e.Usuario)
+                .WithMany()
+                .HasForeignKey(e => e.UsuarioId);
         });
 
-        modelBuilder.Entity<Archivo>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_Archivos");
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.NombreArchivo).HasMaxLength(100);
-            entity.Property(e => e.RutaArchivo).HasMaxLength(100);
-
-            entity.HasOne(d => d.Visita).WithMany(p => p.Archivos)
-                .HasForeignKey(d => d.VisitaId)
-                .HasConstraintName("FK_Archivos_Visitas");
-        });
+        OnModelCreatingPartial(modelBuilder);
     }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

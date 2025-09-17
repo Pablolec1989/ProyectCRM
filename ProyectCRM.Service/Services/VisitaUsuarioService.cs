@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Services
 {
-    public class VisitaUsuarioService : ServiceBase<VisitaUsuarioDTO, VisitaUsuarioRequestDTO, VisitasUsuariosDTO>, IVisitaUsuarioService
+    public class VisitaUsuarioService : ServiceBase<VisitaUsuarioDTO, VisitaUsuarioRequestDTO, VisitasUsuarios>, IVisitaUsuarioService
     {
         public VisitaUsuarioService(IMapper mapper,
             IVisitaUsuarioRepository repository, 

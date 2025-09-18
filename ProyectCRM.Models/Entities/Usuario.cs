@@ -14,10 +14,10 @@ public partial class Usuario : EntityBase
     public Guid? AreaId { get; set; }
     public virtual Rol? Rol { get; set; }
     public virtual Area? Area { get; set; }
-    public virtual ICollection<Llamado> Llamada { get; set; } = new List<Llamado>();
+    public virtual ICollection<Llamado> Llamados { get; set; } = new List<Llamado>();
     public virtual ICollection<Mail> Mail { get; set; } = new List<Mail>();
     public virtual ICollection<Seguimiento> Seguimientos { get; set; } = new List<Seguimiento>();
-    public virtual ICollection<VisitasUsuariosDTO> Visitas { get; set; } = new List<VisitasUsuariosDTO>();
+    public virtual ICollection<VisitasUsuarios> Visitas { get; set; } = new List<VisitasUsuarios>();
 
 
 }

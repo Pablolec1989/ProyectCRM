@@ -46,7 +46,6 @@ namespace ProyectCRM.Models.Service.Services
 
             var usuario = new Usuario()
             {
-                Id = Guid.NewGuid(),
                 Nombre = dto.Nombre,
                 Apellido = dto.Apellido,
                 Password = HashPassword(dto.Password),

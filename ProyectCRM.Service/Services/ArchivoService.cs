@@ -1,76 +1,116 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ProyectCRM.Models.Data.Interfaces;
+using ProyectCRM.Models.Data.Repositories;
+using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Validators;
+using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Services
 {
-    public class ArchivoService : IArchivoService
+    public class ArchivoService : ServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>, IArchivoService
     {
-        private readonly IWebHostEnvironment _environment;
-        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IArchivoRepository _archivoRepository;
+        private readonly IVisitaRepository _visitaRepository;
+        private readonly IValidator<ArchivoRequestDTO> _validator;
+        private readonly IFileStorageService _fileStorageService;
+        private readonly IMapper _mapper;
+        private const string contenedor = "archivos";
 
-        public ArchivoService(IWebHostEnvironment environment, IHttpContextAccessor contextAccessor)
+        public ArchivoService(IMapper mapper,
+            IArchivoRepository archivoRepository,
+            IVisitaRepository visitaRepository,
+            IValidator<ArchivoRequestDTO> validator,
+            IFileStorageService fileStorageService)
+            : base(mapper, archivoRepository, validator)
         {
-            _environment = environment;
-            _contextAccessor = contextAccessor;
+            _archivoRepository = archivoRepository;
+            _visitaRepository = visitaRepository;
+            _validator = validator;
+            _fileStorageService = fileStorageService;
+            _mapper = mapper;
         }
 
-        public async Task<string> CreateAsync(string contenedor, IFormFile archivo)
+        public override async Task<ArchivoDTO> CreateAsync(ArchivoRequestDTO archivoRequestDTO)
         {
-            var extension = Path.GetExtension(archivo.FileName);
-            var nombreArchivo = $"{Guid.NewGuid()}{extension}";
-            string folder = Path.Combine(_environment.WebRootPath, contenedor);
 
-            if (!Directory.Exists(folder))
+            var validationResult = _validator.Validate(archivoRequestDTO);
+            if (!validationResult.IsValid)
             {
-                Directory.CreateDirectory(folder);
+                throw new ValidationException(validationResult.Errors);
             }
 
-            string ruta = Path.Combine(folder, nombreArchivo);
-
-            using (var ms = new MemoryStream())
+            var visitaExiste = await _visitaRepository.GetByIdAsync(archivoRequestDTO.VisitaId);
+            if (visitaExiste == null)
             {
-                await archivo.CopyToAsync(ms);
-                var contenido = ms.ToArray();
-                await File.WriteAllBytesAsync(ruta, contenido);
+                throw new KeyNotFoundException($"Visita no encontrada");
             }
-            var request = _contextAccessor.HttpContext!.Request;
-            var url = $"{request.Scheme}://{request.Host}/{contenedor}/{nombreArchivo}";
-            var urlArchivo = Path.Combine(url, contenedor, nombreArchivo).Replace("\\", "/");
 
-            return urlArchivo;
+            var archivo = _mapper.Map<Archivo>(archivoRequestDTO);
+
+            // Guardar el archivo en el almacenamiento y obtener la ruta
+            var nuevaRutaArchivo = await _fileStorageService.CreateFileAsync(contenedor, archivoRequestDTO.RutaArchivo);
+            archivo.RutaArchivo = nuevaRutaArchivo;
+            archivo.FechaSubida = DateOnly.FromDateTime(DateTime.Now);
+
+            var archivoCreado = await _archivoRepository.CreateAsync(archivo);
+            var resultado = _mapper.Map<ArchivoDTO>(archivoCreado);
+            return resultado;
+
         }
 
-        public async Task<string> UpdateAsync(string contenedor, IFormFile archivo, string? ruta)
+        public override async Task<ArchivoDTO> UpdateAsync(Guid archivoId, ArchivoRequestDTO archivoRequestDTO)
         {
-            await DeleteAsync(ruta, contenedor);
-            return await CreateAsync(contenedor, archivo);
+            var validationResult = _validator.Validate(archivoRequestDTO);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+            var archivo = await _archivoRepository.GetByIdAsync(archivoId);
+            if (archivo == null)
+            {
+                throw new KeyNotFoundException($"Archivo no encontrado");
+            }
+
+            var visitaExiste = await _visitaRepository.GetByIdAsync(archivoRequestDTO.VisitaId);
+            if(visitaExiste == null)
+            {
+                throw new KeyNotFoundException($"Visita no encontrada");
+            }
+
+            var nuevaRuta = await _fileStorageService.UpdateFileAsync(contenedor, archivoRequestDTO.RutaArchivo, archivo.RutaArchivo);
+            archivo.NombreArchivo = archivoRequestDTO.NombreArchivo;
+            archivo.RutaArchivo = nuevaRuta;
+            archivo.VisitaId = archivoRequestDTO.VisitaId;
+
+            var archivoActualizado = await _archivoRepository.UpdateAsync(archivo);
+            var resultado = _mapper.Map<ArchivoDTO>(archivoActualizado);
+            return resultado;
+
+
         }
-
-        public Task DeleteAsync(string? ruta, string contenedor)
+        
+        public override async Task<bool> DeleteAsync(Guid archivoId)
         {
-            if (string.IsNullOrEmpty(ruta))
+            var archivo = await _archivoRepository.GetByIdAsync(archivoId);
+            if (archivo == null)
             {
-                throw new Exception("No se ha proporcionado una ruta válida.");
+                throw new KeyNotFoundException($"Archivo no encontrado");
             }
-            var nombreArchivo = Path.GetFileName(ruta);
-            var directorioArchivo = Path.Combine(_environment.WebRootPath, contenedor, nombreArchivo);
+            await _fileStorageService.DeleteFileAsync(archivo.RutaArchivo, contenedor);
+            return await _archivoRepository.DeleteAsync(archivoId);
 
-            if (File.Exists(directorioArchivo))
-            {
-                File.Delete(directorioArchivo);
-            }
-
-            return Task.CompletedTask;
         }
     }
         

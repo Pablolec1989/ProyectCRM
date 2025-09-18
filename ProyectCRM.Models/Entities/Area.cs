@@ -8,7 +8,7 @@ public partial class Area : EntityBase
 {
     public string Nombre { get; set; } = null!;
 
-    public virtual ICollection<Llamado> Llamada { get; set; } = new List<Llamado>();
+    public virtual ICollection<Llamado> Llamados { get; set; } = new List<Llamado>();
 
     public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

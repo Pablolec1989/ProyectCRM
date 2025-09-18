@@ -19,8 +19,6 @@ namespace ProyectCRM.Models.Service.Validators
             RuleFor(a => a.RutaArchivo)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
 
-            RuleFor(a => a.VisitaId)
-                .NotNull().NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
         }
     }
 }

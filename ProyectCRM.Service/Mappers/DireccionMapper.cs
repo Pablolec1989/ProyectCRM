@@ -22,8 +22,8 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.CodigoPostal, src => src.CodigoPostal)
                 .Map(dest => dest.Provincia, src => src.Provincia)
                 .Map(dest => dest.ClienteId, src => src.ClienteId)
-                .Map(dest => dest.TipoDireccionId, src => src.TipoDireccionId)
                 .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.TipoDireccionId, src => src.TipoDireccionId)
                 .Map(dest => dest.TipoDireccion, src => src.TipoDireccion)
                 .TwoWays();
 

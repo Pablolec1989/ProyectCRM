@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Diagnostics;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Service.DependencyInjectionServices;
 using ProyectCRM.Models.Service.Mappers;
+using ProyectCRM.Service.Utils;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
-
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddMapster();
@@ -25,8 +25,6 @@ builder.Services.AddCors(options => {
                           .AllowAnyHeader());
 });
 
-// Configuración de Almacenamiento de Archivos
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 // With this line:
 builder.Services.AddEndpointsApiExplorer();

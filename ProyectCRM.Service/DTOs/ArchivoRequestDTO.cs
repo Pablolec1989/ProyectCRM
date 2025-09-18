@@ -11,9 +11,8 @@ namespace ProyectCRM.Models.Service.DTOs
     public class ArchivoRequestDTO : EntityBase
     {
         public string NombreArchivo { get; set; }
-        public string RutaArchivo { get; set; }
+        public IFormFile RutaArchivo { get; set; }
+
         public Guid VisitaId { get; set; }
-        public Guid EmpresaId { get; set; }
-        public DateTime FechaSubida { get; set; } = DateTime.UtcNow;
     }
 }

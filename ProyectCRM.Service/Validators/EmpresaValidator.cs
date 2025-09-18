@@ -24,6 +24,8 @@ namespace ProyectCRM.Models.Service.Validators
             RuleFor(e => e.Cuit)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
                 .MinimumLength(13).WithMessage(ValidationMessages.MinLength(13));
+
+
         }
     }
 }

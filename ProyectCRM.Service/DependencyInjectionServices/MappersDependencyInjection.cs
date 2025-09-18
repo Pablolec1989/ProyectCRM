@@ -25,7 +25,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<EmpresaMapper>();
             services.AddScoped<LlamadoMapper>();
             services.AddScoped<SeguimientoMapper>();
-            services.AddScoped<TelefonoClienteMapper>();
+            services.AddScoped<TelefonoMapper>();
             services.AddScoped<TipoDireccionMapper>();
             services.AddScoped<TipoTelefonoMapper>();
             services.AddScoped<UsuarioMapper>();

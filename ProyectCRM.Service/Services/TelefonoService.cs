@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Services
 {
-    public class TelefonoClienteService : ServiceBase<TelefonoClienteDTO, TelefonoClienteRequestDTO, TelefonosCliente>, ITelefonoClienteService
+    public class TelefonoService : ServiceBase<TelefonoDTO, TelefonoRequestDTO, Telefonos>, ITelefonoService
     {
-        public TelefonoClienteService(IMapper mapper, 
-            ITelefonoClienteRepository repository, 
-            IValidator<TelefonoClienteRequestDTO> validator)
+        public TelefonoService(IMapper mapper, 
+            ITelefonoRepository repository, 
+            IValidator<TelefonoRequestDTO> validator)
             : base(mapper, repository, validator)
         {
             

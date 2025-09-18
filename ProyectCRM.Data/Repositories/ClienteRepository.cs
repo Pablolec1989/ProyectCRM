@@ -17,5 +17,6 @@ namespace ProyectCRM.Models.Data.Repositories
         {
             _context = context;
         }
+
     }
 }

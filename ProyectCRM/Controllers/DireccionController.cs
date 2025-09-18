@@ -15,6 +15,14 @@ namespace ProyectCRM.Models.Controllers
         {
             _service = service;
         }
+
+        [HttpGet("cliente/{clienteId}")]
+        public async Task<IActionResult> GetDireccionesByClienteId(Guid clienteId)
+        {
+            var direcciones = await _service.GetDireccionesByClienteIdAsync(clienteId);
+            return Ok(direcciones);
+        }
+
     }
 }
 

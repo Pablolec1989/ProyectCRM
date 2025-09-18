@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Interfaces
 {
-    public interface ITelefonoClienteRepository : IRepositoryBase<TelefonosCliente>
+    public interface ITelefonoRepository : IRepositoryBase<Telefonos>
     {
+        Task<Telefonos> GetTelefonosByClienteIdAsync(Guid clienteId);
     }
 }

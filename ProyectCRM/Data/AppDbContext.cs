@@ -41,7 +41,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Seguimiento> Seguimientos { get; set; }
 
-    public virtual DbSet<TelefonosCliente> TelefonosClientes { get; set; }
+    public virtual DbSet<Telefonos> TelefonosClientes { get; set; }
 
     public virtual DbSet<TipoDireccion> TipoDireccions { get; set; }
 
@@ -223,7 +223,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK_Seguimientos_Usuarios");
         });
 
-        modelBuilder.Entity<TelefonosCliente>(entity =>
+        modelBuilder.Entity<Telefonos>(entity =>
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Numero).HasMaxLength(50);

@@ -9,6 +9,5 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IClienteRepository : IRepositoryBase<Cliente>
     {
-        //...
     }
 }

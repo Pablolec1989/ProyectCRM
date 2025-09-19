@@ -9,10 +9,11 @@ namespace ProyectCRM.Models.Service.DTOs
 {
     public class VisitaRequestDTO : EntityBase
     {
-        public string Observaciones { get; set; }
+        public string? Observaciones { get; set; }
         public Guid ClienteId { get; set; }
         public Guid DireccionId { get; set; }
-        public DateTime FechaProgramada { get; set; }
-        public DateTime FechaRealizada { get; set; }
+        public Guid UsuarioId { get; set; }
+        public DateOnly FechaProgramada { get; set; }
+        public DateOnly FechaRealizada { get; set; }
     }
 }

@@ -34,7 +34,6 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IVisitaService, VisitaService>();
-            services.AddScoped<IVisitaUsuarioService, VisitaUsuarioService>();
 
             return services;
         }

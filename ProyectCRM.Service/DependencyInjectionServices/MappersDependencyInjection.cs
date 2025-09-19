@@ -30,7 +30,6 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<TipoTelefonoMapper>();
             services.AddScoped<UsuarioMapper>();
             services.AddScoped<VisitaMapper>();
-            services.AddScoped<VisitasUsuariosMapper>();
             services.AddScoped<MailMapper>();
 
             return services;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Repositories
 {
-    public class LlamadoRepository : RepositoryBase<Llamada>, ILlamadoRepository
+    public class LlamadoRepository : RepositoryBase<Llamado>, ILlamadoRepository
     {
         private readonly AppDbContext _context;
         public LlamadoRepository(AppDbContext context) : base(context)
@@ -17,22 +17,22 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Llamada> GetAllWithDetails()
+        public IQueryable<Llamado> GetAllWithDetails()
         {
-            return _context.Llamadas
+            return _context.Llamados
                 .Include(ll => ll.AsuntoDeContacto)
                 .Include(ll => ll.Cliente)
                 .Include(ll => ll.Usuario)
                 .Include(ll => ll.Area);
         }
 
-        public override async Task<Llamada> GetByIdAsync(Guid id)
+        public override async Task<Llamado> GetByIdAsync(Guid id)
         {
             return await GetAllWithDetails()
                 .FirstOrDefaultAsync(ll => ll.Id == id);
         }
 
-        public override async Task<IEnumerable<Llamada>> GetAllAsync()
+        public override async Task<IEnumerable<Llamado>> GetAllAsync()
         {
             return await GetAllWithDetails()
                 .ToListAsync();

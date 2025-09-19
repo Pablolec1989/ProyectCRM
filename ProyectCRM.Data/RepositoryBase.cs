@@ -20,9 +20,20 @@ namespace ProyectCRM.Models.Data
 
         public virtual async Task<T> CreateAsync(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            try
+            {
+                await _context.Set<T>().AddAsync(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+
+            }
+            catch (Exception ex)
+            {
+                //Arrojar error
+                throw new Exception($"Error creating entity: {ex.Message}", ex);
+
+
+            }
         }
 
         public virtual async Task<bool> DeleteAsync(Guid id)

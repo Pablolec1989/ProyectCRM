@@ -14,7 +14,7 @@ namespace ProyectCRM.Models.Service.Mappers
     {
         public void RegisterMappings()
         {
-            TypeAdapterConfig<Llamada, LlamadaDTO>.NewConfig()
+            TypeAdapterConfig<Llamado, LlamadaDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Detalle, src => src.Detalle)
                 .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto)
@@ -24,7 +24,7 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.FechaLlamado, src => src.FechaLlamado)
                 .TwoWays();
 
-            TypeAdapterConfig<LlamadaRequestDTO, Llamada>.NewConfig()
+            TypeAdapterConfig<LlamadaRequestDTO, Llamado>.NewConfig()
                 .Map(dest => dest.Detalle, src => src.Detalle)
                 .Map(dest => dest.AsuntoDeContactoId, src => src.AsuntoDeContactoId)
                 .Map(dest => dest.ClienteId, src => src.ClienteId)

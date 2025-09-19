@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Services;
+using ProyectCRM.Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,8 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IFileStorageService, LocalFileStorage>();
             services.AddScoped<IArchivoService, ArchivoService>();
             services.AddScoped<IAreaService, AreaService>();
             services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
@@ -30,7 +34,6 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IVisitaService, VisitaService>();
-            services.AddScoped<IVisitaUsuarioService, VisitaUsuarioService>();
 
             return services;
         }

@@ -11,5 +11,6 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IVisitaService : IServiceBase<VisitaDTO, VisitaRequestDTO, Visita>
     {
+        Task<IEnumerable<VisitaDTO>> GetVisitasByUsuarioAsync(Guid usuarioId);
     }
 }

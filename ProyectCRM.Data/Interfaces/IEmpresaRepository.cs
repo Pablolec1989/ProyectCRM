@@ -9,5 +9,6 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IEmpresaRepository : IRepositoryBase<Empresa>
     {
+        Task<bool> GetEmpresaByRazonSocial(string razonSocial);
     }
 }

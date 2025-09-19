@@ -32,7 +32,7 @@ namespace ProyectCRM.Models
             var createdDto = await _serviceBase.CreateAsync(dto);
             if (createdDto == null)
             {
-                return BadRequest("Failed to create the entity.");
+                return BadRequest("No se pudo crear");
             }
             return Ok(createdDto);
         }
@@ -71,7 +71,7 @@ namespace ProyectCRM.Models
         }
 
         [HttpPut("{id:Guid}")]
-        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, [FromBody] TRequestDTO dto)
+        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TRequestDTO dto)
         {
             var updatedDto = await _serviceBase.UpdateAsync(id, dto);
             if (updatedDto == null)

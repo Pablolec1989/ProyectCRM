@@ -9,5 +9,7 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IUsuarioRepository : IRepositoryBase<Usuario>
     {
+        Task<Usuario> GetUserAsync(string usuario);
+
     }
 }

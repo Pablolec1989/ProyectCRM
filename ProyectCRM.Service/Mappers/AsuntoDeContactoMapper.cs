@@ -12,11 +12,10 @@ namespace ProyectCRM.Models.Service.Mappers
     public class AsuntoDeContactoMapper
     {
         public void RegisterMappings()
-        {            
+        {
             TypeAdapterConfig<AsuntosDeContacto, AsuntoDeContactoDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.Nombre, src => src.Nombre)
-                .TwoWays();
+                .Map(dest => dest.Nombre, src => src.Nombre);
 
             TypeAdapterConfig<AsuntoDeContactoRequestDTO, AsuntosDeContacto>.NewConfig()
                 .Map(dest => dest.Nombre, src => src.Nombre);

@@ -17,6 +17,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
         public static IServiceCollection AddValidators (this IServiceCollection services)
         {
 
+            services.AddScoped<IValidator<ArchivoRequestDTO>, ArchivoValidator>();
             services.AddScoped<IValidator<AreaRequestDTO>, AreaValidator>();
             services.AddScoped<IValidator<AsuntoDeContactoRequestDTO>, AsuntoDeContactoValidator>();
             services.AddScoped<IValidator<ClienteRequestDTO>, ClienteValidator>();
@@ -30,10 +31,9 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<IValidator<TelefonoClienteRequestDTO>, TelefonoClienteValidator>();
             services.AddScoped<IValidator<TipoDireccionRequestDTO>, TipoDireccionValidator>();
             services.AddScoped<IValidator<TipoTelefonoRequestDTO>, TipoTelefonoValidator>();
-            services.AddScoped<IValidator<UsuarioRequestDTO>, UsuarioValidator>();
+            services.AddScoped<IValidator<UsuarioRegisterDTO>, UsuarioValidator>();
             services.AddScoped<IValidator<VisitaRequestDTO>, VisitaValidator>();
             services.AddScoped<IValidator<VisitaUsuarioRequestDTO>, VisitaUsuarioValidator>();
-            services.AddScoped<IValidator<ArchivoRequestDTO>, ArchivoValidator>();
             services.AddScoped<IValidator<MailRequestDTO>, MailValidator>();
 
             return services;

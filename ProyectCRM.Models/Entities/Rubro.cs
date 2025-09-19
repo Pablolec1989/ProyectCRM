@@ -6,7 +6,7 @@ namespace ProyectCRM.Models.Entities;
 
 public partial class Rubro : EntityBase
 {
-    public string Nombre { get; set; } = null!;
+    public string Nombre { get; set; }
 
     public virtual ICollection<Empresa> Empresas { get; set; } = new List<Empresa>();
 }

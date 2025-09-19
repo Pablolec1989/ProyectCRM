@@ -16,14 +16,13 @@ namespace ProyectCRM.Models.Service.Validators
             RuleFor(e => e.RazonSocial)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
                 .MaximumLength(200).WithMessage(ValidationMessages.MaxLength(200));
-            
-            RuleFor(e => e.Cuit)
-                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
-                .MinimumLength(13).WithMessage(ValidationMessages.MinLength(13));
 
-            RuleFor(e => e.Cuit)
-                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
-                .MinimumLength(13).WithMessage(ValidationMessages.MinLength(13));
+            RuleFor(e => e.RubroId)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
+            RuleFor(e => e.CondicionIvaId)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
+
+
         }
     }
 }

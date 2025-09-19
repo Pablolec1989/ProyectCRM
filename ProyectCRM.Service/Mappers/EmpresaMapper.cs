@@ -19,17 +19,16 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.RazonSocial, src => src.RazonSocial)
                 .Map(dest => dest.Cuit, src => src.Cuit)
                 .Map(dest => dest.Cuil, src => src.Cuil)
-                .Map(dest => dest.Rubro, src => src.Rubro)
-                .Map(dest => dest.CondicionIva, src => src.CondicionIva)
-                .TwoWays();
+                .Map(dest => dest.Rubro, src => src.Rubro.Nombre)
+                .Map(dest => dest.CondicionIva, src => src.CondicionIva.Nombre);
+
 
             TypeAdapterConfig<EmpresaRequestDTO, Empresa>.NewConfig()
                 .Map(dest => dest.RazonSocial, src => src.RazonSocial)
                 .Map(dest => dest.Cuit, src => src.Cuit)
                 .Map(dest => dest.Cuil, src => src.Cuil)
                 .Map(dest => dest.RubroId, src => src.RubroId)
-                .Map(dest => dest.CondicionIvaId, src => src.CondicionIvaId)
-                .TwoWays();
+                .Map(dest => dest.CondicionIvaId, src => src.CondicionIvaId);
         }
     }
 

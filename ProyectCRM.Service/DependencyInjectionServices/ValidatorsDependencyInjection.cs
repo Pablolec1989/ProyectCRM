@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Validators;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<IValidator<TelefonoClienteRequestDTO>, TelefonoClienteValidator>();
             services.AddScoped<IValidator<TipoDireccionRequestDTO>, TipoDireccionValidator>();
             services.AddScoped<IValidator<TipoTelefonoRequestDTO>, TipoTelefonoValidator>();
-            services.AddScoped<IValidator<UsuarioRegisterDTO>, UsuarioValidator>();
+            services.AddScoped<IValidator<UsuarioRequestDTO>, UsuarioValidator>();
             services.AddScoped<IValidator<VisitaRequestDTO>, VisitaValidator>();
             services.AddScoped<IValidator<VisitaUsuarioRequestDTO>, VisitaUsuarioValidator>();
             services.AddScoped<IValidator<MailRequestDTO>, MailValidator>();

@@ -39,7 +39,6 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-
         public override async Task<IEnumerable<Empresa>> GetAllAsync()
         {
             return await Empresas().ToListAsync();

@@ -8,63 +8,76 @@ using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM.Models.Service.Services
 {
-    public class UsuarioService : ServiceBase<UsuarioDTO, UsuarioRegisterDTO, Usuario>, IUsuarioService
+    public class UsuarioService : ServiceBase<UsuarioDTO, UsuarioRequestDTO, Usuario>, IUsuarioService
     {
         private readonly IMapper _mapper;
         private readonly IUsuarioRepository _repository;
-        private readonly IValidator<UsuarioRegisterDTO> _validator;
+        private readonly IAreaRepository _areaRepository;
+        private readonly IRolRepository _rolRepository;
+        private readonly IValidator<UsuarioRequestDTO> _validator;
 
         public UsuarioService(IMapper mapper,
             IUsuarioRepository repository,
-            IValidator<UsuarioRegisterDTO> validator)
+            IAreaRepository areaRepository,
+            IRolRepository rolRepository,
+            IValidator<UsuarioRequestDTO> validator)
             : base(mapper, repository, validator)
         {
             _mapper = mapper;
             _repository = repository;
+            _areaRepository = areaRepository;
+            _rolRepository = rolRepository;
             _validator = validator;
         }
 
-        public async Task<bool> LoginAsync(UsuarioLoginDTO dto)
+        public override async Task<UsuarioDTO> CreateAsync(UsuarioRequestDTO dto)
         {
-            var usuarioExiste = await _repository.GetUserAsync(dto.Usuario);
-            var passwordHash = HashPassword(dto.Password);
-
-            if(usuarioExiste == null || !VerifyPassword(dto.Password, usuarioExiste.Password))
-            {
-                return false;
-            }
-            return true;
+            await ValidateUsuarioRequest(null, dto);
+            return await base.CreateAsync(dto);
         }
 
-        public async Task<UsuarioDTO> RegisterUserAsync(UsuarioRegisterDTO dto)
+        public override async Task<UsuarioDTO> UpdateAsync(Guid id, UsuarioRequestDTO dto)
         {
+            await ValidateUsuarioRequest(id, dto);
+            return await base.UpdateAsync(id, dto);
+        }
+
+        private async Task ValidateUsuarioRequest(Guid? id, UsuarioRequestDTO dto)
+        {
+            //Validar modelo
             var validationResult = _validator.Validate(dto);
+
             if (!validationResult.IsValid)
-            {
                 throw new ValidationException(validationResult.Errors);
-            }
 
-            var usuario = new Usuario()
-            {
-                Nombre = dto.Nombre,
-                Apellido = dto.Apellido,
-                Password = HashPassword(dto.Password),
-                RolId = dto.RolId
-            };
+            //Validar si el usuario ya existe
 
-            var usuarioCreado = await _repository.CreateAsync(usuario);
-            return _mapper.Map<UsuarioDTO>(usuarioCreado);
+            await UsuarioExists(dto);
+
+            await AreaExists(dto.AreaId);
+
+            await RolExists(dto.RolId);
+
+
         }
-
-        private string HashPassword(string password)
+        private async Task UsuarioExists(UsuarioRequestDTO dto)
         {
-            return BCrypt.Net.BCrypt.HashPassword(password);
+            var usuarioExists = await _repository.GetByNombreYApellidoAsync(dto.Nombre, dto.Apellido);
+            if (usuarioExists)
+                throw new ValidationException($"El usuario {dto.Nombre} {dto.Apellido} ya existe.");
         }
-
-        private bool VerifyPassword(string password, string hashedPassword)
+        private async Task AreaExists(Guid areaId)
         {
-            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
-
+            var areaExists = await _areaRepository.GetByIdAsync(areaId);
+            if (areaExists == null)
+                throw new ValidationException($"El area no existe.");
         }
+        private async Task RolExists(Guid rolId)
+        {
+            var rolExists = await _rolRepository.GetByIdAsync(rolId);
+            if (rolExists == null)
+                throw new ValidationException($"El rol no existe.");
+        }
+
     }
 }

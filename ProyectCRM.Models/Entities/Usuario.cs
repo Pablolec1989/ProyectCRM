@@ -19,5 +19,4 @@ public partial class Usuario : EntityBase
     public virtual ICollection<Seguimiento?> Seguimientos { get; set; }
     public virtual ICollection<VisitasUsuarios?> VisitasUsuarios { get; set; }
 
-
 }

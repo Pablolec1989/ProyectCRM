@@ -6,9 +6,7 @@ namespace ProyectCRM.Models.Entities;
 
 public partial class Area : EntityBase
 {
-    public string Nombre { get; set; } = null!;
-
-    public virtual ICollection<Llamado> Llamados { get; set; } = new List<Llamado>();
-
-    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
+    public string Nombre { get; set; }
+    public List<Llamado> Llamados { get; set; }
+    public List<Usuario> Usuarios { get; set; }
 }

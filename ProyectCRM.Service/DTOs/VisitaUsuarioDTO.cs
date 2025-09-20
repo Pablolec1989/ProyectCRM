@@ -12,8 +12,7 @@ namespace ProyectCRM.Models.Service.DTOs
         public Guid UsuarioId { get; set; }
         public Guid VisitaId { get; set; }
 
-        //Prop de nav
-        public UsuarioDTO? Usuario { get; set; }
-        public VisitaDTO? Visita { get; set; }
+        public UsuarioDTO Usuario { get; set; }
+        public VisitaDTO Visita { get; set; }
     }
 }

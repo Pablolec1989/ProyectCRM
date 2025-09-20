@@ -16,8 +16,7 @@ namespace ProyectCRM.Models.Service.Mappers
         {
             TypeAdapterConfig<Rubro, RubroDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.Nombre, src => src.Nombre)
-                .TwoWays();
+                .Map(dest => dest.Nombre, src => src.Nombre);
 
             TypeAdapterConfig<RubroRequestDTO, Rubro>.NewConfig()
                 .Map(dest => dest.Nombre, src => src.Nombre);

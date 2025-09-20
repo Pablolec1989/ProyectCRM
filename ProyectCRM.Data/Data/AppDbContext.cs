@@ -50,7 +50,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Visita> Visitas { get; set; }
 
-
     public virtual DbSet<VisitasUsuarios> VisitasUsuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -255,7 +254,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.Rol).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.RolId)
-                .HasConstraintName("FK_Usuarios_Roles1");
+                .HasConstraintName("FK_Usuarios_Roles");
         });
 
         modelBuilder.Entity<Visita>(entity =>
@@ -270,18 +269,26 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<VisitasUsuarios>(entity =>
         {
-            entity.HasKey(e => new { e.VisitaId, e.UsuarioId }).HasName("PK_VisitasUsuarios_1");
-            entity.ToTable("VisitasUsuarios");
+            // Clave primaria compuesta (el orden debe coincidir con la BD)
+            entity.HasKey(e => new { e.UsuarioId, e.VisitaId })
+                  .HasName("PK__VisitaUsuario"); // O "PK_VisitaUsuario" si así se llama en BD
 
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Visitas)
-                .HasForeignKey(d => d.UsuarioId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Visitas_U__Usuar__68487DD7");
+            // Nombre de tabla (debe coincidir exactamente con la BD)
+            entity.ToTable("VisitaUsuario"); // Sin 's' adicional
 
-            entity.HasOne(d => d.Visita).WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.VisitaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Visitas_U__Visit__6754599E");
+            // Configuración de la relación con Usuario
+            entity.HasOne(d => d.Usuario)
+                  .WithMany(p => p.VisitasUsuarios) // Debe coincidir con la propiedad de navegación en Usuario
+                  .HasForeignKey(d => d.UsuarioId)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_VisitaUsuario_Usuario"); // Nombre correcto de la constraint
+
+            // Configuración de la relación con Visita
+            entity.HasOne(d => d.Visita)
+                  .WithMany(p => p.VisitasUsuarios) // Debe coincidir con la propiedad de navegación en Visita
+                  .HasForeignKey(d => d.VisitaId)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_VisitaUsuario_Visita"); // Nombre correcto de la constraint
         });
 
         modelBuilder.Entity<Archivo>(entity =>

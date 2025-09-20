@@ -21,8 +21,10 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Ciudad, src => src.Ciudad)
                 .Map(dest => dest.CodigoPostal, src => src.CodigoPostal)
                 .Map(dest => dest.Provincia, src => src.Provincia)
-                .Map(dest => dest.Cliente, src => $"{src.Cliente.Nombre}{src.Cliente.Apellido}")
-                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion.Nombre)
+                .Map(dest => dest.ClienteId, src => src.ClienteId)
+                .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.TipoDireccionId, src => src.TipoDireccionId)
+                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion)
                 .TwoWays();
 
             TypeAdapterConfig<DireccionRequestDTO, Direccion>.NewConfig()
@@ -33,8 +35,7 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.CodigoPostal, src => src.CodigoPostal)
                 .Map(dest => dest.Provincia, src => src.Provincia)
                 .Map(dest => dest.ClienteId, src => src.ClienteId)
-                .Map(dest => dest.TipoDireccionId, src => src.TipoDireccionId)
-                .TwoWays();
+                .Map(dest => dest.TipoDireccionId, src => src.TipoDireccionId);
         }
     }
 }

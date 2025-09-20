@@ -14,7 +14,6 @@ namespace ProyectCRM.Models.Service.DTOs
         public string Ciudad { get; set; }
         public string CodigoPostal { get; set; }
         public string Provincia { get; set; }
-        public Guid ClienteId { get; set; }
         public ClienteDTO Cliente { get; set; }
         public TipoDireccionDTO TipoDireccion { get; set; }
     }

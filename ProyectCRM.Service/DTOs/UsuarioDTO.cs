@@ -12,9 +12,7 @@ namespace ProyectCRM.Models.Service.DTOs
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public Guid AreaId { get; set; }
-        public Guid RolId { get; set; }
-        public AreaDTO Area { get; set; }
         public RolDTO Rol { get; set; }
+        public AreaDTO Area { get; set; }
     }
 }

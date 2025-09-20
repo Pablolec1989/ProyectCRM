@@ -71,7 +71,7 @@ namespace ProyectCRM.Models
         }
 
         [HttpPut("{id:Guid}")]
-        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, [FromForm] TRequestDTO dto)
+        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TRequestDTO dto)
         {
             var updatedDto = await _serviceBase.UpdateAsync(id, dto);
             if (updatedDto == null)

@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class EmpresaRequestDTO : EntityBase
+    public class EmpresaRequestDTO
     {
         public string RazonSocial { get; set; }
         public string? Cuit { get; set; }
         public string? Cuil { get; set; }
-        public Guid? ClienteId { get; set; }
-        public Guid? RubroId { get; set; }
-        public Guid? CondicionIvaId { get; set; }
-        public ICollection<Guid?> DireccionId { get; set; }
+        public Guid RubroId { get; set; }
+        public Guid CondicionIvaId { get; set; }
     }
 }

@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Interfaces
 {
-    public interface IUsuarioService : IServiceBase<UsuarioDTO, UsuarioRegisterDTO, Usuario>
+    public interface IUsuarioService : IServiceBase<UsuarioDTO, UsuarioRequestDTO, Usuario>
     {
-        Task<UsuarioDTO> RegisterUserAsync(UsuarioRegisterDTO dto);
-        Task<bool> LoginAsync(UsuarioLoginDTO dto);
 
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Validators
 {
-    public class TelefonoClienteValidator : AbstractValidator<TelefonoClienteRequestDTO>
+    public class TelefonoValidator : AbstractValidator<TelefonoRequestDTO>
     {
-        public TelefonoClienteValidator()
+        public TelefonoValidator()
         {
             RuleFor(tc => tc.Numero)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)

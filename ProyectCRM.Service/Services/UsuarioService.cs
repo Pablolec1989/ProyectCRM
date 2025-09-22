@@ -30,6 +30,7 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
+
         public override async Task<UsuarioDTO> CreateAsync(UsuarioRequestDTO dto)
         {
             await ValidateUsuarioRequest(null, dto);
@@ -57,7 +58,6 @@ namespace ProyectCRM.Models.Service.Services
             await AreaExists(dto.AreaId);
 
             await RolExists(dto.RolId);
-
 
         }
         private async Task UsuarioExists(UsuarioRequestDTO dto)

@@ -11,10 +11,10 @@ namespace ProyectCRM.Models.Service
         where TRequestDTO : class, new()
         where TEntity : EntityBase
     {
-        Task<TDTO> GetByIdAsync(Guid id);
+        Task<TDTO> GetByIdAsync(Guid Id);
         Task<IEnumerable<TDTO>> GetAllAsync();
         Task<TDTO> CreateAsync(TRequestDTO dto);
-        Task<TDTO> UpdateAsync(Guid id, TRequestDTO dto);
-        Task<bool> DeleteAsync(Guid id);
+        Task<TDTO> UpdateAsync(Guid Id, TRequestDTO dto);
+        Task<bool> DeleteAsync(Guid Id);
     }
 }

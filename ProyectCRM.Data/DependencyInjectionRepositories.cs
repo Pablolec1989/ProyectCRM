@@ -37,7 +37,7 @@ namespace ProyectCRM.Models.Data
             services.AddScoped<IRolRepository, RolRepository>();
             services.AddScoped<IRubroRepository, RubroRepository>();
             services.AddScoped<ISeguimientoRepository, SeguimientoRepository>();
-            services.AddScoped<ITelefonoClienteRepository, TelefonoClienteRepository>();
+            services.AddScoped<ITelefonoRepository, TelefonoRepository>();
             services.AddScoped<ITipoDireccionRepository, TipoDireccionRepository>();
             services.AddScoped<ITipoTelefonoRepository, TipoTelefonoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();

@@ -29,7 +29,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<IRolService, RolService>();
             services.AddScoped<IRubroService, RubroService>();
             services.AddScoped<ISeguimientoService, SeguimientoService>();
-            services.AddScoped<ITelefonoClienteService, TelefonoClienteService>();
+            services.AddScoped<ITelefonoService, TelefonoService>();
             services.AddScoped<ITipoDireccionService, TipoDireccionService>();
             services.AddScoped<ITipoTelefonoService, TipoTelefonoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();

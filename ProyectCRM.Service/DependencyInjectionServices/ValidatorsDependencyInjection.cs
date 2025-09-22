@@ -29,7 +29,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<IValidator<RolRequestDTO>, RolValidator>();
             services.AddScoped<IValidator<RubroRequestDTO>, RubroValidator>();
             services.AddScoped<IValidator<SeguimientoRequestDTO>, SeguimientoValidator>();
-            services.AddScoped<IValidator<TelefonoClienteRequestDTO>, TelefonoClienteValidator>();
+            services.AddScoped<IValidator<TelefonoRequestDTO>, TelefonoValidator>();
             services.AddScoped<IValidator<TipoDireccionRequestDTO>, TipoDireccionValidator>();
             services.AddScoped<IValidator<TipoTelefonoRequestDTO>, TipoTelefonoValidator>();
             services.AddScoped<IValidator<UsuarioRequestDTO>, UsuarioValidator>();

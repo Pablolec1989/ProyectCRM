@@ -8,5 +8,5 @@ public partial class TiposTelefono : EntityBase
 {
     public string Nombre { get; set; } = null!;
 
-    public virtual ICollection<TelefonosCliente> TelefonosClientes { get; set; } = new List<TelefonosCliente>();
+    public virtual ICollection<Telefonos> TelefonosClientes { get; set; } = new List<Telefonos>();
 }

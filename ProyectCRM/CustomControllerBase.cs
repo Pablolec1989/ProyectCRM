@@ -23,7 +23,7 @@ namespace ProyectCRM.Models
         }
 
         [HttpPost]
-        public virtual async Task<ActionResult<TDTO>> CreateAsync(TRequestDTO dto)
+        public virtual async Task<ActionResult<TDTO>> CreateAsync([FromBody] TRequestDTO dto)
         {
             if (dto == null)
             {

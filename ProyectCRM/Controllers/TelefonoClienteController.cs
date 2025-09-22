@@ -4,9 +4,9 @@ using ProyectCRM.Models.Service.Interfaces;
 
 namespace ProyectCRM.Models.Controllers
 {
-    public class TelefonoClienteController : CustomControllerBase<TelefonoClienteDTO, TelefonoClienteRequestDTO, TelefonosCliente>
+    public class TelefonoClienteController : CustomControllerBase<TelefonoDTO, TelefonoRequestDTO, Telefonos>
     {
-        public TelefonoClienteController(ITelefonoClienteService service) : base(service)
+        public TelefonoClienteController(ITelefonoService service) : base(service)
         {
         }
     }

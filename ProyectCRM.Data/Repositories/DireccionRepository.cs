@@ -25,18 +25,11 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(d => d.Cliente);
         }
 
-        public async Task<Direccion> GetByIdAsync(Guid id)
+        public async Task<IEnumerable<Direccion>> GetDireccionesByClienteIdAsync(Guid clienteId)
         {
-            return await Direcciones().ToListAsync();
-        }
-
-        public async Task<IEnumerable<Direccion>> GetAllAsync()
-        {
-            return await Direcciones()
-                .Where(d => d.Cliente.Id == clienteId)
+            return await Direcciones().Where(d => d.ClienteId == clienteId)
                 .ToListAsync();
+
         }
-
-
     }
 }

@@ -14,5 +14,14 @@ namespace ProyectCRM.Models.Controllers
             _service = service;
         }
 
+        [HttpGet("{id}/detailed")]
+        public async Task<IActionResult> GetByIdWithAllDataAsync(Guid id)
+        {
+            var cliente = await _service.GetByIdWithAllDataAsync(id);
+            if (cliente == null)
+                return NotFound();
+            return Ok(cliente);
+        }
+
     }
 }

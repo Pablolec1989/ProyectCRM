@@ -6,7 +6,7 @@ namespace ProyectCRM.Models.Entities;
 
 public partial class Mail : EntityBase
 {
-    public Guid? ClienteId { get; set; }
+    public Guid ClienteId { get; set; }
 
     public DateTime? FechaMail { get; set; }
 
@@ -16,7 +16,7 @@ public partial class Mail : EntityBase
 
     public Guid? AsuntoId { get; set; }
 
-    public virtual AsuntosDeContacto? Asunto { get; set; }
+    public virtual AsuntosDeContacto? AsuntoDeContacto { get; set; }
 
     public virtual Cliente? Cliente { get; set; }
 

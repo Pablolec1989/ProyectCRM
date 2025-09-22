@@ -9,5 +9,7 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IClienteRepository : IRepositoryBase<Cliente>
     {
+        IQueryable<Cliente> Clientes();
+        Task<Cliente> GetByIdWithAllDataAsync(Guid id);
     }
 }

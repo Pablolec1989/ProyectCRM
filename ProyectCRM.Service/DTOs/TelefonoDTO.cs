@@ -11,6 +11,7 @@ namespace ProyectCRM.Models.Service.DTOs
     {
         public string Numero { get; set; } = null!;
         public TipoTelefonoDTO TipoTelefono { get; set; } = null!;
+        public Guid ClienteId { get; set; }
         public ClienteDTO Cliente { get; set; } = null!;
     }
 }

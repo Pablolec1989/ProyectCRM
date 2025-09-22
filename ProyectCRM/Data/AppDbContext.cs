@@ -183,11 +183,11 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Detalle).HasMaxLength(200);
             entity.Property(e => e.FechaMail).HasColumnType("datetime");
 
-            entity.HasOne(d => d.Asunto).WithMany(p => p.Mail)
+            entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Mail)
                 .HasForeignKey(d => d.AsuntoId)
                 .HasConstraintName("FK_Mails_Asuntos");
 
-            entity.HasOne(d => d.Cliente).WithMany(p => p.Mail)
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Mails)
                 .HasForeignKey(d => d.ClienteId)
                 .HasConstraintName("FK_Mails_Clientes");
 
@@ -228,7 +228,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Numero).HasMaxLength(50);
 
-            entity.HasOne(d => d.Cliente).WithMany(p => p.TelefonosClientes)
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Telefonos)
                 .HasForeignKey(d => d.ClienteId)
                 .HasConstraintName("FK_TelefonosClientes_Clientes");
 

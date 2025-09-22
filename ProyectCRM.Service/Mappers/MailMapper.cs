@@ -26,8 +26,8 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Detalle, src => src.Detalle)
                 .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto.Nombre)
                 .Map(dest => dest.FechaMail, src => src.FechaMail)
-                .Map(dest => dest.Cliente, src => $"{src.Cliente.Nombre} - {src.Cliente.Apellido}")
-                .Map(dest => dest.Usuario, src => $"{src.Usuario.Nombre} - {src.Usuario.Apellido}");
+                .Map(dest => dest.Cliente, src => src.Cliente)
+                .Map(dest => dest.Usuario, src => src.Usuario);
 
             TypeAdapterConfig<MailRequestDTO, Mail>.NewConfig()
                 .Map(dest => dest.Detalle, src => src.Detalle)

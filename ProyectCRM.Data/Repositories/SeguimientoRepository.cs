@@ -17,5 +17,23 @@ namespace ProyectCRM.Models.Data.Repositories
         {
             _context = context;
         }
+
+        public IQueryable<Seguimiento> Seguimientos()
+        {
+            return _context.Seguimientos
+                .Include(s => s.Cliente).ThenInclude(c => c.Empresa)
+                .Include(s => s.Usuario).ThenInclude(u => u.Area);
+        }
+
+        public async Task<Seguimiento> GetSeguimientoWithDetailsAsync(Guid id)
+        {
+            return await Seguimientos()
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public override async Task<IEnumerable<Seguimiento>> GetAllAsync()
+        {
+            return await Seguimientos().ToListAsync();
+        }
     }
 }

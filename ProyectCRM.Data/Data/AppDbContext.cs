@@ -198,7 +198,7 @@ public partial class AppDbContext : DbContext
         {
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Detalle).HasMaxLength(300);
-            entity.Property(e => e.Titulo).HasMaxLength(20);
+            entity.Property(e => e.Titulo).HasMaxLength(50);
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Seguimientos)
                 .HasForeignKey(d => d.ClienteId)

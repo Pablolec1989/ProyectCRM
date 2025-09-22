@@ -16,5 +16,24 @@ namespace ProyectCRM.Models.Data.Repositories
         {
             _context = context;
         }
+
+        public IQueryable<Mail> Mails()
+        {
+            return _context.Mails
+                .Include(m => m.Usuario).ThenInclude(u => u.Area)
+                .Include(m => m.Cliente).ThenInclude(c => c.Empresa)
+                .Include(m => m.AsuntoDeContacto);
+        }
+
+        public async Task<Mail> GetByIdWithRelatedDataAsync(Guid id)
+        {
+            return await Mails()
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public override async Task<IEnumerable<Mail>> GetAllAsync()
+        {
+            return await Mails().ToListAsync();
+        }
     }
 }

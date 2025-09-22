@@ -184,7 +184,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.FechaMail).HasColumnType("datetime");
 
             entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Mail)
-                .HasForeignKey(d => d.AsuntoId)
+                .HasForeignKey(d => d.AsuntoDeContactoId)
                 .HasConstraintName("FK_Mails_Asuntos");
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Mails)

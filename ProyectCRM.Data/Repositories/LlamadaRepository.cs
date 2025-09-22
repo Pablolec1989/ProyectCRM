@@ -17,25 +17,32 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Llamado> GetAllWithDetails()
+        public IQueryable<Llamado> Llamados()
         {
             return _context.Llamados
-                .Include(ll => ll.AsuntoDeContacto)
-                .Include(ll => ll.Cliente)
-                .Include(ll => ll.Usuario)
-                .Include(ll => ll.Area);
+                .Include(l => l.Usuario).ThenInclude(u => u.Area)
+                .Include(l => l.Cliente).ThenInclude(c => c.Empresa)
+                .Include(ll => ll.AsuntoDeContacto);
+        }
+
+        public async Task<Llamado> GetByIdWithRelatedDataAsync(Guid id)
+        {
+            return await Llamados()
+                .FirstOrDefaultAsync(l => l.Id == id);
         }
 
         public override async Task<Llamado> GetByIdAsync(Guid id)
         {
-            return await GetAllWithDetails()
-                .FirstOrDefaultAsync(ll => ll.Id == id);
+            return await Llamados()
+                .FirstOrDefaultAsync(l => l.Id == id);
         }
 
         public override async Task<IEnumerable<Llamado>> GetAllAsync()
         {
-            return await GetAllWithDetails()
+            return await Llamados()
                 .ToListAsync();
         }
+
+
     }
 }

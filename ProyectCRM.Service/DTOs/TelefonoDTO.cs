@@ -9,9 +9,8 @@ namespace ProyectCRM.Models.Service.DTOs
 {
     public class TelefonoDTO : EntityBase
     {
-        public string Numero { get; set; } = null!;
-        public TipoTelefonoDTO TipoTelefono { get; set; } = null!;
+        public string Numero { get; set; }
+        public TipoTelefonoDTO TipoTelefono { get; set; }
         public Guid ClienteId { get; set; }
-        public ClienteDTO Cliente { get; set; } = null!;
-    }
+        }
 }

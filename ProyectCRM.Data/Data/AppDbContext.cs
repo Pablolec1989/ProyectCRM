@@ -40,7 +40,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Seguimiento> Seguimientos { get; set; }
 
-    public virtual DbSet<Telefonos> Telefonos { get; set; }
+    public virtual DbSet<Telefono> Telefonos { get; set; }
 
     public virtual DbSet<TipoDireccion> TipoDirecciones { get; set; }
 
@@ -209,18 +209,18 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK_Seguimientos_Usuarios");
         });
 
-        modelBuilder.Entity<Telefonos>(entity =>
+        modelBuilder.Entity<Telefono>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Numero).HasMaxLength(50);
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Telefonos)
                 .HasForeignKey(d => d.ClienteId)
-                .HasConstraintName("FK_TelefonosClientes_Clientes");
+                .HasConstraintName("FK_Telefonos_Clientes");
 
             entity.HasOne(d => d.TipoTelefono).WithMany(p => p.TelefonosClientes)
                 .HasForeignKey(d => d.TipoTelefonoId)
-                .HasConstraintName("FK_TelefonosClientes_TiposTelefono");
+                .HasConstraintName("FK_Telefonos_TiposTelefono");
         });
 
         modelBuilder.Entity<TipoDireccion>(entity =>

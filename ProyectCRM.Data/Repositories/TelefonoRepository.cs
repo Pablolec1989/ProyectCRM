@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Repositories
 {
-    public class TelefonoRepository : RepositoryBase<Telefonos>, ITelefonoRepository
+    public class TelefonoRepository : RepositoryBase<Telefono>, ITelefonoRepository
     {
         private readonly AppDbContext _context;
 
@@ -18,21 +18,26 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Telefonos> Telefonos()
+        public IQueryable<Telefono> Telefonos()
         {
             return _context.Telefonos
                 .Include(tc => tc.Cliente)
-                .Include(tc => tc.TipoTelefono)
-                .AsQueryable();
+                .Include(tc => tc.TipoTelefono);
         }
 
-        public async Task<Telefonos> GetTelefonosByClienteIdAsync(Guid clienteId)
+        public async Task<Telefono> GetTelefonosByClienteIdAsync(Guid clienteId)
         {
             return await Telefonos()
                 .FirstOrDefaultAsync(tc => tc.Id == clienteId);
         }
 
-        public override async Task<IEnumerable<Telefonos>> GetAllAsync()
+        public override async Task<Telefono> GetByIdAsync(Guid id)
+        {
+            return await Telefonos()
+                .FirstOrDefaultAsync(tc => tc.Id == id);
+        }
+
+        public override async Task<IEnumerable<Telefono>> GetAllAsync()
         {
             return await Telefonos()
                 .ToListAsync();

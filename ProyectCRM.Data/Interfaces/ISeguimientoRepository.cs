@@ -9,5 +9,6 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface ISeguimientoRepository : IRepositoryBase<Seguimiento>
     {
+        Task<Seguimiento> GetSeguimientoWithDetailsAsync(Guid id);
     }
 }

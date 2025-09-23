@@ -2,6 +2,7 @@
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,16 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Titulo, src => src.Titulo)
                 .Map(dest => dest.Detalle, src => src.Detalle)
-                .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Usuario, src => src.Usuario)
                 .Map(dest => dest.FechaCreacion, src => src.FechaCreacion);
-        
+
+            TypeAdapterConfig<Seguimiento, SeguimientoDetailDTO>.NewConfig()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Titulo, src => src.Titulo)
+                .Map(dest => dest.Detalle, src => src.Detalle)
+                .Map(dest => dest.FechaCreacion, src => src.FechaCreacion)
+                .Map(dest => dest.Cliente, src => src.Cliente != null ? $"{src.Cliente.Nombre} {src.Cliente.Apellido}" : null)
+                .Map(dest => dest.Usuario, src => src.Usuario != null ? $"{src.Usuario.Nombre} {src.Usuario.Apellido} - {src.Usuario.Area.Nombre}" : null);
+
             TypeAdapterConfig<SeguimientoRequestDTO, Seguimiento>.NewConfig()
                 .Map(dest => dest.Titulo, src => src.Titulo)
                 .Map(dest => dest.Detalle, src => src.Detalle)

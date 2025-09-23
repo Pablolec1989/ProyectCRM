@@ -73,8 +73,4 @@ namespace ProyectCRM.Service.Utils
             return Task.CompletedTask;
         }
     }
-
-
-
-
 }

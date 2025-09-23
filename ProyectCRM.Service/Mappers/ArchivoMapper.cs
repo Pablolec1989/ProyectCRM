@@ -23,7 +23,6 @@ namespace ProyectCRM.Models.Service.Mappers
 
             TypeAdapterConfig<ArchivoRequestDTO, Archivo>.NewConfig()
                 .Map(dest => dest.NombreArchivo, src => src.NombreArchivo)
-                .Map(dest => dest.RutaArchivo, src => src.RutaArchivo)
                 .Map(dest => dest.VisitaId, src => src.VisitaId);
 
         }

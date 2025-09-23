@@ -12,7 +12,7 @@ namespace ProyectCRM.Service.DTOs
     {
         public string NombreArchivo { get; set; }
         public string RutaArchivo { get; set; }
-        public DateOnly FechaSubida { get; set; }
+        public DateTime FechaSubida { get; set; }
 
     }
 }

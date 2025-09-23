@@ -21,15 +21,30 @@ namespace ProyectCRM.Models.Data.Repositories
         public IQueryable<Direccion> Direcciones()
         {
             return _context.Direcciones
-                .Include(d => d.TipoDireccion)
-                .Include(d => d.Cliente);
+                .Include(d => d.Cliente)
+                    .ThenInclude(c => c.Empresa)
+                .Include(d => d.TipoDireccion);
+        }
+
+        public override async Task<IEnumerable<Direccion>> GetAllAsync()
+        {
+            return await Direcciones().ToListAsync();
+
+        }
+
+        public async Task<Direccion> GetDireccionWithDetailsAsync(Guid id)
+        {
+            return await Direcciones()
+                .FirstOrDefaultAsync(d => d.Id == id);
         }
 
         public async Task<IEnumerable<Direccion>> GetDireccionesByClienteIdAsync(Guid clienteId)
         {
-            return await Direcciones().Where(d => d.ClienteId == clienteId)
+            return await Direcciones()
+                .Where(d => d.ClienteId == clienteId)
                 .ToListAsync();
-
         }
+
+
     }
 }

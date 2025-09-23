@@ -13,6 +13,7 @@ public partial class Direccion : EntityBase
     public string Provincia { get; set; }
     public Guid ClienteId { get; set; }
     public Guid TipoDireccionId { get; set; }
+
     public Cliente Cliente { get; set; }
     public TipoDireccion TipoDireccion { get; set; }
     public virtual ICollection<Visita> Visita { get; set; } = new List<Visita>();

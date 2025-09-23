@@ -18,7 +18,7 @@ namespace ProyectCRM.Models.Service.Mappers
             TypeAdapterConfig<Visita, VisitaDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Observaciones, src => src.Observaciones)
-                .Map(dest => dest.Direccion, src => src.Direccion != null ? src.Direccion.Adapt<DireccionDTO>() : null)
+                .Map(dest => dest.Direccion, src => src.Direccion != null ? src.Direccion.Adapt<DireccionDetailDTO>() : null)
                 .Map(dest => dest.FechaProgramada, src => src.FechaProgramada)
                 .Map(dest => dest.FechaRealizada, src => src.FechaRealizada)
                 .Map(dest => dest.Archivos, src => src.Archivos != null ? src.Archivos.Adapt<IEnumerable<ArchivoDTO>>() : null);

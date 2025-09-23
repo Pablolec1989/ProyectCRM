@@ -2,6 +2,7 @@
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +16,19 @@ namespace ProyectCRM.Models.Service.Mappers
         public void RegisterMappings()
         {
             TypeAdapterConfig<Direccion, DireccionDTO>.NewConfig()
+                .Map(dest => dest.Ciudad, src => src.Ciudad)
+                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion.Nombre);
+
+            TypeAdapterConfig<Direccion, DireccionDetailDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Calle, src => src.Calle)
                 .Map(dest => dest.Numero, src => src.Numero)
                 .Map(dest => dest.Ciudad, src => src.Ciudad)
                 .Map(dest => dest.CodigoPostal, src => src.CodigoPostal)
                 .Map(dest => dest.Provincia, src => src.Provincia)
-                .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion);
+                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion.Nombre);
 
             TypeAdapterConfig<DireccionRequestDTO, Direccion>.NewConfig()
-                .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Calle, src => src.Calle)
                 .Map(dest => dest.Numero, src => src.Numero)
                 .Map(dest => dest.Ciudad, src => src.Ciudad)

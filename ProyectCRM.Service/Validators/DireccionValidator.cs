@@ -34,6 +34,9 @@ namespace ProyectCRM.Models.Service.Validators
 
             RuleFor(d => d.TipoDireccionId)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
+
+            RuleFor(c => c.ClienteId)
+                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
         }
     }
 }

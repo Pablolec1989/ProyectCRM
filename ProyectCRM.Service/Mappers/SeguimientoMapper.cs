@@ -26,8 +26,8 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Titulo, src => src.Titulo)
                 .Map(dest => dest.Detalle, src => src.Detalle)
                 .Map(dest => dest.FechaCreacion, src => src.FechaCreacion)
-                .Map(dest => dest.Cliente, src => src.Cliente != null ? $"{src.Cliente.Nombre} {src.Cliente.Apellido}" : null)
-                .Map(dest => dest.Usuario, src => src.Usuario != null ? $"{src.Usuario.Nombre} {src.Usuario.Apellido} - {src.Usuario.Area.Nombre}" : null);
+                .Map(dest => dest.Cliente, src => $"{src.Cliente.Nombre} - {src.Cliente.Apellido}")
+                .Map(dest => dest.Usuario, src => $"{src.Usuario.Nombre} {src.Usuario.Apellido} - {src.Usuario.Area.Nombre}");
 
             TypeAdapterConfig<SeguimientoRequestDTO, Seguimiento>.NewConfig()
                 .Map(dest => dest.Titulo, src => src.Titulo)

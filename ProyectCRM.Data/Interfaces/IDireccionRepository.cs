@@ -10,5 +10,6 @@ namespace ProyectCRM.Models.Data.Interfaces
     public interface IDireccionRepository : IRepositoryBase<Direccion>
     {
         Task<IEnumerable<Direccion>> GetDireccionesByClienteIdAsync(Guid clienteId);
+        Task<Direccion> GetDireccionWithDetailsAsync(Guid id);
     }
 }

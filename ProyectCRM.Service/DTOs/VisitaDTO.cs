@@ -16,6 +16,6 @@ namespace ProyectCRM.Models.Service.DTOs
 
         //Propiedades de navegacion
         public IEnumerable<ArchivoDTO> Archivos { get; set; }
-        public DireccionDTO Direccion { get; set; }
+        public DireccionDetailDTO Direccion { get; set; }
     }
 }

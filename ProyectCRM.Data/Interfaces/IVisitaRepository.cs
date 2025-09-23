@@ -10,5 +10,6 @@ namespace ProyectCRM.Models.Data.Interfaces
     public interface IVisitaRepository : IRepositoryBase<Visita>
     {
         Task<IEnumerable<Visita>> GetVisitasByUsuarioAsync(Guid usuarioId);
+        Task<bool> VisitaExists(Guid id);
     }
 }

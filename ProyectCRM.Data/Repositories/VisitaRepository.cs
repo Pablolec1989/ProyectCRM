@@ -26,8 +26,7 @@ namespace ProyectCRM.Models.Data.Repositories
                     .ThenInclude(d => d.TipoDireccion)
                 .Include(v => v.VisitasUsuarios)
                     .ThenInclude(vu => vu.Usuario)
-                .Include(v => v.Archivos)
-                .AsQueryable();
+                .Include(v => v.Archivos);
         }
 
         public async Task<IEnumerable<Visita>> GetVisitasByUsuarioAsync(Guid usuarioId)
@@ -42,6 +41,11 @@ namespace ProyectCRM.Models.Data.Repositories
         public override async Task<IEnumerable<Visita>> GetAllAsync()
         {
             return await Visitas().ToListAsync();
+        }
+
+        public async Task<bool> VisitaExists(Guid id)
+        {
+            return await _context.Visitas.AnyAsync(v => v.Id == id);
         }
     }
 }

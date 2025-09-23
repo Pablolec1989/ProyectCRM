@@ -12,5 +12,7 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IArchivoService : IServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>
     {
+        Task<ArchivoDTO?> CreateAsync(ArchivoRequestDTO dto, IFormFile archivo);
+        Task<ArchivoDTO?> UpdateAsync(Guid id, ArchivoRequestDTO dto, IFormFile? archivo);
     }
 }

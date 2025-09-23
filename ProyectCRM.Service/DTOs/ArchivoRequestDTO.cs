@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class ArchivoRequestDTO : EntityBase
+    public class ArchivoRequestDTO
     {
         public string NombreArchivo { get; set; }
-        public IFormFile RutaArchivo { get; set; }
-
         public Guid VisitaId { get; set; }
     }
 }

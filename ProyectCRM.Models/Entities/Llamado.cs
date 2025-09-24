@@ -18,7 +18,7 @@ public partial class Llamado : EntityBase
 
     public Guid AsuntoDeContactoId { get; set; }
 
-    public virtual Area Area { get; set; } = null!;
+    public virtual Area Area { get; set; }
 
     public virtual AsuntosDeContacto AsuntoDeContacto { get; set; } = null!;
 

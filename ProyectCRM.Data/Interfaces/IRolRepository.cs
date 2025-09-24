@@ -9,5 +9,6 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IRolRepository : IRepositoryBase<Rol>
     {
+        Task<bool> RolExistsAsync(Guid id);
     }
 }

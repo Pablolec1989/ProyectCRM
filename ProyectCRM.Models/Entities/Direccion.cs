@@ -16,5 +16,5 @@ public partial class Direccion : EntityBase
 
     public Cliente Cliente { get; set; }
     public TipoDireccion TipoDireccion { get; set; }
-    public virtual ICollection<Visita> Visita { get; set; } = new List<Visita>();
+    public ICollection<Visita> Visitas { get; set; } = [];
 }

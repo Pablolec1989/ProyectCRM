@@ -25,7 +25,9 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(v => v.Cliente)
                     .ThenInclude(c => c.Empresa)
                 .Include(v => v.Direccion)
-                    .ThenInclude(d => d.TipoDireccion);
+                    .ThenInclude(d => d.TipoDireccion)
+                .Include(v => v.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Usuario);
         }
 
         public async Task<Visita> GetByIdWithRelatedDataAsync(Guid id)

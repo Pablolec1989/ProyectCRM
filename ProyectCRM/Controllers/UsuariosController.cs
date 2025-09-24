@@ -16,5 +16,17 @@ namespace ProyectCRM.Models.Controllers
             _service = service;
         }
 
+        [HttpGet("{id}/detail")]
+        public async Task<ActionResult<UsuarioDetailDTO>> GetUsuarioCompletoByIdAsync([FromRoute][Required] Guid id)
+        {
+            var usuarioDetail = await _service.GetUsuarioCompletoByIdAsync(id);
+            if (usuarioDetail == null)
+            {
+                return NotFound();
+            }
+            return Ok(usuarioDetail);
+        }
+
+
     }
 }

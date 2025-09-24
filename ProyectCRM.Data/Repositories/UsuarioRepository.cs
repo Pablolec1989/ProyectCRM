@@ -20,15 +20,20 @@ namespace ProyectCRM.Models.Data.Repositories
 
         public IQueryable<Usuario> Usuarios()
         {
+            //Traer toda la data relacionada al usuario
             return _context.Usuarios
-                .Include(c => c.Area)
-                .Include(c => c.Rol);
+                .Include(u => u.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Visita)
+                        .ThenInclude(v => v.Cliente);
+
         }
 
-        public async Task<bool> GetByNombreYApellidoAsync(string nombre, string apellido)
+        //Metodo especifico para mostrar toda la informacion del usuario
+        public async Task<Usuario> GetUsuarioCompletoByIdAsync(Guid id)
         {
-            return await _context.Usuarios
-                .AnyAsync(u => u.Nombre == nombre && u.Apellido == apellido);
+            return await Usuarios()
+                .FirstOrDefaultAsync(u => u.Id == id);
+
         }
 
         public override async Task<Usuario> GetByIdAsync(Guid id)
@@ -36,13 +41,18 @@ namespace ProyectCRM.Models.Data.Repositories
             return await Usuarios()
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
-
         public override async Task<IEnumerable<Usuario>> GetAllAsync()
         {
             return await Usuarios()
                 .ToListAsync();
         }
 
+        //Metodos auxiliares
+        public async Task<bool> GetUsuarioByNombreYApellidoAsync(string nombre, string apellido)
+        {
+            return await _context.Usuarios
+                .AnyAsync(u => u.Nombre == nombre && u.Apellido == apellido);
+        }
         public async Task<List<Guid>> GetExistingUserIdsAsync(List<Guid> ids)
         {
             return await _context.Usuarios
@@ -50,5 +60,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Select(u => u.Id)
                 .ToListAsync();
         }
+
+
     }
 }

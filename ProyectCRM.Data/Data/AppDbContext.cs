@@ -8,10 +8,6 @@ namespace ProyectCRM.Models.Data;
 
 public partial class AppDbContext : DbContext
 {
-    public AppDbContext()
-    {
-    }
-
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
@@ -177,7 +173,7 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.ClienteId)
                 .HasConstraintName("FK_Mails_Clientes");
 
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Mail)
+            entity.HasOne(d => d.Usuario).WithMany(p => p.Mails)
                 .HasForeignKey(d => d.UsuarioId)
                 .HasConstraintName("FK_Mails_UsuarioDestino");
         });
@@ -262,7 +258,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Observaciones).HasMaxLength(200);
 
-            entity.HasOne(d => d.Direccion).WithMany(p => p.Visita)
+            entity.HasOne(d => d.Direccion).WithMany(p => p.Visitas)
                 .HasForeignKey(d => d.DireccionId)
                 .HasConstraintName("FK_Visitas_Direcciones");
         });

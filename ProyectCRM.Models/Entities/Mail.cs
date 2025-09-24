@@ -14,5 +14,5 @@ public partial class Mail : EntityBase
 
     public virtual AsuntosDeContacto AsuntoDeContacto { get; set; }
     public virtual Cliente Cliente { get; set; }
-    public virtual Usuario Usuario { get; set; }
+    public virtual Usuario? Usuario { get; set; }
 }

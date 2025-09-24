@@ -22,25 +22,35 @@ namespace ProyectCRM.Models.Data.Repositories
         public IQueryable<Visita> Visitas()
         {
             return _context.Visitas
+                .Include(v => v.Cliente)
+                    .ThenInclude(c => c.Empresa)
                 .Include(v => v.Direccion)
-                    .ThenInclude(d => d.TipoDireccion)
-                .Include(v => v.VisitasUsuarios)
-                    .ThenInclude(vu => vu.Usuario)
-                .Include(v => v.Archivos);
+                    .ThenInclude(d => d.TipoDireccion);
         }
 
-        public async Task<IEnumerable<Visita>> GetVisitasByUsuarioAsync(Guid usuarioId)
+        public async Task<Visita> GetByIdWithRelatedDataAsync(Guid id)
         {
             return await _context.Visitas
-            .Where(v => v.VisitasUsuarios.Any(vu => vu.UsuarioId == usuarioId))
-            .OrderByDescending(v => v.FechaProgramada)
-            .ToListAsync();
+                .Include(v => v.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Usuario)
+                .Include(v => v.Cliente)
+                    .ThenInclude(c => c.Empresa)
+                .Include(v => v.Direccion)
+                    .ThenInclude(d => d.TipoDireccion)
+                .Include(v => v.Archivos)
+                .FirstOrDefaultAsync(v => v.Id == id);
+        }
 
+        public override async Task<Visita> GetByIdAsync(Guid id)
+        {
+            return await Visitas()
+                .FirstOrDefaultAsync(v => v.Id == id);
         }
 
         public override async Task<IEnumerable<Visita>> GetAllAsync()
         {
-            return await Visitas().ToListAsync();
+            return await Visitas()
+                .ToListAsync();
         }
 
         public async Task<bool> VisitaExists(Guid id)

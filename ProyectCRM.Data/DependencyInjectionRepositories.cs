@@ -42,7 +42,6 @@ namespace ProyectCRM.Models.Data
             services.AddScoped<ITipoTelefonoRepository, TipoTelefonoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IVisitaRepository, VisitaRepository>();
-            services.AddScoped<IVisitaUsuarioRepository, VisitaUsuarioRepository>();
             services.AddScoped<VisitaUsuarioRepository>();
 
             return services;

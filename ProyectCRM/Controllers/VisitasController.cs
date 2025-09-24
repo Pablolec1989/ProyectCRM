@@ -2,6 +2,7 @@
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM.Models.Controllers
 {
@@ -14,12 +15,15 @@ namespace ProyectCRM.Models.Controllers
             _service = service;
         }
 
-        // GET: api/Visitas/usuario/{usuarioId}
-        [HttpGet("usuario/{usuarioId}")]
-        public async Task<IActionResult> GetVisitasByUsuarioAsync(Guid usuarioId)
+        [HttpGet("{id}/details")]
+        public async Task<ActionResult<VisitaDetailDTO>> GetByIdWithRelatedDataAsync(Guid id)
         {
-            var visitas = await _service.GetVisitasByUsuarioAsync(usuarioId);
-            return Ok(visitas);
+            var visitaDetail = await _service.GetByIdWithRelatedDataAsync(id);
+            if (visitaDetail == null)
+            {
+                return NotFound();
+            }
+            return Ok(visitaDetail);
         }
     }
 }

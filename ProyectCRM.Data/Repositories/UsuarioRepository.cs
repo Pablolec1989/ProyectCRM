@@ -42,5 +42,13 @@ namespace ProyectCRM.Models.Data.Repositories
             return await Usuarios()
                 .ToListAsync();
         }
+
+        public async Task<List<Guid>> GetExistingUserIdsAsync(List<Guid> ids)
+        {
+            return await _context.Usuarios
+                .Where(u => ids.Contains(u.Id))
+                .Select(u => u.Id)
+                .ToListAsync();
+        }
     }
 }

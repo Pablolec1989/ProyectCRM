@@ -32,8 +32,7 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Llamados, src => src.Llamados)
                 .Map(dest => dest.Mails, src => src.Mails)
                 .Map(dest => dest.Seguimientos, src => src.Seguimientos)
-                .Map(dest => dest.Telefonos, src => src.Telefonos)
-                .Map(dest => dest.Visitas, src => src.Visitas);
+                .Map(dest => dest.Telefonos, src => src.Telefonos);
 
 
             TypeAdapterConfig<ClienteRequestDTO, Cliente>.NewConfig()

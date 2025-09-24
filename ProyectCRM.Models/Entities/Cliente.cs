@@ -11,10 +11,10 @@ public partial class Cliente : EntityBase
     public string Email { get; set; }
     public Guid? EmpresaId { get; set; }
     public virtual Empresa? Empresa { get; set; }
-    public virtual ICollection<Direccion> Direcciones { get; set; } = new List<Direccion>();
-    public virtual ICollection<Llamado> Llamados { get; set; } = new List<Llamado>();
-    public virtual ICollection<Mail> Mails { get; set; } = new List<Mail>();
-    public virtual ICollection<Seguimiento> Seguimientos { get; set; } = new List<Seguimiento>();
-    public virtual ICollection<Telefono> Telefonos { get; set; } = new List<Telefono>();
-    public virtual ICollection<Visita> Visitas { get; set; } = new List<Visita>();
+    public virtual ICollection<Direccion> Direcciones { get; set; } = [];
+    public virtual ICollection<Llamado> Llamados { get; set; } = [];
+    public virtual ICollection<Mail> Mails { get; set; } = [];
+    public virtual ICollection<Seguimiento> Seguimientos { get; set; } = [];
+    public virtual ICollection<Telefono> Telefonos { get; set; } = [];
+    public virtual ICollection<Visita> Visitas { get; set; } = [];
 }

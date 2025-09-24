@@ -98,6 +98,11 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Empresa).WithMany(p => p.Clientes)
                 .HasForeignKey(d => d.EmpresaId)
                 .HasConstraintName("FK_Clientes_Empresas");
+
+            entity.HasMany(c => c.Visitas)
+                    .WithOne(v => v.Cliente)
+                    .HasForeignKey(v => v.ClienteId)
+                    .HasConstraintName("FK_Visitas_Clientes");
         });
 
         modelBuilder.Entity<CondicionIva>(entity =>
@@ -268,7 +273,11 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.Rol).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.RolId)
-                .HasConstraintName("FK_Usuarios_Roles1");
+                .HasConstraintName("FK_Usuarios_Roles");
+
+            entity.HasMany(u => u.VisitasUsuarios)
+                .WithOne(vu => vu.Usuario)
+                .HasForeignKey(vu => vu.UsuarioId);
         });
 
         modelBuilder.Entity<Visita>(entity =>
@@ -279,16 +288,25 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Direccion).WithMany(p => p.Visita)
                 .HasForeignKey(d => d.DireccionId)
                 .HasConstraintName("FK_Visitas_Direcciones");
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Visitas)
+                .HasForeignKey(d => d.ClienteId)
+                .HasConstraintName("FK_Visitas_Clientes");
+
+            entity.HasMany(v => v.VisitasUsuarios).WithOne(vu => vu.Visita)
+            .HasForeignKey(vu => vu.VisitaId);
         });
 
         modelBuilder.Entity<VisitasUsuarios>(entity =>
         {
             entity.HasKey(e => new { e.VisitaId, e.UsuarioId });
+
             entity.HasOne(e => e.Visita)
-                .WithMany()
+                .WithMany(v => v.VisitasUsuarios)
                 .HasForeignKey(e => e.VisitaId);
+
             entity.HasOne(e => e.Usuario)
-                .WithMany()
+                .WithMany(u => u.VisitasUsuarios)
                 .HasForeignKey(e => e.UsuarioId);
         });
 

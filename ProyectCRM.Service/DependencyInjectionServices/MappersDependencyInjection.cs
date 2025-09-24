@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Mappers;
-using ProyectCRM.Service.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -7,12 +7,14 @@ namespace ProyectCRM.Models.Entities;
 
 public class Visita : EntityBase
 {
-    public DateOnly FechaProgramada { get; set; }
-    public DateOnly FechaRealizada { get; set; }
-    public string? Observaciones { get; set; }
+    public string? Observaciones { get; set; } = string.Empty;
+    public Guid ClienteId { get; set; }
+    public Cliente Cliente { get; set; }
     public Guid DireccionId { get; set; }
     public Direccion Direccion { get; set; }
-    public IEnumerable<Archivo?> Archivos { get; set; }
-    public IEnumerable<VisitasUsuarios?> VisitasUsuarios { get; set; }
+    public ICollection<Archivo?> Archivos { get; set; } = [];
+    public ICollection<VisitasUsuarios> VisitasUsuarios { get; set; } = [];
+    public DateTime FechaProgramada { get; set; }
+    public DateTime FechaRealizada { get; set; }
 
 }

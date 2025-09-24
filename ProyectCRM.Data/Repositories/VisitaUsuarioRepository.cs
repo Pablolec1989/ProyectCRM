@@ -9,29 +9,31 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Repositories
 {
-    public class VisitaUsuarioRepository : IVisitaUsuarioRepository
+    public class VisitaUsuarioRepository : IVisitaUsuarioRepository<VisitasUsuarios>
     {
         private readonly AppDbContext _context;
-
         public VisitaUsuarioRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<VisitasUsuarios> CreateAsync(VisitasUsuarios entity)
+        public async Task AddRangeAsync(IEnumerable<VisitasUsuarios> entidades)
         {
-            try
-            {
-                await _context.VisitasUsuarios.AddAsync(entity);
-                await _context.SaveChangesAsync();
-                return entity;
+            _context.VisitasUsuarios.AddRange(entidades);
+            await _context.SaveChangesAsync();
+        }
 
-            }
-            catch (Exception ex)
-            {
-                var inner = ex.InnerException?.Message ?? ex.Message;
-                throw new Exception($"Error al crear la relación Visita-Usuario: {inner}", ex);
+        public async Task DeleteByVisitaIdAsync(Guid visitaId)
+        {
+            var visitasUsuarios = _context.VisitasUsuarios
+                .Where(vu => vu.VisitaId == visitaId);
+
+            if (visitasUsuarios.Any())
+            { 
+                _context.VisitasUsuarios.RemoveRange(visitasUsuarios);
+                await _context.SaveChangesAsync();
             }
         }
     }
+
 }

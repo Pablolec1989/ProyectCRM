@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Interfaces
 {
-    public interface IVisitaUsuarioRepository
+    public interface IVisitaUsuarioRepository<VisitasUsuarios>
     {
-        Task<VisitasUsuarios> CreateAsync(VisitasUsuarios entity);
+        Task AddRangeAsync(IEnumerable<VisitasUsuarios> entidades);
+        Task DeleteByVisitaIdAsync(Guid visitaId);
     }
 }

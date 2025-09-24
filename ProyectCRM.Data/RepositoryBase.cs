@@ -31,8 +31,6 @@ namespace ProyectCRM.Models.Data
             {
                 //Arrojar error
                 throw new Exception($"Error creating entity: {ex.Message}", ex);
-
-
             }
         }
 

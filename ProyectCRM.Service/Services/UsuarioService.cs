@@ -30,11 +30,33 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
+        public async Task<UsuarioDetailDTO> GetUsuarioCompletoByIdAsync(Guid id)
+        {
+            var usuario = await _repository.GetUsuarioCompletoByIdAsync(id);
+            if (usuario == null)
+                throw new KeyNotFoundException($"No se encontró el usuario con Id {id}");
+            return _mapper.Map<UsuarioDetailDTO>(usuario);
+        }
 
         public override async Task<UsuarioDTO> CreateAsync(UsuarioRequestDTO dto)
         {
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult.Errors);
+
             await ValidateUsuarioRequest(null, dto);
-            return await base.CreateAsync(dto);
+
+            var usuarioToCreate = _mapper.Map<Usuario>(dto);
+            usuarioToCreate.Password = HashPassword(dto.Password);
+
+            // Paso 2: Crear el usuario en el repositorio
+            var createdUser = await _repository.CreateAsync(usuarioToCreate);
+
+            // Paso 3: Obtener el usuario completo con sus datos relacionados (Rol y Area)
+            var usuarioCompleto = await _repository.GetByIdAsync(createdUser.Id);
+
+            // Paso 4: Mapear la entidad completa a un DTO para la respuesta
+            return _mapper.Map<UsuarioDTO>(usuarioCompleto);
         }
 
         public override async Task<UsuarioDTO> UpdateAsync(Guid id, UsuarioRequestDTO dto)
@@ -43,40 +65,28 @@ namespace ProyectCRM.Models.Service.Services
             return await base.UpdateAsync(id, dto);
         }
 
+        //Metodos auxiliares
         private async Task ValidateUsuarioRequest(Guid? id, UsuarioRequestDTO dto)
         {
-            //Validar modelo
-            var validationResult = _validator.Validate(dto);
+            //Validar AreaId
+            if (dto.AreaId != null)
+            {
+                var areaExists = await _areaRepository.AreaExistsAsync(dto.AreaId.Value);
+                if (!areaExists)
+                    throw new KeyNotFoundException($"No se encontró el área con Id {dto.AreaId}");
+            }
 
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
-
-            //Validar si el usuario ya existe
-
-            await UsuarioExists(dto);
-
-            await AreaExists(dto.AreaId);
-
-            await RolExists(dto.RolId);
-
+            //Validar RolId
+            if (dto.RolId != null)
+            {
+                var rolExists = await _rolRepository.RolExistsAsync(dto.RolId.Value);
+                if (!rolExists)
+                    throw new KeyNotFoundException($"No se encontró el rol con Id {dto.RolId}");
+            }
         }
-        private async Task UsuarioExists(UsuarioRequestDTO dto)
+        private string HashPassword(string password)
         {
-            var usuarioExists = await _repository.GetByNombreYApellidoAsync(dto.Nombre, dto.Apellido);
-            if (usuarioExists)
-                throw new ValidationException($"El usuario {dto.Nombre} {dto.Apellido} ya existe.");
-        }
-        private async Task AreaExists(Guid areaId)
-        {
-            var areaExists = await _areaRepository.GetByIdAsync(areaId);
-            if (areaExists == null)
-                throw new ValidationException($"El area no existe.");
-        }
-        private async Task RolExists(Guid rolId)
-        {
-            var rolExists = await _rolRepository.GetByIdAsync(rolId);
-            if (rolExists == null)
-                throw new ValidationException($"El rol no existe.");
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
     }

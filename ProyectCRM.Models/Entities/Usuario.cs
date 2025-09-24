@@ -15,7 +15,7 @@ public partial class Usuario : EntityBase
     public virtual Rol? Rol { get; set; }
     public virtual Area? Area { get; set; }
     public virtual ICollection<Llamado?> Llamados { get; set; }
-    public virtual ICollection<Mail?> Mail { get; set; }
+    public virtual ICollection<Mail?> Mails { get; set; }
     public virtual ICollection<Seguimiento?> Seguimientos { get; set; }
     public virtual ICollection<VisitasUsuarios?> VisitasUsuarios { get; set; }
 

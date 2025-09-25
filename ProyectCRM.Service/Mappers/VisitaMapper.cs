@@ -18,17 +18,17 @@ namespace ProyectCRM.Models.Service.Mappers
         {
             TypeAdapterConfig<Visita, VisitaDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Direccion, src => src.Direccion);
+                .Map(dest => dest.Cliente, src => src.Cliente.Adapt<ClienteDTO>())
+                .Map(dest => dest.Direccion, src => src.Direccion.Adapt<DireccionDTO>());
 
             TypeAdapterConfig<Visita, VisitaDetailDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Observaciones, src => src.Observaciones)
-                .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Direccion, src => src.Direccion)
+                .Map(dest => dest.Cliente, src => src.Cliente.Adapt<ClienteDTO>())
+                .Map(dest => dest.Direccion, src => src.Direccion.Adapt<DireccionDTO>())
                 .Map(dest => dest.Usuarios, src => src.VisitasUsuarios
-                    .Select(vu => vu.Usuario).ToList())
-                .Map(dest => dest.Archivos, src => src.Archivos)
+                    .Select(vu => vu.Usuario.Adapt<UsuarioDTO>()).ToList())
+                .Map(dest => dest.Archivos, src => src.Archivos.Adapt<ArchivoDTO>())
                 .Map(dest => dest.FechaRealizada, src => src.FechaRealizada)
                 .Map(dest => dest.FechaProgramada, src => src.FechaProgramada);
 

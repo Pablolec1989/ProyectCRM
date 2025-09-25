@@ -19,15 +19,19 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
-                .Map(dest => dest.Rol, src => src.Rol != null ? src.Rol.Nombre : null)
-                .Map(dest => dest.Area, src => src.Area != null ? src.Area.Nombre : null);
+                .Map(dest => dest.Rol, src => src.Rol.Adapt<RolDTO>())
+                .Map(dest => dest.Area, src => src.Area.Adapt<AreaDTO>());
 
             TypeAdapterConfig<Usuario, UsuarioDetailDTO>.NewConfig()
-                .Map(dest => dest.Llamados, src => src.Llamados)
-                .Map(dest => dest.Mails, src => src.Mails)
-                .Map(dest => dest.Seguimientos, src => src.Seguimientos)
-                .Map(dest => dest.Visitas, src => src.VisitasUsuarios
-                .Select(vu => vu.Visita));
+                .Map(dest => dest.Llamados, src => src.Llamados.Adapt<List<LlamadaDTO>>())
+                .Map(dest => dest.Mails, src => src.Mails.Adapt<List<MailDTO>>())
+                .Map(dest => dest.Seguimientos, src => src.Seguimientos.Adapt<List<SeguimientoDTO>>())
+                .Map(dest => dest.Visitas, src => src.VisitasUsuarios != null
+                                ? src.VisitasUsuarios
+                                    .Where(vu => vu.Visita != null)
+                                    .Select(vu => vu.Visita.Adapt<VisitaDTO>())
+                                    .ToList()
+                                : new List<VisitaDTO>());
 
             TypeAdapterConfig<UsuarioRequestDTO, Usuario>.NewConfig()
                 .Map(dest => dest.Nombre, src => src.Nombre)

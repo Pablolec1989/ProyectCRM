@@ -6,7 +6,7 @@ namespace ProyectCRM.Models.Entities;
 
 public class Empresa : EntityBase
 {
-    public string? RazonSocial { get; set; }
+    public string RazonSocial { get; set; }
     public string? Cuit { get; set; }
     public string? Cuil { get; set; }
     public Guid? CondicionIvaId { get; set; }

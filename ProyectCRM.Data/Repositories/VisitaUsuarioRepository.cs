@@ -25,6 +25,7 @@ namespace ProyectCRM.Models.Data.Repositories
 
         public async Task DeleteByVisitaIdAsync(Guid visitaId)
         {
+            //Busca los usuarios asociados a la visita
             var visitasUsuarios = _context.VisitaUsuario
                 .Where(vu => vu.VisitaId == visitaId);
 

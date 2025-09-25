@@ -12,6 +12,7 @@ namespace ProyectCRM.Service.DTOs
         public List<LlamadaDTO> Llamados { get; set; }
         public List<MailDTO> Mails { get; set; }
         public List<SeguimientoDTO> Seguimientos { get; set; }
-        public List<VisitaConUsuariosDTO> Visitas { get; set; }
+        public List<VisitaDTO> Visitas { get; set; }
+
     }
 }

@@ -4,6 +4,7 @@ using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

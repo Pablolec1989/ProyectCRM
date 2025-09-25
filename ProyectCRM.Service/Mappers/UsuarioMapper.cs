@@ -19,16 +19,15 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
-                .Map(dest => dest.Area, src => src.Area.Nombre)
-                .Map(dest => dest.Rol, src => src.Rol.Nombre);
+                .Map(dest => dest.Rol, src => src.Rol != null ? src.Rol.Nombre : null)
+                .Map(dest => dest.Area, src => src.Area != null ? src.Area.Nombre : null);
 
             TypeAdapterConfig<Usuario, UsuarioDetailDTO>.NewConfig()
                 .Map(dest => dest.Llamados, src => src.Llamados)
                 .Map(dest => dest.Mails, src => src.Mails)
                 .Map(dest => dest.Seguimientos, src => src.Seguimientos)
                 .Map(dest => dest.Visitas, src => src.VisitasUsuarios
-                    .Select(vu => vu.Visita)
-                    .Adapt<List<VisitaConUsuariosDTO>>());
+                .Select(vu => vu.Visita));
 
             TypeAdapterConfig<UsuarioRequestDTO, Usuario>.NewConfig()
                 .Map(dest => dest.Nombre, src => src.Nombre)

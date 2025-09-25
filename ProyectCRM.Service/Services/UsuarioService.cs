@@ -35,7 +35,8 @@ namespace ProyectCRM.Models.Service.Services
             var usuario = await _repository.GetUsuarioCompletoByIdAsync(id);
             if (usuario == null)
                 throw new KeyNotFoundException($"No se encontró el usuario con Id {id}");
-            return _mapper.Map<UsuarioDetailDTO>(usuario);
+            var usuarioDetailDto = _mapper.Map<UsuarioDetailDTO>(usuario);
+            return usuarioDetailDto;
         }
 
         public override async Task<UsuarioDTO> CreateAsync(UsuarioRequestDTO dto)

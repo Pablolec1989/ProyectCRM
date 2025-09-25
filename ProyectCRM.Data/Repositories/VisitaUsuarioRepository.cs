@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Repositories
 {
-    public class VisitaUsuarioRepository : IVisitaUsuarioRepository<VisitasUsuarios>
+    public class VisitaUsuarioRepository : IVisitaUsuarioRepository<VisitaUsuario>
     {
         private readonly AppDbContext _context;
         public VisitaUsuarioRepository(AppDbContext context)
@@ -17,23 +17,24 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public async Task AddRangeAsync(IEnumerable<VisitasUsuarios> entidades)
+        public async Task AddRangeAsync(IEnumerable<VisitaUsuario> entidades)
         {
-            _context.VisitasUsuarios.AddRange(entidades);
+            _context.VisitaUsuario.AddRange(entidades);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteByVisitaIdAsync(Guid visitaId)
         {
-            var visitasUsuarios = _context.VisitasUsuarios
+            var visitasUsuarios = _context.VisitaUsuario
                 .Where(vu => vu.VisitaId == visitaId);
 
             if (visitasUsuarios.Any())
             { 
-                _context.VisitasUsuarios.RemoveRange(visitasUsuarios);
+                _context.VisitaUsuario.RemoveRange(visitasUsuarios);
                 await _context.SaveChangesAsync();
             }
         }
+
     }
 
 }

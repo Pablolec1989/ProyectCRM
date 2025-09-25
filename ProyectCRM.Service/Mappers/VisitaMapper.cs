@@ -19,16 +19,15 @@ namespace ProyectCRM.Models.Service.Mappers
             TypeAdapterConfig<Visita, VisitaDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Direccion, src => src.Direccion.TipoDireccion.Nombre);
+                .Map(dest => dest.Direccion, src => src.Direccion);
 
             TypeAdapterConfig<Visita, VisitaDetailDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Observaciones, src => src.Observaciones)
                 .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Direccion, src => src.Direccion.TipoDireccion.Nombre)
+                .Map(dest => dest.Direccion, src => src.Direccion)
                 .Map(dest => dest.Usuarios, src => src.VisitasUsuarios
-                    .Select(vu => vu.Usuario)
-                    .Adapt<List<UsuarioDTO>>())
+                    .Select(vu => vu.Usuario).ToList())
                 .Map(dest => dest.Archivos, src => src.Archivos)
                 .Map(dest => dest.FechaRealizada, src => src.FechaRealizada)
                 .Map(dest => dest.FechaProgramada, src => src.FechaProgramada);
@@ -37,14 +36,11 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Observaciones, src => src.Observaciones)
                 .Map(dest => dest.ClienteId, src => src.ClienteId)
                 .Map(dest => dest.DireccionId, src => src.DireccionId)
-                .Map(dest => dest.VisitasUsuarios, src => src.UsuariosIds)
+                .Map(dest => dest.VisitasUsuarios, src => src.UsuariosIds
+                    .Select(id => new VisitaUsuario { UsuarioId = id }).ToList())
                 .Map(dest => dest.FechaProgramada, src => src.FechaProgramada)
                 .Map(dest => dest.FechaRealizada, src => src.FechaRealizada);
 
-            TypeAdapterConfig<Visita, VisitaConUsuariosDTO>.NewConfig()
-                .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Direccion, src => src.Direccion)
-                .Map(dest => dest.Usuarios, src => src.VisitasUsuarios.Select(vu => vu.Usuario).Adapt<List<UsuarioDTO>>());
         }
     }
 }

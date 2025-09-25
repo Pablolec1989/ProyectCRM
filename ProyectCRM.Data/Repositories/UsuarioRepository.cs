@@ -20,18 +20,19 @@ namespace ProyectCRM.Models.Data.Repositories
 
         public IQueryable<Usuario> Usuarios()
         {
-            //Traer toda la data relacionada al usuario
             return _context.Usuarios
-                .Include(u => u.VisitasUsuarios)
-                    .ThenInclude(vu => vu.Visita)
-                        .ThenInclude(v => v.Cliente);
-
+                .Include(u => u.Rol)
+                .Include(u => u.Area);
+;
         }
 
         //Metodo especifico para mostrar toda la informacion del usuario
         public async Task<Usuario> GetUsuarioCompletoByIdAsync(Guid id)
         {
-            return await Usuarios()
+            return await _context.Usuarios
+                .Include(u => u.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Visita)
+                        .ThenInclude(v => v.Cliente)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
         }

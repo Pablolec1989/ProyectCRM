@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProyectCRM.Models.Entities;
 
-public partial class Usuario : EntityBase
+public class Usuario : EntityBase
 {
     public string Nombre { get; set; }
     public string Apellido { get; set; }
@@ -17,6 +17,6 @@ public partial class Usuario : EntityBase
     public virtual ICollection<Llamado?> Llamados { get; set; }
     public virtual ICollection<Mail?> Mails { get; set; }
     public virtual ICollection<Seguimiento?> Seguimientos { get; set; }
-    public virtual ICollection<VisitasUsuarios?> VisitasUsuarios { get; set; }
+    public virtual ICollection<VisitaUsuario?> VisitasUsuarios { get; set; }
 
 }

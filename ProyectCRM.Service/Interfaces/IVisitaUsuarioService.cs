@@ -10,6 +10,6 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IVisitaUsuarioService
     {
-        Task<VisitasUsuarios> CreateAsync(VisitaUsuarioRequestDTO dto);
+        Task<VisitaUsuario> CreateAsync(VisitaUsuarioRequestDTO dto);
     }
 }

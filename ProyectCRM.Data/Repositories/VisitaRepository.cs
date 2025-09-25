@@ -25,20 +25,19 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(v => v.Cliente)
                     .ThenInclude(c => c.Empresa)
                 .Include(v => v.Direccion)
-                    .ThenInclude(d => d.TipoDireccion)
-                .Include(v => v.VisitasUsuarios)
-                    .ThenInclude(vu => vu.Usuario);
+                    .ThenInclude(d => d.TipoDireccion);
+
         }
 
         public async Task<Visita> GetByIdWithRelatedDataAsync(Guid id)
         {
-            return await _context.Visitas
+            return await Visitas()
                 .Include(v => v.VisitasUsuarios)
                     .ThenInclude(vu => vu.Usuario)
-                .Include(v => v.Cliente)
-                    .ThenInclude(c => c.Empresa)
-                .Include(v => v.Direccion)
-                    .ThenInclude(d => d.TipoDireccion)
+                        .ThenInclude(u => u.Rol)
+                .Include(v => v.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Usuario)
+                        .ThenInclude(u => u.Area)
                 .Include(v => v.Archivos)
                 .FirstOrDefaultAsync(v => v.Id == id);
         }

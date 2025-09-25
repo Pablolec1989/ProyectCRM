@@ -65,13 +65,47 @@ namespace ProyectCRM.Models.Service.Services
 
         public override async Task<VisitaDTO> CreateAsync(VisitaRequestDTO dto)
         {
-            //Valida el dto
-            var validationResult = await _validator.ValidateAsync(dto);
-            if (!validationResult.IsValid)
+
+            await ValidateVisitaRequest(null, dto);
+            var visitatoCreate = _mapper.Map<Visita>(dto);
+            var createdVisita = await _repository.CreateAsync(visitatoCreate);
+            var visitaCompleta = await _repository.GetByIdAsync(createdVisita.Id);
+            return _mapper.Map<VisitaDTO>(visitaCompleta);
+
+        }
+
+        public override async Task<VisitaDTO> UpdateAsync(Guid id, VisitaRequestDTO dto)
+        {
+            //Validar que dto.ClienteId no cambie
+            var existingVisita = await _repository.GetByIdAsync(id);
+            if (existingVisita == null)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new KeyNotFoundException("Visita no encontrada.");
+            }
+            if (existingVisita.ClienteId != dto.ClienteId)
+            {
+                throw new ValidationException("No se puede cambiar el ClienteId de una visita existente.");
             }
 
+            await ValidateVisitaRequest(id,dto);
+            return await base.UpdateAsync(id, dto);
+        }
+
+        public override async Task<bool> DeleteAsync(Guid id)
+        {
+            var visita = await _repository.GetByIdAsync(id);
+            if (visita == null)
+            {
+                throw new KeyNotFoundException("Visita no encontrada.");
+            }
+            // Elimina las asociaciones en VisitaUsuario
+            await _visitaUsuarioRepository.DeleteByVisitaIdAsync(id);
+            return await _repository.DeleteAsync(id);
+        }
+
+        //Metodo auxiliar
+        private async Task ValidateVisitaRequest(Guid? id, VisitaRequestDTO dto)
+        {
             //valida que DireccionId exista y corresponda al Cliente
             var direccion = await _direccionRepository.GetByIdAsync(dto.DireccionId);
             if (direccion == null || direccion.ClienteId != dto.ClienteId)
@@ -89,32 +123,19 @@ namespace ProyectCRM.Models.Service.Services
                     throw new ValidationException($"Intentas asociar usuarios que no existen");
                 }
             }
-
-            var visitaToCreate = _mapper.Map<Visita>(dto);
-            var createdVisita = await _repository.CreateAsync(visitaToCreate);
-
+            var createdVisita = await base.CreateAsync(dto);
             // Si hay UsuariosIds, crea las entradas en VisitaUsuario
             if (dto.UsuariosIds != null && dto.UsuariosIds.Any())
             {
                 // Mapea la lista de IDs a una colección de entidades VisitasUsuarios en memoria
                 var visitasUsuarios = dto.UsuariosIds
                     .Select(usuarioId => new VisitaUsuario
-                {
-                    VisitaId = createdVisita.Id,
-                    UsuarioId = usuarioId
-
-                }).ToList();
-
+                    {
+                        VisitaId = createdVisita.Id,
+                        UsuarioId = usuarioId
+                    }).ToList();
                 await _visitaUsuarioRepository.AddRangeAsync(visitasUsuarios);
             }
-            return _mapper.Map<VisitaDTO>(createdVisita);
-
-        }
-
-        public override async Task<IEnumerable<VisitaDTO>> GetAllAsync()
-        {
-            var visitas = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<VisitaDTO>>(visitas);
         }
 
     }

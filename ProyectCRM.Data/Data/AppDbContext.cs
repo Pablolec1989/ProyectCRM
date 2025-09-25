@@ -275,14 +275,14 @@ public partial class AppDbContext : DbContext
                   .WithMany(p => p.VisitasUsuarios!)
                   .HasForeignKey(d => d.UsuarioId)
                   .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("FK_VisitaUsuarios_Usuario");
+                  .HasConstraintName("FK_VisitaUsuario_Usuario");
 
             // Configuración de la relación con Visita
-            entity.HasOne(d => d.Visita)
-                  .WithMany(p => p.VisitasUsuarios)
-                  .HasForeignKey(d => d.VisitaId)
-                  .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("FK_VisitaUsuarios_Visita");
+            entity.HasOne(vu => vu.Visita)
+                .WithMany(v => v.VisitasUsuarios)
+                .HasForeignKey(vu => vu.VisitaId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_VisitaUsuario_Visita");
         });
 
         modelBuilder.Entity<Archivo>(entity =>

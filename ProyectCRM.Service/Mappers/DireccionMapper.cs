@@ -17,7 +17,7 @@ namespace ProyectCRM.Models.Service.Mappers
         {
             TypeAdapterConfig<Direccion, DireccionDTO>.NewConfig()
                 .Map(dest => dest.Ciudad, src => src.Ciudad)
-                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion.Nombre);
+                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion.Adapt<TipoDireccionDTO>());
 
             TypeAdapterConfig<Direccion, DireccionDetailDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
@@ -26,7 +26,7 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Ciudad, src => src.Ciudad)
                 .Map(dest => dest.CodigoPostal, src => src.CodigoPostal)
                 .Map(dest => dest.Provincia, src => src.Provincia)
-                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion.Nombre);
+                .Map(dest => dest.TipoDireccion, src => src.TipoDireccion.Adapt<TipoDireccionDTO>());
 
             TypeAdapterConfig<DireccionRequestDTO, Direccion>.NewConfig()
                 .Map(dest => dest.Calle, src => src.Calle)

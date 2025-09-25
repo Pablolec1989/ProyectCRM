@@ -29,12 +29,21 @@ namespace ProyectCRM.Models.Data.Repositories
         //Metodo especifico para mostrar toda la informacion del usuario
         public async Task<Usuario> GetUsuarioCompletoByIdAsync(Guid id)
         {
-            return await _context.Usuarios
+            return await Usuarios()
+                .Include(u => u.Llamados)
+                .Include(u => u.Mails)
+                .Include(u => u.Seguimientos)
                 .Include(u => u.VisitasUsuarios)
                     .ThenInclude(vu => vu.Visita)
-                        .ThenInclude(v => v.Cliente)
+                .Include(u => u.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Visita.Direccion)
+                .Include(u => u.VisitasUsuarios)
+                    .ThenInclude(u => u.Visita.Direccion.TipoDireccion)
+                .Include(u => u.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Visita.Cliente)
+                .Include(u => u.VisitasUsuarios)
+                    .ThenInclude(vu => vu.Visita.Cliente.Empresa)
                 .FirstOrDefaultAsync(u => u.Id == id);
-
         }
 
         public override async Task<Usuario> GetByIdAsync(Guid id)

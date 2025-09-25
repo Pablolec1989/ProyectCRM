@@ -6,6 +6,7 @@ using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,16 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
+        public async Task<EmpresaDetailDTO> GetEmpresaCompletoByIdAsync(Guid id)
+        {
+            var empresa = await _repository.GetEmpresaCompletoByIdAsync(id);
+            if (empresa == null)
+                throw new KeyNotFoundException($"La empresa con Id {id} no fue encontrada.");
+            return _mapper.Map<EmpresaDetailDTO>(empresa);
+        }
+
+
+
         public override async Task<EmpresaDTO> CreateAsync(EmpresaRequestDTO dto)
         {
             await ValidateEmpresaRequest(null, dto);
@@ -52,11 +63,6 @@ namespace ProyectCRM.Models.Service.Services
         //Metodos auxiliares
         private async Task ValidateEmpresaRequest(Guid? id, EmpresaRequestDTO dto)
         {
-            var validationResult = _validator.Validate(dto);
-            if (!validationResult.IsValid)
-            {
-                throw new ValidationException(validationResult.Errors);
-            }
             await EmpresaExists(dto);
             await RubroExists(dto.RubroId);
             await CondicionIvaExists(dto.CondicionIvaId);

@@ -12,6 +12,6 @@ namespace ProyectCRM.Models.Service.DTOs
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
-        public string? EmpresaRazonSocial { get; set; }
+        public EmpresaDTO? Empresa { get; set; }
     }
 }

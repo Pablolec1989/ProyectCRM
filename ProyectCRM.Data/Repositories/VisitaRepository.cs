@@ -29,7 +29,7 @@ namespace ProyectCRM.Models.Data.Repositories
 
         }
 
-        public async Task<Visita> GetByIdWithRelatedDataAsync(Guid id)
+        public async Task<Visita> GetVisitaCompletoByIdAsync(Guid id)
         {
             return await Visitas()
                 .Include(v => v.VisitasUsuarios)

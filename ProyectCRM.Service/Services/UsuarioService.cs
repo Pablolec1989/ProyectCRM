@@ -1,10 +1,12 @@
 ﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Service.DTOs;
+using System.Collections.Generic;
 
 namespace ProyectCRM.Models.Service.Services
 {
@@ -35,16 +37,37 @@ namespace ProyectCRM.Models.Service.Services
             var usuario = await _repository.GetUsuarioCompletoByIdAsync(id);
             if (usuario == null)
                 throw new KeyNotFoundException($"No se encontró el usuario con Id {id}");
-            var usuarioDetailDto = _mapper.Map<UsuarioDetailDTO>(usuario);
-            return usuarioDetailDto;
+
+            //var usuarioDetailDTO = new UsuarioDetailDTO()
+            //{
+            //    Id = usuario.Id,
+            //    Nombre = usuario.Nombre,
+            //    Apellido = usuario.Apellido,
+            //    Rol = usuario.Rol != null ? _mapper.Map<RolDTO>(usuario.Rol) : null,
+            //    Area = usuario.Area != null ? _mapper.Map<AreaDTO>(usuario.Area) : null,
+            //    Llamados = usuario.Llamados != null ? usuario.Llamados
+            //        .Select(l => _mapper.Map<LlamadaDTO>(l))
+            //        .ToList() : new List<LlamadaDTO>(),
+            //    Mails = usuario.Mails != null ? usuario.Mails
+            //        .Select(m => _mapper.Map<MailDTO>(m))
+            //        .ToList() : new List<MailDTO>(),
+            //    Seguimientos = usuario.Seguimientos != null ? usuario.Seguimientos
+            //        .Select(s => _mapper.Map<SeguimientoDTO>(s))
+            //        .ToList() : new List<SeguimientoDTO>(),
+            //    Visitas = usuario.Visitas != null ? usuario.Visitas
+            //        .Where(vu => vu.Visita != null)
+            //        .Select(vu => _mapper.Map<VisitaDTO>(vu.Visita))
+            //        .ToList() : new List<VisitaDTO>()
+            //};
+            //return usuarioDetailDTO;
+
+            var usuarioDetaildto = _mapper.Map<UsuarioDetailDTO>(usuario);
+            return usuarioDetaildto;
+
         }
 
         public override async Task<UsuarioDTO> CreateAsync(UsuarioRequestDTO dto)
         {
-            var validationResult = _validator.Validate(dto);
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
-
             await ValidateUsuarioRequest(null, dto);
 
             var usuarioToCreate = _mapper.Map<Usuario>(dto);

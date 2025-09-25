@@ -11,11 +11,6 @@ namespace ProyectCRM.Models.Service.DTOs
     public class EmpresaDTO : EntityBase
     {
         public string RazonSocial { get; set; }
-        public string Cuit { get; set; }
-        public string Cuil { get; set; }
-        public Guid RubroId { get; set; }
-        public Guid CondicionIvaId { get; set; }
-        public RubroDTO Rubro { get; set; }
-        public CondicionIvaDTO CondicionIva { get; set; }
+
     }
 }

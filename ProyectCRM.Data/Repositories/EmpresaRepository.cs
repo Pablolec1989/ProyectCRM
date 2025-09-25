@@ -20,16 +20,7 @@ namespace ProyectCRM.Models.Data.Repositories
 
         public IQueryable<Empresa> Empresas()
         {
-            return _context.Empresas
-                .Include(e => e.CondicionIva)
-                .Include(e => e.Rubro);
-        }
-
-        public async Task<bool> GetEmpresaByRazonSocial(string razonSocial)
-        {
-            return await _context.Empresas
-                .AnyAsync(e => e.RazonSocial.ToLower() == razonSocial.ToLower());
-
+            return _context.Empresas;
         }
 
 
@@ -43,5 +34,19 @@ namespace ProyectCRM.Models.Data.Repositories
         {
             return await Empresas().ToListAsync();
         }
+
+        public async Task<Empresa> GetEmpresaCompletoByIdAsync(Guid id)
+        {
+            return await Empresas()
+                .Include(e => e.CondicionIva)
+                .Include(e => e.Rubro)
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+        public async Task<bool> GetEmpresaByRazonSocial(string razonSocial)
+        {
+            return await _context.Empresas
+                .AnyAsync(e => e.RazonSocial.ToLower() == razonSocial.ToLower());
+        }
+
     }
 }

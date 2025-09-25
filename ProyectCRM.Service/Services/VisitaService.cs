@@ -44,7 +44,7 @@ namespace ProyectCRM.Models.Service.Services
 
         public async Task<VisitaDetailDTO> GetByIdWithRelatedDataAsync(Guid id)
         {
-            var visita = await _repository.GetByIdWithRelatedDataAsync(id);
+            var visita = await _repository.GetVisitaCompletoByIdAsync(id);
             var visitaDetailDTO = new VisitaDetailDTO()
             {
                 Id = visita.Id,

@@ -37,9 +37,6 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(c => c.Telefonos)
                     .ThenInclude(t => t.TipoTelefono)
                 .Include(c => c.Visitas)
-                    .ThenInclude(v => v.Cliente)
-                .Include(c => c.Visitas)
-                    .ThenInclude(c => c.Direccion)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             return cliente;

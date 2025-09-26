@@ -21,7 +21,7 @@ namespace ProyectCRM.Models.Service.Services
 {
     public class ArchivoService : ServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>, IArchivoService
     {
-        private readonly IArchivoRepository _archivoRepository;
+        private readonly IArchivoRepository _repository;
         private readonly IVisitaRepository _visitaRepository;
         private readonly IValidator<ArchivoRequestDTO> _validator;
         private readonly IFileStorageService _fileStorageService;
@@ -29,13 +29,13 @@ namespace ProyectCRM.Models.Service.Services
         private const string contenedor = "archivos";
 
         public ArchivoService(IMapper mapper,
-            IArchivoRepository archivoRepository,
+            IArchivoRepository repository,
             IVisitaRepository visitaRepository,
             IValidator<ArchivoRequestDTO> validator,
             IFileStorageService fileStorageService)
-            : base(mapper, archivoRepository, validator)
+            : base(mapper, repository, validator)
         {
-            _archivoRepository = archivoRepository;
+            _repository = repository;
             _visitaRepository = visitaRepository;
             _validator = validator;
             _fileStorageService = fileStorageService;
@@ -49,13 +49,13 @@ namespace ProyectCRM.Models.Service.Services
 
             var entityToCreate = _mapper.Map<Archivo>(dto);
             entityToCreate.RutaArchivo = rutaArchivo;
-            var createdEntity = await _archivoRepository.CreateAsync(entityToCreate);
+            var createdEntity = await _repository.CreateAsync(entityToCreate);
             return _mapper.Map<ArchivoDTO>(createdEntity);
         }
 
         public async Task<ArchivoDTO> UpdateAsync(Guid id, ArchivoRequestDTO dto, IFormFile archivo)
         {
-            var archivoExistente = await _archivoRepository.GetByIdAsync(id);
+            var archivoExistente = await _repository.GetByIdAsync(id);
             if (archivoExistente == null)
                 throw new Exception("El archivo no existe");
 
@@ -67,7 +67,7 @@ namespace ProyectCRM.Models.Service.Services
             archivoExistente.VisitaId = dto.VisitaId;
             archivoExistente.RutaArchivo = nuevaRutaArchivo;
 
-            await _archivoRepository.UpdateAsync(archivoExistente);
+            await _repository.UpdateAsync(archivoExistente);
             return _mapper.Map<ArchivoDTO>(archivoExistente);
         }
 
@@ -80,9 +80,7 @@ namespace ProyectCRM.Models.Service.Services
                 throw new ValidationException(validationResult.Errors);
 
             //Validar que la visita exista
-            var visitaExists = await _visitaRepository.VisitaExists(dto.VisitaId);
-            if (!visitaExists)
-                throw new Exception("La visita asociada no existe");
+            await _repository.EntityExistsAsync(dto.VisitaId);
 
         }
     }

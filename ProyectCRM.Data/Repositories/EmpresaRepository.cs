@@ -32,7 +32,8 @@ namespace ProyectCRM.Models.Data.Repositories
 
         public override async Task<IEnumerable<Empresa>> GetAllAsync()
         {
-            return await Empresas().ToListAsync();
+            return await Empresas()
+                .ToListAsync();
         }
 
         public async Task<Empresa> GetEmpresaCompletoByIdAsync(Guid id)
@@ -42,7 +43,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(e => e.Rubro)
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
-        public async Task<bool> GetEmpresaByRazonSocial(string razonSocial)
+        public async Task<bool> GetEmpresaByRazonSocialAsync(string razonSocial)
         {
             return await _context.Empresas
                 .AnyAsync(e => e.RazonSocial.ToLower() == razonSocial.ToLower());

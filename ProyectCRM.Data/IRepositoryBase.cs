@@ -15,5 +15,6 @@ namespace ProyectCRM.Models.Data
         Task<T> CreateAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task<bool> DeleteAsync(Guid id);
+        Task EntityExistsAsync(Guid id);
     }
 }

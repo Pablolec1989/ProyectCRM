@@ -17,7 +17,7 @@ namespace ProyectCRM.Models.Controllers
         [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetByIdWithAllDataAsync(Guid id)
         {
-            var cliente = await _service.GetByIdWithAllDataAsync(id);
+            var cliente = await _service.GetClienteCompletoByIdAsync(id);
             if (cliente == null)
                 return NotFound();
             return Ok(cliente);

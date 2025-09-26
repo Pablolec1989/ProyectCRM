@@ -35,9 +35,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<DireccionDetailDTO> GetDireccionWithDetailsAsync(Guid id)
+        public async Task<DireccionDetailDTO> GetDireccionCompletoByIdAsync(Guid id)
         {
-            var direccion = await _repository.GetDireccionWithDetailsAsync(id);
+            var direccion = await _repository.GetDireccionCompletoRepositoryById(id);
             return _mapper.Map<DireccionDetailDTO>(direccion);
         }
 
@@ -60,27 +60,20 @@ namespace ProyectCRM.Models.Service.Services
         //Metodo aux
         private async Task ValidateDireccionRequest(Guid? id, DireccionRequestDTO dto)
         {
-            var validationResult = _validator.Validate(dto);
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
-
             //Validar que ClienteId exista
-            var cliente = await _clienteRepository.GetByIdAsync(dto.ClienteId);
-            if (cliente == null)
-                throw new ValidationException("El ClienteId proporcionado no existe.");
+            await _repository.EntityExistsAsync(dto.ClienteId);
 
             //Validar que TipoDireccionId exista
-            var tipoDireccion = await _tipoDireccionRepository.GetByIdAsync(dto.TipoDireccionId);
-            if (tipoDireccion == null)
-                throw new ValidationException("El TipoDireccionId proporcionado no existe.");
+            await _repository.EntityExistsAsync(dto.TipoDireccionId);
 
+            //Validar que no se este ingresando la misma informacion (Calle, Numero, CodigoPostal) para el mismo ClienteId
             var existingDirecciones = await _repository.GetDireccionesByClienteIdAsync(dto.ClienteId);
             if (existingDirecciones.Any(d => d.Calle.Equals(dto.Calle, StringComparison.OrdinalIgnoreCase)
                 && d.Numero == dto.Numero
                 && d.CodigoPostal.Equals(dto.CodigoPostal, StringComparison.OrdinalIgnoreCase)
                 && (!id.HasValue || d.Id != id.Value)))
             {
-                throw new ValidationException("Ya existe una dirección con la misma calle, número y código postal para este cliente.");
+                throw new ValidationException("Ya existe una misma dirección para este cliente.");
             }
 
         }

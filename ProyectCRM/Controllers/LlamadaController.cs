@@ -17,7 +17,7 @@ namespace ProyectCRM.Models.Controllers
         [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetByIdWithRelatedDataAsync(Guid id)
         {
-            var llamadoDetail = await _service.GetByIdWithRelatedDataAsync(id);
+            var llamadoDetail = await _service.GetLlamadaCompletoByIdAsync(id);
             if (llamadoDetail == null)
             {
                 return NotFound();

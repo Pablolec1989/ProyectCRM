@@ -11,6 +11,6 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface ILlamadoService : IServiceBase<LlamadaDTO, LlamadaRequestDTO, Llamado>
     {
-        Task<LlamadaDetailDTO> GetByIdWithRelatedDataAsync(Guid id);
+        Task<LlamadaDetailDTO> GetLlamadaCompletoByIdAsync(Guid id);
     }
 }

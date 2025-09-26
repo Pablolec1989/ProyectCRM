@@ -10,6 +10,7 @@ namespace ProyectCRM.Service.DTOs
     public class MailDetailDTO : MailDTO
     {
         public ClienteDTO Cliente { get; set; }
+        public AreaDTO Area { get; set; }
         public UsuarioDTO Usuario { get; set; }
     }
 }

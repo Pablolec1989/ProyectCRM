@@ -14,7 +14,7 @@ namespace ProyectCRM.Models.Controllers
         }
 
 
-        [HttpGet("{id}/with-related-data")]
+        [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetByIdWithRelatedDataAsync(Guid id)
         {
             var mailDTO = await _service.GetMailByIdWithRelatedDataAsync(id);

@@ -9,7 +9,7 @@ namespace ProyectCRM.Service.DTOs
 {
     public class ClienteDetailDTO : ClienteDTO
     {
-        public List<DireccionDetailDTO?> Direcciones { get; set; }
+        public List<DireccionDTO?> Direcciones { get; set; }
         public List<TelefonoDTO?> Telefonos { get; set; }
         public List<MailDTO?> Mails { get; set; }
         public List<SeguimientoDTO?> Seguimientos { get; set; }

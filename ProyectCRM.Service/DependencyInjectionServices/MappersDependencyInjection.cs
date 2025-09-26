@@ -13,6 +13,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
     {
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
+            // Registrar los mappers en el contenedor DI (opcional)
             services.AddScoped<ArchivoMapper>();
             services.AddScoped<AreaMapper>();
             services.AddScoped<CondicionIvaMapper>();
@@ -31,7 +32,31 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<VisitaMapper>();
             services.AddScoped<MailMapper>();
 
+            // REGISTRO GLOBAL DE MAPPINGS
+            RegisterAllMappings();
+
             return services;
+        }
+
+        private static void RegisterAllMappings()
+        {
+            new ArchivoMapper().RegisterMappings();
+            new AreaMapper().RegisterMappings();
+            new CondicionIvaMapper().RegisterMappings();
+            new RubroMapper().RegisterMappings();
+            new AsuntoDeContactoMapper().RegisterMappings();
+            new RolMapper().RegisterMappings();
+            new ClienteMapper().RegisterMappings();
+            new DireccionMapper().RegisterMappings();
+            new EmpresaMapper().RegisterMappings();
+            new LlamadoMapper().RegisterMappings();
+            new SeguimientoMapper().RegisterMappings();
+            new TelefonoMapper().RegisterMappings();
+            new TipoDireccionMapper().RegisterMappings();
+            new TipoTelefonoMapper().RegisterMappings();
+            new UsuarioMapper().RegisterMappings();
+            new VisitaMapper().RegisterMappings();
+            new MailMapper().RegisterMappings();
         }
     }
 }

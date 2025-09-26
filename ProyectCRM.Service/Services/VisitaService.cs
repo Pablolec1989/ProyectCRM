@@ -45,21 +45,11 @@ namespace ProyectCRM.Models.Service.Services
         public async Task<VisitaDetailDTO> GetByIdWithRelatedDataAsync(Guid id)
         {
             var visita = await _repository.GetVisitaCompletoByIdAsync(id);
-            var visitaDetailDTO = new VisitaDetailDTO()
+            if(visita == null)
             {
-                Id = visita.Id,
-                Observaciones = visita.Observaciones,
-                Cliente = visita.Cliente != null ? _mapper.Map<ClienteDTO>(visita.Cliente) : null,
-                Direccion = visita.Direccion != null ? _mapper.Map<DireccionDTO>(visita.Direccion) : null,
-                Usuarios = visita.VisitasUsuarios != null ? visita.VisitasUsuarios
-                    .Select(vu => vu.Usuario != null ? _mapper.Map<UsuarioDTO>(vu.Usuario) : null)
-                    .ToList() : new List<UsuarioDTO>(),
-                Archivos = visita.Archivos != null ? visita.Archivos
-                    .Select(a => _mapper.Map<ArchivoDTO>(a))
-                    .ToList() : new List<ArchivoDTO>(),
-                FechaProgramada = visita.FechaProgramada,
-                FechaRealizada = visita.FechaRealizada
-            };
+                throw new KeyNotFoundException("Visita no encontrada.");
+            }
+            var visitaDetailDTO = _mapper.Map<VisitaDetailDTO>(visita);
             return visitaDetailDTO;
         }
 

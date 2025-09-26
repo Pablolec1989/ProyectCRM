@@ -18,16 +18,16 @@ namespace ProyectCRM.Models.Service.Mappers
             TypeAdapterConfig<Llamado, LlamadaDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Detalle, src => src.Detalle)
-                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto)
+                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto.Adapt<AsuntoDeContactoDTO>())
                 .Map(dest => dest.FechaLlamado, src => src.FechaLlamado);
 
             TypeAdapterConfig<Llamado, LlamadaDetailDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Detalle, src => src.Detalle)
-                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto)
-                .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Usuario, src => src.Usuario)
-                .Map(dest => dest.Area, src => src.Area)
+                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto.Adapt<AsuntoDeContactoDTO>())
+                .Map(dest => dest.Cliente, src => src.Cliente.Adapt<ClienteDTO>())
+                .Map(dest => dest.Usuario, src => src.Usuario.Adapt<UsuarioDTO>())
+                .Map(dest => dest.Area, src => src.Area.Adapt<AreaDTO>())
                 .Map(dest => dest.FechaLlamado, src => src.FechaLlamado);
 
             TypeAdapterConfig<LlamadaRequestDTO, Llamado>.NewConfig()

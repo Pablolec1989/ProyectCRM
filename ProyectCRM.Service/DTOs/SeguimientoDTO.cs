@@ -11,6 +11,6 @@ namespace ProyectCRM.Models.Service.DTOs
     {
         public string Titulo { get; set; }
         public string Detalle { get; set; }
-        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
     }
 }

@@ -16,7 +16,7 @@ namespace ProyectCRM.Models.Service.Mappers
         {
             TypeAdapterConfig<Telefono, TelefonoDTO>.NewConfig()
                 .Map(dest => dest.Numero, src => src.Numero)
-                .Map(dest => dest.TipoTelefono, src => src.TipoTelefono)
+                .Map(dest => dest.TipoTelefono, src => src.TipoTelefono.Adapt<TipoTelefonoDTO>())
                 .Map(dest => dest.ClienteId, src => src.ClienteId);
 
             TypeAdapterConfig<TelefonoRequestDTO, Telefono>.NewConfig()

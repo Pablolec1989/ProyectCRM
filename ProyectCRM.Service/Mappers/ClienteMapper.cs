@@ -20,7 +20,7 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
                 .Map(dest => dest.Email, src => src.Email)
-                .Map(dest => dest.Empresa, src => src.Empresa.RazonSocial);
+                .Map(dest => dest.Empresa, src => src.Empresa.Adapt<EmpresaDTO>());
 
             TypeAdapterConfig<Cliente, ClienteDetailDTO>.NewConfig()
                 .Map(dest => dest.Empresa, src => src.Empresa.Adapt<EmpresaDTO>())

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Entities.Abstractions;

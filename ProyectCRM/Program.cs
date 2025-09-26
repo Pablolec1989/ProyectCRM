@@ -8,14 +8,14 @@ using ProyectCRM.Service.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddMapster();
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
-builder.Services.AddMapster();
 builder.Services.AddValidators();
 
 MappersDependencyInjection.AddMappers(builder.Services);
+
 
 //CORS Config
 builder.Services.AddCors(options => {

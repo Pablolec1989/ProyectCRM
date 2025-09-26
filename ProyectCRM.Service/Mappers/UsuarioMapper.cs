@@ -26,12 +26,10 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Llamados, src => src.Llamados.Adapt<List<LlamadaDTO>>())
                 .Map(dest => dest.Mails, src => src.Mails.Adapt<List<MailDTO>>())
                 .Map(dest => dest.Seguimientos, src => src.Seguimientos.Adapt<List<SeguimientoDTO>>())
-                .Map(dest => dest.Visitas, src => src.VisitasUsuarios != null
-                                ? src.VisitasUsuarios
-                                    .Where(vu => vu.Visita != null)
-                                    .Select(vu => vu.Visita.Adapt<VisitaDTO>())
-                                    .ToList()
-                                : new List<VisitaDTO>());
+                .Map(dest => dest.Visitas, src => src.VisitasUsuarios != null ? src.VisitasUsuarios
+                    .Where(vu => vu.Visita != null)
+                    .Select(vu => vu.Visita.Adapt<VisitaDTO>())
+                    .ToList() : new List<VisitaDTO>());
 
             TypeAdapterConfig<UsuarioRequestDTO, Usuario>.NewConfig()
                 .Map(dest => dest.Nombre, src => src.Nombre)

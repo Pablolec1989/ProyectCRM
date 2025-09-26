@@ -29,7 +29,6 @@ namespace ProyectCRM.Models.Data
             }
             catch (Exception ex)
             {
-                //Arrojar error
                 throw new Exception($"Error creating entity: {ex.Message}", ex);
             }
         }

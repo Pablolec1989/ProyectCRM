@@ -18,16 +18,16 @@ namespace ProyectCRM.Models.Service.Mappers
             TypeAdapterConfig<Mail, MailDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Detalle, src => src.Detalle)
-                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto.Nombre)
+                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto.Adapt<AsuntoDeContactoDTO>())
                 .Map(dest => dest.FechaMail, src => src.FechaMail);
 
             TypeAdapterConfig<Mail, MailDetailDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Detalle, src => src.Detalle)
-                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto.Nombre)
+                .Map(dest => dest.AsuntoDeContacto, src => src.AsuntoDeContacto.Adapt<AsuntoDeContactoDTO>())
                 .Map(dest => dest.FechaMail, src => src.FechaMail)
-                .Map(dest => dest.Cliente, src => src.Cliente)
-                .Map(dest => dest.Usuario, src => src.Usuario);
+                .Map(dest => dest.Cliente, src => src.Cliente.Adapt<ClienteDTO>())
+                .Map(dest => dest.Usuario, src => src.Usuario.Adapt<UsuarioDTO>());
 
             TypeAdapterConfig<MailRequestDTO, Mail>.NewConfig()
                 .Map(dest => dest.Detalle, src => src.Detalle)

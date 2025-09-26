@@ -11,6 +11,7 @@ namespace ProyectCRM.Models.Service.DTOs
     {
         public string Detalle { get; set; }
         public Guid ClienteId { get; set; }
+        public Guid? AreaId { get; set; }
         public Guid UsuarioId { get; set; }
         public Guid AsuntoDeContactoId { get; set; }
         public DateTime FechaMail { get; set; }

@@ -60,6 +60,12 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
+
+            entity.HasMany(e => e.Llamados).WithOne(l => l.Area).HasForeignKey(l => l.AreaId);
+            entity.HasMany(e => e.Mails).WithOne(m => m.Area).HasForeignKey(m => m.AreaId);
+            entity.HasMany(e => e.Seguimientos).WithOne(s => s.Area).HasForeignKey(s => s.AreaId);
+            entity.HasMany(e => e.Usuarios).WithOne(u => u.Area).HasForeignKey(u => u.AreaId);
+
         });
 
         modelBuilder.Entity<AsuntosDeContacto>(entity =>
@@ -165,6 +171,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Detalle).HasMaxLength(200);
             entity.Property(e => e.FechaMail).HasColumnType("datetime");
 
+            entity.HasOne(m => m.Area).WithMany(a => a.Mails)
+                .HasForeignKey(m => m.AreaId)
+                .HasConstraintName("FK_Mails_Areas");
+
             entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Mail)
                 .HasForeignKey(d => d.AsuntoDeContactoId)
                 .HasConstraintName("FK_Mails_Asuntos");
@@ -195,6 +205,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Detalle).HasMaxLength(300);
             entity.Property(e => e.Titulo).HasMaxLength(50);
+
+            entity.HasOne(d => d.Area).WithMany(p => p.Seguimientos)
+                .HasForeignKey(d => d.AreaId)
+                .HasConstraintName("FK_Seguimientos_Areas");
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Seguimientos)
                 .HasForeignKey(d => d.ClienteId)

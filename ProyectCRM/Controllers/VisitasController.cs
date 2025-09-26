@@ -15,7 +15,7 @@ namespace ProyectCRM.Models.Controllers
             _service = service;
         }
 
-        [HttpGet("{id}/detail")]
+        [HttpGet("detail/{id}")]
         public async Task<ActionResult<VisitaDetailDTO>> GetByIdVisitaCompletoAsync(Guid id)
         {
             var visitaDetail = await _service.GetByIdWithRelatedDataAsync(id);

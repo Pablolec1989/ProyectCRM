@@ -13,7 +13,7 @@ namespace ProyectCRM.Models.Controllers
             _service = service;
         }
 
-        [HttpGet("details/{id}")]
+        [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetSeguimientoWithDetailsAsync(Guid id)
         {
             var seguimientoDetail = await _service.GetSeguimientoWithDetailsAsync(id);

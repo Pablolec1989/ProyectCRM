@@ -20,12 +20,23 @@ namespace ProyectCRM.Models.Data.Repositories
         public IQueryable<Mail> Mails()
         {
             return _context.Mails
-                .Include(m => m.Usuario).ThenInclude(u => u.Area)
-                .Include(m => m.Cliente).ThenInclude(c => c.Empresa)
                 .Include(m => m.AsuntoDeContacto);
         }
 
         public async Task<Mail> GetByIdWithRelatedDataAsync(Guid id)
+        {
+            return await Mails()
+                .Include(m => m.Area)
+                .Include(m => m.Cliente)
+                    .ThenInclude(c => c.Empresa)
+                .Include(m => m.Usuario)
+                    .ThenInclude(u => u.Rol)
+                .Include(m => m.Usuario)
+                    .ThenInclude(u => u.Area)
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public override async Task<Mail> GetByIdAsync(Guid id)
         {
             return await Mails()
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -33,7 +44,8 @@ namespace ProyectCRM.Models.Data.Repositories
 
         public override async Task<IEnumerable<Mail>> GetAllAsync()
         {
-            return await Mails().ToListAsync();
+            return await Mails()
+                .ToListAsync();
         }
     }
 }

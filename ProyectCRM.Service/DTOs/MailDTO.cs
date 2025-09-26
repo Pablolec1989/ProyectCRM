@@ -11,6 +11,6 @@ namespace ProyectCRM.Models.Service.DTOs
     {
         public string Detalle { get; set; }
         public AsuntoDeContactoDTO AsuntoDeContacto { get; set; }
-        public DateTime FechaMail { get; set; } = DateTime.UtcNow;
+        public DateTime FechaMail { get; set; }
     }
 }

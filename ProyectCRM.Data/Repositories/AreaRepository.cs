@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectCRM.Models.Data.Interfaces;
+using ProyectCRM.Models.Data.Migrations;
 using ProyectCRM.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,14 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
+        public IQueryable<Area> Areas()
+        {
+            return _context.Areas;
+        }
+
         public async Task<bool> AreaExistsAsync(Guid id)
         {
-            return await _context.Areas
+            return await Areas()
                 .AnyAsync(a => a.Id == id);
         }
     }

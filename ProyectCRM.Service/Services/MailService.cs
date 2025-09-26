@@ -45,7 +45,6 @@ namespace ProyectCRM.Models.Service.Services
             return _mapper.Map<MailDetailDTO>(mail);
         }
 
-
         public override async Task<MailDTO> CreateAsync(MailRequestDTO dto)
         {
             await ValidateMailRequest(null, dto);
@@ -61,20 +60,6 @@ namespace ProyectCRM.Models.Service.Services
         //Metodo aux
         private async Task ValidateMailRequest(Guid? id, MailRequestDTO dto)
         {
-            //Validar modelo
-            var validationResult = _validator.Validate(dto);
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
-
-            // Validar existencia del Mail en caso de update
-            if (id.HasValue)
-            {
-                var mailExiste = await _repository.GetByIdAsync(id.Value);
-                if (mailExiste == null)
-                {
-                    throw new KeyNotFoundException($"El Mail no existe");
-                }
-            }
 
             //Validar si existe clienteId
             var clienteExiste = await _clienteRepository.GetByIdAsync(dto.ClienteId);

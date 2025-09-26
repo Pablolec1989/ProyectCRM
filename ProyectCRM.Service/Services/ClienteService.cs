@@ -36,6 +36,7 @@ namespace ProyectCRM.Models.Service.Services
             var cliente = await _repository.GetByIdWithAllDataAsync(id);
             if (cliente == null)
                 return null;
+
             var clienteDetailDTO = _mapper.Map<ClienteDetailDTO>(cliente);
             return clienteDetailDTO;
         }

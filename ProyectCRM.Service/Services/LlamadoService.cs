@@ -5,11 +5,6 @@ using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Service.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Services
 {
@@ -17,10 +12,6 @@ namespace ProyectCRM.Models.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly ILlamadoRepository _repository;
-        private readonly IClienteRepository _clienteRepository;
-        private readonly IUsuarioRepository _usuarioRepository;
-        private readonly IAreaRepository _areaRepository;
-        private readonly IAsuntoDeContactoRepository _asuntoDeContactoRepository;
         private readonly IValidator<LlamadaRequestDTO> _validator;
 
         public LlamadoService(IMapper mapper, 
@@ -34,10 +25,6 @@ namespace ProyectCRM.Models.Service.Services
         {
             _mapper = mapper;
             _repository = repository;
-            _clienteRepository = clienteRepository;
-            _usuarioRepository = usuarioRepository;
-            _areaRepository = areaRepository;
-            _asuntoDeContactoRepository = asuntoDeContactoRepository;
             _validator = validator;
         }
 
@@ -69,17 +56,20 @@ namespace ProyectCRM.Models.Service.Services
         {
 
             //Validar existencia de ClienteId
-            await _repository.EntityExistsAsync(dto.ClienteId);
+            if (await _repository.EntityExistsAsync(dto.ClienteId))
+                throw new KeyNotFoundException($"El ClienteId no existe");
 
             //Validar existencia de UsuarioId
-            await _repository.EntityExistsAsync(dto.UsuarioId);
+            if(await _repository.EntityExistsAsync(dto.UsuarioId))
+                throw new KeyNotFoundException($"El UsuarioId no existe");
 
             //Validar existencia de AreaId
-            await _repository.EntityExistsAsync(dto.AreaId);
+            if(await _repository.EntityExistsAsync(dto.AreaId))
+                throw new KeyNotFoundException($"El AreaId no existe");
 
             //Validar existencia de AsuntoDeContactoId
-            await _repository.EntityExistsAsync(dto.AsuntoDeContactoId);
-
+            if(await _repository.EntityExistsAsync(dto.AsuntoDeContactoId))
+                throw new KeyNotFoundException($"El AsuntoDeContactoId no existe");
 
         }
     }

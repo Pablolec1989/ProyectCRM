@@ -60,23 +60,17 @@ namespace ProyectCRM.Models.Service.Services
         //Metodo aux
         private async Task ValidateMailRequest(Guid? id, MailRequestDTO dto)
         {
-
             //Validar si existe clienteId
-            var clienteExiste = await _clienteRepository.GetByIdAsync(dto.ClienteId);
-            if (clienteExiste == null)
-                throw new KeyNotFoundException($"El cliente con Id {dto.ClienteId} no existe");
+            if(await _repository.EntityExistsAsync(dto.ClienteId))
+                throw new ArgumentException($"El ClienteId no existe");
 
             //Validar usuarioId
-            var usuarioExiste = await _usuarioRepository.GetByIdAsync(dto.UsuarioId);
-            if (usuarioExiste == null)
-                throw new KeyNotFoundException($"El usuario con Id {dto.UsuarioId} no existe");
+            if(await _repository.EntityExistsAsync(dto.UsuarioId))
+                throw new ArgumentException($"El UsuarioId no existe");
 
             //Validar AsuntoDeContactoId
-            var asuntoDeContactoExiste = await _asuntoDeContactoRepository.GetByIdAsync(dto.AsuntoDeContactoId);
-            if (asuntoDeContactoExiste == null)
-                throw new KeyNotFoundException($"El asunto de contacto con Id {dto.AsuntoDeContactoId} no existe");
-
-
+            if(await _repository.EntityExistsAsync(dto.AsuntoDeContactoId))
+                throw new ArgumentException($"El AsuntoDeContactoId no existe");
         }
     }
 }

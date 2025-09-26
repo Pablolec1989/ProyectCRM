@@ -13,7 +13,7 @@ namespace ProyectCRM.Models.Service.DTOs
         public string Detalle { get; set; }
         public Guid UsuarioId { get; set; }
         public Guid ClienteId { get; set; }
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
+        public Guid? AreaId { get; set; }
 
     }
 }

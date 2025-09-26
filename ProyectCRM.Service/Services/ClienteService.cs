@@ -17,7 +17,6 @@ namespace ProyectCRM.Models.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly IClienteRepository _repository;
-        private readonly IEmpresaRepository _empresaRepository;
         private readonly IValidator<ClienteRequestDTO> _validator;
 
         public ClienteService(IMapper mapper,
@@ -27,7 +26,6 @@ namespace ProyectCRM.Models.Service.Services
         {
             _mapper = mapper;
             _repository = repository;
-            _empresaRepository = empresaRepository;
             _validator = validator;
         }
 
@@ -72,7 +70,8 @@ namespace ProyectCRM.Models.Service.Services
             if(dto.EmpresaId != null)
             {
                 // Validar que la empresa exista
-                await _repository.EntityExistsAsync(dto.EmpresaId.Value);
+                if(await _repository.EntityExistsAsync(dto.EmpresaId.Value))
+                    throw new Exception("EmpresaId no existe");
             }
 
         }

@@ -36,9 +36,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<SeguimientoDetailDTO> GetSeguimientoWithDetailsAsync(Guid id)
+        public async Task<SeguimientoDetailDTO> GetSeguimientoCompletoByIdAsync(Guid id)
         {
-            var seguimiento = await _repository.GetSeguimientoWithDetailsAsync(id);
+            var seguimiento = await _repository.GetSeguimientoCompletoRepositoryByIdAsync(id);
             return _mapper.Map<SeguimientoDetailDTO>(seguimiento);
         }
 
@@ -57,30 +57,16 @@ namespace ProyectCRM.Models.Service.Services
         //Metodo aux
         private async Task ValidateSeguimientoRequest(Guid? id, SeguimientoRequestDTO dto)
         {
-            //Validar modelo Seguimiento
-            var validationResult = await _validator.ValidateAsync(dto);
-            if (!validationResult.IsValid)
-            {
-                var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new ValidationException(string.Join("; ", errors));
-            }
-
             //Validar que el ClienteId exista
-            var clienteExiste = await _clienteRepository.GetByIdAsync(dto.ClienteId);
-            if (clienteExiste == null)
-                throw new KeyNotFoundException($"El Cliente con Id {dto.ClienteId} no existe");
+            await _repository.EntityExistsAsync(dto.ClienteId);
 
             //Validar que el UsuarioId exista
-            var usuarioExiste = await _usuarioRepository.GetByIdAsync(dto.UsuarioId);
-            if (usuarioExiste == null)
-                throw new KeyNotFoundException($"El Usuario con Id {dto.UsuarioId} no existe");
+            await _repository.EntityExistsAsync(dto.UsuarioId);
 
-            //Validar existencia del Seguimiento en caso de update
-            if (id.HasValue)
+            if(dto.AreaId != null)
             {
-                var seguimientoExiste = await _repository.GetByIdAsync(id.Value);
-                if (seguimientoExiste == null)
-                    throw new KeyNotFoundException($"El Seguimiento con Id {id.Value} no existe");
+                //Validar que el AreaId exista
+                await _repository.EntityExistsAsync(dto.AreaId.Value);
             }
 
         }

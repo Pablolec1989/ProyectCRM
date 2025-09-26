@@ -11,5 +11,6 @@ namespace ProyectCRM.Service.DTOs
     {
         public UsuarioDTO Usuario { get; set; }
         public ClienteDTO Cliente { get; set; }
+        public AreaDTO Area { get; set; }
     }
 }

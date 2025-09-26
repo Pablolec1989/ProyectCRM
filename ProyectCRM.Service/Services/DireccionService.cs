@@ -16,22 +16,16 @@ namespace ProyectCRM.Models.Service.Services
     public class DireccionService : ServiceBase<DireccionDTO, DireccionRequestDTO, Direccion>, IDireccionService
     {
         private readonly IDireccionRepository _repository;
-        private readonly IClienteRepository _clienteRepository;
-        private readonly ITipoDireccionRepository _tipoDireccionRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<DireccionRequestDTO> _validator;
 
         public DireccionService(IMapper mapper,
             IDireccionRepository repository,
-            IClienteRepository clienteRepository,
-            ITipoDireccionRepository tipoDireccionRepository,
             IValidator<DireccionRequestDTO> validator)
             : base(mapper, repository, validator)
         {
             _mapper = mapper;
             _repository = repository;
-            _clienteRepository = clienteRepository;
-            _tipoDireccionRepository = tipoDireccionRepository;
             _validator = validator;
         }
 
@@ -61,10 +55,12 @@ namespace ProyectCRM.Models.Service.Services
         private async Task ValidateDireccionRequest(Guid? id, DireccionRequestDTO dto)
         {
             //Validar que ClienteId exista
-            await _repository.EntityExistsAsync(dto.ClienteId);
+            if(await _repository.EntityExistsAsync(dto.ClienteId))
+                throw new ValidationException("El ClienteId proporcionado no existe.");
 
             //Validar que TipoDireccionId exista
-            await _repository.EntityExistsAsync(dto.TipoDireccionId);
+            if(await _repository.EntityExistsAsync(dto.TipoDireccionId))
+                throw new ValidationException("El TipoDireccionId proporcionado no existe.");
 
             //Validar que no se este ingresando la misma informacion (Calle, Numero, CodigoPostal) para el mismo ClienteId
             var existingDirecciones = await _repository.GetDireccionesByClienteIdAsync(dto.ClienteId);

@@ -42,7 +42,7 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<VisitaDetailDTO> GetByIdWithRelatedDataAsync(Guid id)
+        public async Task<VisitaDetailDTO> GetVisitaCompletoByIdAsync(Guid id)
         {
             var visita = await _repository.GetVisitaCompletoByIdAsync(id);
             if(visita == null)
@@ -72,6 +72,7 @@ namespace ProyectCRM.Models.Service.Services
             {
                 throw new KeyNotFoundException("Visita no encontrada.");
             }
+            
             if (existingVisita.ClienteId != dto.ClienteId)
             {
                 throw new ValidationException("No se puede cambiar el ClienteId de una visita existente.");
@@ -113,7 +114,9 @@ namespace ProyectCRM.Models.Service.Services
                     throw new ValidationException($"Intentas asociar usuarios que no existen");
                 }
             }
+
             var createdVisita = await base.CreateAsync(dto);
+
             // Si hay UsuariosIds, crea las entradas en VisitaUsuario
             if (dto.UsuariosIds != null && dto.UsuariosIds.Any())
             {

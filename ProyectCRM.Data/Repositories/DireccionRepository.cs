@@ -32,7 +32,7 @@ namespace ProyectCRM.Models.Data.Repositories
 
         }
 
-        public async Task<Direccion> GetDireccionWithDetailsAsync(Guid id)
+        public async Task<Direccion> GetDireccionCompletoRepositoryById(Guid id)
         {
             return await Direcciones()
                 .FirstOrDefaultAsync(d => d.Id == id);

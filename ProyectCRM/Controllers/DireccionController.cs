@@ -20,7 +20,7 @@ namespace ProyectCRM.Models.Controllers
         [HttpGet("detail/{id}")]
         public async Task<ActionResult<DireccionDetailDTO>> GetDireccionWithDetailsAsync(Guid id)
         {
-            var direccionDetail = await _service.GetDireccionWithDetailsAsync(id);
+            var direccionDetail = await _service.GetDireccionCompletoByIdAsync(id);
             if (direccionDetail == null)
                 return NotFound();
             return Ok(direccionDetail);

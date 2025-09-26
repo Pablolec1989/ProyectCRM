@@ -11,6 +11,6 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IDireccionService : IServiceBase<DireccionDTO, DireccionRequestDTO, Direccion>
     {
-        Task<DireccionDetailDTO> GetDireccionWithDetailsAsync(Guid id);
+        Task<DireccionDetailDTO> GetDireccionCompletoByIdAsync(Guid id);
     }
 }

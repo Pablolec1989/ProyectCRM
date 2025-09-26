@@ -31,7 +31,7 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<ClienteDetailDTO> GetByIdWithAllDataAsync(Guid id)
+        public async Task<ClienteDetailDTO> GetClienteCompletoByIdAsync(Guid id)
         {
             var cliente = await _repository.GetByIdWithAllDataAsync(id);
             if (cliente == null)
@@ -54,35 +54,27 @@ namespace ProyectCRM.Models.Service.Services
             return await base.UpdateAsync(id, dto);
         }
 
-
         private async Task ValidateClienteRequest(Guid? id, ClienteRequestDTO dto)
         {
-            // Validar modelo
-            var validationResult = await _validator.ValidateAsync(dto);
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
+            if(id != null)
+            {
+                //Validar existencia de cliente por nombre y apellido
+                var clienteExistente = await _repository.GetClienteByNombreApellidoAsync(id.Value);
+                if (clienteExistente != null)
+                {
+                    if (clienteExistente.Nombre.Equals(dto.Nombre) &&
+                        clienteExistente.Apellido.Equals(dto.Apellido))
+                    {
+                        throw new Exception("Ya existe un cliente con el mismo nombre y apellido");
+                    }
+                }
+            }
+            if(dto.EmpresaId != null)
+            {
+                // Validar que la empresa exista
+                await _repository.EntityExistsAsync(dto.EmpresaId.Value);
+            }
 
-            if (id.HasValue)
-            {
-                var clientExiste = await base.GetByIdAsync(id.Value);
-                if (clientExiste == null)
-                    throw new Exception("El cliente no existe");
-            }
-            else
-            {
-                // Validar que no exista un cliente con el mismo email
-                var clientes = await _repository.GetAllAsync();
-                if (clientes.Any(c => c.Email == dto.Email))
-                    throw new Exception("Ya existe un cliente con ese email");
-            }
-
-            // Validar que la empresa exista
-            if (dto.EmpresaId != null)
-            {
-                var empresa = await _empresaRepository.GetByIdAsync(dto.EmpresaId.Value);
-                if (empresa == null)
-                    throw new Exception("La empresa no existe");
-            }
         }
     }
 }

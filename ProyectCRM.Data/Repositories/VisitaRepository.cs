@@ -54,9 +54,5 @@ namespace ProyectCRM.Models.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<bool> VisitaExists(Guid id)
-        {
-            return await _context.Visitas.AnyAsync(v => v.Id == id);
-        }
     }
 }

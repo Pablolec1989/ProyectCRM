@@ -10,6 +10,6 @@ namespace ProyectCRM.Models.Data.Interfaces
     public interface IEmpresaRepository : IRepositoryBase<Empresa>
     {
         Task<Empresa> GetEmpresaCompletoByIdAsync(Guid id);
-        Task<bool> GetEmpresaByRazonSocial(string razonSocial);
+        Task<bool> GetEmpresaByRazonSocialAsync(string razonSocial);
     }
 }

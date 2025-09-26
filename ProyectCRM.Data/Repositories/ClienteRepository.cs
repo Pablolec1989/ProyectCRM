@@ -42,11 +42,22 @@ namespace ProyectCRM.Models.Data.Repositories
             return cliente;
         }
 
-
         public override async Task<IEnumerable<Cliente>> GetAllAsync()
         {
             return await Clientes().ToListAsync();
         }
 
+        public async Task<Cliente> GetClienteByNombreApellidoAsync(Guid id)
+        {
+            return await _context.Clientes
+                .Where(c => c.Id == id)
+                .Select(c => new Cliente
+                {
+                    Id = c.Id,
+                    Nombre = c.Nombre,
+                    Apellido = c.Apellido
+                })
+                .FirstOrDefaultAsync();
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(ll => ll.AsuntoDeContacto);
         }
 
-        public async Task<Llamado> GetByIdWithRelatedDataAsync(Guid id)
+        public async Task<Llamado> GetLlamadaCompletoByIdAsync(Guid id)
         {
             return await Llamados()
                 .FirstOrDefaultAsync(l => l.Id == id);

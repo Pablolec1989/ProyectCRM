@@ -44,48 +44,27 @@ namespace ProyectCRM.Models.Service.Services
             return _mapper.Map<EmpresaDetailDTO>(empresa);
         }
 
-
-
         public override async Task<EmpresaDTO> CreateAsync(EmpresaRequestDTO dto)
         {
-            await ValidateEmpresaRequest(null, dto);
+            var empresaExists = await _repository.GetEmpresaByRazonSocialAsync(dto.RazonSocial);
+            if (empresaExists)
+                throw new ValidationException($"El rubro no existe.");
 
+            await ValidateEmpresaRequest(null, dto);
             return await base.CreateAsync(dto);
         }
 
         public override async Task<EmpresaDTO> UpdateAsync(Guid id, EmpresaRequestDTO dto)
         {
             await ValidateEmpresaRequest(id, dto);
-
             return await base.UpdateAsync(id, dto);
         }
 
         //Metodos auxiliares
-        private async Task ValidateEmpresaRequest(Guid? id, EmpresaRequestDTO dto)
+        private async Task ValidateEmpresaRequest (Guid? id, EmpresaRequestDTO dto)
         {
-            await EmpresaExists(dto);
-            await RubroExists(dto.RubroId);
-            await CondicionIvaExists(dto.CondicionIvaId);
-        }
-        private async Task EmpresaExists(EmpresaRequestDTO dto)
-        {
-            var empresaExists = await _repository.GetEmpresaByRazonSocial(dto.RazonSocial);
-
-            if (empresaExists)
-                throw new ValidationException($"El rubro no existe.");
-
-        }
-        private async Task RubroExists(Guid rubroId)
-        {
-            var rubroExists = await _rubroRepository.GetByIdAsync(rubroId);
-            if (rubroExists == null)
-                throw new ValidationException($"El rubro no existe.");
-        }
-        private async Task CondicionIvaExists(Guid condicionIvaId)
-        {
-            var condicionIvaExists = await _condicionIvaRepository.GetByIdAsync(condicionIvaId);
-            if (condicionIvaExists == null)
-                throw new ValidationException($"La condicion IVA no existe.");
+            await _repository.EntityExistsAsync(dto.RubroId);
+            await _repository.EntityExistsAsync(dto.CondicionIvaId);
         }
     }
 }

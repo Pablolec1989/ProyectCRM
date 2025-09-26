@@ -9,7 +9,7 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface ILlamadoRepository : IRepositoryBase<Llamado>
     {
-        Task<Llamado> GetByIdWithRelatedDataAsync(Guid id);
+        Task<Llamado> GetLlamadaCompletoByIdAsync(Guid id);
     }
 
 }

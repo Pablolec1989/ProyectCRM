@@ -68,5 +68,12 @@ namespace ProyectCRM.Models.Data
             return existingEntity;
 
         }
+
+        public virtual async Task EntityExistsAsync(Guid id)
+        {
+            var exists = await _context.Set<T>().AnyAsync(e => EF.Property<Guid>(e, "Id") == id);
+            if (!exists)
+                throw new KeyNotFoundException($"{typeof(T).Name} con Id {id} no existe.");
+        }
     }
 }

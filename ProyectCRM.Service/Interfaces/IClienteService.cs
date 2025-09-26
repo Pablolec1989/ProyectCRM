@@ -11,6 +11,6 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IClienteService : IServiceBase<ClienteDTO, ClienteRequestDTO, Cliente>
     {
-        Task<ClienteDetailDTO> GetByIdWithAllDataAsync(Guid id);
+        Task<ClienteDetailDTO> GetClienteCompletoByIdAsync(Guid id);
     }
 }

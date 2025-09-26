@@ -18,7 +18,7 @@ namespace ProyectCRM.Models.Controllers
         [HttpGet("detail/{id}")]
         public async Task<ActionResult<VisitaDetailDTO>> GetByIdVisitaCompletoAsync(Guid id)
         {
-            var visitaDetail = await _service.GetByIdWithRelatedDataAsync(id);
+            var visitaDetail = await _service.GetVisitaCompletoByIdAsync(id);
             if (visitaDetail == null)
             {
                 return NotFound();

@@ -11,5 +11,6 @@ namespace ProyectCRM.Models.Data.Interfaces
     {
         IQueryable<Cliente> Clientes();
         Task<Cliente> GetByIdWithAllDataAsync(Guid id);
+        Task<Cliente> GetClienteByNombreApellidoAsync(Guid id);
     }
 }

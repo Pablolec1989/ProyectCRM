@@ -63,8 +63,11 @@ namespace ProyectCRM.Models.Service.Services
         //Metodos auxiliares
         private async Task ValidateEmpresaRequest (Guid? id, EmpresaRequestDTO dto)
         {
-            await _repository.EntityExistsAsync(dto.RubroId);
-            await _repository.EntityExistsAsync(dto.CondicionIvaId);
+            if (await _repository.EntityExistsAsync(dto.RubroId))
+                    throw new ValidationException($"El rubroId no existe.");
+            
+            if (await _repository.EntityExistsAsync(dto.CondicionIvaId))
+                    throw new ValidationException($"La condicionIvaId no existe.");
         }
     }
 }

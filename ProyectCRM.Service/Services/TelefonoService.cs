@@ -54,20 +54,13 @@ namespace ProyectCRM.Models.Service.Services
         //Metodo aux
         private async Task ValidateTelefonoRequest(Guid? id, TelefonoRequestDTO dto)
         {
-            //Validar Modelo
-            var validationResult = _validator.Validate(dto);
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
-
-            //Validar CLienteId
-            var cliente = await _clienteRepository.GetByIdAsync(dto.ClienteId);
-            if (cliente == null)
-                throw new KeyNotFoundException($"El Cliente con Id {dto.ClienteId} no existe");
+            //Validar ClienteId
+            if(await _repository.EntityExistsAsync(dto.ClienteId))
+                throw new KeyNotFoundException($"El clienteId no existe");
 
             //Validar TipoTelefonoId
-            var tipoTelefono = await _tipoTelefonoRepository.GetByIdAsync(dto.TipoTelefonoId);
-            if (tipoTelefono == null)
-                throw new KeyNotFoundException($"El tipo de telefono con Id: {dto.TipoTelefonoId} no existe");
+            if (await _tipoTelefonoRepository.EntityExistsAsync(dto.TipoTelefonoId))
+                throw new KeyNotFoundException($"El tipoTelefonoId no existe");
 
             //Validar Numero Unico por Cliente
             var existingTelefono = (await _repository.GetAllAsync())

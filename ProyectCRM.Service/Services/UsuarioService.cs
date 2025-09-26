@@ -14,21 +14,15 @@ namespace ProyectCRM.Models.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly IUsuarioRepository _repository;
-        private readonly IAreaRepository _areaRepository;
-        private readonly IRolRepository _rolRepository;
         private readonly IValidator<UsuarioRequestDTO> _validator;
 
         public UsuarioService(IMapper mapper,
             IUsuarioRepository repository,
-            IAreaRepository areaRepository,
-            IRolRepository rolRepository,
             IValidator<UsuarioRequestDTO> validator)
             : base(mapper, repository, validator)
         {
             _mapper = mapper;
             _repository = repository;
-            _areaRepository = areaRepository;
-            _rolRepository = rolRepository;
             _validator = validator;
         }
 
@@ -69,19 +63,13 @@ namespace ProyectCRM.Models.Service.Services
         private async Task ValidateUsuarioRequest(Guid? id, UsuarioRequestDTO dto)
         {
             //Validar AreaId
-            if (dto.AreaId != null)
+            if (dto.AreaId != null && dto.RolId != null)
             {
-                var areaExists = await _areaRepository.AreaExistsAsync(dto.AreaId.Value);
-                if (!areaExists)
-                    throw new KeyNotFoundException($"No se encontró el área con Id {dto.AreaId}");
-            }
+                if(await _repository.EntityExistsAsync(dto.AreaId.Value))
+                    throw new KeyNotFoundException($"El AreaId no existe");
 
-            //Validar RolId
-            if (dto.RolId != null)
-            {
-                var rolExists = await _rolRepository.RolExistsAsync(dto.RolId.Value);
-                if (!rolExists)
-                    throw new KeyNotFoundException($"No se encontró el rol con Id {dto.RolId}");
+                if(await _repository.EntityExistsAsync(dto.RolId.Value))
+                    throw new KeyNotFoundException($"El RolId no existe");
             }
         }
         private string HashPassword(string password)

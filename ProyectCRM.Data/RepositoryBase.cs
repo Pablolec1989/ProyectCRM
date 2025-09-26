@@ -53,7 +53,12 @@ namespace ProyectCRM.Models.Data
 
         public virtual async Task<T> GetByIdAsync(Guid id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            var entityExists = await _context.Set<T>().FindAsync(id);
+            if (entityExists == null)
+            {
+                return null;
+            }
+            return entityExists;
         }
 
         public virtual async Task<T> UpdateAsync(T entity)
@@ -69,11 +74,15 @@ namespace ProyectCRM.Models.Data
 
         }
 
-        public virtual async Task EntityExistsAsync(Guid id)
+        public virtual async Task<bool> EntityExistsAsync(Guid id)
         {
-            var exists = await _context.Set<T>().AnyAsync(e => EF.Property<Guid>(e, "Id") == id);
-            if (!exists)
-                throw new KeyNotFoundException($"{typeof(T).Name} con Id {id} no existe.");
+            var exists = await _context.Set<T>().AnyAsync(e => e.Id == id);
+            if(exists)
+            {
+                return true;
+            }
+            return false;
+
         }
     }
 }

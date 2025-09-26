@@ -16,7 +16,7 @@ namespace ProyectCRM.Models.Controllers
         [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetSeguimientoWithDetailsAsync(Guid id)
         {
-            var seguimientoDetail = await _service.GetSeguimientoWithDetailsAsync(id);
+            var seguimientoDetail = await _service.GetSeguimientoCompletoByIdAsync(id);
             if (seguimientoDetail == null)
             {
                 return NotFound();

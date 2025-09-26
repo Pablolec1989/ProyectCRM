@@ -22,7 +22,6 @@ namespace ProyectCRM.Models.Service.Services
     public class ArchivoService : ServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>, IArchivoService
     {
         private readonly IArchivoRepository _repository;
-        private readonly IVisitaRepository _visitaRepository;
         private readonly IValidator<ArchivoRequestDTO> _validator;
         private readonly IFileStorageService _fileStorageService;
         private readonly IMapper _mapper;
@@ -36,7 +35,6 @@ namespace ProyectCRM.Models.Service.Services
             : base(mapper, repository, validator)
         {
             _repository = repository;
-            _visitaRepository = visitaRepository;
             _validator = validator;
             _fileStorageService = fileStorageService;
             _mapper = mapper;
@@ -80,7 +78,8 @@ namespace ProyectCRM.Models.Service.Services
                 throw new ValidationException(validationResult.Errors);
 
             //Validar que la visita exista
-            await _repository.EntityExistsAsync(dto.VisitaId);
+            if (await _repository.EntityExistsAsync(dto.VisitaId))
+                throw new InvalidOperationException("La visita no existe.");
 
         }
     }

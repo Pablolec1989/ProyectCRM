@@ -14,6 +14,6 @@ namespace ProyectCRM.Models.Interfaces
         Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync();
         Task<ActionResult<TDTO>> CreateAsync(TRequestDTO dto);
         Task<ActionResult<TDTO>> UpdateAsync(Guid id, TRequestDTO dto);
-        Task<ActionResult> DeleteAsync(Guid id);
+        Task<IActionResult> DeleteAsync(Guid id);
     }
 }

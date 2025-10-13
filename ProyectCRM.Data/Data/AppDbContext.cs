@@ -61,10 +61,21 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
 
-            entity.HasMany(e => e.Llamados).WithOne(l => l.Area).HasForeignKey(l => l.AreaId);
-            entity.HasMany(e => e.Mails).WithOne(m => m.Area).HasForeignKey(m => m.AreaId);
-            entity.HasMany(e => e.Seguimientos).WithOne(s => s.Area).HasForeignKey(s => s.AreaId);
-            entity.HasMany(e => e.Usuarios).WithOne(u => u.Area).HasForeignKey(u => u.AreaId);
+            entity.HasMany(e => e.Llamados).WithOne(l => l.Area)
+            .HasForeignKey(l => l.AreaId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+            entity.HasMany(e => e.Mails).WithOne(m => m.Area)
+            .HasForeignKey(m => m.AreaId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+            
+            entity.HasMany(e => e.Seguimientos).WithOne(s => s.Area)
+            .HasForeignKey(s => s.AreaId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+            entity.HasMany(e => e.Usuarios).WithOne(u => u.Area)
+            .HasForeignKey(u => u.AreaId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         });
 
@@ -146,22 +157,22 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.Area).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.AreaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_Areas");
 
             entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.AsuntoDeContactoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_AsuntosDeContacto");
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.ClienteId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_Clientes");
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.UsuarioId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_Usuarios");
         });
 
@@ -173,6 +184,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(m => m.Area).WithMany(a => a.Mails)
                 .HasForeignKey(m => m.AreaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Mails_Areas");
 
             entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Mail)
@@ -206,15 +218,20 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Detalle).HasMaxLength(300);
             entity.Property(e => e.Titulo).HasMaxLength(50);
 
-            entity.HasOne(d => d.Area).WithMany(p => p.Seguimientos)
+            entity.HasOne(d => d.Area)
+                .WithMany(p => p.Seguimientos)
                 .HasForeignKey(d => d.AreaId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Seguimientos_Areas");
 
-            entity.HasOne(d => d.Cliente).WithMany(p => p.Seguimientos)
-                .HasForeignKey(d => d.ClienteId)
-                .HasConstraintName("FK_Seguimientos_Clientes");
+            entity.HasOne(s => s.Area)
+                .WithMany(a => a.Seguimientos)
+                .HasForeignKey(s => s.AreaId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Seguimientos_Areas");
 
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Seguimientos)
+            entity.HasOne(d => d.Usuario)
+                .WithMany(p => p.Seguimientos)
                 .HasForeignKey(d => d.UsuarioId)
                 .HasConstraintName("FK_Seguimientos_Usuarios");
         });

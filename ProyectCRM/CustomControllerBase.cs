@@ -38,7 +38,7 @@ namespace ProyectCRM.Models
         }
 
         [HttpDelete("{id:Guid}")]
-        public virtual async Task<ActionResult> DeleteAsync(Guid id)
+        public virtual async Task<IActionResult> DeleteAsync(Guid id)
         {
             var result = await _serviceBase.DeleteAsync(id);
             if (result)

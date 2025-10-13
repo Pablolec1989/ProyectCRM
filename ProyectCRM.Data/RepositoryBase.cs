@@ -29,20 +29,29 @@ namespace ProyectCRM.Models.Data
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error creating entity: {ex.Message}", ex);
+                throw new Exception($"Error en la creacion {ex.Message}", ex);
             }
         }
 
         public virtual async Task<bool> DeleteAsync(Guid id)
         {
-            var entity = await _context.Set<T>().FindAsync(id);
-            if(entity == null)
+            try
             {
-                return false;
+                var entity = await _context.Set<T>().FindAsync(id);
+                if (entity == null)
+                    return false;
+                
+                _context.Set<T>().Remove(entity);
+                await _context.SaveChangesAsync();
+                return true;
             }
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
-            return true;
+            
+            catch (Exception ex)
+            {
+
+                throw new Exception($"Error al eliminar {ex.Message}", ex);
+            }
+            
 
         }
 
@@ -53,24 +62,39 @@ namespace ProyectCRM.Models.Data
 
         public virtual async Task<T> GetByIdAsync(Guid id)
         {
-            var entityExists = await _context.Set<T>().FindAsync(id);
-            if (entityExists == null)
+            try
             {
-                return null;
+                var entityExists = await _context.Set<T>().FindAsync(id);
+                if (entityExists == null)
+                {
+                    return null;
+                }
+                return entityExists;
             }
-            return entityExists;
+            catch (Exception ex)
+            {
+                throw new Exception($"Error en la creacion {ex.Message}", ex);
+            }
         }
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            var existingEntity = await _context.Set<T>().FindAsync(entity.Id);
-            if (existingEntity == null)
+            try
             {
-                return null;
+                var existingEntity = await _context.Set<T>().FindAsync(entity.Id);
+                if (existingEntity == null)
+                {
+                    return null;
+                }
+                _context.Entry(existingEntity).CurrentValues.SetValues(entity);
+                await _context.SaveChangesAsync();
+                return existingEntity;
             }
-            _context.Entry(existingEntity).CurrentValues.SetValues(entity);
-            await _context.SaveChangesAsync();
-            return existingEntity;
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar {ex.Message}", ex);
+            }
+
 
         }
 

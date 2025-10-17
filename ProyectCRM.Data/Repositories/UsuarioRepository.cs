@@ -21,7 +21,6 @@ namespace ProyectCRM.Models.Data.Repositories
         public IQueryable<Usuario> Usuarios()
         {
             return _context.Usuarios
-                .Include(u => u.Rol)
                 .Include(u => u.Area);
 ;
         }

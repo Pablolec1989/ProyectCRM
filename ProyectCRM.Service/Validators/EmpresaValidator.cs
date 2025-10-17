@@ -19,8 +19,6 @@ namespace ProyectCRM.Models.Service.Validators
 
             RuleFor(e => e.RubroId)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
-            RuleFor(e => e.CondicionIvaId)
-                .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
 
             RuleFor(e => e.CondicionIvaId)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);

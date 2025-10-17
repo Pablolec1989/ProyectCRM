@@ -30,8 +30,6 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(m => m.Cliente)
                     .ThenInclude(c => c.Empresa)
                 .Include(m => m.Usuario)
-                    .ThenInclude(u => u.Rol)
-                .Include(m => m.Usuario)
                     .ThenInclude(u => u.Area)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }

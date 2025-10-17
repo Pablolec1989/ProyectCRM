@@ -25,9 +25,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(s => s.Cliente)
                     .ThenInclude(c => c.Empresa)
                 .Include(s => s.Usuario)
-                    .ThenInclude(u => u.Area)
-                .Include(s => s.Usuario)
-                    .ThenInclude(u => u.Rol);
+                    .ThenInclude(u => u.Area);
         }
 
         public async Task<Seguimiento> GetSeguimientoCompletoRepositoryByIdAsync(Guid id)

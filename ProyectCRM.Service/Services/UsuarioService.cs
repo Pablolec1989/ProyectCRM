@@ -41,7 +41,6 @@ namespace ProyectCRM.Models.Service.Services
             await ValidateUsuarioRequest(null, dto);
 
             var usuarioToCreate = _mapper.Map<Usuario>(dto);
-            usuarioToCreate.Password = HashPassword(dto.Password);
 
             // Paso 2: Crear el usuario en el repositorio
             var createdUser = await _repository.CreateAsync(usuarioToCreate);
@@ -63,13 +62,10 @@ namespace ProyectCRM.Models.Service.Services
         private async Task ValidateUsuarioRequest(Guid? id, UsuarioRequestDTO dto)
         {
             //Validar AreaId
-            if (dto.AreaId != null && dto.RolId != null)
+            if (dto.AreaId != null)
             {
                 if(await _repository.EntityExistsAsync(dto.AreaId.Value))
                     throw new KeyNotFoundException($"El AreaId no existe");
-
-                if(await _repository.EntityExistsAsync(dto.RolId.Value))
-                    throw new KeyNotFoundException($"El RolId no existe");
             }
         }
         private string HashPassword(string password)

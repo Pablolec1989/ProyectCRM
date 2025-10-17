@@ -26,7 +26,6 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<IEmpresaService, EmpresaService>();
             services.AddScoped<ILlamadoService, LlamadoService>();
             services.AddScoped<IMailService, MailService>();
-            services.AddScoped<IRolService, RolService>();
             services.AddScoped<IRubroService, RubroService>();
             services.AddScoped<ISeguimientoService, SeguimientoService>();
             services.AddScoped<ITelefonoService, TelefonoService>();

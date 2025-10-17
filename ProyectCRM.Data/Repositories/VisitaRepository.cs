@@ -34,9 +34,6 @@ namespace ProyectCRM.Models.Data.Repositories
             return await Visitas()
                 .Include(v => v.VisitasUsuarios)
                     .ThenInclude(vu => vu.Usuario)
-                        .ThenInclude(u => u.Rol)
-                .Include(v => v.VisitasUsuarios)
-                    .ThenInclude(vu => vu.Usuario)
                         .ThenInclude(u => u.Area)
                 .Include(v => v.Archivos)
                 .FirstOrDefaultAsync(v => v.Id == id);

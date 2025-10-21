@@ -4,6 +4,7 @@ using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IEmpresaService : IServiceBase<EmpresaDTO, EmpresaRequestDTO, Empresa>
     {
-        Task<EmpresaDetailDTO> GetEmpresaCompletoByIdAsync(Guid id);
+        Task<EmpresaDetailDTO> GetEmpresaDetailDTOAsync(Guid id);
+        Task<IEnumerable<EmpresaDTO>> GetAsync(Expression<Func<Empresa, bool>>? predicate = null);
     }
 }

@@ -3,6 +3,7 @@ using MapsterMapper;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProyectCRM.Models.Data.Interfaces;
+using ProyectCRM.Models.Data.Repositories;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
@@ -10,6 +11,7 @@ using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,9 +38,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<EmpresaDetailDTO> GetEmpresaCompletoByIdAsync(Guid id)
+        public async Task<EmpresaDetailDTO> GetEmpresaDetailDTOAsync(Guid id)
         {
-            var empresa = await _repository.GetEmpresaCompletoByIdAsync(id);
+            var empresa = await _repository.GetEmpresaDetailDTOAsync(id);
             if (empresa == null)
                 throw new KeyNotFoundException($"La empresa con Id {id} no fue encontrada.");
             return _mapper.Map<EmpresaDetailDTO>(empresa);
@@ -68,6 +70,16 @@ namespace ProyectCRM.Models.Service.Services
             
             if (await _repository.EntityExistsAsync(dto.CondicionIvaId))
                     throw new ValidationException($"La condicionIvaId no existe.");
+        }
+
+        public async Task<IEnumerable<EmpresaDTO>> GetAsync(Expression<Func<Empresa, bool>>? predicate = null)
+        {
+            var empresas = await _repository.GetAsync(predicate);
+            return empresas.Select(e => new EmpresaDTO
+            {
+                Id = e.Id,
+                RazonSocial = e.RazonSocial
+            });
         }
     }
 }

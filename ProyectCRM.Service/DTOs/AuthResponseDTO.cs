@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class RegisterDTO
+    public class AuthResponseDTO
     {
-        public string Apellido { get; set; }
-        public string Password { get; set; }
-        public Guid RolId { get; set; }
+        public string Token { get; set; }
+        public DateTime ExpirationDate { get; set; }
     }
 }

@@ -7,6 +7,5 @@ namespace ProyectCRM.Models.Entities;
 public partial class TiposTelefono : EntityBase
 {
     public string Nombre { get; set; } = null!;
-
     public virtual ICollection<Telefono> TelefonosClientes { get; set; } = new List<Telefono>();
 }

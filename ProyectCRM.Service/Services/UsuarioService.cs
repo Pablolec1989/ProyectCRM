@@ -26,9 +26,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<UsuarioDetailDTO> GetUsuarioCompletoByIdAsync(Guid id)
+        public async Task<UsuarioDetailDTO> GetUserDetailAsync(Guid id)
         {
-            var usuario = await _repository.GetUsuarioCompletoByIdAsync(id);
+            var usuario = await _repository.GetUserDetailAsync(id);
             if (usuario == null)
                 throw new KeyNotFoundException($"No se encontró el usuario con Id {id}");
 
@@ -51,12 +51,6 @@ namespace ProyectCRM.Models.Service.Services
 
             // Paso 4: Mapear la entidad completa a un DTO para la respuesta
             return _mapper.Map<UsuarioDTO>(usuarioCompleto);
-        }
-
-        public override async Task<UsuarioDTO> UpdateAsync(Guid id, UsuarioRequestDTO dto)
-        {
-            await ValidateUsuarioRequest(id, dto);
-            return await base.UpdateAsync(id, dto);
         }
 
         //Metodos auxiliares

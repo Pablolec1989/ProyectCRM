@@ -11,6 +11,6 @@ namespace ProyectCRM.Models.Data.Interfaces
     {
         Task<bool> GetUsuarioByNombreYApellidoAsync(string nombre, string apellido);
         Task<List<Guid>> GetExistingUserIdsAsync(List<Guid> ids);
-        Task<Usuario> GetUsuarioCompletoByIdAsync(Guid id);
+        Task<Usuario> GetUserDetailAsync(Guid id);
     }
 }

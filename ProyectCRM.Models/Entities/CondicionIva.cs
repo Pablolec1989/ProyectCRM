@@ -8,5 +8,5 @@ public partial class CondicionIva : EntityBase
 {
     public string? Nombre { get; set; }
 
-    public virtual ICollection<Empresa> Empresas { get; set; } = new List<Empresa>();
+    public virtual ICollection<Empresa?> Empresas { get; set; }
 }

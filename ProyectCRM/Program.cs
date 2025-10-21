@@ -1,9 +1,11 @@
 using Mapster;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Service.DependencyInjectionServices;
 using ProyectCRM.Models.Service.Mappers;
 using ProyectCRM.Service.Utils;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,11 +27,24 @@ builder.Services.AddCors(options => {
                           .AllowAnyHeader());
 });
 
+//Servicio JWT
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
+    options.MapInboundClaims = false;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["KeyJwt"]!)),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 // With this line:
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 

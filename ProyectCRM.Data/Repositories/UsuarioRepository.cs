@@ -27,7 +27,7 @@ namespace ProyectCRM.Models.Data.Repositories
         }
 
         //Metodo especifico para mostrar toda la informacion del usuario
-        public async Task<Usuario> GetUsuarioCompletoByIdAsync(Guid id)
+        public async Task<Usuario> GetUserDetailAsync(Guid id)
         {
             return await Usuarios()
                 .Include(u => u.Llamados)
@@ -63,14 +63,10 @@ namespace ProyectCRM.Models.Data.Repositories
             return await _context.Usuarios
                 .AnyAsync(u => u.Nombre == nombre && u.Apellido == apellido);
         }
-        public async Task<List<Guid>> GetExistingUserIdsAsync(List<Guid> ids)
+
+        public Task<List<Guid>> GetExistingUserIdsAsync(List<Guid> ids)
         {
-            return await _context.Usuarios
-                .Where(u => ids.Contains(u.Id))
-                .Select(u => u.Id)
-                .ToListAsync();
+            throw new NotImplementedException();
         }
-
-
     }
 }

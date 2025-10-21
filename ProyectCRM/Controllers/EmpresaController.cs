@@ -17,12 +17,19 @@ namespace ProyectCRM.Models.Controllers
         [HttpGet("detail/{id}")]
         public async Task<ActionResult<EmpresaDetailDTO>> GetEmpresaCompletoByIdAsync(Guid id)
         {
-            var empresaDetail = await _service.GetEmpresaCompletoByIdAsync(id);
-            if(empresaDetail == null)
+            var empresaDetail = await _service.GetEmpresaDetailDTOAsync(id);
+            if (empresaDetail == null)
             {
                 return NotFound($"La empresa con Id {id} no fue encontrada.");
             }
             return Ok(empresaDetail);
+        }
+
+        [HttpGet("search/{params}")]
+        public async Task<ActionResult<IEnumerable<EmpresaDTO>>> GetEmpresasByFilterAsync([FromQuery] string? razonSocial, [FromQuery] string? cuit)
+        {
+            return Ok(await _service.GetAsync());
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ProyectCRM.Models.Controllers
             _service = service;
         }
 
-        
+
         [HttpGet("detail/{id}")]
         public async Task<ActionResult<UsuarioDetailDTO>> GetUserDetailAsync([FromRoute][Required] Guid id)
         {
@@ -33,6 +33,17 @@ namespace ProyectCRM.Models.Controllers
             return Ok(usuarioDetail);
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<LoginResponseDTO>> LoginAsync([FromBody] LoginRequestDTO loginRequestDTO)
+        {
+            var loginResponse = await _service.LoginAsync(loginRequestDTO);
+            if (loginResponse == null)
+            {
+                return Unauthorized("Credenciales inválidas.");
+            }
+            return Ok(loginResponse);
 
+
+        }
     }
 }

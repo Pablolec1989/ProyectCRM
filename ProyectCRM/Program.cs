@@ -42,7 +42,6 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 
-// With this line:
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

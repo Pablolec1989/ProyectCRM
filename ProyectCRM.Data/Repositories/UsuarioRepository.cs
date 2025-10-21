@@ -26,7 +26,6 @@ namespace ProyectCRM.Models.Data.Repositories
 ;
         }
 
-        //Metodo especifico para mostrar toda la informacion del usuario
         public async Task<Usuario> GetUserDetailAsync(Guid id)
         {
             return await Usuarios()
@@ -51,6 +50,7 @@ namespace ProyectCRM.Models.Data.Repositories
             return await Usuarios()
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
+
         public override async Task<IEnumerable<Usuario>> GetAllAsync()
         {
             return await Usuarios()
@@ -64,9 +64,25 @@ namespace ProyectCRM.Models.Data.Repositories
                 .AnyAsync(u => u.Nombre == nombre && u.Apellido == apellido);
         }
 
-        public Task<List<Guid>> GetExistingUserIdsAsync(List<Guid> ids)
+        public async Task<Usuario> GetUserByApellidoAsync(string apellido)
         {
-            throw new NotImplementedException();
+
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Apellido == apellido);
+
+            if (usuario == null)
+                throw new Exception("Usuario inexistente");
+
+            return usuario;
+        }
+
+        public async Task<List<Guid>> GetExistingUserIdsAsync(IEnumerable<Guid> ids)
+        {
+            return await _context.Usuarios
+                .Where(u => ids.Contains(u.Id))
+                .Select(u => u.Id)
+                .ToListAsync();
+
         }
     }
 }

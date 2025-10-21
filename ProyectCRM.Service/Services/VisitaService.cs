@@ -101,7 +101,7 @@ namespace ProyectCRM.Models.Service.Services
             var direccion = await _direccionRepository.GetByIdAsync(dto.DireccionId);
             if (direccion == null || direccion.ClienteId != dto.ClienteId)
             {
-                throw new ValidationException("La dirección no existe y/o no corresponde al cliente proporcionado.");
+                throw new ValidationException("La dirección no existe y/o no corresponde al cliente");
             }
 
             // Validación de la existencia de UsuariosIds

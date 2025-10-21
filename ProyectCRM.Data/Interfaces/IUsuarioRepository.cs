@@ -10,7 +10,8 @@ namespace ProyectCRM.Models.Data.Interfaces
     public interface IUsuarioRepository : IRepositoryBase<Usuario>
     {
         Task<bool> GetUsuarioByNombreYApellidoAsync(string nombre, string apellido);
-        Task<List<Guid>> GetExistingUserIdsAsync(List<Guid> ids);
         Task<Usuario> GetUserDetailAsync(Guid id);
+        Task<Usuario> GetUserByApellidoAsync(string apellido);
+        Task<List<Guid>> GetExistingUserIdsAsync(IEnumerable<Guid> userIds);
     }
 }

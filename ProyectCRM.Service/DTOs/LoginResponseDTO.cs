@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class UsuarioAuthResponseDTO
+    public class LoginResponseDTO
     {
-        public required string Token { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public string Token { get; set; }
+        public DateTime FechaExpiracion { get; set; }
     }
 }

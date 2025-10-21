@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class UsuarioCredentialsDTO
+    public class LoginRequestDTO
     {
         public string Apellido { get; set; }
         public string Password { get; set; }

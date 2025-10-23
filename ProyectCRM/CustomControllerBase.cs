@@ -4,6 +4,10 @@ using ProyectCRM.Models.Interfaces;
 using ProyectCRM.Models.Entities.Abstractions;
 using ProyectCRM.Models.Service;
 using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Utils;
+using ProyectCRM.Models.SharedDTO;
+using ProyectCRM.Utils;
 
 namespace ProyectCRM.Models
 {
@@ -22,6 +26,7 @@ namespace ProyectCRM.Models
             _serviceBase = serviceBase;
         }
 
+
         [HttpPost]
         public virtual async Task<ActionResult<TDTO>> CreateAsync([FromBody] TRequestDTO dto)
         {
@@ -37,6 +42,7 @@ namespace ProyectCRM.Models
             return Ok(createdDto);
         }
 
+
         [HttpDelete("{id:Guid}")]
         public virtual async Task<IActionResult> DeleteAsync(Guid id)
         {
@@ -48,16 +54,21 @@ namespace ProyectCRM.Models
             return NotFound();
         }
 
+
         [HttpGet]
-        public virtual async Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync()
+        public virtual async Task<ActionResult<IEnumerable<TDTO>>> SearchPaginated([FromQuery] PaginationDTO pagination)
         {
-            var dtos = await _serviceBase.GetAllAsync();
+            var dtos = await _serviceBase.SearchPaginated(pagination);
+
+            HttpContext.InsertarParametrosPaginacionEnCabecera<TDTO>(dtos.Count());
+
             if (dtos == null)
             {
                 return NotFound();
             }
             return Ok(dtos);
         }
+
 
         [HttpGet("{id:Guid}")]
         public virtual async Task<ActionResult<TDTO>> GetByIdAsync(Guid id)
@@ -69,6 +80,7 @@ namespace ProyectCRM.Models
             }
             return Ok(dto);
         }
+
 
         [HttpPut("{id:Guid}")]
         public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TRequestDTO dto)

@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Models.Service.Services;
+using ProyectCRM.Models.SharedDTO;
 using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Utils;
 
 namespace ProyectCRM.Models.Controllers
 {
@@ -25,11 +29,17 @@ namespace ProyectCRM.Models.Controllers
             return Ok(empresaDetail);
         }
 
-        [HttpGet("search/{params}")]
-        public async Task<ActionResult<IEnumerable<EmpresaDTO>>> GetEmpresasByFilterAsync([FromQuery] string? razonSocial, [FromQuery] string? cuit)
+        [HttpGet("paged")]
+        public async Task<ActionResult> GetAll([FromQuery] PaginationDTO pagination)
         {
-            return Ok(await _service.GetAsync());
+            var result = await _service.GetAllPaged(pagination);
 
+            if(result == null || !result.Any())
+            {
+                return NotFound("No se encontraron empresas.");
+            }
+            return Ok(result);
         }
+
     }
 }

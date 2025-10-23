@@ -4,6 +4,7 @@ using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Models.SharedDTO;
 using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM.Models.Service.Services
@@ -28,9 +29,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public override async Task<IEnumerable<LlamadaDTO>> GetAllAsync()
+        public override async Task<IEnumerable<LlamadaDTO>> SearchPaginated(PaginationDTO pagination)
         {
-            var llamados = await _repository.GetAllAsync();
+            var llamados = await _repository.SearchPaginated(pagination);
             return _mapper.Map<IEnumerable<LlamadaDTO>>(llamados);
         }
 

@@ -4,6 +4,8 @@ using MapsterMapper;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Entities.Abstractions;
 using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.SharedDTO;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -45,9 +47,9 @@ namespace ProyectCRM.Models.Service
             return await _repository.DeleteAsync(id);
         }
 
-        public virtual async Task<IEnumerable<TDTO>> GetAllAsync()
+        public virtual async Task<IEnumerable<TDTO>> SearchPaginated(PaginationDTO pagination)
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.SearchPaginated(pagination);
             return _mapper.Map<IEnumerable<TDTO>>(entities);
         }
 

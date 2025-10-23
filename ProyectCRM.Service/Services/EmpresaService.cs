@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -7,6 +8,7 @@ using ProyectCRM.Models.Data.Repositories;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Models.SharedDTO;
 using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
@@ -42,7 +44,7 @@ namespace ProyectCRM.Models.Service.Services
         {
             var empresa = await _repository.GetEmpresaDetailDTOAsync(id);
             if (empresa == null)
-                throw new KeyNotFoundException($"La empresa con Id {id} no fue encontrada.");
+                throw new KeyNotFoundException($"La empresa no fue encontrada.");
             return _mapper.Map<EmpresaDetailDTO>(empresa);
         }
 
@@ -72,14 +74,11 @@ namespace ProyectCRM.Models.Service.Services
                     throw new ValidationException($"La condicionIvaId no existe.");
         }
 
-        public async Task<IEnumerable<EmpresaDTO>> GetAsync(Expression<Func<Empresa, bool>>? predicate = null)
+        public async Task<IEnumerable<EmpresaDTO>> GetAllPaged(PaginationDTO pagination)
         {
-            var empresas = await _repository.GetAsync(predicate);
-            return empresas.Select(e => new EmpresaDTO
-            {
-                Id = e.Id,
-                RazonSocial = e.RazonSocial
-            });
+            var entities = await _repository.GetAllPaged(pagination);
+            return _mapper.Map<IEnumerable<EmpresaDTO>>(entities);
+
         }
     }
 }

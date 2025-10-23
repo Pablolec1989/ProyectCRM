@@ -62,9 +62,6 @@ namespace ProyectCRM.Models.Service.Services
             if (await _tipoTelefonoRepository.EntityExistsAsync(dto.TipoTelefonoId))
                 throw new KeyNotFoundException($"El tipoTelefonoId no existe");
 
-            //Validar Numero Unico por Cliente
-            var existingTelefono = (await _repository.GetAllAsync())
-                .FirstOrDefault(t => t.Numero == dto.Numero && t.ClienteId == dto.ClienteId && t.Id != id);
 
         }
     }

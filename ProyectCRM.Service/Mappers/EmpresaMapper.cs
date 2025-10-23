@@ -23,14 +23,12 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.RazonSocial, src => src.RazonSocial)
                 .Map(dest => dest.Cuit, src => src.Cuit)
-                .Map(dest => dest.Cuil, src => src.Cuil)
                 .Map(dest => dest.CondicionIva, src => src.CondicionIva.Adapt<CondicionIvaDTO>())
                 .Map(dest => dest.Rubro, src => src.Rubro.Adapt<RubroDTO>());
 
             TypeAdapterConfig<EmpresaRequestDTO, Empresa>.NewConfig()
                 .Map(dest => dest.RazonSocial, src => src.RazonSocial)
                 .Map(dest => dest.Cuit, src => src.Cuit)
-                .Map(dest => dest.Cuil, src => src.Cuil)
                 .Map(dest => dest.RubroId, src => src.RubroId)
                 .Map(dest => dest.CondicionIvaId, src => src.CondicionIvaId);
         }

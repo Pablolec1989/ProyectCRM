@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using ProyectCRM.Models.Entities.Abstractions;
 using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.SharedDTO;
+using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM.Models.Interfaces
 {
@@ -11,7 +13,7 @@ namespace ProyectCRM.Models.Interfaces
         where TEntity : EntityBase
     {
         Task<ActionResult<TDTO>> GetByIdAsync(Guid id);
-        Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync();
+        Task<ActionResult<IEnumerable<TDTO>>> SearchPaginated([FromQuery] PaginationDTO pagination);
         Task<ActionResult<TDTO>> CreateAsync(TRequestDTO dto);
         Task<ActionResult<TDTO>> UpdateAsync(Guid id, TRequestDTO dto);
         Task<IActionResult> DeleteAsync(Guid id);

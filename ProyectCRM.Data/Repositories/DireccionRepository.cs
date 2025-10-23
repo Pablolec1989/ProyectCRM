@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(d => d.TipoDireccion);
         }
 
-        public override async Task<IEnumerable<Direccion>> GetAllAsync()
+        public override async Task<IEnumerable<Direccion>> SearchPaginated(PaginationDTO pagination)
         {
             return await Direcciones().ToListAsync();
 

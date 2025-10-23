@@ -10,7 +10,6 @@ namespace ProyectCRM.Service.DTOs
     public class EmpresaDetailDTO : EmpresaDTO
     {
         public string Cuit { get; set; }
-        public string Cuil { get; set; }
         public RubroDTO Rubro { get; set; }
         public CondicionIvaDTO CondicionIva { get; set; }
 

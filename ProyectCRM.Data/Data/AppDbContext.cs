@@ -131,9 +131,6 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<Empresa>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.Cuil)
-                .HasMaxLength(50)
-                .HasColumnName("CUIL");
             entity.Property(e => e.Cuit)
                 .HasMaxLength(50)
                 .HasColumnName("CUIT");

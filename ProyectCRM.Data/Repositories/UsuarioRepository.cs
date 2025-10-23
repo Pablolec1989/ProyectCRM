@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProyectCRM.Data.Utils;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,6 @@ namespace ProyectCRM.Models.Data.Repositories
             return _context.Usuarios
                 .Include(u => u.Rol)
                 .Include(u => u.Area);
-;
         }
 
         public async Task<Usuario> GetUserDetailAsync(Guid id)
@@ -51,9 +52,10 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public override async Task<IEnumerable<Usuario>> GetAllAsync()
+        public override async Task<IEnumerable<Usuario>> SearchPaginated(PaginationDTO pagination)
         {
             return await Usuarios()
+                .Paginate(pagination)
                 .ToListAsync();
         }
 

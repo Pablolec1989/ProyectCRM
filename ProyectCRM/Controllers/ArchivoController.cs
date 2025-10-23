@@ -5,6 +5,7 @@ using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Services;
+using ProyectCRM.Models.SharedDTO;
 using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM.Models.Controllers
@@ -38,9 +39,9 @@ namespace ProyectCRM.Models.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync([FromQuery] PaginationDTO pagination)
         {
-            var archivos = await _service.GetAllAsync();
+            var archivos = await _service.SearchPaginated(pagination);
             return Ok(archivos);
         }
 

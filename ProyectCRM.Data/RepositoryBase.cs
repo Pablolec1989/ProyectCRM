@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProyectCRM.Data.Utils;
 using ProyectCRM.Models.Entities.Abstractions;
+using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,11 @@ namespace ProyectCRM.Models.Data
         public RepositoryBase(AppDbContext context)
         {
             _context = context;
+        }
+
+        public IQueryable<T> Query()
+        {
+            return _context.Set<T>().AsQueryable();
         }
 
         public virtual async Task<T> CreateAsync(T entity)
@@ -55,9 +62,11 @@ namespace ProyectCRM.Models.Data
 
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> SearchPaginated(PaginationDTO pagination)
         {
-            return await _context.Set<T>().ToListAsync();
+            return await Query()
+                .Paginate(pagination)
+                .ToListAsync();
         }
 
         public virtual async Task<T> GetByIdAsync(Guid id)

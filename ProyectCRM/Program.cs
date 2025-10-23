@@ -1,4 +1,5 @@
 using Mapster;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using ProyectCRM.Models.Data;
@@ -20,11 +21,15 @@ MappersDependencyInjection.AddMappers(builder.Services);
 
 
 //CORS Config
-builder.Services.AddCors(options => {
-    options.AddPolicy("AllowAll",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
+builder.Services.AddCors(options => 
+{
+    options.AddDefaultPolicy(corsOptions =>
+    {
+        corsOptions.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .WithExposedHeaders("cantidadTotalRegistros");
+    });
 });
 
 //Servicio JWT

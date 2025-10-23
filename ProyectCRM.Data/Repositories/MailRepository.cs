@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public override async Task<IEnumerable<Mail>> GetAllAsync()
+        public override async Task<IEnumerable<Mail>> SearchPaginated(PaginationDTO pagination)
         {
             return await Mails()
                 .ToListAsync();

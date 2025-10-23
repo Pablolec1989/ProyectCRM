@@ -19,7 +19,6 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<CondicionIvaMapper>();
             services.AddScoped<RubroMapper>();
             services.AddScoped<AsuntoDeContactoMapper>();
-            services.AddScoped<RolMapper>();
             services.AddScoped<ClienteMapper>();
             services.AddScoped<DireccionMapper>();
             services.AddScoped<EmpresaMapper>();
@@ -45,7 +44,6 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             new CondicionIvaMapper().RegisterMappings();
             new RubroMapper().RegisterMappings();
             new AsuntoDeContactoMapper().RegisterMappings();
-            new RolMapper().RegisterMappings();
             new ClienteMapper().RegisterMappings();
             new DireccionMapper().RegisterMappings();
             new EmpresaMapper().RegisterMappings();

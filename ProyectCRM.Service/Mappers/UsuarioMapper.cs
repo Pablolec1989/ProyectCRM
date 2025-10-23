@@ -19,7 +19,6 @@ namespace ProyectCRM.Models.Service.Mappers
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
-                .Map(dest => dest.Rol, src => src.Rol.Adapt<RolDTO>())
                 .Map(dest => dest.Area, src => src.Area.Adapt<AreaDTO>());
 
             TypeAdapterConfig<Usuario, UsuarioDetailDTO>.NewConfig()
@@ -34,8 +33,7 @@ namespace ProyectCRM.Models.Service.Mappers
             TypeAdapterConfig<UsuarioRequestDTO, Usuario>.NewConfig()
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .Map(dest => dest.Apellido, src => src.Apellido)
-                .Map(dest => dest.AreaId, src => src.AreaId)
-                .Map(dest => dest.RolId, src => src.RolId);
+                .Map(dest => dest.AreaId, src => src.AreaId);
         }
         
     }

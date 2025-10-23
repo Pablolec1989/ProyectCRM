@@ -30,8 +30,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Mail> Mails { get; set; }
 
-    public virtual DbSet<Rol> Roles { get; set; }
-
     public virtual DbSet<Rubro> Rubros { get; set; }
 
     public virtual DbSet<Seguimiento> Seguimientos { get; set; }
@@ -135,6 +133,7 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("CUIT");
             entity.Property(e => e.CondicionIvaId).HasColumnName("CondicionIva");
+            
             entity.Property(e => e.RazonSocial).HasMaxLength(200);
 
             entity.HasOne(d => d.CondicionIva).WithMany(p => p.Empresas)
@@ -195,12 +194,6 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Usuario).WithMany(p => p.Mails)
                 .HasForeignKey(d => d.UsuarioId)
                 .HasConstraintName("FK_Mails_UsuarioDestino");
-        });
-
-        modelBuilder.Entity<Rol>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Rubro>(entity =>
@@ -270,15 +263,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Apellido).HasMaxLength(50);
             entity.Property(e => e.Nombre).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
 
             entity.HasOne(d => d.Area).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.AreaId)
                 .HasConstraintName("FK_Usuarios_Areas");
-
-            entity.HasOne(d => d.Rol).WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.RolId)
-                .HasConstraintName("FK_Usuarios_Roles");
         });
 
         modelBuilder.Entity<Visita>(entity =>

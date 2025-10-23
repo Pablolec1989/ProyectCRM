@@ -53,7 +53,6 @@ namespace ProyectCRM.Models.Service.Services
             await ValidateUsuarioRequest(null, dto);
 
             var usuarioToCreate = _mapper.Map<Usuario>(dto);
-            usuarioToCreate.Password = HashPassword(dto.Password);
 
             var createdUser = await _repository.CreateAsync(usuarioToCreate);
 

@@ -10,6 +10,5 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IRubroService : IServiceBase<RubroDTO, RubroRequestDTO, Rubro>
     {
-        //...
     }
 }

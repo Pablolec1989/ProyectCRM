@@ -18,9 +18,9 @@ namespace ProyectCRM.Models.Controllers
 
         [HttpGet]
         [OutputCache(Tags = new[] { GetAllCacheTag }, Duration = 60)]
-        public override async Task<ActionResult<IEnumerable<AsuntoDeContactoDTO>>> GetAllAsync()
+        public override Task<ActionResult<IEnumerable<AsuntoDeContactoDTO>>> GetAllAsync()
         {
-            return await base.GetAllAsync();
+            return base.GetAllAsync();
         }
     }
 }

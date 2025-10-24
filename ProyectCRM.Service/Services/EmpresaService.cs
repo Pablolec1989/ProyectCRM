@@ -63,6 +63,12 @@ namespace ProyectCRM.Models.Service.Services
             await ValidateEmpresaRequest(id, dto);
             return await base.UpdateAsync(id, dto);
         }
+        public async Task<IEnumerable<EmpresaDTO>> SearchPaginatedAsync(PaginationDTO pagination)
+        {
+            var entities = await _repository.SearchPaginatedAsync(pagination);
+            return _mapper.Map<IEnumerable<EmpresaDTO>>(entities);
+
+        }
 
         //Metodos auxiliares
         private async Task ValidateEmpresaRequest (Guid? id, EmpresaRequestDTO dto)
@@ -74,11 +80,5 @@ namespace ProyectCRM.Models.Service.Services
                     throw new ValidationException($"La condicionIvaId no existe.");
         }
 
-        public async Task<IEnumerable<EmpresaDTO>> GetAllPaged(PaginationDTO pagination)
-        {
-            var entities = await _repository.GetAllPaged(pagination);
-            return _mapper.Map<IEnumerable<EmpresaDTO>>(entities);
-
-        }
     }
 }

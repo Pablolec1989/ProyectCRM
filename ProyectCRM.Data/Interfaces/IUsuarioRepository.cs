@@ -1,4 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace ProyectCRM.Models.Data.Interfaces
         Task<Usuario> GetUserDetailAsync(Guid id);
         Task<Usuario> GetUserByApellidoAsync(string apellido);
         Task<List<Guid>> GetExistingUserIdsAsync(IEnumerable<Guid> userIds);
+        Task<IEnumerable<Usuario>> SearchByFilterAsync(UsuarioFilterDTO filterDTO);
     }
 }

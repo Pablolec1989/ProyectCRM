@@ -13,7 +13,7 @@ namespace ProyectCRM.Interfaces
         Task<ActionResult<ArchivoDTO>> CreateAsync([FromForm] ArchivoRequestDTO dto, IFormFile archivo);
         Task<ActionResult<ArchivoDTO>> UpdateAsync(Guid id, [FromForm] ArchivoRequestDTO dto, IFormFile? archivo);
         Task<IActionResult> DeleteAsync(Guid id);
-        Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync(PaginationDTO pagination);
+        Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync();
         Task<ActionResult<ArchivoDTO>> GetByIdAsync(Guid id);
     }
 }

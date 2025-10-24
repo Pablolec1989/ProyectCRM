@@ -1,5 +1,4 @@
-﻿using ProyectCRM.Data.Interfaces;
-using ProyectCRM.Models.Entities;
+﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ namespace ProyectCRM.Models.Data.Interfaces
     {
         Task<Empresa> GetEmpresaDetailDTOAsync(Guid id);
         Task<bool> GetEmpresaByRazonSocialAsync(string razonSocial);
-        Task<IEnumerable<Empresa>> GetAllPaged(PaginationDTO pagination);
+        Task<IEnumerable<Empresa>> SearchPaginatedAsync(PaginationDTO pagination);
+
     }
 }

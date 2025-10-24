@@ -29,12 +29,6 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public override async Task<IEnumerable<LlamadaDTO>> SearchPaginated(PaginationDTO pagination)
-        {
-            var llamados = await _repository.SearchPaginated(pagination);
-            return _mapper.Map<IEnumerable<LlamadaDTO>>(llamados);
-        }
-
         public async Task<LlamadaDetailDTO> GetLlamadaCompletoByIdAsync(Guid id)
         {
             var llamado = await _repository.GetLlamadaCompletoByIdAsync(id);

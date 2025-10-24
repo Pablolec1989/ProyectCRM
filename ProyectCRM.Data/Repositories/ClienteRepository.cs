@@ -43,7 +43,7 @@ namespace ProyectCRM.Models.Data.Repositories
             return cliente;
         }
 
-        public override async Task<IEnumerable<Cliente>> SearchPaginated(PaginationDTO pagination)
+        public override async Task<IEnumerable<Cliente>> GetAllAsync()
         {
             return await Clientes().ToListAsync();
         }

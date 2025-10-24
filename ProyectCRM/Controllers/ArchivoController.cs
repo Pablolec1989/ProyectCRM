@@ -39,9 +39,9 @@ namespace ProyectCRM.Models.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync([FromQuery] PaginationDTO pagination)
+        public async Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync()
         {
-            var archivos = await _service.SearchPaginated(pagination);
+            var archivos = await _service.GetAllAsync();
             return Ok(archivos);
         }
 

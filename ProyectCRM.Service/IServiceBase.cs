@@ -4,6 +4,7 @@ using ProyectCRM.Models.SharedDTO;
 using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service
@@ -14,7 +15,7 @@ namespace ProyectCRM.Models.Service
         where TEntity : EntityBase
     {
         Task<TDTO> GetByIdAsync(Guid Id);
-        Task<IEnumerable<TDTO>> SearchPaginated(PaginationDTO pagination);
+        Task<IEnumerable<TDTO>> GetAllAsync();
         Task<TDTO> CreateAsync(TRequestDTO dto);
         Task<TDTO> UpdateAsync(Guid Id, TRequestDTO dto);
         Task<bool> DeleteAsync(Guid Id);

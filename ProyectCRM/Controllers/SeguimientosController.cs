@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
@@ -8,7 +9,8 @@ namespace ProyectCRM.Models.Controllers
     public class SeguimientosController : CustomControllerBase<SeguimientoDTO, SeguimientoRequestDTO, Seguimiento>
     {
         private readonly ISeguimientoService _service;
-        public SeguimientosController(ISeguimientoService service) : base(service)
+        public SeguimientosController(ISeguimientoService service, IOutputCacheStore outputCacheStore) 
+            : base(service, outputCacheStore)
         {
             _service = service;
         }

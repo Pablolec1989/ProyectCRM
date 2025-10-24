@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProyectCRM.Data.Interfaces;
 using ProyectCRM.Data.Utils;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.SharedDTO;
+using System.Linq.Expressions;
 
 namespace ProyectCRM.Models.Data.Repositories
 {
@@ -27,13 +27,6 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public override async Task<IEnumerable<Empresa>> SearchPaginated(PaginationDTO pagination)
-        {
-            return await Empresas()
-                .Paginate(pagination)
-                .ToListAsync();
-        }
-
         public async Task<Empresa> GetEmpresaDetailDTOAsync(Guid id)
         {
             return await Empresas()
@@ -48,12 +41,20 @@ namespace ProyectCRM.Models.Data.Repositories
                 .AnyAsync(e => e.RazonSocial.ToLower() == razonSocial.ToLower());
         }
 
-        public async Task<IEnumerable<Empresa>> GetAllPaged(PaginationDTO pagination)
+        public async Task<IEnumerable<Empresa>> SearchPaginatedAsync(PaginationDTO pagination)
         {
-            return await Empresas()
-                .OrderBy(e => e.RazonSocial)
+            return await _context.Empresas
                 .Paginate(pagination)
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Empresa>> GetSearchAsync(Expression<Func<Empresa, bool>> predicate)
+        {
+            var empresas = await _context.Empresas
+                .Where(predicate)
+                .ToListAsync();
+
+            return empresas;
         }
     }
 }

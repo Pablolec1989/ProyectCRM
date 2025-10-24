@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
@@ -9,13 +10,13 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IClienteService _service;
 
-        public ClienteController(IClienteService service) : base(service)
+        public ClienteController(IClienteService service, IOutputCacheStore outputCacheStore) : base(service, outputCacheStore)
         {
             _service = service;
         }
 
         [HttpGet("detail/{id}")]
-        public async Task<IActionResult> GetByIdWithAllDataAsync(Guid id)
+        public async Task<IActionResult> GetClienteDetailAsync(Guid id)
         {
             var cliente = await _service.GetClienteCompletoByIdAsync(id);
             if (cliente == null)

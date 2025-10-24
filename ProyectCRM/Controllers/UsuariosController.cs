@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.IdentityModel.Tokens;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
@@ -16,11 +17,14 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IUsuarioService _service;
 
-        public UsuariosController(IUsuarioService service) : base(service)
+        private const string GetAllCacheTag = "UsuariosCache";
+        protected override string CacheTag => GetAllCacheTag;
+
+
+        public UsuariosController(IUsuarioService service, IOutputCacheStore outputCacheStore) : base(service, outputCacheStore)
         {
             _service = service;
         }
-
 
         [HttpGet("detail/{id}")]
         public async Task<ActionResult<UsuarioDetailDTO>> GetUserDetailAsync([FromRoute][Required] Guid id)
@@ -45,5 +49,19 @@ namespace ProyectCRM.Models.Controllers
 
 
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> SearchUsersAsync([FromQuery] UsuarioFilterDTO filterDTO)
+        {
+            var usuarios = await _service.SearchByFilterAsync(filterDTO);
+
+            if (usuarios == null)
+            {
+                return NotFound();
+            }
+            return Ok(usuarios);
+
+        }
+        
     }
 }

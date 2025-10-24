@@ -4,6 +4,7 @@ using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Service.DTOs;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace ProyectCRM.Models.Controllers
 {
@@ -11,8 +12,8 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IDireccionService _service;
 
-        public DireccionController(IDireccionService service)
-            : base(service)
+        public DireccionController(IDireccionService service, IOutputCacheStore outputCacheStore)
+            : base(service, outputCacheStore)
         {
             _service = service;
         }

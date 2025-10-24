@@ -14,6 +14,6 @@ namespace ProyectCRM.Models.Service.Interfaces
     public interface IEmpresaService : IServiceBase<EmpresaDTO, EmpresaRequestDTO, Empresa>
     {
         Task<EmpresaDetailDTO> GetEmpresaDetailDTOAsync(Guid id);
-        Task<IEnumerable<EmpresaDTO>> GetAllPaged(PaginationDTO pagination);
+        Task<IEnumerable<EmpresaDTO>> SearchPaginatedAsync(PaginationDTO pagination);
     }
 }

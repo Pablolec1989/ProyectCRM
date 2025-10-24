@@ -39,10 +39,9 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(tc => tc.Id == id);
         }
 
-        public override async Task<IEnumerable<Telefono>> SearchPaginated(PaginationDTO pagination)
+        public override async Task<IEnumerable<Telefono>> GetAllAsync()
         {
             return await Telefonos()
-                .Paginate(pagination)
                 .ToListAsync();
         }
     }

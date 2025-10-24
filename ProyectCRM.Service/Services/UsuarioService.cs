@@ -24,7 +24,6 @@ namespace ProyectCRM.Models.Service.Services
         private readonly IValidator<UsuarioRequestDTO> _validator;
         private readonly IConfiguration _configuration;
 
-
         public UsuarioService(IMapper mapper,
             IUsuarioRepository repository,
             IValidator<UsuarioRequestDTO> validator,
@@ -74,6 +73,12 @@ namespace ProyectCRM.Models.Service.Services
 
             var loginResponseDTO = GenerarToken(usuario);
             return loginResponseDTO;
+        }
+
+        public async Task<IEnumerable<UsuarioDTO>> SearchByFilterAsync(UsuarioFilterDTO filterDTO)
+        {
+            var usuarios = await _repository.SearchByFilterAsync(filterDTO);
+            return _mapper.Map<IEnumerable<UsuarioDTO>>(usuarios);
         }
 
         //Metodos auxiliares

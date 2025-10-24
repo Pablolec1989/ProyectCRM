@@ -5,6 +5,7 @@ using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,10 +63,9 @@ namespace ProyectCRM.Models.Data
 
         }
 
-        public virtual async Task<IEnumerable<T>> SearchPaginated(PaginationDTO pagination)
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await Query()
-                .Paginate(pagination)
                 .ToListAsync();
         }
 

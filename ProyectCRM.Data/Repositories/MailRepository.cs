@@ -43,7 +43,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public override async Task<IEnumerable<Mail>> SearchPaginated(PaginationDTO pagination)
+        public override async Task<IEnumerable<Mail>> GetAllAsync()
         {
             return await Mails()
                 .ToListAsync();

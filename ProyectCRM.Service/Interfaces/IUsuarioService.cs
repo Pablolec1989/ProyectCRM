@@ -13,5 +13,6 @@ namespace ProyectCRM.Models.Service.Interfaces
     {
         Task<UsuarioDetailDTO> GetUserDetailAsync(Guid id);
         Task<LoginResponseDTO> LoginAsync(LoginRequestDTO loginRequestDTO);
+        Task<IEnumerable<UsuarioDTO>> SearchByFilterAsync(UsuarioFilterDTO filterDTO);
     }
 }

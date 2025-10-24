@@ -11,6 +11,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddOutputCache(options =>
+{
+    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
+});
+
 builder.Services.AddMapster();
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -61,6 +66,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("AllowAll");
+app.UseOutputCache();
 app.UseAuthorization();
 
 app.MapControllers();

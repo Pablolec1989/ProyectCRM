@@ -15,9 +15,9 @@ namespace ProyectCRM.Models.Controllers
 
         protected override string CacheTag => GetAllCacheTag;
 
-        public AreasController(IAreaService service, 
-            IOutputCacheStore outputCacheStore, ILogger<Area> logger)
-            : base(service, outputCacheStore, logger)
+        public AreasController(IAreaService service,
+            ICacheCleaner cacheCleaner, ILogger<Area> logger)
+            : base(service, cacheCleaner, logger)
         {
         }
 

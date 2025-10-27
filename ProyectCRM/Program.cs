@@ -2,6 +2,7 @@ using Mapster;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using ProyectCRM.Converters;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Service.DependencyInjectionServices;
 using ProyectCRM.Models.Service.Mappers;
@@ -22,6 +23,11 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddValidators();
 builder.Services.AddScoped<ICacheCleaner, CacheCleaner>();
+
+builder.Services.AddControllers().AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.Converters.Add(new DateTimeJsonCoverter());
+    });
 
 MappersDependencyInjection.AddMappers(builder.Services);
 

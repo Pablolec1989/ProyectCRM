@@ -9,9 +9,9 @@ namespace ProyectCRM.Models.Controllers
     public class MailsController : CustomControllerBase<MailDTO, MailRequestDTO, Mail>
     {
         private readonly IMailService _service;
-        public MailsController(IMailService service, 
-            IOutputCacheStore outputCacheStore, 
-            ILogger<Mail> logger) : base(service, outputCacheStore, logger)
+        public MailsController(IMailService service,
+            ICacheCleaner cacheCleaner, 
+            ILogger<Mail> logger) : base(service, cacheCleaner, logger)
         {
             _service = service;
         }

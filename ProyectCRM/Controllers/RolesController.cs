@@ -12,10 +12,10 @@ namespace ProyectCRM.Models.Controllers
         private const string GetAllCacheTag = "Roles:GetAll";
         protected override string CacheTag => GetAllCacheTag;
 
-        public RolesController(IRolService service, 
-            IOutputCacheStore outputCacheStore, 
+        public RolesController(IRolService service,
+            ICacheCleaner cacheCleaner, 
             ILogger<Rol> logger)
-            : base(service, outputCacheStore, logger)
+            : base(service, cacheCleaner, logger)
         {
         }
 

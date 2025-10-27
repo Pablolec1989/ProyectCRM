@@ -18,7 +18,7 @@ namespace ProyectCRM.Models
         where TEntity : EntityBase
     {
         private readonly IServiceBase<TDTO, TRequestDTO, TEntity> _serviceBase;
-        private readonly IOutputCacheStore _outputCacheStore;
+        private readonly ICacheCleaner _cacheCleaner;
         private readonly ILogger<TEntity> _logger;
 
         protected virtual string CacheTag => string.Empty;
@@ -27,10 +27,10 @@ namespace ProyectCRM.Models
         public ILogger<AreasController> Logger { get; }
 
         public CustomControllerBase(IServiceBase<TDTO, TRequestDTO, TEntity> serviceBase, 
-            IOutputCacheStore outputCacheStore, ILogger<TEntity> logger)
+            ICacheCleaner cacheCleaner, ILogger<TEntity> logger)
         {
             _serviceBase = serviceBase;
-            _outputCacheStore = outputCacheStore;
+            _cacheCleaner = cacheCleaner;
             _logger = logger;
         }
 
@@ -47,7 +47,7 @@ namespace ProyectCRM.Models
                 _logger.LogError($"Error al crear {typeof(TEntity).Name}");
                 return BadRequest("No se pudo crear");
             }
-            await CleanCacheStoreAsync();
+            await _cacheCleaner.CleanCacheByTagAsync(CacheTag);
             _logger.LogInformation($"Creación de {typeof(TEntity).Name} exitosa.");
             return Ok(createdDto);
         }
@@ -63,7 +63,7 @@ namespace ProyectCRM.Models
                 return NotFound();
             }
             _logger.LogInformation($"{typeof(TEntity).Name} eliminado correctamente");
-            await CleanCacheStoreAsync();
+            await _cacheCleaner.CleanCacheByTagAsync(CacheTag);
             return NoContent();
         }
 
@@ -108,17 +108,10 @@ namespace ProyectCRM.Models
                 _logger.LogInformation($"Error al actualizar {typeof(TEntity).Name}");
                 return NotFound();
             }
-            await CleanCacheStoreAsync();
+            await _cacheCleaner.CleanCacheByTagAsync(CacheTag);
             _logger.LogInformation($"{typeof(TEntity).Name} actualizado correctamente");
             return Ok(updatedDto);
         }
 
-        //Metodo aux
-        private async Task CleanCacheStoreAsync()
-        {
-            if (string.IsNullOrWhiteSpace(CacheTag)) return;
-
-            await _outputCacheStore.EvictByTagAsync(CacheTag, CancellationToken.None);
-        }
     }
 }

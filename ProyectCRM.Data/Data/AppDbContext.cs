@@ -54,6 +54,19 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Archivo>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Archivos");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.NombreArchivo).HasMaxLength(100);
+            entity.Property(e => e.RutaArchivo).HasMaxLength(100);
+            entity.Property(e => e.FechaSubida).HasDefaultValueSql("GETDATE()");
+
+            entity.HasOne(d => d.Visita).WithMany(p => p.Archivos)
+                .HasForeignKey(d => d.VisitaId)
+                .HasConstraintName("FK_Archivos_Visitas");
+        });
+
         modelBuilder.Entity<Area>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Area");
@@ -313,16 +326,5 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK_VisitaUsuario_Visita");
         });
 
-        modelBuilder.Entity<Archivo>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_Archivos");
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.NombreArchivo).HasMaxLength(100);
-            entity.Property(e => e.RutaArchivo).HasMaxLength(100);
-
-            entity.HasOne(d => d.Visita).WithMany(p => p.Archivos)
-                .HasForeignKey(d => d.VisitaId)
-                .HasConstraintName("FK_Archivos_Visitas");
-        });
     }
 }

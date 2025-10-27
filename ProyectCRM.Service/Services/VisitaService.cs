@@ -107,7 +107,7 @@ namespace ProyectCRM.Models.Service.Services
             // Validación de la existencia de UsuariosIds
             if (dto.UsuariosIds != null && dto.UsuariosIds.Any())
             {
-                var existingUserIds = await _usuarioRepository.GetExistingUserIdsAsync(dto.UsuariosIds);
+                var existingUserIds = await _usuarioRepository.GetExistingsUserIdsAsync(dto.UsuariosIds);
                 if (existingUserIds.Count != dto.UsuariosIds.Count)
                 {
                     var nonExistingUserIds = dto.UsuariosIds.Except(existingUserIds);

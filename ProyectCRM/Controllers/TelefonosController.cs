@@ -7,8 +7,9 @@ namespace ProyectCRM.Models.Controllers
 {
     public class TelefonosController : CustomControllerBase<TelefonoDTO, TelefonoRequestDTO, Telefono>
     {
-        public TelefonosController(ITelefonoService service, IOutputCacheStore outputCacheStore) 
-            : base(service, outputCacheStore)
+        public TelefonosController(ITelefonoService service, IOutputCacheStore outputCacheStore,
+            ILogger<Telefono> logger) 
+            : base(service, outputCacheStore, logger)
         {
         }
     }

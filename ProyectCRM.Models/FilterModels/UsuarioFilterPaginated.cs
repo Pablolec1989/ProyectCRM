@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Service.DTOs
 {
-    public class UsuarioFilterDTO
+    public class UsuarioFilterPaginated
     {
-        public PaginationDTO Pagination { get; set; } = new PaginationDTO();
+        public Pagination Pagination { get; set; } = new Pagination();
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }
         public string? RolId { get; set; }

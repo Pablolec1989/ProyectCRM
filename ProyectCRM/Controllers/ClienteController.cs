@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.FilterModels;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 
@@ -10,7 +11,9 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IClienteService _service;
 
-        public ClienteController(IClienteService service, IOutputCacheStore outputCacheStore) : base(service, outputCacheStore)
+        public ClienteController(IClienteService service, 
+            IOutputCacheStore outputCacheStore, 
+            ILogger<Cliente> logger) : base(service, outputCacheStore, logger)
         {
             _service = service;
         }
@@ -18,10 +21,16 @@ namespace ProyectCRM.Models.Controllers
         [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetClienteDetailAsync(Guid id)
         {
-            var cliente = await _service.GetClienteCompletoByIdAsync(id);
+            var cliente = await _service.GetClienteDetailAsync(id);
             if (cliente == null)
                 return NotFound();
             return Ok(cliente);
+        }
+
+        [HttpGet("search")]
+        public async Task<IEnumerable<ClienteDTO>> SearchClientesAsync([FromQuery] ClienteFilterPaginated filter)
+        {
+            return await _service.SearchClientesAsync(filter);
         }
 
     }

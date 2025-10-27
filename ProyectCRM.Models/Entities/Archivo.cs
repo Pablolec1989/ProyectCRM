@@ -8,7 +8,7 @@ public class Archivo : EntityBase
 {
     public string NombreArchivo { get; set; }
     public string RutaArchivo { get; set; }
-    public DateTime FechaSubida { get; set; } = DateTime.Now;
+    public DateTime FechaSubida { get; set; }
     public Guid VisitaId { get; set; }
     public Visita Visita { get; set; }
 }

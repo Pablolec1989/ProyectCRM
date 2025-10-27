@@ -5,10 +5,10 @@ using ProyectCRM.Service.DTOs;
 
 namespace ProyectCRM.Interfaces
 {
-    public interface IArchivoController<TDTO, TRequestDTO, T>
+    public interface IArchivoController<TDTO, TRequestDTO, TEntity>
         where TDTO : class
         where TRequestDTO : class
-        where T : class
+        where TEntity : class
     {
         Task<ActionResult<ArchivoDTO>> CreateAsync([FromForm] ArchivoRequestDTO dto, IFormFile archivo);
         Task<ActionResult<ArchivoDTO>> UpdateAsync(Guid id, [FromForm] ArchivoRequestDTO dto, IFormFile? archivo);

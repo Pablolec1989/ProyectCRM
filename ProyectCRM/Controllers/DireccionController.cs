@@ -12,8 +12,10 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IDireccionService _service;
 
-        public DireccionController(IDireccionService service, IOutputCacheStore outputCacheStore)
-            : base(service, outputCacheStore)
+        public DireccionController(IDireccionService service, 
+            IOutputCacheStore outputCacheStore, 
+            ILogger<Direccion> logger)
+            : base(service, outputCacheStore, logger)
         {
             _service = service;
         }

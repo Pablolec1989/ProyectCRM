@@ -18,6 +18,7 @@ namespace ProyectCRM.Models.Service.Validators
 
             RuleFor(a => a.VisitaId)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
+
         }
     }
 }

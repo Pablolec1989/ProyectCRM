@@ -21,7 +21,9 @@ namespace ProyectCRM.Models.Controllers
         protected override string CacheTag => GetAllCacheTag;
 
 
-        public UsuariosController(IUsuarioService service, IOutputCacheStore outputCacheStore) : base(service, outputCacheStore)
+        public UsuariosController(IUsuarioService service, 
+            IOutputCacheStore outputCacheStore, 
+            ILogger<Usuario> logger) : base(service, outputCacheStore, logger)
         {
             _service = service;
         }
@@ -51,9 +53,9 @@ namespace ProyectCRM.Models.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> SearchUsersAsync([FromQuery] UsuarioFilterDTO filterDTO)
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> SearchUsersAsync([FromQuery] UsuarioFilterPaginated filterDTO)
         {
-            var usuarios = await _service.SearchByFilterAsync(filterDTO);
+            var usuarios = await _service.SearchUsuarioAsync(filterDTO);
 
             if (usuarios == null)
             {

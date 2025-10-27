@@ -10,7 +10,9 @@ namespace ProyectCRM.Models.Controllers
     public class LlamadaController : CustomControllerBase<LlamadaDTO, LlamadaRequestDTO, Llamado>
     {
         private readonly ILlamadoService _service;
-        public LlamadaController(ILlamadoService service, IOutputCacheStore outputCacheStore) : base(service, outputCacheStore) 
+        public LlamadaController(ILlamadoService service, 
+            IOutputCacheStore outputCacheStore, 
+            ILogger<Llamado> logger) : base(service, outputCacheStore, logger) 
         {
             _service = service;
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Identity.Client;
 using ProyectCRM.Interfaces;
 using ProyectCRM.Models.Entities;
@@ -15,9 +16,14 @@ namespace ProyectCRM.Models.Controllers
     public class ArchivoController : ControllerBase, IArchivoController<ArchivoDTO, ArchivoRequestDTO, Archivo>
     {
         private readonly IArchivoService _service;
-        public ArchivoController(IArchivoService service)
+        private readonly ICacheCleaner _cacheCleaner;
+        private readonly ILogger<Archivo> _logger;
+
+        public ArchivoController(IArchivoService service, ICacheCleaner cacheCleaner, ILogger<Archivo> logger)
         {
             _service = service;
+            _cacheCleaner = cacheCleaner;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -25,20 +31,31 @@ namespace ProyectCRM.Models.Controllers
         {
             if (archivo == null || archivo.Length == 0)
             {
-                return BadRequest("No file uploaded.");
+                _logger.LogInformation($"Error al crear archivo {typeof(Archivo).Name}");
+                return BadRequest("No se pudo subir el archivo.");
             }
             var result = await _service.CreateAsync(dto, archivo);
+            _logger.LogInformation($"Archivo creado correctamente");
             return Ok(result);
         }
 
         [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            await _service.DeleteAsync(id);
+            var result = await _service.DeleteAsync(id);
+            if(!result)
+            {
+                _logger.LogInformation($"Error al eliminar archivo {typeof(Archivo).Name}");
+                return NotFound();
+            }
+            _logger.LogInformation($"Archivo eliminado correctamente");
+            _cacheCleaner.CleanCacheByTagAsync("archivos").Wait();
+
             return NoContent();
         }
 
         [HttpGet]
+        [OutputCache]
         public async Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync()
         {
             var archivos = await _service.GetAllAsync();
@@ -46,6 +63,7 @@ namespace ProyectCRM.Models.Controllers
         }
 
         [HttpGet("{id:Guid}")]
+        [OutputCache]
         public async Task<ActionResult<ArchivoDTO>> GetByIdAsync(Guid id)
         {
             var archivo = await _service.GetByIdAsync(id);
@@ -60,6 +78,13 @@ namespace ProyectCRM.Models.Controllers
         public async Task<ActionResult<ArchivoDTO>> UpdateAsync(Guid id, [FromForm] ArchivoRequestDTO dto, IFormFile? archivo)
         {
             var archivoActualizado = await _service.UpdateAsync(id, dto, archivo);
+            if(archivoActualizado == null)
+            {
+                _logger.LogInformation($"Error al actualizar archivo {typeof(Archivo).Name}");
+                return NotFound();
+            }
+            _logger.LogInformation($"Archivo actualizado correctamente");
+            _cacheCleaner.CleanCacheByTagAsync("archivos").Wait();
             return Ok(archivoActualizado);
 
         }

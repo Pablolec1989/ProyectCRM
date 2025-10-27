@@ -60,7 +60,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Usuario>> SearchByFilterAsync(UsuarioFilterDTO usuarioFilterDTO)
+        public async Task<IEnumerable<Usuario>> SearchByFilterAsync(UsuarioFilterPaginated usuarioFilterDTO)
         {
             var query = QueryUsuarios();
 
@@ -99,8 +99,8 @@ namespace ProyectCRM.Models.Data.Repositories
             {
                 query = query.OrderBy(u=> u.Nombre);
             }
-
-                var usuarios = await query
+            
+            var usuarios = await query
                             .Paginate(usuarioFilterDTO.Pagination)
                             .ToListAsync();
             return usuarios;
@@ -125,7 +125,7 @@ namespace ProyectCRM.Models.Data.Repositories
             return usuario;
         }
 
-        public async Task<List<Guid>> GetExistingUserIdsAsync(IEnumerable<Guid> ids)
+        public async Task<List<Guid>> GetExistingsUserIdsAsync(IEnumerable<Guid> ids)
         {
             return await _context.Usuarios
                 .Where(u => ids.Contains(u.Id))

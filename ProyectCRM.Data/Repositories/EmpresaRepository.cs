@@ -41,7 +41,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .AnyAsync(e => e.RazonSocial.ToLower() == razonSocial.ToLower());
         }
 
-        public async Task<IEnumerable<Empresa>> SearchPaginatedAsync(PaginationDTO pagination)
+        public async Task<IEnumerable<Empresa>> SearchPaginatedAsync(Pagination pagination)
         {
             return await _context.Empresas
                 .Paginate(pagination)

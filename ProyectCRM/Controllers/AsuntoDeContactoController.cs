@@ -11,8 +11,9 @@ namespace ProyectCRM.Models.Controllers
         private const string GetAllCacheTag = "Roles:GetAll";
         protected override string CacheTag => GetAllCacheTag;
 
-        public AsuntoDeContactoController(IAsuntoDeContactoService service, IOutputCacheStore outputCacheStore) 
-            : base(service, outputCacheStore)
+        public AsuntoDeContactoController(IAsuntoDeContactoService service, IOutputCacheStore outputCacheStore,
+            ILogger<AsuntosDeContacto> logger)
+            : base(service, outputCacheStore, logger )
         {
         }
 

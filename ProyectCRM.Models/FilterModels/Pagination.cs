@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.SharedDTO
 {
-    public record PaginationDTO (int Page = 1, int RecordsPerPage = 10)
+    public record Pagination (int Page = 1, int RecordsPerPage = 10)
     {
         private const int CantMaxRecordsPerPage = 50;
         public int Page { get; init; } = Page < 1 ? 1 : Page;

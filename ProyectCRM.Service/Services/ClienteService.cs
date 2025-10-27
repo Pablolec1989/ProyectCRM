@@ -2,6 +2,7 @@
 using MapsterMapper;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.FilterModels;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Service.DTOs;
@@ -29,9 +30,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<ClienteDetailDTO> GetClienteCompletoByIdAsync(Guid id)
+        public async Task<ClienteDetailDTO> GetClienteDetailAsync(Guid id)
         {
-            var cliente = await _repository.GetByIdWithAllDataAsync(id);
+            var cliente = await _repository.GetClienteDetailAsync(id);
             if (cliente == null)
                 return null;
 
@@ -52,6 +53,13 @@ namespace ProyectCRM.Models.Service.Services
             return await base.UpdateAsync(id, dto);
         }
 
+        public async Task<IEnumerable<ClienteDTO>> SearchClientesAsync(ClienteFilterPaginated filter)
+        {
+            var clientes = await _repository.SearchClienteAsync(filter);
+            return _mapper.Map<IEnumerable<ClienteDTO>>(clientes);
+        }
+
+        //Metod aux
         private async Task ValidateClienteRequest(Guid? id, ClienteRequestDTO dto)
         {
             if(id != null)
@@ -75,5 +83,6 @@ namespace ProyectCRM.Models.Service.Services
             }
 
         }
+
     }
 }

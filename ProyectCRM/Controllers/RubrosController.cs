@@ -12,8 +12,8 @@ namespace ProyectCRM.Models.Controllers
         private const string GetAllCacheTag = "Rubros:GetAll";
         protected override string CacheTag => GetAllCacheTag;
 
-        public RubrosController(IRubroService service, IOutputCacheStore outputCacheStore) 
-            : base(service, outputCacheStore)
+        public RubrosController(IRubroService service, IOutputCacheStore outputCacheStore, ILogger<Rubro> logger) 
+            : base(service, outputCacheStore, logger)
         {
         }
 

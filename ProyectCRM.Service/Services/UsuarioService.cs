@@ -75,7 +75,7 @@ namespace ProyectCRM.Models.Service.Services
             return loginResponseDTO;
         }
 
-        public async Task<IEnumerable<UsuarioDTO>> SearchByFilterAsync(UsuarioFilterDTO filterDTO)
+        public async Task<IEnumerable<UsuarioDTO>> SearchUsuarioAsync(UsuarioFilterPaginated filterDTO)
         {
             var usuarios = await _repository.SearchByFilterAsync(filterDTO);
             return _mapper.Map<IEnumerable<UsuarioDTO>>(usuarios);

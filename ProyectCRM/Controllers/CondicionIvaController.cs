@@ -10,7 +10,8 @@ namespace ProyectCRM.Models.Controllers
     {
         private const string GetAllCacheTag = "CondicionIva:GetAll";
         protected override string CacheTag => GetAllCacheTag;
-        public CondicionIvaController(ICondicionIvaService service, IOutputCacheStore outputCacheStore) : base(service, outputCacheStore)
+        public CondicionIvaController(ICondicionIvaService service, 
+            IOutputCacheStore outputCacheStore, ILogger<CondicionIva> logger) : base(service, outputCacheStore, logger)
         {
         }
         

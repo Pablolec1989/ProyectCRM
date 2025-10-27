@@ -12,10 +12,12 @@ namespace ProyectCRM.Models.Controllers
     {
 
         private const string GetAllCacheTag = "Areas:GetAll";
+
         protected override string CacheTag => GetAllCacheTag;
 
-        public AreasController(IAreaService service, IOutputCacheStore outputCacheStore)
-            : base(service, outputCacheStore)
+        public AreasController(IAreaService service, 
+            IOutputCacheStore outputCacheStore, ILogger<Area> logger)
+            : base(service, outputCacheStore, logger)
         {
         }
 

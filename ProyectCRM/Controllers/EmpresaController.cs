@@ -16,7 +16,9 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IEmpresaService _service;
 
-        public EmpresaController(IEmpresaService service, IOutputCacheStore outputCacheStore) : base(service, outputCacheStore)
+        public EmpresaController(IEmpresaService service, 
+            IOutputCacheStore outputCacheStore, 
+            ILogger<Empresa> logger) : base(service, outputCacheStore, logger)
         {
             _service = service;
         }
@@ -33,7 +35,7 @@ namespace ProyectCRM.Models.Controllers
         }
 
         [HttpGet("paged")]
-        public async Task<ActionResult> GetAll([FromQuery] PaginationDTO pagination)
+        public async Task<ActionResult> GetAll([FromQuery] Pagination pagination)
         {
             var result = await _service.SearchPaginatedAsync(pagination);
 

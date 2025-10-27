@@ -21,6 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddValidators();
+builder.Services.AddScoped<ICacheCleaner, CacheCleaner>();
 
 MappersDependencyInjection.AddMappers(builder.Services);
 
@@ -37,7 +38,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-//Servicio JWT
+//Service JWT
 builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
     options.MapInboundClaims = false;

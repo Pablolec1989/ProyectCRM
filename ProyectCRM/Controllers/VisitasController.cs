@@ -11,8 +11,8 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IVisitaService _service;
 
-        public VisitasController(IVisitaService service, IOutputCacheStore outputCacheStore) 
-            : base(service, outputCacheStore)
+        public VisitasController(IVisitaService service, IOutputCacheStore outputCacheStore, ILogger<Visita> logger) 
+            : base(service, outputCacheStore, logger)
         {
             _service = service;
         }

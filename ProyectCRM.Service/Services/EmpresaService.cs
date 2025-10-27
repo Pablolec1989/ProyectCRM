@@ -63,7 +63,7 @@ namespace ProyectCRM.Models.Service.Services
             await ValidateEmpresaRequest(id, dto);
             return await base.UpdateAsync(id, dto);
         }
-        public async Task<IEnumerable<EmpresaDTO>> SearchPaginatedAsync(PaginationDTO pagination)
+        public async Task<IEnumerable<EmpresaDTO>> SearchPaginatedAsync(Pagination pagination)
         {
             var entities = await _repository.SearchPaginatedAsync(pagination);
             return _mapper.Map<IEnumerable<EmpresaDTO>>(entities);

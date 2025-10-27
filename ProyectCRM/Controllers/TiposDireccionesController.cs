@@ -8,8 +8,8 @@ namespace ProyectCRM.Models.Controllers
 {
     public class TiposDireccionesController : CustomControllerBase<TipoDireccionDTO, TipoDireccionRequestDTO, TipoDireccion>
     {
-        public TiposDireccionesController(ITipoDireccionService service, IOutputCacheStore outputCacheStore) 
-            : base(service, outputCacheStore)
+        public TiposDireccionesController(ITipoDireccionService service, IOutputCacheStore outputCacheStore, ILogger<TipoDireccion> logger) 
+            : base(service, outputCacheStore, logger)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.FilterModels;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Service.DTOs;
 using System;
@@ -11,6 +12,7 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IClienteService : IServiceBase<ClienteDTO, ClienteRequestDTO, Cliente>
     {
-        Task<ClienteDetailDTO> GetClienteCompletoByIdAsync(Guid id);
+        Task<ClienteDetailDTO> GetClienteDetailAsync(Guid id);
+        Task<IEnumerable<ClienteDTO>> SearchClientesAsync(ClienteFilterPaginated filter);
     }
 }

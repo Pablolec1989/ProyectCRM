@@ -9,8 +9,8 @@ namespace ProyectCRM.Models.Controllers
     public class SeguimientosController : CustomControllerBase<SeguimientoDTO, SeguimientoRequestDTO, Seguimiento>
     {
         private readonly ISeguimientoService _service;
-        public SeguimientosController(ISeguimientoService service, IOutputCacheStore outputCacheStore) 
-            : base(service, outputCacheStore)
+        public SeguimientosController(ISeguimientoService service, IOutputCacheStore outputCacheStore, ILogger<Seguimiento> logger) 
+            : base(service, outputCacheStore, logger)
         {
             _service = service;
         }

@@ -13,7 +13,7 @@ namespace ProyectCRM.Models.Data.Interfaces
         Task<bool> GetUsuarioByNombreYApellidoAsync(string nombre, string apellido);
         Task<Usuario> GetUserDetailAsync(Guid id);
         Task<Usuario> GetUserByApellidoAsync(string apellido);
-        Task<List<Guid>> GetExistingUserIdsAsync(IEnumerable<Guid> userIds);
-        Task<IEnumerable<Usuario>> SearchByFilterAsync(UsuarioFilterDTO filterDTO);
+        Task<List<Guid>> GetExistingsUserIdsAsync(IEnumerable<Guid> userIds);
+        Task<IEnumerable<Usuario>> SearchByFilterAsync(UsuarioFilterPaginated filterDTO);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
-using ProyectCRM.Models.Interfaces;
+using Microsoft.AspNetCore.OutputCaching;
+using ProyectCRM.Models.Controllers;
 using ProyectCRM.Models.Entities.Abstractions;
+using ProyectCRM.Models.Interfaces;
 using ProyectCRM.Models.Service;
-using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Utils;
 
 namespace ProyectCRM.Models
 {
@@ -16,14 +18,24 @@ namespace ProyectCRM.Models
         where TEntity : EntityBase
     {
         private readonly IServiceBase<TDTO, TRequestDTO, TEntity> _serviceBase;
+        private readonly IOutputCacheStore _outputCacheStore;
+        private readonly ILogger<TEntity> _logger;
 
-        public CustomControllerBase(IServiceBase<TDTO, TRequestDTO, TEntity> serviceBase)
+        protected virtual string CacheTag => string.Empty;
+
+        public IAreaService Service { get; }
+        public ILogger<AreasController> Logger { get; }
+
+        public CustomControllerBase(IServiceBase<TDTO, TRequestDTO, TEntity> serviceBase, 
+            IOutputCacheStore outputCacheStore, ILogger<TEntity> logger)
         {
             _serviceBase = serviceBase;
+            _outputCacheStore = outputCacheStore;
+            _logger = logger;
         }
 
         [HttpPost]
-        public virtual async Task<ActionResult<TDTO>> CreateAsync(TRequestDTO dto)
+        public virtual async Task<ActionResult<TDTO>> CreateAsync([FromBody] TRequestDTO dto)
         {
             if (dto == null)
             {
@@ -32,34 +44,50 @@ namespace ProyectCRM.Models
             var createdDto = await _serviceBase.CreateAsync(dto);
             if (createdDto == null)
             {
-                return BadRequest("Failed to create the entity.");
+                _logger.LogError($"Error al crear {typeof(TEntity).Name}");
+                return BadRequest("No se pudo crear");
             }
+            await CleanCacheStoreAsync();
+            _logger.LogInformation($"Creación de {typeof(TEntity).Name} exitosa.");
             return Ok(createdDto);
         }
 
+
         [HttpDelete("{id:Guid}")]
-        public virtual async Task<ActionResult> DeleteAsync(Guid id)
+        public virtual async Task<IActionResult> DeleteAsync(Guid id)
         {
             var result = await _serviceBase.DeleteAsync(id);
-            if (result)
+            if (!result)
             {
-                return NoContent();
+                _logger.LogInformation($"Fallo al intentar eliminar {typeof(TEntity).Name}");   
+                return NotFound();
             }
-            return NotFound();
+            _logger.LogInformation($"{typeof(TEntity).Name} eliminado correctamente");
+            await CleanCacheStoreAsync();
+            return NoContent();
         }
 
+
         [HttpGet]
+        [OutputCache]
         public virtual async Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync()
         {
+            _logger.LogInformation($"Obteniendo todos los registros de {typeof(TEntity).Name}");
             var dtos = await _serviceBase.GetAllAsync();
+
+            HttpContext.InsertarParametrosPaginacionEnCabecera<TDTO>(dtos.Count());
+
             if (dtos == null)
             {
                 return NotFound();
             }
+            _logger.LogInformation($"Registros de {typeof(TEntity).Name} obtenidos exitosamente");
             return Ok(dtos);
         }
 
+
         [HttpGet("{id:Guid}")]
+        [OutputCache]
         public virtual async Task<ActionResult<TDTO>> GetByIdAsync(Guid id)
         {
             var dto = await _serviceBase.GetByIdAsync(id);
@@ -70,15 +98,27 @@ namespace ProyectCRM.Models
             return Ok(dto);
         }
 
+
         [HttpPut("{id:Guid}")]
-        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, [FromBody] TRequestDTO dto)
+        public virtual async Task<ActionResult<TDTO>> UpdateAsync(Guid id, TRequestDTO dto)
         {
             var updatedDto = await _serviceBase.UpdateAsync(id, dto);
             if (updatedDto == null)
             {
+                _logger.LogInformation($"Error al actualizar {typeof(TEntity).Name}");
                 return NotFound();
             }
+            await CleanCacheStoreAsync();
+            _logger.LogInformation($"{typeof(TEntity).Name} actualizado correctamente");
             return Ok(updatedDto);
+        }
+
+        //Metodo aux
+        private async Task CleanCacheStoreAsync()
+        {
+            if (string.IsNullOrWhiteSpace(CacheTag)) return;
+
+            await _outputCacheStore.EvictByTagAsync(CacheTag, CancellationToken.None);
         }
     }
 }

@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using ProyectCRM.Models.Entities.Abstractions;
 using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.SharedDTO;
+using ProyectCRM.Service.DTOs;
+using System.Linq.Expressions;
 
 namespace ProyectCRM.Models.Interfaces
 {
@@ -14,6 +17,6 @@ namespace ProyectCRM.Models.Interfaces
         Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync();
         Task<ActionResult<TDTO>> CreateAsync(TRequestDTO dto);
         Task<ActionResult<TDTO>> UpdateAsync(Guid id, TRequestDTO dto);
-        Task<ActionResult> DeleteAsync(Guid id);
+        Task<IActionResult> DeleteAsync(Guid id);
     }
 }

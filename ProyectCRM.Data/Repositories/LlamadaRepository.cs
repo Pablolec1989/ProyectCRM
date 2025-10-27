@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProyectCRM.Data.Utils;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Repositories
 {
-    public class LlamadoRepository : RepositoryBase<Llamada>, ILlamadoRepository
+    public class LlamadoRepository : RepositoryBase<Llamado>, ILlamadoRepository
     {
         private readonly AppDbContext _context;
         public LlamadoRepository(AppDbContext context) : base(context)
@@ -17,25 +19,32 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Llamada> GetAllWithDetails()
+        public IQueryable<Llamado> Llamados()
         {
-            return _context.Llamadas
-                .Include(ll => ll.AsuntoDeContacto)
-                .Include(ll => ll.Cliente)
-                .Include(ll => ll.Usuario)
-                .Include(ll => ll.Area);
+            return _context.Llamados
+                .Include(l => l.Usuario).ThenInclude(u => u.Area)
+                .Include(l => l.Cliente).ThenInclude(c => c.Empresa)
+                .Include(ll => ll.AsuntoDeContacto);
         }
 
-        public override async Task<Llamada> GetByIdAsync(Guid id)
+        public async Task<Llamado> GetLlamadaCompletoByIdAsync(Guid id)
         {
-            return await GetAllWithDetails()
-                .FirstOrDefaultAsync(ll => ll.Id == id);
+            return await Llamados()
+                .FirstOrDefaultAsync(l => l.Id == id);
         }
 
-        public override async Task<IEnumerable<Llamada>> GetAllAsync()
+        public override async Task<Llamado> GetByIdAsync(Guid id)
         {
-            return await GetAllWithDetails()
-                .ToListAsync();
+            return await Llamados()
+                .FirstOrDefaultAsync(l => l.Id == id);
         }
+
+        public override async Task<IEnumerable<Llamado>> GetAllAsync()
+        {
+            return await Llamados()
+                        .ToListAsync();
+        }
+
+
     }
 }

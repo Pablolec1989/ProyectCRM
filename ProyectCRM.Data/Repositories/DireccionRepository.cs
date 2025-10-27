@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,23 +19,31 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Direccion> GetAllWithDetails()
+        public IQueryable<Direccion> Direcciones()
         {
             return _context.Direcciones
                 .Include(d => d.Cliente)
-                .Include(d => d.TipoDireccion)
-                .AsQueryable();
+                    .ThenInclude(c => c.Empresa)
+                .Include(d => d.TipoDireccion);
         }
 
-        public async Task<Direccion> GetByIdAsync(Guid id)
+        public override async Task<IEnumerable<Direccion>> GetAllAsync()
         {
-            return await GetAllWithDetails()
+            return await Direcciones().ToListAsync();
+
+        }
+
+        public async Task<Direccion> GetDireccionCompletoRepositoryById(Guid id)
+        {
+            return await Direcciones()
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
 
-        public async Task<IEnumerable<Direccion>> GetAllAsync()
+        public async Task<IEnumerable<Direccion>> GetDireccionesByClienteIdAsync(Guid clienteId)
         {
-            return await GetAllWithDetails().ToListAsync();
+            return await Direcciones()
+                .Where(d => d.ClienteId == clienteId)
+                .ToListAsync();
         }
 
 

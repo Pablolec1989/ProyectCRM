@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class RubroRequestDTO : EntityBase
+    public class RubroRequestDTO
     {
         public string Nombre { get; set; }
     }

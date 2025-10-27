@@ -6,9 +6,8 @@ namespace ProyectCRM.Models.Entities;
 
 public partial class AsuntosDeContacto : EntityBase
 {
-    public string Nombre { get; set; } = null!;
+    public string Nombre { get; set; }
+    public List<Mail?> Mail { get; set; } = [];
+    public List<Llamado?> Llamados { get; set; } = [];
 
-    public virtual ICollection<Llamada> Llamada { get; set; } = new List<Llamada>();
-
-    public virtual ICollection<Mail> Mail { get; set; } = new List<Mail>();
 }

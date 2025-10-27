@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Validators;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
         public static IServiceCollection AddValidators (this IServiceCollection services)
         {
 
+            services.AddScoped<IValidator<ArchivoRequestDTO>, ArchivoValidator>();
             services.AddScoped<IValidator<AreaRequestDTO>, AreaValidator>();
             services.AddScoped<IValidator<AsuntoDeContactoRequestDTO>, AsuntoDeContactoValidator>();
             services.AddScoped<IValidator<ClienteRequestDTO>, ClienteValidator>();
@@ -27,13 +29,12 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<IValidator<RolRequestDTO>, RolValidator>();
             services.AddScoped<IValidator<RubroRequestDTO>, RubroValidator>();
             services.AddScoped<IValidator<SeguimientoRequestDTO>, SeguimientoValidator>();
-            services.AddScoped<IValidator<TelefonoClienteRequestDTO>, TelefonoClienteValidator>();
+            services.AddScoped<IValidator<TelefonoRequestDTO>, TelefonoValidator>();
             services.AddScoped<IValidator<TipoDireccionRequestDTO>, TipoDireccionValidator>();
             services.AddScoped<IValidator<TipoTelefonoRequestDTO>, TipoTelefonoValidator>();
             services.AddScoped<IValidator<UsuarioRequestDTO>, UsuarioValidator>();
             services.AddScoped<IValidator<VisitaRequestDTO>, VisitaValidator>();
             services.AddScoped<IValidator<VisitaUsuarioRequestDTO>, VisitaUsuarioValidator>();
-            services.AddScoped<IValidator<ArchivoRequestDTO>, ArchivoValidator>();
             services.AddScoped<IValidator<MailRequestDTO>, MailValidator>();
 
             return services;

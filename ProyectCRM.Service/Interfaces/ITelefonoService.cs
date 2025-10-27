@@ -1,5 +1,4 @@
-﻿
-using ProyectCRM.Models.Entities;
+﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Interfaces
 {
-    public interface IArchivoMapper : IMapperBase<ArchivoDTO, ArchivoRequestDTO, Archivo>
+    public interface ITelefonoService : IServiceBase<TelefonoDTO, TelefonoRequestDTO, Telefono>
     {
     }
 }

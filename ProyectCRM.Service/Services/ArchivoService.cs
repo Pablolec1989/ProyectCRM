@@ -1,77 +1,86 @@
 ﻿using FluentValidation;
+using MapsterMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ProyectCRM.Models.Data.Interfaces;
+using ProyectCRM.Models.Data.Repositories;
+using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Validators;
+using ProyectCRM.Service.DTOs;
+using ProyectCRM.Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Services
 {
-    public class ArchivoService : IArchivoService
+    public class ArchivoService : ServiceBase<ArchivoDTO, ArchivoRequestDTO, Archivo>, IArchivoService
     {
-        private readonly IWebHostEnvironment _environment;
-        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IArchivoRepository _repository;
+        private readonly IValidator<ArchivoRequestDTO> _validator;
+        private readonly IFileStorageService _fileStorageService;
+        private readonly IMapper _mapper;
+        private const string contenedor = "archivos";
 
-        public ArchivoService(IWebHostEnvironment environment, IHttpContextAccessor contextAccessor)
+        public ArchivoService(IMapper mapper,
+            IArchivoRepository repository,
+            IVisitaRepository visitaRepository,
+            IValidator<ArchivoRequestDTO> validator,
+            IFileStorageService fileStorageService)
+            : base(mapper, repository, validator)
         {
-            _environment = environment;
-            _contextAccessor = contextAccessor;
+            _repository = repository;
+            _validator = validator;
+            _fileStorageService = fileStorageService;
+            _mapper = mapper;
         }
 
-        public async Task<string> CreateAsync(string contenedor, IFormFile archivo)
+        public async Task<ArchivoDTO> CreateAsync(ArchivoRequestDTO dto, IFormFile archivo)
         {
-            var extension = Path.GetExtension(archivo.FileName);
-            var nombreArchivo = $"{Guid.NewGuid()}{extension}";
-            string folder = Path.Combine(_environment.WebRootPath, contenedor);
+            var rutaArchivo = await _fileStorageService.CreateFileAsync(contenedor, archivo);
+            await ValidationArchivoRequest(null, dto);
 
-            if (!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-
-            string ruta = Path.Combine(folder, nombreArchivo);
-
-            using (var ms = new MemoryStream())
-            {
-                await archivo.CopyToAsync(ms);
-                var contenido = ms.ToArray();
-                await File.WriteAllBytesAsync(ruta, contenido);
-            }
-            var request = _contextAccessor.HttpContext!.Request;
-            var url = $"{request.Scheme}://{request.Host}/{contenedor}/{nombreArchivo}";
-            var urlArchivo = Path.Combine(url, contenedor, nombreArchivo).Replace("\\", "/");
-
-            return urlArchivo;
+            var entityToCreate = _mapper.Map<Archivo>(dto);
+            entityToCreate.RutaArchivo = rutaArchivo;
+            var createdEntity = await _repository.CreateAsync(entityToCreate);
+            return _mapper.Map<ArchivoDTO>(createdEntity);
         }
 
-        public async Task<string> UpdateAsync(string contenedor, IFormFile archivo, string? ruta)
+        public async Task<ArchivoDTO> UpdateAsync(Guid id, ArchivoRequestDTO dto, IFormFile archivo)
         {
-            await DeleteAsync(ruta, contenedor);
-            return await CreateAsync(contenedor, archivo);
+            var archivoExistente = await _repository.GetByIdAsync(id);
+            if (archivoExistente == null)
+                throw new Exception("El archivo no existe");
+
+            var nuevaRutaArchivo = await _fileStorageService.UpdateFileAsync(contenedor, archivo, archivoExistente.RutaArchivo);
+
+            await ValidationArchivoRequest(id, dto);
+
+            archivoExistente.NombreArchivo = dto.NombreArchivo;
+            archivoExistente.VisitaId = dto.VisitaId;
+            archivoExistente.RutaArchivo = nuevaRutaArchivo;
+
+            await _repository.UpdateAsync(archivoExistente);
+            return _mapper.Map<ArchivoDTO>(archivoExistente);
         }
 
-        public Task DeleteAsync(string? ruta, string contenedor)
+        //Metodo aux
+        private async Task ValidationArchivoRequest(Guid? id, ArchivoRequestDTO dto)
         {
-            if (string.IsNullOrEmpty(ruta))
-            {
-                throw new Exception("No se ha proporcionado una ruta válida.");
-            }
-            var nombreArchivo = Path.GetFileName(ruta);
-            var directorioArchivo = Path.Combine(_environment.WebRootPath, contenedor, nombreArchivo);
+            //Validar modelo
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult.Errors);
 
-            if (File.Exists(directorioArchivo))
-            {
-                File.Delete(directorioArchivo);
-            }
+            //Validar que la visita exista
+            if (await _repository.EntityExistsAsync(dto.VisitaId))
+                throw new InvalidOperationException("La visita no existe.");
 
-            return Task.CompletedTask;
         }
     }
-        
 }

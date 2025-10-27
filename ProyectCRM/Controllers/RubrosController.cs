@@ -1,13 +1,27 @@
-﻿using ProyectCRM.Models.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
+using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 
 namespace ProyectCRM.Models.Controllers
 {
+
     public class RubrosController : CustomControllerBase<RubroDTO, RubroRequestDTO, Rubro>
     {
-        public RubrosController(IRubroService service) : base(service)
+        private const string GetAllCacheTag = "Rubros:GetAll";
+        protected override string CacheTag => GetAllCacheTag;
+
+        public RubrosController(IRubroService service, IOutputCacheStore outputCacheStore, ILogger<Rubro> logger) 
+            : base(service, outputCacheStore, logger)
         {
+        }
+
+        [HttpGet]
+        [OutputCache(Tags = new[] { GetAllCacheTag }, Duration = 60)]
+        public override async Task<ActionResult<IEnumerable<RubroDTO>>> GetAllAsync()
+        {
+            return await base.GetAllAsync();
         }
     }
 }

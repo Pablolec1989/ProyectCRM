@@ -13,8 +13,6 @@ namespace ProyectCRM.Models.Service.DTOs
         public string Apellido { get; set; }
         public string Email { get; set; }
         public Guid? EmpresaId { get; set; }
-        public EmpresaRequestDTO? EmpresaDTO { get; set; }
-        public TelefonoClienteRequestDTO Telefono { get; set; }
 
     }
 }

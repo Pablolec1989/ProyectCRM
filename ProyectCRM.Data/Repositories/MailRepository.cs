@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,37 @@ namespace ProyectCRM.Models.Data.Repositories
         public MailRepository(AppDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public IQueryable<Mail> Mails()
+        {
+            return _context.Mails
+                .Include(m => m.AsuntoDeContacto);
+        }
+
+        public async Task<Mail> GetByIdWithRelatedDataAsync(Guid id)
+        {
+            return await Mails()
+                .Include(m => m.Area)
+                .Include(m => m.Cliente)
+                    .ThenInclude(c => c.Empresa)
+                .Include(m => m.Usuario)
+                    .ThenInclude(u => u.Rol)
+                .Include(m => m.Usuario)
+                    .ThenInclude(u => u.Area)
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public override async Task<Mail> GetByIdAsync(Guid id)
+        {
+            return await Mails()
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public override async Task<IEnumerable<Mail>> GetAllAsync()
+        {
+            return await Mails()
+                .ToListAsync();
         }
     }
 }

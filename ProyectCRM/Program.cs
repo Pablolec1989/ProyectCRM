@@ -1,37 +1,60 @@
 using Mapster;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Service.DependencyInjectionServices;
 using ProyectCRM.Models.Service.Mappers;
+using ProyectCRM.Service.Utils;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddOutputCache(options =>
+{
+    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
+});
 
+builder.Services.AddMapster();
 builder.Services.AddControllers();
-
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
-builder.Services.AddMapster();
 builder.Services.AddValidators();
+builder.Services.AddScoped<ICacheCleaner, CacheCleaner>();
 
 MappersDependencyInjection.AddMappers(builder.Services);
 
+
 //CORS Config
-builder.Services.AddCors(options => {
-    options.AddPolicy("AllowAll",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
+builder.Services.AddCors(options => 
+{
+    options.AddDefaultPolicy(corsOptions =>
+    {
+        corsOptions.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .WithExposedHeaders("cantidadTotalRegistros");
+    });
 });
 
-// Configuración de Almacenamiento de Archivos
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//Service JWT
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
+    options.MapInboundClaims = false;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["KeyJwt"]!)),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
-// With this line:
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 
@@ -44,6 +67,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("AllowAll");
+app.UseOutputCache();
 app.UseAuthorization();
 
 app.MapControllers();

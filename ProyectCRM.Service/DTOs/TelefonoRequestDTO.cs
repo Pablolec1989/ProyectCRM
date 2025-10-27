@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class AreaDetailDTO : EntityBase
+    public class TelefonoRequestDTO
     {
-        public string Nombre { get; set; }
-        public ICollection<UsuarioDTO> Usuarios { get; set; }
+        public string Numero { get; set; }
+        public Guid ClienteId { get; set; }
+        public Guid TipoTelefonoId { get; set; }
     }
 }

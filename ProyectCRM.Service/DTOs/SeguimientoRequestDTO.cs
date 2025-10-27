@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.DTOs
 {
-    public class SeguimientoRequestDTO : EntityBase
+    public class SeguimientoRequestDTO
     {
         public string Titulo { get; set; }
         public string Detalle { get; set; }
         public Guid UsuarioId { get; set; }
         public Guid ClienteId { get; set; }
-        public Guid? MailId { get; set; }
-        public Guid? LlamadoId { get; set; }
-        public Guid? VisitaId { get; set; }
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
+        public Guid? AreaId { get; set; }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Validators.Utils;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,10 @@ namespace ProyectCRM.Models.Service.Validators
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
                 .MinimumLength(8).WithMessage(ValidationMessages.MinLength(8))
-                .MaximumLength(250).WithMessage(ValidationMessages.MaxLength(250));
+                .MaximumLength(100).WithMessage(ValidationMessages.MaxLength(100));
 
             RuleFor(x => x.RolId)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
-
         }
     }
 }

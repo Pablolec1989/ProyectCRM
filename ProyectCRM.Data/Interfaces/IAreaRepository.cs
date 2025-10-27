@@ -9,6 +9,6 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IAreaRepository : IRepositoryBase<Area>
     {
-        //..Agregar métodos específicos para el repositorio de Área si es necesario
+        Task<bool> AreaExistsAsync(Guid id);
     }
 }

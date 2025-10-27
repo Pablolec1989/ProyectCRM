@@ -2,6 +2,7 @@
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,9 @@ namespace ProyectCRM.Models.Service.Mappers
         {
             TypeAdapterConfig<Rol, RolDTO>.NewConfig()
                 .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.Nombre, src => src.Nombre)
-                .TwoWays();
+                .Map(dest => dest.Nombre, src => src.Nombre);
 
             TypeAdapterConfig<RolRequestDTO, Rol>.NewConfig()
-                .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Nombre, src => src.Nombre)
                 .TwoWays();
         }

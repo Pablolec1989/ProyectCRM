@@ -25,6 +25,10 @@ namespace ProyectCRM.Models.Service.Validators
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
                 .NotNull().NotEmpty().WithMessage(ValidationMessages.CampoObligatorio);
 
+            RuleFor(v => v.UsuariosIds)
+                .NotNull().WithMessage(ValidationMessages.CampoObligatorio)
+                .Must(list => list != null && list.Count > 0).WithMessage("Debe asignar al menos un usuario a la visita.");
+
         }
     }
 }

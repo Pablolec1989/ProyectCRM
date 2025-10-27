@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data.Interfaces
 {
-    public interface ILlamadoRepository : IRepositoryBase<Llamada>
+    public interface ILlamadoRepository : IRepositoryBase<Llamado>
     {
+        Task<Llamado> GetLlamadaCompletoByIdAsync(Guid id);
     }
-    
+
 }

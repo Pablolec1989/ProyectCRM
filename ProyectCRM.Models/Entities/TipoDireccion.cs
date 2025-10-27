@@ -7,6 +7,5 @@ namespace ProyectCRM.Models.Entities;
 public partial class TipoDireccion : EntityBase
 {
     public string? Nombre { get; set; }
-
-    public virtual ICollection<Direccion> Direcciones { get; set; } = new List<Direccion>();
+    public virtual ICollection<Direccion> Direcciones { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ProyectCRM.Models.Entities.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,6 @@ namespace ProyectCRM.Models.Service.DTOs
     public class ArchivoRequestDTO
     {
         public string NombreArchivo { get; set; }
-        public string RutaArchivo { get; set; }
         public Guid VisitaId { get; set; }
-        public Guid EmpresaId { get; set; }
-        public DateTime FechaSubida { get; set; } = DateTime.UtcNow;
     }
 }

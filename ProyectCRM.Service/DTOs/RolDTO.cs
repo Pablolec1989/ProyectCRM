@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Service.DTOs
+namespace ProyectCRM.Service.DTOs
 {
     public class RolDTO : EntityBase
     {

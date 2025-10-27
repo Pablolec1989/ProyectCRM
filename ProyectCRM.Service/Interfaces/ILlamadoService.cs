@@ -1,5 +1,6 @@
 ﻿using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Interfaces
 {
-    public interface ILlamadoService : IServiceBase<LlamadaDTO, LlamadaRequestDTO, Llamada>
+    public interface ILlamadoService : IServiceBase<LlamadaDTO, LlamadaRequestDTO, Llamado>
     {
+        Task<LlamadaDetailDTO> GetLlamadaCompletoByIdAsync(Guid id);
     }
 }

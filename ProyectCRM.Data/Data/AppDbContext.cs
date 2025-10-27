@@ -8,14 +8,11 @@ namespace ProyectCRM.Models.Data;
 
 public partial class AppDbContext : DbContext
 {
-    public AppDbContext()
-    {
-    }
-
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }
+    public virtual DbSet<Archivo> Archivos { get; set; }
 
     public virtual DbSet<Area> Areas { get; set; }
 
@@ -29,7 +26,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Empresa> Empresas { get; set; }
 
-    public virtual DbSet<Llamada> Llamadas { get; set; }
+    public virtual DbSet<Llamado> Llamados { get; set; }
 
     public virtual DbSet<Mail> Mails { get; set; }
 
@@ -39,9 +36,9 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Seguimiento> Seguimientos { get; set; }
 
-    public virtual DbSet<TelefonosCliente> TelefonosClientes { get; set; }
+    public virtual DbSet<Telefono> Telefonos { get; set; }
 
-    public virtual DbSet<TipoDireccion> TipoDireccions { get; set; }
+    public virtual DbSet<TipoDireccion> TipoDirecciones { get; set; }
 
     public virtual DbSet<TiposTelefono> TiposTelefonos { get; set; }
 
@@ -49,9 +46,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Visita> Visitas { get; set; }
 
-    public virtual DbSet<VisitasUsuarios> VisitasUsuarios { get; set; }
-
-    public virtual DbSet<Archivo> VisitasArchivos { get; set; }
+    public virtual DbSet<VisitaUsuario> VisitaUsuario { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -63,8 +58,25 @@ public partial class AppDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_Area");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
+
+            entity.HasMany(e => e.Llamados).WithOne(l => l.Area)
+            .HasForeignKey(l => l.AreaId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+            entity.HasMany(e => e.Mails).WithOne(m => m.Area)
+            .HasForeignKey(m => m.AreaId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+            
+            entity.HasMany(e => e.Seguimientos).WithOne(s => s.Area)
+            .HasForeignKey(s => s.AreaId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
+            entity.HasMany(e => e.Usuarios).WithOne(u => u.Area)
+            .HasForeignKey(u => u.AreaId)
+            .OnDelete(DeleteBehavior.SetNull);
+
         });
 
         modelBuilder.Entity<AsuntosDeContacto>(entity =>
@@ -73,13 +85,13 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("AsuntosDeContacto");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Apellido).HasMaxLength(20);
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Nombre).HasMaxLength(20);
@@ -95,13 +107,13 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("CondicionIva");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Direccion>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Calle).HasMaxLength(150);
             entity.Property(e => e.Ciudad).HasMaxLength(150);
             entity.Property(e => e.CodigoPostal).HasMaxLength(50);
@@ -118,110 +130,121 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<Empresa>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Cuil)
-                .HasMaxLength(50)
-                .HasColumnName("CUIL");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Cuit)
                 .HasMaxLength(50)
                 .HasColumnName("CUIT");
-            entity.Property(e => e.CondicionIvaId).HasColumnName("IVACondicion");
+            entity.Property(e => e.CondicionIvaId).HasColumnName("CondicionIva");
             entity.Property(e => e.RazonSocial).HasMaxLength(200);
 
             entity.HasOne(d => d.CondicionIva).WithMany(p => p.Empresas)
                 .HasForeignKey(d => d.CondicionIvaId)
-                .HasConstraintName("FK_Empresas_IVACondicion");
+                .HasConstraintName("FK_Empresas_CondicionIva");
 
             entity.HasOne(d => d.Rubro).WithMany(p => p.Empresas)
                 .HasForeignKey(d => d.RubroId)
                 .HasConstraintName("FK_Empresas_Rubros");
         });
 
-        modelBuilder.Entity<Llamada>(entity =>
+        modelBuilder.Entity<Llamado>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Detalle).HasMaxLength(300);
             entity.Property(e => e.FechaLlamado).HasColumnType("datetime");
 
-            entity.HasOne(d => d.Area).WithMany(p => p.Llamada)
+            entity.HasOne(d => d.Area).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.AreaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_Areas");
 
-            entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Llamada)
+            entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.AsuntoDeContactoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_AsuntosDeContacto");
 
-            entity.HasOne(d => d.Cliente).WithMany(p => p.Llamada)
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.ClienteId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_Clientes");
 
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Llamada)
+            entity.HasOne(d => d.Usuario).WithMany(p => p.Llamados)
                 .HasForeignKey(d => d.UsuarioId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Llamadas_Usuarios");
         });
 
         modelBuilder.Entity<Mail>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Detalle).HasMaxLength(200);
             entity.Property(e => e.FechaMail).HasColumnType("datetime");
 
-            entity.HasOne(d => d.Asunto).WithMany(p => p.Mail)
-                .HasForeignKey(d => d.AsuntoId)
+            entity.HasOne(m => m.Area).WithMany(a => a.Mails)
+                .HasForeignKey(m => m.AreaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Mails_Areas");
+
+            entity.HasOne(d => d.AsuntoDeContacto).WithMany(p => p.Mail)
+                .HasForeignKey(d => d.AsuntoDeContactoId)
                 .HasConstraintName("FK_Mails_Asuntos");
 
-            entity.HasOne(d => d.Cliente).WithMany(p => p.Mail)
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Mails)
                 .HasForeignKey(d => d.ClienteId)
                 .HasConstraintName("FK_Mails_Clientes");
 
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Mail)
+            entity.HasOne(d => d.Usuario).WithMany(p => p.Mails)
                 .HasForeignKey(d => d.UsuarioId)
                 .HasConstraintName("FK_Mails_UsuarioDestino");
         });
 
         modelBuilder.Entity<Rol>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Rubro>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(200);
         });
 
         modelBuilder.Entity<Seguimiento>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Detalle).HasMaxLength(300);
-            entity.Property(e => e.Titulo).HasMaxLength(20);
+            entity.Property(e => e.Titulo).HasMaxLength(50);
 
-            entity.HasOne(d => d.Cliente).WithMany(p => p.Seguimientos)
-                .HasForeignKey(d => d.ClienteId)
-                .HasConstraintName("FK_Seguimientos_Clientes");
+            entity.HasOne(d => d.Area)
+                .WithMany(p => p.Seguimientos)
+                .HasForeignKey(d => d.AreaId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Seguimientos_Areas");
 
-            entity.HasOne(d => d.Usuario).WithMany(p => p.Seguimientos)
+            entity.HasOne(s => s.Area)
+                .WithMany(a => a.Seguimientos)
+                .HasForeignKey(s => s.AreaId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Seguimientos_Areas");
+
+            entity.HasOne(d => d.Usuario)
+                .WithMany(p => p.Seguimientos)
                 .HasForeignKey(d => d.UsuarioId)
                 .HasConstraintName("FK_Seguimientos_Usuarios");
         });
 
-        modelBuilder.Entity<TelefonosCliente>(entity =>
+        modelBuilder.Entity<Telefono>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Numero).HasMaxLength(50);
 
-            entity.HasOne(d => d.Cliente).WithMany(p => p.TelefonosClientes)
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Telefonos)
                 .HasForeignKey(d => d.ClienteId)
-                .HasConstraintName("FK_TelefonosClientes_Clientes");
+                .HasConstraintName("FK_Telefonos_Clientes");
 
             entity.HasOne(d => d.TipoTelefono).WithMany(p => p.TelefonosClientes)
                 .HasForeignKey(d => d.TipoTelefonoId)
-                .HasConstraintName("FK_TelefonosClientes_TiposTelefono");
+                .HasConstraintName("FK_Telefonos_TiposTelefono");
         });
 
         modelBuilder.Entity<TipoDireccion>(entity =>
@@ -230,7 +253,7 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("TipoDireccion");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
@@ -238,13 +261,13 @@ public partial class AppDbContext : DbContext
         {
             entity.ToTable("TiposTelefono");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Apellido).HasMaxLength(50);
             entity.Property(e => e.Nombre).HasMaxLength(50);
             entity.Property(e => e.Password).HasMaxLength(50);
@@ -255,56 +278,51 @@ public partial class AppDbContext : DbContext
 
             entity.HasOne(d => d.Rol).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.RolId)
-                .HasConstraintName("FK_Usuarios_Roles1");
+                .HasConstraintName("FK_Usuarios_Roles");
         });
 
         modelBuilder.Entity<Visita>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.Observaciones).HasMaxLength(200);
 
-            entity.HasOne(d => d.Direccion).WithMany(p => p.Visita)
+            entity.HasOne(d => d.Direccion).WithMany(p => p.Visitas)
                 .HasForeignKey(d => d.DireccionId)
                 .HasConstraintName("FK_Visitas_Direcciones");
-
         });
-        modelBuilder.Entity<Visita>(entity =>
+
+        modelBuilder.Entity<VisitaUsuario>(entity =>
         {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Observaciones).HasMaxLength(200);
+            entity.HasKey(e => new { e.UsuarioId, e.VisitaId })
+                  .HasName("PK_VisitaUsuario");
 
-            entity.HasOne(d => d.Direccion).WithMany(p => p.Visita)
-                .HasForeignKey(d => d.DireccionId)
-                .HasConstraintName("FK_Visitas_Direcciones");
+            entity.ToTable("VisitaUsuario");
 
-            modelBuilder.Entity<VisitasUsuarios>(entity =>
-            {
-                entity.HasKey(e => new { e.VisitaId, e.UsuarioId }).HasName("PK_VisitasUsuarios_1");
-                entity.ToTable("VisitasUsuarios");
-                entity.HasOne(d => d.Usuario).WithMany(p => p.Visitas)
-                    .HasForeignKey(d => d.UsuarioId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Visitas_U__Usuar__68487DD7");
-                entity.HasOne(d => d.Visita).WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.VisitaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Visitas_U__Visit__6754599E");
-            });
+            // Configuración de la relación con Usuario
+            entity.HasOne(d => d.Usuario)
+                  .WithMany(p => p.VisitasUsuarios!)
+                  .HasForeignKey(d => d.UsuarioId)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_VisitaUsuario_Usuario");
 
-
-            modelBuilder.Entity<Archivo>(entity =>
-            {
-                entity.HasKey(e => e.Id).HasName("PK_ArchivosVisita");
-                entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.Property(e => e.NombreArchivo).HasMaxLength(100);
-                entity.Property(e => e.RutaArchivo).HasMaxLength(100);
-                entity.HasOne(d => d.Visita).WithMany(p => p.Archivos)
-                    .HasForeignKey(d => d.VisitaId)
-                    .HasConstraintName("FK_ArchivosVisitas_Visitas");
-            });
-            OnModelCreatingPartial(modelBuilder);
+            // Configuración de la relación con Visita
+            entity.HasOne(vu => vu.Visita)
+                .WithMany(v => v.VisitasUsuarios)
+                .HasForeignKey(vu => vu.VisitaId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_VisitaUsuario_Visita");
         });
-        }
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        modelBuilder.Entity<Archivo>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Archivos");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.NombreArchivo).HasMaxLength(100);
+            entity.Property(e => e.RutaArchivo).HasMaxLength(100);
+
+            entity.HasOne(d => d.Visita).WithMany(p => p.Archivos)
+                .HasForeignKey(d => d.VisitaId)
+                .HasConstraintName("FK_Archivos_Visitas");
+        });
+    }
 }

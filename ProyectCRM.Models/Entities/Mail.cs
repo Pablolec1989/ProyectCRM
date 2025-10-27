@@ -6,19 +6,15 @@ namespace ProyectCRM.Models.Entities;
 
 public partial class Mail : EntityBase
 {
-    public Guid? ClienteId { get; set; }
+    public string Detalle { get; set; }
+    public Guid ClienteId { get; set; }
+    public Guid UsuarioId { get; set; }
+    public Guid? AreaId { get; set; }
+    public Guid AsuntoDeContactoId { get; set; }
+    public DateTime FechaMail { get; set; }
 
-    public DateTime? FechaMail { get; set; }
-
-    public Guid? UsuarioId { get; set; }
-
-    public string? Detalle { get; set; }
-
-    public Guid? AsuntoId { get; set; }
-
-    public virtual AsuntosDeContacto? Asunto { get; set; }
-
-    public virtual Cliente? Cliente { get; set; }
-
-    public virtual Usuario? Usuario { get; set; }
+    public AsuntosDeContacto AsuntoDeContacto { get; set; }
+    public Cliente Cliente { get; set; }
+    public Usuario? Usuario { get; set; }
+    public Area? Area { get; set; }
 }

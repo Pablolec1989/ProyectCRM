@@ -9,5 +9,6 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IMailRepository : IRepositoryBase<Mail>
     {
+        Task<Mail> GetByIdWithRelatedDataAsync(Guid id);
     }
 }

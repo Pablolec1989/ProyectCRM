@@ -1,10 +1,14 @@
 ﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Entities.Abstractions;
 using ProyectCRM.Models.Service.DTOs;
+using ProyectCRM.Models.SharedDTO;
+using ProyectCRM.Service.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service
@@ -29,7 +33,6 @@ namespace ProyectCRM.Models.Service
 
         public virtual async Task<TDTO> CreateAsync(TRequestDTO dto)
         {
-
             var validationResult = _validator.Validate(dto);
             if (!validationResult.IsValid)
             {
@@ -45,16 +48,16 @@ namespace ProyectCRM.Models.Service
             return await _repository.DeleteAsync(id);
         }
 
-        public virtual async Task<IEnumerable<TDTO>> GetAllAsync()
-        {
-            var entities = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<TDTO>>(entities);
-        }
-
         public virtual async Task<TDTO> GetByIdAsync(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
             return _mapper.Map<TDTO>(entity);
+        }
+
+        public async Task<IEnumerable<TDTO>> GetAllAsync()
+        {
+            var entities = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<TDTO>>(entities);
         }
 
         public virtual async Task<TDTO> UpdateAsync(Guid id, TRequestDTO dto)

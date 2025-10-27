@@ -5,15 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Models.Service.DTOs
-{
-    public class VisitaUsuarioDTO : EntityBase
+namespace ProyectCRM.Models.Entities;
+    public class VisitaUsuario
     {
         public Guid UsuarioId { get; set; }
         public Guid VisitaId { get; set; }
+        public Usuario Usuario { get; set; }
+        public Visita Visita { get; set; }
 
-        //Prop de nav
-        public UsuarioDTO? Usuario { get; set; }
-        public VisitaDTO? Visita { get; set; }
-    }
 }

@@ -15,7 +15,7 @@ namespace ProyectCRM.Models.Service.Validators
         {
             RuleFor(r => r.Nombre)
                 .NotEmpty().WithMessage(ValidationMessages.CampoObligatorio)
-                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(50));
+                .MaximumLength(50).WithMessage(ValidationMessages.MaxLength(200));
         }
     }
 }

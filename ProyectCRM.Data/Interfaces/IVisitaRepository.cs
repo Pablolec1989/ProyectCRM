@@ -9,5 +9,6 @@ namespace ProyectCRM.Models.Data.Interfaces
 {
     public interface IVisitaRepository : IRepositoryBase<Visita>
     {
+        Task<Visita> GetVisitaCompletoByIdAsync(Guid usuarioId);
     }
 }

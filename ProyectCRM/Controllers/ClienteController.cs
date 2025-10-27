@@ -12,8 +12,8 @@ namespace ProyectCRM.Models.Controllers
         private readonly IClienteService _service;
 
         public ClienteController(IClienteService service, 
-            IOutputCacheStore outputCacheStore, 
-            ILogger<Cliente> logger) : base(service, outputCacheStore, logger)
+            ICacheCleaner cacheCleaner, 
+            ILogger<Cliente> logger) : base(service, cacheCleaner, logger)
         {
             _service = service;
         }

@@ -1,5 +1,4 @@
 ﻿using ProyectCRM.Models.Entities.Abstractions;
-using ProyectCRM.Models.Entities;
 using System;
 using System.Collections.Generic;
 

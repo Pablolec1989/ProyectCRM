@@ -16,9 +16,9 @@ namespace ProyectCRM.Models.Controllers
     {
         private readonly IEmpresaService _service;
 
-        public EmpresaController(IEmpresaService service, 
-            IOutputCacheStore outputCacheStore, 
-            ILogger<Empresa> logger) : base(service, outputCacheStore, logger)
+        public EmpresaController(IEmpresaService service,
+            ICacheCleaner cacheCleaner, 
+            ILogger<Empresa> logger) : base(service, cacheCleaner, logger)
         {
             _service = service;
         }

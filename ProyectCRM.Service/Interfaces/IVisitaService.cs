@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.FilterModels;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Service.DTOs;
 using System;
@@ -12,6 +13,7 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface IVisitaService : IServiceBase<VisitaDTO, VisitaRequestDTO, Visita>
     {
-        Task<VisitaDetailDTO> GetVisitaCompletoByIdAsync(Guid id);
+        Task<VisitaDetailDTO> GetVisitaDetailAsync(Guid id);
+        Task<IEnumerable<VisitaDTO>> SearchByFilterAsync(VisitaFilterPaginated visitaFilterPaginated);
     }
 }

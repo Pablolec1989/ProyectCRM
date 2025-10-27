@@ -21,9 +21,9 @@ namespace ProyectCRM.Models.Controllers
         protected override string CacheTag => GetAllCacheTag;
 
 
-        public UsuariosController(IUsuarioService service, 
-            IOutputCacheStore outputCacheStore, 
-            ILogger<Usuario> logger) : base(service, outputCacheStore, logger)
+        public UsuariosController(IUsuarioService service,
+            ICacheCleaner cacheCleaner, 
+            ILogger<Usuario> logger) : base(service, cacheCleaner, logger)
         {
             _service = service;
         }

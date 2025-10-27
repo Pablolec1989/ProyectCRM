@@ -2,6 +2,7 @@
 using ProyectCRM.Data.Utils;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.FilterModels;
 using ProyectCRM.Models.SharedDTO;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace ProyectCRM.Models.Data.Repositories
 
         }
 
-        public async Task<Visita> GetVisitaCompletoByIdAsync(Guid id)
+        public async Task<Visita> GetVisitaDetailAsync(Guid id)
         {
             return await Visitas()
                 .Include(v => v.VisitasUsuarios)
@@ -54,6 +55,37 @@ namespace ProyectCRM.Models.Data.Repositories
         {
             return await Visitas()
                         .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Visita>> SearchByFilterAsync(VisitaFilterPaginated visitaFilterPaginated)
+        {
+
+            var query = Visitas();
+
+            if (visitaFilterPaginated.Archivos.HasValue)
+            {
+                if (visitaFilterPaginated.Archivos.Value)
+                    query = query.Where(v => v.Archivos != null && v.Archivos.Any());
+                else
+                    query = query.Where(v => v.Archivos == null || !v.Archivos.Any());
+            }
+
+            if (visitaFilterPaginated.FechaProgramadaDesde.HasValue)
+                query = query.Where(v => v.FechaProgramada >= visitaFilterPaginated.FechaProgramadaDesde.Value);
+
+            if (visitaFilterPaginated.FechaProgramadaHasta.HasValue)
+                query = query.Where(v => v.FechaProgramada <= visitaFilterPaginated.FechaProgramadaHasta.Value);
+
+            if (visitaFilterPaginated.FechaRealizadaDesde.HasValue)
+                query = query.Where(v => v.FechaRealizada >= visitaFilterPaginated.FechaRealizadaDesde.Value);
+
+            if (visitaFilterPaginated.FechaRealizadaHasta.HasValue)
+                query = query.Where(v => v.FechaRealizada <= visitaFilterPaginated.FechaRealizadaHasta.Value);
+
+            return await query
+                .Paginate(visitaFilterPaginated.Pagination)
+                .ToListAsync();
+
         }
 
     }

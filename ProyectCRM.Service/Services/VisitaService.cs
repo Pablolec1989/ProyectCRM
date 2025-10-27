@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Data.Repositories;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.FilterModels;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Service.DTOs;
@@ -42,9 +43,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<VisitaDetailDTO> GetVisitaCompletoByIdAsync(Guid id)
+        public async Task<VisitaDetailDTO> GetVisitaDetailAsync(Guid id)
         {
-            var visita = await _repository.GetVisitaCompletoByIdAsync(id);
+            var visita = await _repository.GetVisitaDetailAsync(id);
             if(visita == null)
             {
                 throw new KeyNotFoundException("Visita no encontrada.");
@@ -131,5 +132,10 @@ namespace ProyectCRM.Models.Service.Services
             }
         }
 
+        public async Task<IEnumerable<VisitaDTO>> SearchByFilterAsync(VisitaFilterPaginated visitaFilterPaginated)
+        {
+            var visitas = await _repository.SearchByFilterAsync(visitaFilterPaginated);
+            return _mapper.Map<IEnumerable<VisitaDTO>>(visitas);
+        }
     }
 }

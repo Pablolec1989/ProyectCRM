@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs
+namespace ProyectCRM.Service.AuthService
 {
     public class LoginRequestDTO
     {

@@ -22,7 +22,6 @@ namespace ProyectCRM.Models.Service.Services
         private readonly IMapper _mapper;
         private readonly IUsuarioRepository _repository;
         private readonly IValidator<UsuarioRequestDTO> _validator;
-        private readonly IConfiguration _configuration;
 
         public UsuarioService(IMapper mapper,
             IUsuarioRepository repository,
@@ -34,7 +33,6 @@ namespace ProyectCRM.Models.Service.Services
             _mapper = mapper;
             _repository = repository;
             _validator = validator;
-            _configuration = configuration;
         }
 
         public async Task<UsuarioDetailDTO> GetUserDetailAsync(Guid id)
@@ -61,18 +59,18 @@ namespace ProyectCRM.Models.Service.Services
             return _mapper.Map<UsuarioDTO>(usuarioCompleto);
         }
 
-        public async Task<LoginResponseDTO> LoginAsync(LoginRequestDTO loginRequestDTO)
+        public override async Task<UsuarioDTO> UpdateAsync(Guid id, UsuarioRequestDTO dto)
         {
-            var usuario = await _repository.GetUserByApellidoAsync(loginRequestDTO.Apellido);
-            var contraseñaValida = ValidarPassword(loginRequestDTO.Password, usuario.Password);
-            
-            if(usuario == null || !contraseñaValida)
+            await ValidateUsuarioRequest(id, dto);
+
+            if (dto.Password != null)
             {
-                throw new Exception("Credenciales inválidas");
+                dto.Password = HashPassword(dto.Password);
             }
 
-            var loginResponseDTO = GenerarToken(usuario);
-            return loginResponseDTO;
+            var userDto = await base.UpdateAsync(id, dto);
+
+            return userDto;
         }
 
         public async Task<IEnumerable<UsuarioDTO>> SearchUsuarioAsync(UsuarioFilterPaginated filterDTO)
@@ -87,10 +85,10 @@ namespace ProyectCRM.Models.Service.Services
             //Validar AreaId & RolId
             if (dto.AreaId != null && dto.RolId != null)
             {
-                if(await _repository.EntityExistsAsync(dto.AreaId.Value))
+                if (await _repository.EntityExistsAsync(dto.AreaId.Value))
                     throw new KeyNotFoundException($"El AreaId no existe");
 
-                if(await _repository.EntityExistsAsync(dto.RolId))
+                if (await _repository.EntityExistsAsync(dto.RolId))
                     throw new KeyNotFoundException($"El RolId no existe");
             }
         }
@@ -98,40 +96,9 @@ namespace ProyectCRM.Models.Service.Services
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
-        private bool ValidarPassword(string password, string hashedPassword)
+        private bool ValidatePassword(string password, string hashedPassword)
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
-
-        private LoginResponseDTO GenerarToken(Usuario usuario)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                new Claim(ClaimTypes.Name, usuario.Nombre),
-                new Claim("apellido", usuario.Apellido),
-                new Claim("rol", usuario.Rol?.Nombre ?? string.Empty)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["KeyJwt"]!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var expiration = DateTime.UtcNow.AddYears(1);
-
-            var tokenSecurity = new JwtSecurityToken(
-                issuer: null,
-                audience: null,
-                claims: claims,
-                expires: expiration,
-                signingCredentials: creds
-            );
-            var token = new JwtSecurityTokenHandler().WriteToken(tokenSecurity);
-            return new LoginResponseDTO
-            {
-                Token = token,
-                FechaExpiracion = expiration
-            };
-        }
-
     }
 }

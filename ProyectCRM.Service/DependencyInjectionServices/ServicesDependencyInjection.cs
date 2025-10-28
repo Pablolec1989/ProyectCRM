@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Services;
+using ProyectCRM.Service.AuthService;
 using ProyectCRM.Service.Utils;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddScoped<IArchivoService, ArchivoService>();
             services.AddScoped<IAreaService, AreaService>();
             services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<ICondicionIvaService, CondicionIvaService>();
             services.AddScoped<IDireccionService, DireccionService>();

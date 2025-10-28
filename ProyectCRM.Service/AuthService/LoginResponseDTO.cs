@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectCRM.Service.DTOs
+namespace ProyectCRM.Service.AuthService
 {
-    public class AuthResponseDTO
+    public class LoginResponseDTO
     {
         public string Token { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public DateTime FechaExpiracion { get; set; }
     }
 }

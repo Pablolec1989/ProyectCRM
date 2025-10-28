@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.IdentityModel.Tokens;
 using ProyectCRM.Models.Entities;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
+using ProyectCRM.Service.AuthService;
 using ProyectCRM.Service.DTOs;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,6 +16,7 @@ using System.Text;
 
 namespace ProyectCRM.Models.Controllers
 {
+    [Authorize(Policy = "Admin")]
     public class UsuariosController : CustomControllerBase<UsuarioDTO, UsuarioRequestDTO, Usuario>
     {
         private readonly IUsuarioService _service;
@@ -39,18 +43,6 @@ namespace ProyectCRM.Models.Controllers
             return Ok(usuarioDetail);
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult<LoginResponseDTO>> LoginAsync([FromBody] LoginRequestDTO loginRequestDTO)
-        {
-            var loginResponse = await _service.LoginAsync(loginRequestDTO);
-            if (loginResponse == null)
-            {
-                return Unauthorized("Credenciales inválidas.");
-            }
-            return Ok(loginResponse);
-
-
-        }
 
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<UsuarioDTO>>> SearchUsersAsync([FromQuery] UsuarioFilterPaginated filterDTO)

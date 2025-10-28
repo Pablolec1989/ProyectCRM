@@ -115,8 +115,7 @@ namespace ProyectCRM.Models.Data.Repositories
 
         public async Task<Usuario> GetUserByApellidoAsync(string apellido)
         {
-
-            var usuario = await _context.Usuarios
+            var usuario = await _context.Usuarios.Include(u => u.Rol)
                 .FirstOrDefaultAsync(u => u.Apellido == apellido);
 
             if (usuario == null)

@@ -13,7 +13,7 @@ namespace ProyectCRM.Models.Data.Interfaces
     {
         Task<Empresa> GetEmpresaDetailDTOAsync(Guid id);
         Task<bool> GetEmpresaByRazonSocialAsync(string razonSocial);
-        Task<IEnumerable<Empresa>> SearchPaginatedAsync(Pagination pagination);
+        Task<IEnumerable<Empresa>> SearchPaginatedAsync(PaginationDTO pagination);
 
     }
 }

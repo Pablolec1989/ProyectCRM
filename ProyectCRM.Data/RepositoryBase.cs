@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data
 {
-    public abstract class RepositoryBase<T> : IRepositoryBase<T> 
-        where T : EntityBase
+    public abstract class RepositoryBase<FilterPaginatedDTO, TEntity> : IRepositoryBase<FilterPaginatedDTO, TEntity> 
+        where TEntity : EntityBase
+        where FilterPaginatedDTO : class
     {
         private readonly AppDbContext _context;
 
@@ -21,16 +22,16 @@ namespace ProyectCRM.Models.Data
             _context = context;
         }
 
-        public IQueryable<T> Query()
+        public IQueryable<TEntity> Query()
         {
-            return _context.Set<T>().AsQueryable();
+            return _context.Set<TEntity>().AsQueryable();
         }
 
-        public virtual async Task<T> CreateAsync(T entity)
+        public virtual async Task<TEntity> CreateAsync(TEntity entity)
         {
             try
             {
-                await _context.Set<T>().AddAsync(entity);
+                await _context.Set<TEntity>().AddAsync(entity);
                 await _context.SaveChangesAsync();
                 return entity;
 
@@ -45,11 +46,11 @@ namespace ProyectCRM.Models.Data
         {
             try
             {
-                var entity = await _context.Set<T>().FindAsync(id);
+                var entity = await _context.Set<TEntity>().FindAsync(id);
                 if (entity == null)
                     return false;
                 
-                _context.Set<T>().Remove(entity);
+                _context.Set<TEntity>().Remove(entity);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -63,17 +64,17 @@ namespace ProyectCRM.Models.Data
 
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>> SearchPaginatedAsync(FilterPaginatedDTO filterPaginatedDTO)
         {
             return await Query()
                 .ToListAsync();
         }
 
-        public virtual async Task<T> GetByIdAsync(Guid id)
+        public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             try
             {
-                var entityExists = await _context.Set<T>().FindAsync(id);
+                var entityExists = await _context.Set<TEntity>().FindAsync(id);
                 if (entityExists == null)
                 {
                     return null;
@@ -86,11 +87,11 @@ namespace ProyectCRM.Models.Data
             }
         }
 
-        public virtual async Task<T> UpdateAsync(T entity)
+        public virtual async Task<TEntity> UpdateAsync(TEntity entity)
         {
             try
             {
-                var existingEntity = await _context.Set<T>().FindAsync(entity.Id);
+                var existingEntity = await _context.Set<TEntity>().FindAsync(entity.Id);
                 if (existingEntity == null)
                 {
                     return null;
@@ -109,7 +110,7 @@ namespace ProyectCRM.Models.Data
 
         public virtual async Task<bool> EntityExistsAsync(Guid id)
         {
-            var exists = await _context.Set<T>().AnyAsync(e => e.Id == id);
+            var exists = await _context.Set<TEntity>().AnyAsync(e => e.Id == id);
             if(exists)
             {
                 return true;

@@ -13,6 +13,6 @@ namespace ProyectCRM.Models.Data.Interfaces
         IQueryable<Cliente> ClientesQuery();
         Task<Cliente> GetClienteDetailAsync(Guid id);
         Task<Cliente> GetClienteByNombreApellidoAsync(Guid id);
-        Task<IEnumerable<Cliente>> SearchClienteAsync(ClienteFilterPaginated clienteFilterPaginated);
+        Task<IEnumerable<Cliente>> SearchClienteAsync(ClienteFilterPaginatedDTO clienteFilterPaginated);
     }
 }

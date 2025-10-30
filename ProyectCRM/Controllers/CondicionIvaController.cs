@@ -17,9 +17,9 @@ namespace ProyectCRM.Models.Controllers
         
         [HttpGet]
         [OutputCache(Tags = new[] { GetAllCacheTag }, Duration = 60)]
-        public override Task<ActionResult<IEnumerable<CondicionIvaDTO>>> GetAllAsync()
+        public override Task<ActionResult<IEnumerable<CondicionIvaDTO>>> SearchPaginated()
         {
-            return base.GetAllAsync();
+            return base.SearchPaginated();
         }
     }
 }

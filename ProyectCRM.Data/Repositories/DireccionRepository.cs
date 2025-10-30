@@ -27,7 +27,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .Include(d => d.TipoDireccion);
         }
 
-        public override async Task<IEnumerable<Direccion>> GetAllAsync()
+        public override async Task<IEnumerable<Direccion>> SearchPaginatedAsync()
         {
             return await Direcciones().ToListAsync();
 

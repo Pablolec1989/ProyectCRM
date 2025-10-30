@@ -13,17 +13,18 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service
 {
-    public abstract class ServiceBase<TDTO, TRequestDTO, TEntity> : IServiceBase<TDTO, TRequestDTO, TEntity>
+    public abstract class ServiceBase<TDTO, TRequestDTO, FilterPaginatedDTO, TEntity> : IServiceBase<TDTO, TRequestDTO, FilterPaginatedDTO, TEntity>
         where TDTO : class
         where TRequestDTO : class, new()
+        where FilterPaginatedDTO: class
         where TEntity : EntityBase
     {
         private readonly IMapper _mapper;
-        private readonly IRepositoryBase<TEntity> _repository;
+        private readonly IRepositoryBase<FilterPaginatedDTO, TEntity> _repository;
         private readonly IValidator<TRequestDTO> _validator;
 
         public ServiceBase(IMapper mapper, 
-            IRepositoryBase<TEntity> repository, 
+            IRepositoryBase<FilterPaginatedDTO, TEntity> repository, 
             IValidator<TRequestDTO> validator)
         {
             _mapper = mapper;
@@ -54,9 +55,9 @@ namespace ProyectCRM.Models.Service
             return _mapper.Map<TDTO>(entity);
         }
 
-        public async Task<IEnumerable<TDTO>> GetAllAsync()
+        public async Task<IEnumerable<TDTO>> SearchPaginatedAsync(FilterPaginatedDTO filterPaginatedDTO)
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.SearchPaginatedAsync(filterPaginatedDTO);
             return _mapper.Map<IEnumerable<TDTO>>(entities);
         }
 

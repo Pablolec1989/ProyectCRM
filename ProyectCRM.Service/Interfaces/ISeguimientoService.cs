@@ -11,6 +11,8 @@ namespace ProyectCRM.Models.Service.Interfaces
 {
     public interface ISeguimientoService : IServiceBase<SeguimientoDTO, SeguimientoRequestDTO, Seguimiento>
     {
-        Task<SeguimientoDetailDTO> GetSeguimientoCompletoByIdAsync(Guid id);
+        Task<SeguimientoDetailDTO> GetSeguimientoDetailAsync(Guid id);
+
+        Task<IEnumerable<SeguimientoDTO>> GetSeguimientosByUsuarioIdAsync(Guid usuarioId);
     }
 }

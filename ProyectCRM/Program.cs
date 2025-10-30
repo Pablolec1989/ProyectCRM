@@ -16,9 +16,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Cache config
 builder.Services.AddOutputCache(options =>
 {
-    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
+    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(20);
 });
 
 builder.Services.AddMapster();
@@ -37,13 +38,15 @@ MappersDependencyInjection.AddMappers(builder.Services);
 
 
 //CORS Config
+var origenesPermitidos = builder.Configuration.GetValue<string>("OrigenesPermitidos")!.Split(",");
+
 builder.Services.AddCors(options => 
 {
     options.AddDefaultPolicy(corsOptions =>
     {
         corsOptions.AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowAnyOrigin()
+                    .WithOrigins(origenesPermitidos)
                     .WithExposedHeaders("cantidadTotalRegistros");
     });
 });
@@ -99,7 +102,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseCors("AllowAll");
+app.UseCors();
 app.UseOutputCache();
 app.UseAuthentication();
 app.UseAuthorization();

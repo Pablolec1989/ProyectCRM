@@ -11,22 +11,23 @@ namespace ProyectCRM.Models
 {
     [ApiController]
     [Route("api/[controller]")]
-    public abstract class CustomControllerBase<TDTO, TRequestDTO, TEntity>
-        : ControllerBase, ICustomControllerBase<TDTO, TRequestDTO, TEntity>
+    public abstract class CustomControllerBase<TDTO, TRequestDTO, FilterPaginatedDTO, TEntity>
+        : ControllerBase, ICustomControllerBase<TDTO, TRequestDTO, FilterPaginatedDTO, TEntity>
         where TDTO : class
         where TRequestDTO : class, new()
+        where FilterPaginatedDTO : class
         where TEntity : EntityBase
     {
-        private readonly IServiceBase<TDTO, TRequestDTO, TEntity> _serviceBase;
+        private readonly IServiceBase<TDTO, TRequestDTO, FilterPaginatedDTO,  TEntity> _serviceBase;
         private readonly ICacheCleaner _cacheCleaner;
         private readonly ILogger<TEntity> _logger;
 
         protected virtual string CacheTag => string.Empty;
 
-        public IAreaService Service { get; }
+        public IServiceBase Service { get; }
         public ILogger<AreasController> Logger { get; }
 
-        public CustomControllerBase(IServiceBase<TDTO, TRequestDTO, TEntity> serviceBase, 
+        public CustomControllerBase(IServiceBase<TDTO, TRequestDTO, FilterPaginatedDTO, TEntity> serviceBase, 
             ICacheCleaner cacheCleaner, ILogger<TEntity> logger)
         {
             _serviceBase = serviceBase;
@@ -69,11 +70,9 @@ namespace ProyectCRM.Models
 
 
         [HttpGet]
-        [OutputCache]
-        public virtual async Task<ActionResult<IEnumerable<TDTO>>> GetAllAsync()
+        public virtual async Task<ActionResult<IEnumerable<TDTO>>> SearchPaginatedAsync(FilterPaginatedDTO filterPaginatedDTO)
         {
-            _logger.LogInformation($"Obteniendo todos los registros de {typeof(TEntity).Name}");
-            var dtos = await _serviceBase.GetAllAsync();
+            var dtos = await _serviceBase.SearchPaginatedAsync(filterPaginatedDTO);
 
             HttpContext.InsertarParametrosPaginacionEnCabecera<TDTO>(dtos.Count());
 

@@ -19,7 +19,7 @@ namespace ProyectCRM.Models.Service.DependencyInjectionServices
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IFileStorageService, LocalFileStorage>();
             services.AddScoped<IArchivoService, ArchivoService>();
-            services.AddScoped<IAreaService, AreaService>();
+            services.AddScoped<IServiceBase, AreaService>();
             services.AddScoped<IAsuntoDeContactoService, AsuntoDeContactoService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IClienteService, ClienteService>();

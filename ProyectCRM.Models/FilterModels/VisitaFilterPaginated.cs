@@ -10,7 +10,7 @@ namespace ProyectCRM.Models.FilterModels
 {
     public class VisitaFilterPaginated
     {
-        public Pagination Pagination { get; set; } = new Pagination();
+        public PaginationDTO Pagination { get; set; } = new PaginationDTO();
         public bool? Archivos { get; set; }
         public DateTime? FechaProgramadaDesde { get; set; }
         public DateTime? FechaProgramadaHasta { get; set; }

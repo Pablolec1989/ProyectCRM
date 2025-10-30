@@ -35,7 +35,7 @@ namespace ProyectCRM.Models.Controllers
         }
 
         [HttpGet("paged")]
-        public async Task<ActionResult> GetAll([FromQuery] Pagination pagination)
+        public async Task<ActionResult> GetAll([FromQuery] PaginationDTO pagination)
         {
             var result = await _service.SearchPaginatedAsync(pagination);
 

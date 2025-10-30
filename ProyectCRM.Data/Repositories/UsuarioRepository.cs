@@ -54,7 +54,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public override async Task<IEnumerable<Usuario>> GetAllAsync()
+        public override async Task<IEnumerable<Usuario>> SearchPaginatedAsync()
         {
             return await QueryUsuarios()
                 .ToListAsync();
@@ -106,7 +106,6 @@ namespace ProyectCRM.Models.Data.Repositories
             return usuarios;
         }
 
-        //Metodos auxiliares
         public async Task<bool> GetUsuarioByNombreYApellidoAsync(string nombre, string apellido)
         {
             return await _context.Usuarios

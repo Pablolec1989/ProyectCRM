@@ -3,6 +3,7 @@ using MapsterMapper;
 using ProyectCRM.Models.Data;
 using ProyectCRM.Models.Data.Interfaces;
 using ProyectCRM.Models.Entities;
+using ProyectCRM.Models.FilterModels;
 using ProyectCRM.Models.Service.DTOs;
 using ProyectCRM.Models.Service.Interfaces;
 using ProyectCRM.Models.Service.Validators;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Service.Services
 {
-    public class AreaService : ServiceBase<AreaDTO, AreaRequestDTO, Area>, IAreaService
+    public class AreaService : ServiceBase<AreaDTO, AreaFilterPaginatedDTO, AreaRequestDTO, Area>, IServiceBase
     {
         private readonly IMapper _mapper;
         private readonly IAreaRepository _repository;
@@ -30,5 +31,6 @@ namespace ProyectCRM.Models.Service.Services
             _repository = repository;
             _validator = validator;
         }
+
     }
 }

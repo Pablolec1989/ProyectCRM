@@ -10,7 +10,7 @@ namespace ProyectCRM.Service.DTOs
 {
     public class UsuarioFilterPaginated
     {
-        public Pagination Pagination { get; set; } = new Pagination();
+        public PaginationDTO Pagination { get; set; } = new PaginationDTO();
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }
         public string? RolId { get; set; }

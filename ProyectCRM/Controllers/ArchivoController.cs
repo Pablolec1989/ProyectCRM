@@ -58,7 +58,7 @@ namespace ProyectCRM.Models.Controllers
         [OutputCache]
         public async Task<ActionResult<IEnumerable<ArchivoDTO>>> GetAllAsync()
         {
-            var archivos = await _service.GetAllAsync();
+            var archivos = await _service.SearchPaginatedAsync();
             return Ok(archivos);
         }
 

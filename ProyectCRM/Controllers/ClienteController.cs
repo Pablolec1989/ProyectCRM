@@ -28,7 +28,7 @@ namespace ProyectCRM.Models.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IEnumerable<ClienteDTO>> SearchClientesAsync([FromQuery] ClienteFilterPaginated filter)
+        public async Task<IEnumerable<ClienteDTO>> SearchClientesAsync([FromQuery] ClienteFilterPaginatedDTO filter)
         {
             return await _service.SearchClientesAsync(filter);
         }

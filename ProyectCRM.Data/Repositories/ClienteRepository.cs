@@ -40,7 +40,7 @@ namespace ProyectCRM.Models.Data.Repositories
             return cliente;
         }
 
-        public override async Task<IEnumerable<Cliente>> GetAllAsync()
+        public override async Task<IEnumerable<Cliente>> SearchPaginatedAsync()
         {
             return await ClientesQuery().ToListAsync();
         }
@@ -58,7 +58,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Cliente>> SearchClienteAsync(ClienteFilterPaginated clienteFilterPaginated)
+        public async Task<IEnumerable<Cliente>> SearchClienteAsync(ClienteFilterPaginatedDTO clienteFilterPaginated)
         {
             var query = ClientesQuery();
 

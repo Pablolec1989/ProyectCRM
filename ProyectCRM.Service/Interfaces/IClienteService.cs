@@ -13,6 +13,6 @@ namespace ProyectCRM.Models.Service.Interfaces
     public interface IClienteService : IServiceBase<ClienteDTO, ClienteRequestDTO, Cliente>
     {
         Task<ClienteDetailDTO> GetClienteDetailAsync(Guid id);
-        Task<IEnumerable<ClienteDTO>> SearchClientesAsync(ClienteFilterPaginated filter);
+        Task<IEnumerable<ClienteDTO>> SearchClientesAsync(ClienteFilterPaginatedDTO filter);
     }
 }

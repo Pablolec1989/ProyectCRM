@@ -41,20 +41,12 @@ namespace ProyectCRM.Models.Data.Repositories
                 .AnyAsync(e => e.RazonSocial.ToLower() == razonSocial.ToLower());
         }
 
-        public async Task<IEnumerable<Empresa>> SearchPaginatedAsync(Pagination pagination)
+        public async Task<IEnumerable<Empresa>> SearchPaginatedAsync(PaginationDTO pagination)
         {
             return await _context.Empresas
                 .Paginate(pagination)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Empresa>> GetSearchAsync(Expression<Func<Empresa, bool>> predicate)
-        {
-            var empresas = await _context.Empresas
-                .Where(predicate)
-                .ToListAsync();
-
-            return empresas;
-        }
     }
 }

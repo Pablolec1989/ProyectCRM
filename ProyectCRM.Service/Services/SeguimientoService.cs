@@ -36,9 +36,9 @@ namespace ProyectCRM.Models.Service.Services
             _validator = validator;
         }
 
-        public async Task<SeguimientoDetailDTO> GetSeguimientoCompletoByIdAsync(Guid id)
+        public async Task<SeguimientoDetailDTO> GetSeguimientoDetailAsync(Guid id)
         {
-            var seguimiento = await _repository.GetSeguimientoCompletoRepositoryByIdAsync(id);
+            var seguimiento = await _repository.GetSeguimientosDetailAsync(id);
             return _mapper.Map<SeguimientoDetailDTO>(seguimiento);
         }
 
@@ -69,6 +69,12 @@ namespace ProyectCRM.Models.Service.Services
                 await _repository.EntityExistsAsync(dto.AreaId.Value);
             }
 
+        }
+
+        public async Task<IEnumerable<SeguimientoDTO>> GetSeguimientosByUsuarioIdAsync(Guid usuarioId)
+        {
+            var seguimientos = await _repository.GetSeguimientosByUsuarioIdAsync(usuarioId);
+            return _mapper.Map<IEnumerable<SeguimientoDTO>>(seguimientos);
         }
     }
 }

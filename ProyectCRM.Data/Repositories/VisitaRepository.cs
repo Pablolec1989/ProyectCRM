@@ -51,7 +51,7 @@ namespace ProyectCRM.Models.Data.Repositories
                 .FirstOrDefaultAsync(v => v.Id == id);
         }
 
-        public override async Task<IEnumerable<Visita>> GetAllAsync()
+        public override async Task<IEnumerable<Visita>> SearchPaginatedAsync()
         {
             return await Visitas()
                         .ToListAsync();

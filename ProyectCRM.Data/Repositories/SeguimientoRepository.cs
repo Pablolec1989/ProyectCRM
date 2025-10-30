@@ -20,7 +20,7 @@ namespace ProyectCRM.Models.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Seguimiento> Seguimientos()
+        public IQueryable<Seguimiento> SeguimientosQuery()
         {
             return _context.Seguimientos
                 .Include(s => s.Area)
@@ -32,22 +32,28 @@ namespace ProyectCRM.Models.Data.Repositories
                     .ThenInclude(u => u.Rol);
         }
 
-        public async Task<Seguimiento> GetSeguimientoCompletoRepositoryByIdAsync(Guid id)
+        public async Task<Seguimiento> GetSeguimientosDetailAsync(Guid id)
         {
-            return await Seguimientos()
+            return await SeguimientosQuery()
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public override async Task<Seguimiento> GetByIdAsync(Guid id)
         {
-            return await Seguimientos()
+            return await SeguimientosQuery()
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public override async Task<IEnumerable<Seguimiento>> GetAllAsync()
+        public override async Task<IEnumerable<Seguimiento>> SearchPaginatedAsync()
         {
-            return await Seguimientos()
+            return await SeguimientosQuery()
                         .ToListAsync();
+        }
+        public async Task<IEnumerable<Seguimiento>> GetSeguimientosByUsuarioIdAsync(Guid usuarioId)
+        {
+            return await _context.Seguimientos
+                .Where(s => s.UsuarioId == usuarioId)
+                .ToListAsync();
         }
     }
 }

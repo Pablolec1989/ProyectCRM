@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace ProyectCRM.Models.Data
 {
-    public interface IRepositoryBase<T> 
-    where T : class
+    public interface IRepositoryBase<FilterPaginatedDTO, TEntity>
+        where TEntity : class
+        where FilterPaginatedDTO : class
     {
-        Task<T> GetByIdAsync(Guid id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T> CreateAsync(T entity);
-        Task<T> UpdateAsync(T entity);
+        Task<TEntity> GetByIdAsync(Guid id);
+        Task<IEnumerable<TEntity>> SearchPaginatedAsync(FilterPaginatedDTO filterPaginatedDTO);
+        Task<TEntity> CreateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(Guid id);
         Task<bool> EntityExistsAsync(Guid id);
     }

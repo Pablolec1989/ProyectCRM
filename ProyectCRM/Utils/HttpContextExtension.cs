@@ -11,7 +11,7 @@ namespace ProyectCRM.Utils
                 throw new ArgumentNullException(nameof(httpContext));
             }
 
-            httpContext.Response.Headers.Append("cantidad-total-registros", totalRegistros.ToString());
+            httpContext.Response.Headers.Append("totalRecords", totalRegistros.ToString());
         }
     }
 }

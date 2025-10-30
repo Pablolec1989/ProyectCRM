@@ -53,7 +53,7 @@ namespace ProyectCRM.Models.Service.Services
             return await base.UpdateAsync(id, dto);
         }
 
-        public async Task<IEnumerable<ClienteDTO>> SearchClientesAsync(ClienteFilterPaginated filter)
+        public async Task<IEnumerable<ClienteDTO>> SearchClientesAsync(ClienteFilterPaginatedDTO filter)
         {
             var clientes = await _repository.SearchClienteAsync(filter);
             return _mapper.Map<IEnumerable<ClienteDTO>>(clientes);

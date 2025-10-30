@@ -21,9 +21,9 @@ namespace ProyectCRM.Models.Controllers
 
         [HttpGet]
         [OutputCache(Tags = new[] { GetAllCacheTag }, Duration = 60)]
-        public override async Task<ActionResult<IEnumerable<RubroDTO>>> GetAllAsync()
+        public override async Task<ActionResult<IEnumerable<RubroDTO>>> SearchPaginated()
         {
-            return await base.GetAllAsync();
+            return await base.SearchPaginated();
         }
     }
 }
